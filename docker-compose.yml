@@ -110,6 +110,8 @@ services:
             - ./core/composer.json:/var/www/html/composer.json
             - ./core/composer.lock:/var/www/html/composer.lock
             - ./.env:/var/www/html/.env
+        networks:
+            - web
         depends_on:
             - update
             - mysql
@@ -141,6 +143,8 @@ services:
             - ./core/composer.json:/var/www/html/composer.json
             - ./core/composer.lock:/var/www/html/composer.lock
             - ./.env:/var/www/html/.env
+        networks:
+            - web
         depends_on:
             - update
             - mysql
