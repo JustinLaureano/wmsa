@@ -1,0 +1,11 @@
+FROM nginx:1.27.1
+
+COPY ./core var/www/html
+
+COPY ./docker/bin/wait-for-it.sh /var/www/html/wait-for-it.sh
+RUN chmod +x var/www/html/wait-for-it.sh
+
+COPY ./docker/nginx/fastcgi.conf /etc/nginx/fastcgi.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80

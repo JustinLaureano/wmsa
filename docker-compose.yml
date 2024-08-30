@@ -1,0 +1,184 @@
+services:
+    # Laravel Application (PHP-FPM)
+    core:
+        build:
+            args:
+                user: laravel
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile.core
+            target: core
+        container_name: core
+        restart: unless-stopped
+        volumes:
+            - ./core/app:/var/www/html/app
+            - ./core/config:/var/www/html/config
+            - ./core/database:/var/www/html/database
+            - ./core/routes:/var/www/html/routes
+            - ./core/storage:/var/www/html/storage
+            - ./core/tests:/var/www/html/tests
+            - ./core/composer.json:/var/www/html/composer.json
+            - ./core/composer.lock:/var/www/html/composer.lock
+            - '.env:/var/www/html/.env'
+            - ./docker/core/php-fpm/php-dev.ini:/usr/local/etc/php/conf.d/php.ini
+        networks:
+            - web
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+
+    # Nginx Service
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+        container_name: web
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - './core:/var/www/html'
+        networks:
+            - web
+        depends_on:
+            - core
+
+    mysql:
+        build:
+            context: .
+            dockerfile: Dockerfile.mysql
+        container_name: mysql
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - mysql-data:/var/lib/mysql
+        networks:
+            - web
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+
+    redis:
+        image: redis:7.4-alpine
+        container_name: redis
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - redis-data:/data
+        networks:
+            - web
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 15s
+
+
+    scheduler:
+        build:
+            args:
+                user: laravel
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile.core
+            target: scheduler
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && sleep 60 && /var/www/html/scheduler.sh"
+        restart: unless-stopped
+        volumes:
+            - ./core/app:/var/www/html/app
+            - ./core/config:/var/www/html/config
+            - ./core/database:/var/www/html/database
+            - ./core/routes:/var/www/html/routes
+            - ./core/storage:/var/www/html/storage
+            - ./core/tests:/var/www/html/tests
+            - ./core/composer.json:/var/www/html/composer.json
+            - ./core/composer.lock:/var/www/html/composer.lock
+            - ./.env:/var/www/html/.env
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+    worker:
+        build:
+            args:
+                user: laravel
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile.core
+            target: worker
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && /var/www/html/worker.sh"
+        restart: unless-stopped
+        healthcheck:
+            test: [ "CMD", "php", "/var/www/html/artisan", "queue:monitor", "default" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 15s
+        volumes:
+            - ./core/app:/var/www/html/app
+            - ./core/config:/var/www/html/config
+            - ./core/database:/var/www/html/database
+            - ./core/routes:/var/www/html/routes
+            - ./core/storage:/var/www/html/storage
+            - ./core/tests:/var/www/html/tests
+            - ./core/composer.json:/var/www/html/composer.json
+            - ./core/composer.lock:/var/www/html/composer.lock
+            - ./.env:/var/www/html/.env
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+
+
+    update:
+        build:
+            args:
+                user: laravel
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile.core
+            target: core
+        container_name: update
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && /var/www/html/update.sh"
+        restart: no
+        volumes:
+            - ./.env:/var/www/html/.env
+        networks:
+            - web
+        depends_on:
+            - mysql
+            - redis
+
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - web
+
+networks:
+    web:
+        driver: bridge
+
+volumes:
+    mysql-data:
+    redis-data:
