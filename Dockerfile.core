@@ -65,25 +65,29 @@ RUN php artisan storage:link && \
 
 FROM base AS core
 
-# Install node and npm
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get update \
-    && apt-get install -y nodejs \
-    && apt-get install npm \
-    && npm install -g npm
+# Install node, npm, and pnpm
+RUN echo "Package: node* \nPin: release *\nPin-Priority: -1" > /etc/apt/preferences.d/no-debian-nodejs && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    NODE_MAJOR=20 && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update && \
+    apt-get install nodejs -y \
+    && npm install -g pnpm
+
 
 # Copy front end dependency files
 COPY ./core/package* /var/www/html/
 
-## Install front end packages
-RUN npm install
+# Install front end packages (pnpm is a million times faster at installing for whatever reason)
+RUN mkdir /var/www/html/node_modules && pnpm install
 
 USER $user
 
 
 
 
-FROM core AS worker
+FROM base AS worker
 
 COPY ./docker/core/worker.sh /var/www/html/worker.sh
 RUN chmod +x /var/www/html/worker.sh
@@ -95,7 +99,7 @@ CMD ["/bin/sh", "/var/www/html/worker.sh"]
 
 
 
-FROM core AS scheduler
+FROM base AS scheduler
 
 COPY ./docker/core/scheduler.sh /var/www/html/scheduler.sh
 RUN chmod +x /var/www/html/scheduler.sh

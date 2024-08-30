@@ -10,6 +10,8 @@ services:
             target: core
         container_name: core
         restart: unless-stopped
+        ports:
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         volumes:
             - ./core/app:/var/www/html/app
             - ./core/config:/var/www/html/config
@@ -150,8 +152,6 @@ services:
             - mysql
             - redis
 
-
-
     update:
         build:
             args:
@@ -159,7 +159,7 @@ services:
                 uid: 1000
             context: .
             dockerfile: Dockerfile.core
-            target: core
+            target: base
         container_name: update
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && /var/www/html/update.sh"
         restart: no
