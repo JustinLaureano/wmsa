@@ -2,12 +2,9 @@ services:
     # Laravel Application (PHP-FPM)
     core:
         build:
-            args:
-                user: laravel
-                uid: 1000
             context: .
             dockerfile: Dockerfile.core
-            target: core
+            target: core-dev
         container_name: wmsa-core
         restart: unless-stopped
         ports:
@@ -99,9 +96,6 @@ services:
 
     scheduler:
         build:
-            args:
-                user: laravel
-                uid: 1000
             context: .
             dockerfile: Dockerfile.core
             target: scheduler
@@ -127,9 +121,6 @@ services:
 
     worker:
         build:
-            args:
-                user: laravel
-                uid: 1000
             context: .
             dockerfile: Dockerfile.core
             target: worker
@@ -161,9 +152,6 @@ services:
 
     update:
         build:
-            args:
-                user: laravel
-                uid: 1000
             context: .
             dockerfile: Dockerfile.core
             target: base

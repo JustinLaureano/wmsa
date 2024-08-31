@@ -4,8 +4,8 @@ FROM php:8.3-fpm AS base
 WORKDIR /var/www/html
 
 # Arguments defined in docker-compose.yml
-ARG user
-ARG uid
+ARG user="laravel"
+ARG uid=1000
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -79,13 +79,32 @@ RUN echo "Package: node* \nPin: release *\nPin-Priority: -1" > /etc/apt/preferen
 # Copy front end dependency files
 COPY ./core/package* /var/www/html/
 
-# Install front end packages (pnpm is a million times faster at installing for whatever reason)
 USER $user
 
-RUN mkdir /var/www/html/node_modules \
+# Install front end packages (pnpm is a million times faster at installing for whatever reason)
+RUN mkdir -p /var/www/html/node_modules \
     && pnpm install
 
+
+
+
+FROM core AS core-dev
+
+USER root
+
+# Install supervisor
+RUN apt-get install -y supervisor
+
+# Copy supervisor config
+COPY ./docker/core/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Expose php-fpm port as well as vite development port
 EXPOSE 9000 5173
+
+USER $user
+
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
 
 
 
