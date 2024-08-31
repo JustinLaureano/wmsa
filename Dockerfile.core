@@ -80,10 +80,12 @@ RUN echo "Package: node* \nPin: release *\nPin-Priority: -1" > /etc/apt/preferen
 COPY ./core/package* /var/www/html/
 
 # Install front end packages (pnpm is a million times faster at installing for whatever reason)
-RUN mkdir /var/www/html/node_modules && pnpm install
-
 USER $user
 
+RUN mkdir /var/www/html/node_modules \
+    && pnpm install
+
+EXPOSE 9000 5173
 
 
 

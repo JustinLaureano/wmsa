@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Location;
+use App\Models\Part;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'Bob Smith',
+            'email' => 'bob@gmail.com',
+        ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Tom Wilson',
+            'email' => 'tom@gmail.com',
         ]);
+
+        Part::factory(5)->create();
+
+        Location::factory(10)->create();
     }
 }

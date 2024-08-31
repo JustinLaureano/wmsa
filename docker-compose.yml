@@ -8,7 +8,7 @@ services:
             context: .
             dockerfile: Dockerfile.core
             target: core
-        container_name: core
+        container_name: wmsa-core
         restart: unless-stopped
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
@@ -16,13 +16,18 @@ services:
             - ./core/app:/var/www/html/app
             - ./core/config:/var/www/html/config
             - ./core/database:/var/www/html/database
+            - ./core/lang:/var/www/html/lang
+            - ./core/resources:/var/www/html/resources
             - ./core/routes:/var/www/html/routes
             - ./core/storage:/var/www/html/storage
             - ./core/tests:/var/www/html/tests
             - ./core/composer.json:/var/www/html/composer.json
             - ./core/composer.lock:/var/www/html/composer.lock
+            - ./core/package.json:/var/www/html/package.json
+            - ./core/package-lock.json:/var/www/html/package-lock.json
             - '.env:/var/www/html/.env'
             - ./docker/core/php-fpm/php-dev.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./core/vite.config.js:/var/www/html/vite.config.js
         networks:
             - web
         depends_on:
@@ -36,7 +41,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.nginx
-        container_name: web
+        container_name: wmsa-web
         restart: unless-stopped
         ports:
             - "80:80"
@@ -51,7 +56,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.mysql
-        container_name: mysql
+        container_name: wmsa-mysql
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -76,7 +81,7 @@ services:
 
     redis:
         image: redis:7.4-alpine
-        container_name: redis
+        container_name: wmsa-redis
         restart: unless-stopped
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
@@ -100,6 +105,7 @@ services:
             context: .
             dockerfile: Dockerfile.core
             target: scheduler
+        container_name: wmsa-scheduler
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && sleep 60 && /var/www/html/scheduler.sh"
         restart: unless-stopped
         volumes:
@@ -127,6 +133,7 @@ services:
             context: .
             dockerfile: Dockerfile.core
             target: worker
+        container_name: wmsa-worker
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && /var/www/html/worker.sh"
         restart: unless-stopped
         healthcheck:
@@ -160,7 +167,7 @@ services:
             context: .
             dockerfile: Dockerfile.core
             target: base
-        container_name: update
+        container_name: wmsa-update
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 30 && /var/www/html/wait-for-it.sh redis:6379 -t 30 && /var/www/html/update.sh"
         restart: no
         volumes:
@@ -173,6 +180,7 @@ services:
 
     mailpit:
         image: 'axllent/mailpit:latest'
+        container_name: wmsa-mailpit
         ports:
             - '${FORWARD_MAILPIT_PORT:-1025}:1025'
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
