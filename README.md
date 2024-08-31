@@ -5,6 +5,8 @@
 ```bash
 cp .env.example .env
 
+# Make app-key
+
 docker-compose up -d
 
 chmod +x ./docker/bin/copy-deps.sh
