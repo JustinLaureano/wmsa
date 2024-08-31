@@ -2,6 +2,7 @@
 
 namespace App\Domain\Requests\Events;
 
+use App\Domain\Requests\DataTransferObjects\RequestData;
 use App\Models\Request;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -16,7 +17,7 @@ class RequestCreated implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Request $request)
+    public function __construct(public RequestData $requestData)
     {
         //
     }
