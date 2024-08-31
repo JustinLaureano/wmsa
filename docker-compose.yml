@@ -22,9 +22,13 @@ services:
             - ./core/composer.lock:/var/www/html/composer.lock
             - ./core/package.json:/var/www/html/package.json
             - ./core/package-lock.json:/var/www/html/package-lock.json
+            - ./core/phpunit.xml:/var/www/html/phpunit.xml
+            - ./core/postcss.config.js:/var/www/html/postcss.config.js
+            - ./core/tailwind.config.js:/var/www/html/tailwind.config.js
+            - ./core/tsconfig.json:/var/www/html/tsconfig.json
+            - ./core/vite.config.js:/var/www/html/vite.config.js
             - '.env:/var/www/html/.env'
             - ./docker/core/php-fpm/php-dev.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./core/vite.config.js:/var/www/html/vite.config.js
         networks:
             - web
         depends_on:
