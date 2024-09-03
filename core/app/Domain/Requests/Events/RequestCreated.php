@@ -17,7 +17,7 @@ class RequestCreated implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public RequestData $requestData)
+    public function __construct(public Request $request)
     {
         //
     }

@@ -14,7 +14,5 @@ class CreateRequestAction
         StoreRequestRecord::dispatch($requestData);
 
         UpsertRecentRequestsCache::dispatch();
-
-        RequestCreated::dispatch($requestData);
     }
 }

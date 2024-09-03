@@ -44,7 +44,7 @@ export default function Home({ recentRequests, ...props } : any) {
                     <CardContent>
                     {
                         recentRequests.data.slice(0, 5).map((request : Record<string, any>) => (
-                            <Box>
+                            <Box key={request.id}>
                                 <Typography>
                                     {request.id} - Part: {request.part_id} - Location: {request.location_id}
                                 </Typography>
