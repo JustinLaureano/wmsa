@@ -41,7 +41,7 @@ RUN mkdir -p /home/$user/.composer && \
 COPY ./core/composer.* /var/www/html/
 
 # Copy scripts
-COPY ./docker/core/update.sh /var/www/html/update.sh
+COPY ./docker/core/bin/update.sh /var/www/html/update.sh
 COPY ./docker/bin/wait-for-it.sh /var/www/html/wait-for-it.sh
 
 # Copy over PHP config
@@ -108,9 +108,25 @@ CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 
 
+FROM base AS reverb
+
+USER root
+
+COPY ./docker/core/bin/reverb.sh /var/www/html/reverb.sh
+RUN chmod +x /var/www/html/reverb.sh
+
+USER $user
+
+EXPOSE 9000 8080
+
+CMD ["/bin/sh", "/var/www/html/reverb.sh"]
+
+
+
+
 FROM base AS worker
 
-COPY ./docker/core/worker.sh /var/www/html/worker.sh
+COPY ./docker/core/bin/worker.sh /var/www/html/worker.sh
 RUN chmod +x /var/www/html/worker.sh
 
 USER $user
@@ -122,7 +138,7 @@ CMD ["/bin/sh", "/var/www/html/worker.sh"]
 
 FROM base AS scheduler
 
-COPY ./docker/core/scheduler.sh /var/www/html/scheduler.sh
+COPY ./docker/core/bin/scheduler.sh /var/www/html/scheduler.sh
 RUN chmod +x /var/www/html/scheduler.sh
 
 USER $user
