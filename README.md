@@ -9,9 +9,6 @@ cp .env.worker.example .env.worker
 
 # make sure all .sh files are LF for end of line sequence
 
-
-# Make app-key
-
 # Build images
 chmod +x ./docker/bin/build.sh
 
