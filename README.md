@@ -4,6 +4,7 @@
 
 ```bash
 cp .env.example .env
+cp .env.worker.example .env.worker
 
 # Make app-key
 

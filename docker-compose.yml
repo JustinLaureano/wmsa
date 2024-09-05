@@ -185,7 +185,8 @@ services:
             - ./core/tests:/var/www/html/tests
             - ./core/composer.json:/var/www/html/composer.json
             - ./core/composer.lock:/var/www/html/composer.lock
-            - ./.env:/var/www/html/.env
+            - ./.env.worker:/var/www/html/.env
+            - ./docker/core/php-fpm/php-dev.ini:/usr/local/etc/php/conf.d/php.ini
         networks:
             - web
         depends_on:

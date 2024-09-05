@@ -98,6 +98,12 @@ RUN apt-get install -y supervisor
 # Copy supervisor config
 COPY ./docker/core/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Setup laravel for dev
+RUN php artisan cache:clear && \
+    php artisan config:clear && \
+    php artisan view:clear && \
+    composer dump-autoload
+
 # Expose php-fpm port as well as vite development port
 EXPOSE 9000 5173
 
@@ -128,6 +134,9 @@ FROM base AS worker
 
 COPY ./docker/core/bin/worker.sh /var/www/html/worker.sh
 RUN chmod +x /var/www/html/worker.sh
+
+# Copy the PEM certificate to the container
+COPY ./docker/ssl/cacert.pem /etc/ssl/certs/cacert.pem
 
 USER $user
 
