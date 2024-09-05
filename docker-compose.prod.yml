@@ -52,9 +52,7 @@ services:
 
     mysql:
         image: justinlaureano/wmsa-mysql:latest
-        container_name: wmsa-mysql
         deploy:
-            replicas: 2
             placement:
                 constraints:
                     - "node.labels.db==true"
@@ -72,11 +70,11 @@ services:
               target: /var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
 
 
     redis:
         image: redis:7.4.0-alpine
-        container_name: wmsa-redis
         deploy:
             placement:
                 constraints:
@@ -95,7 +93,6 @@ services:
 
     reverb:
         image: justinlaureano/wmsa-reverb:latest
-        container_name: wmsa-reverb
         deploy:
             replicas: 1
             placement:
@@ -122,7 +119,6 @@ services:
 
     scheduler:
         image: justinlaureano/wmsa-scheduler:latest
-        container_name: wmsa-scheduler
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/scheduler.sh"
         deploy:
             replicas: 1
@@ -149,7 +145,6 @@ services:
 
     worker:
         image: justinlaureano/wmsa-worker:latest
-        container_name: wmsa-worker
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/worker.sh"
         deploy:
             replicas: 2
@@ -182,7 +177,6 @@ services:
 
     update:
         image: justinlaureano/wmsa-update:latest
-        container_name: wmsa-update
         command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/update.sh"
         deploy:
             mode: replicated-job
