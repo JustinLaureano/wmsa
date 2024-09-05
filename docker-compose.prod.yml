@@ -1,0 +1,209 @@
+services:
+
+    core:
+        image: justinlaureano/wmsa-core:latest
+        command: sh -c "php-fpm"
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - "node.labels.db!=true"
+            restart_policy:
+                condition: on-failure
+        healthcheck:
+            test: [ "CMD", "nc", "-zv", "localhost", "9000" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 40s
+        environment:
+            - APP_ENV=production
+            - APP_KEY=${APP_KEY}
+            - APP_DEBUG=false
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        networks:
+            - web
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+
+    web:
+        image: justinlaureano/wmsa-web:latest
+        command: sh -c "/var/www/wait-for-it.sh core:9000 -t 120 && nginx -g \"daemon off;\""
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - "node.labels.db!=true"
+            restart_policy:
+                condition: on-failure
+        ports:
+            - '80:80'
+            - '443:443'
+        networks:
+            - web
+        depends_on:
+            - core
+            - reverb
+
+
+    mysql:
+        image: justinlaureano/wmsa-mysql:latest
+        container_name: wmsa-mysql
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - "node.labels.db==true"
+            restart_policy:
+                condition: any
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 30s
+        volumes:
+            - type: volume
+              source: mysql-data
+              target: /var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+
+
+    redis:
+        image: redis:7.4.0-alpine
+        container_name: wmsa-redis
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.db==true"
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 30s
+        volumes:
+            - type: volume
+              source: redis-data
+              target: /data
+
+
+    reverb:
+        image: justinlaureano/wmsa-reverb:latest
+        container_name: wmsa-reverb
+        deploy:
+            replicas: 1
+            placement:
+                constraints:
+                    - "node.labels.db!=true"
+            restart_policy:
+                condition: any
+                delay: 60s
+                window: 15s
+        ports:
+            - '8080:8080'
+        environment:
+            - APP_ENV=production
+            - APP_KEY=${APP_KEY}
+            - APP_DEBUG=false
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - REVERB_HOST="web"
+        networks:
+            - web
+        depends_on:
+            - update
+
+
+    scheduler:
+        image: justinlaureano/wmsa-scheduler:latest
+        container_name: wmsa-scheduler
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/scheduler.sh"
+        deploy:
+            replicas: 1
+            placement:
+                constraints:
+                    - "node.labels.db!=true"
+            restart_policy:
+                condition: any
+                delay: 60s
+                window: 15s
+        environment:
+            - APP_ENV=production
+            - APP_KEY=${APP_KEY}
+            - APP_DEBUG=false
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        networks:
+            - web
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+
+    worker:
+        image: justinlaureano/wmsa-worker:latest
+        container_name: wmsa-worker
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/worker.sh"
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - "node.labels.db!=true"
+            restart_policy:
+                condition: any
+                delay: 5s
+                window: 15s
+        healthcheck:
+            test: [ "CMD", "php", "/var/www/html/artisan", "queue:monitor", "default" ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 15s
+        environment:
+            - APP_ENV=production
+            - APP_KEY=${APP_KEY}
+            - APP_DEBUG=false
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        networks:
+            - web
+        depends_on:
+            - update
+            - mysql
+            - redis
+
+
+    update:
+        image: justinlaureano/wmsa-update:latest
+        container_name: wmsa-update
+        command: sh -c "/var/www/html/wait-for-it.sh mysql:3306 -t 60 && /var/www/html/wait-for-it.sh redis:6379 -t 60 && /var/www/html/update.sh"
+        deploy:
+            mode: replicated-job
+        environment:
+            - APP_ENV=production
+            - APP_KEY=${APP_KEY}
+            - APP_DEBUG=false
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        networks:
+            - web
+        depends_on:
+            - mysql
+            - redis
+
+
+networks:
+    web:
+        driver: overlay
+        attachable: true
+
+volumes:
+    mysql-data:
+    redis-data:
