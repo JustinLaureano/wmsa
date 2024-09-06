@@ -15,7 +15,7 @@ services:
             interval: 30s
             timeout: 5s
             retries: 3
-            start_period: 40s
+            start_period: 30s
         environment:
             - APP_ENV=production
             - APP_KEY=${APP_KEY}
@@ -32,7 +32,7 @@ services:
 
     web:
         image: justinlaureano/wmsa-web:latest
-        command: sh -c "/var/www/wait-for-it.sh core:9000 -t 120 && nginx -g \"daemon off;\""
+        command: sh -c "/var/www/html/wait-for-it.sh core:9000 -t 120 && nginx -g \"daemon off;\""
         deploy:
             replicas: 2
             placement:
@@ -71,7 +71,8 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
             - MYSQL_PASSWORD=${DB_PASSWORD}
-
+        networks:
+            - web
 
     redis:
         image: redis:7.4.0-alpine
@@ -89,6 +90,8 @@ services:
             - type: volume
               source: redis-data
               target: /data
+        networks:
+            - web
 
 
     reverb:
@@ -135,6 +138,9 @@ services:
             - APP_DEBUG=false
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
+            - REDIS_CLIENT=phpredis
+            - REDIS_HOST=redis
+            - REDIS_PASSWORD=null
         networks:
             - web
         depends_on:
@@ -167,6 +173,9 @@ services:
             - APP_DEBUG=false
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
+            - REDIS_CLIENT=phpredis
+            - REDIS_HOST=redis
+            - REDIS_PASSWORD=null
         networks:
             - web
         depends_on:
