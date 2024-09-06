@@ -82,7 +82,9 @@ Prerequisites:
 Build core php-fpm server and push to repo
 
 ```bash
-docker build --no-cache -t justinlaureano/wmsa-core:latest -f ./Dockerfile.core .
+docker build --no-cache -t justinlaureano/wmsa-core:latest --target=core -f ./Dockerfile.core .
+
+docker build -t justinlaureano/wmsa-core:latest --target=core -f ./Dockerfile.core .
 
 
 docker push justinlaureano/wmsa-core:latest
@@ -184,7 +186,7 @@ run stack on manager node
 ```bash
 export $(cat .env)
 
-docker stack deploy -c docker-compose.prod.yml wmsa
+docker stack deploy --with-registry-auth --detach=true -c docker-compose.prod.yml wmsa
 ```
 
 

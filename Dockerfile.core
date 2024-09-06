@@ -86,6 +86,8 @@ USER $user
 RUN mkdir -p /var/www/html/node_modules \
     && pnpm install
 
+# Make production build
+# RUN npm run build
 
 
 
