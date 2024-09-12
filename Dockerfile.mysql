@@ -1,6 +1,9 @@
 FROM mysql:8.0.39
 
+ARG user="dbuser"
 ARG password
 
 COPY ./docker/mysql/create_database.sql /docker-entrypoint-initdb.d/create_database.sql
+
 RUN echo "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '${password}';" >> /docker-entrypoint-initdb.d/set_native_password.sql
+RUN echo "GRANT ALL PRIVILEGES ON *.* TO '${user}'@'%' IDENTIFIED BY '${password}';" >> /docker-entrypoint-initdb.d/set_user_privileges.sql

@@ -1,0 +1,266 @@
+template:
+    attributes:
+        -
+    relationships:
+        - 
+
+
+##### High Level Company Stuff #####
+
+organization:
+    attributes:
+        - name
+    relationships:
+        - warehouses: has many warehouses
+
+building_types:
+    attributes:
+        - name
+        - description
+    relationships:
+        - building: has many buildings
+
+buildings:
+    attributes:
+        - name
+        - location
+    relationships:
+        organization: has one organization
+        building type: has one type
+
+
+
+##### SAP #####
+
+
+sap_movement_types:
+    attributes:
+        - code
+        - description
+    relationships:
+        - 
+
+sap_storage_location_groups:
+    attributes:
+        - system
+        - location_group
+        - category
+    relationships:
+        -  
+
+sap_goods_movement_configuration:
+    attributes:
+        - (copy from wms)
+    relationships:
+        - 
+
+
+
+##### People #####
+
+teammates:
+    attributes:
+        -
+    relationships:
+        - 
+
+users:
+    attributes:
+        -
+    relationships:
+        - 
+
+permissions:
+    - spatie
+
+roles:
+    - spatie
+
+model_has_permissions:
+    - spatie
+
+model_has_roles:
+    - permissions
+
+role_has_permissions:
+    - spatie
+
+
+
+
+##### Locations #####
+
+
+storage_location_types:
+    attributes:
+        - name
+        - description
+        - max_containers
+    relationships:
+        storage locations: has many storage locations
+
+storage_location_labels:
+    attributes:
+        - barcode
+    relationships:
+        - storage_locations: has one storage location
+
+storage_locations:
+    attributes:
+        - building_id
+        - label_id
+    relationships:
+        - labels: has one storage location label
+
+machine_types:
+    attributes:
+        - name
+        - description
+    relationships:
+        - machine: has many machines
+
+machines:
+    attributes:
+        - name
+        - machine_type_id
+    relationships:
+        - machine type: has one machine type
+
+
+
+
+
+##### Materials #####
+
+
+
+materials:
+    attributes:
+        - bapm_part_number
+        - psam_part_number
+        - description
+        - base_qty
+        - base_unit_of_measure
+    relationships:
+        - material_containers: has many containers
+
+material_container_types:
+    attributes:
+        - name
+    relationships:
+        - material_containers: has many containers
+
+material_containers:
+    attributes:
+        - material_id
+        - barcode_id
+        - material_container_type_id
+        - quantity
+
+        - storage_location_id
+            reason:
+                can keep this here because it is always a 'to one' relationship
+                from the container side of things.
+
+                have to think of the best way to assume that this matches up
+                a container history record kept somewhere else though.
+
+    relationships:
+        - material: has one material
+        - barcode: has many barcodes
+            reason: skid could lose initial barcode
+                    and keep track with new one
+        - material_container_types: has one type
+
+
+material_routing:
+    attributes:
+        - material_id
+    relationship:
+        material: has one material
+
+
+
+
+##### Requests #####
+
+
+material_request_statuses:
+    attributes:
+        - name
+        - description
+    relationships:
+        material request: has many material requests
+
+material_requests:
+    attributes:
+        - material_id
+        - machine_id (nullable)
+        - storage_location_id (nullable)
+        - status_id
+        - teammate_id (nullable maybe?)
+            reason:
+                not sure if should always require a teammate to 
+        - notes
+    relationships:
+        - material: has one material
+        - machine: has one machine
+        - storage location: has one storage location
+        - status: has one material request status id
+
+
+
+
+
+
+
+
+##### Docker Compose config stuff to do #####
+
+
+
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+
+
+
+
+
+
+    vlsqlsvr2k5:
+        build:
+            context: ./vlsqlsvr2k5
+        container_name: vlsqlsvr2k5
+        tty: true
+        ports:
+            - "${VLSQLSVR2K5_PORT}:1433"
+        volumes:
+            - vlsqlsvr2k5:/var/lib/mssqlql/data
+            - ${VLSQLSVR2K5_ENTRYPOINT}:/entrypoint.sh
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=${VLSQLSVR2K5_PASSWORD}
+        networks:
+            - web

@@ -193,7 +193,7 @@ docker stack deploy --with-registry-auth --detach=true -c docker-compose.prod.ym
 run monitoring stack on manager node
 
 ```bash
-docker stack deploy -c docker-compose.monitor.yml monitor
+docker stack deploy --detach=true -c docker-compose.monitor.yml monitor
 ```
 
 view monitoring on port `8080` of manager server ip address
