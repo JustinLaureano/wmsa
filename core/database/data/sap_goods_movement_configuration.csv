@@ -1,0 +1,30 @@
+from_wms_category,to_wms_category,transfer_description,active_inspection,gm_code,posting_date_format,doc_date_format,ref_doc_no_required,header_text_required,material_required,plant,storage_location_required,move_type,movement_indicator,stock_type,entry_quantity_required,entry_uom_required,po_number_required,po_item_required,order_id_required,move_plant,move_storage_location_required,vendor_required
+LOCAL-WMS,LOCAL-WMS,"Transfer between Unrestricted Use WMS Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,311,,,1,1,0,0,0,D501,1,0
+RMT-WMS,RMT-WMS,"Transfer between Unrestricted Use WMS Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,311,,,1,1,0,0,0,D501,1,0
+LOCAL-WMS,RMT-WMS,"Transfer between Unrestricted Use WMS Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,311,,,1,1,0,0,0,D501,1,0
+RMT-WMS,LOCAL-WMS,"Transfer between Unrestricted Use WMS Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,311,,,1,1,0,0,0,D501,1,0
+LOCAL-WMS,LOCAL-WMS,"Transfer between Unrestricted Use WMS Locations",1,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,Z11,,,1,1,0,0,0,D501,1,0
+RMT-WMS,LOCAL-WMS,"Transfer between Unrestricted Use WMS Locations",1,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,Z11,,,1,1,0,0,0,D501,1,0
+LOCAL-WMS,LOCAL-MRB,"Transfer from Unrestricted Use WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,344,,,1,1,0,0,0,D501,1,0
+LOCAL-WMS,RMT-MRB,"Transfer from Unrestricted Use WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,344,,,1,1,0,0,0,D501,1,0
+RMT-WMS,LOCAL-MRB,"Transfer from Unrestricted Use WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,344,,,1,1,0,0,0,D501,1,0
+RMT-WMS,RMT-MRB,"Transfer from Unrestricted Use WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,344,,,1,1,0,0,0,D501,1,0
+LOCAL-MRB,LOCAL-WMS,"Transfer from MRB Location to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,343,,S,1,1,0,0,0,D501,1,0
+RMT-MRB,LOCAL-WMS,"Transfer from MRB Location to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,343,,S,1,1,0,0,0,D501,1,0
+LOCAL-MRB,RMT-WMS,"Transfer from MRB Location to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,343,,S,1,1,0,0,0,D501,1,0
+RMT-MRB,RMT-WMS,"Transfer from MRB Location to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,343,,S,1,1,0,0,0,D501,1,0
+RMT-MRB,LOCAL-MRB,"Transfer between MRB Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+LOCAL-MRB,RMT-MRB,"Transfer between MRB Locations",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+LOCAL-WMS,LOCAL-RCSV,"Transfer from Unrestricted Use WMS Location to RCSV Location",1,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,Z11,,,1,1,0,0,0,D501,1,0
+RMT-WMS,LOCAL-RCSV,"Transfer from Unrestricted Use WMS Location to RCSV Location",1,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,Z11,,,1,1,0,0,0,D501,1,0
+LOCAL-MRB,NON-WMS,"Transfer from MRB Location to Non-WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+RMT-MRB,NON-WMS,"Transfer from MRB Location to Non-WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+NON-WMS,LOCAL-MRB,"Transfer from Non-WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+NON-WMS,RMT-MRB,"Transfer from Non-WMS Location to MRB Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,325,,S,1,1,0,0,0,D501,1,0
+LOCAL-WMS,SUBCON,"Transfer from Unrestricted Use WMS Location to Vendor",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,541,,,1,1,0,0,0,,0,1
+RMT-WMS,SUBCON,"Transfer from Unrestricted Use WMS Location to Vendor",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,541,,,1,1,0,0,0,,0,1
+SUBCON,LOCAL-WMS,"Transfer from Vendor to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,542,,,1,1,0,0,0,,0,1
+SUBCON,RMT-WMS,"Transfer from Vendor to Unrestricted Use WMS Location",0,04,yyyymmdd,yyyymmdd,0,0,1,D501,1,542,,,1,1,0,0,0,,0,1
+NULL,LOCAL-WMS,"Goods Received for Purchase Order",1,01,yyyymmdd,yyyymmdd,0,0,1,D501,1,101,B,,1,1,1,1,0,,0,0
+LOCAL-RCSV,LOCAL-WMS,"Goods Received for Purchase Order",1,01,yyyymmdd,yyyymmdd,0,0,1,D501,1,101,B,,1,1,1,1,0,,0,0
+LOCAL-WMS,NULL,"Goods Issued for Production Order",0,03,yyyymmdd,yyyymmdd,0,0,1,D501,1,261,,,1,1,0,0,1,,0,0

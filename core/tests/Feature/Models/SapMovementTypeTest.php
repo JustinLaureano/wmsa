@@ -4,14 +4,12 @@ namespace Tests\Feature\Models;
 
 use App\Models\SapMovementType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SapMovementTypeTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
+    use RefreshDatabase;
+
     public function test_all_types_seeded_in_database(): void
     {
         $file = fopen(database_path('data/sap_movement_types.csv'), 'r');
