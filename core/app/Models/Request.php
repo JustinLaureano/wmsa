@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Request extends Model
 {
+
+    /**
+     * TODO: remove
+     */
+
     use HasFactory;
 
     /**

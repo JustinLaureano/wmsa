@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
+    /**
+     * TODO: remove
+     */
+
+
     use HasFactory;
 
     /**

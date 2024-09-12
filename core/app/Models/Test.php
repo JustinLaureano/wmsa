@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
+
+    /**
+     * TODO: remove
+     */
+
     use HasFactory;
 
     /**

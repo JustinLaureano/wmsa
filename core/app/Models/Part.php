@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Part extends Model
 {
+    /**
+     * TODO: remove
+     */
     use HasFactory;
 
     /**
