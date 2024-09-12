@@ -11,7 +11,7 @@ organization:
     attributes:
         - name
     relationships:
-        - warehouses: has many warehouses
+        - buildings: has many buildings
 
 building_types:
     attributes:
