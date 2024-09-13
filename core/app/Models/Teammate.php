@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Teammate extends Model implements
-    AuthenticatableContract
+class Teammate extends Model implements AuthenticatableContract
 {
     use Authenticatable, HasFactory, SoftDeletes;
 
