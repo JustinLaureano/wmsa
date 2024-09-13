@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SapMovementType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SapMovementTypeSeeder extends Seeder

@@ -4,6 +4,7 @@ use App\Models\StorageLocationArea;
 use App\Models\StorageLocationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('storage_locations', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->index();
             $table->string('barcode', 40);
             $table->foreignIdFor(StorageLocationArea::class);
             $table->foreignIdFor(StorageLocationType::class);
@@ -28,6 +30,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Artisan::call('db:seed --class=StorageLocationSeeder');
     }
 
     /**

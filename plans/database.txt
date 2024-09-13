@@ -2,7 +2,7 @@ template:
     attributes:
         -
     relationships:
-        - 
+        -
 
 
 ##### High Level Company Stuff #####
@@ -38,7 +38,7 @@ sap_movement_types:
         - code
         - description
     relationships:
-        - 
+        -
 
 sap_storage_location_groups:
     attributes:
@@ -46,13 +46,13 @@ sap_storage_location_groups:
         - location_group
         - category
     relationships:
-        -  
+        -
 
 sap_goods_movement_configuration:
     attributes:
         - (copy from wms)
     relationships:
-        - 
+        -
 
 
 
@@ -62,13 +62,13 @@ teammates:
     attributes:
         -
     relationships:
-        - 
+        -
 
 users:
     attributes:
         -
     relationships:
-        - 
+        -
 
 permissions:
     - spatie
@@ -110,6 +110,8 @@ storage_location_types:
             inventory relief
             trailer
             recycling
+            mold rack
+
 
 storage_location_areas:
     attributes:
@@ -126,6 +128,7 @@ storage_locations:
         - max_containers (nullable)
         - disabled
         - allocatable
+        - split_request (?)
     relationships:
         - building: has one building
         - storage location type: has one type
@@ -218,7 +221,7 @@ material_requests:
         - status_id
         - teammate_id (nullable maybe?)
             reason:
-                not sure if should always require a teammate to 
+                not sure if should always require a teammate to
         - notes
     relationships:
         - material: has one material

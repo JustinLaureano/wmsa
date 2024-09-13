@@ -1,0 +1,20 @@
+location,description,storage_location_group
+ASSY,"Assembly Racks",1000
+CBP,"Cardboard Packaging",1000
+CBS,"Component, Brackets, and Snubbers",1000
+CMET,"Cemented Metals",1000
+COMP,"Compound Racks",1000
+CUSH,"Cush Components",1000
+FG,"Finished Goods",6000
+FGB,"Finished Goods",6000
+FGR3,"Finished Goods",6000
+FGT,"Finished Goods",6000
+JACK,"Journals and Brackets",1000
+MIX,"Mix Rack Locations",1000
+PAINT,"Paint Racks",1000
+PWIP,"Paint Work In Progress",1000
+SVC,"Service Racks",1000
+TOY,"Toyota Racks",1000
+WELD,"Weld Racks",1000
+WHSE,"Warehouse Racks",1000
+WIP,"Work In Progress",1000

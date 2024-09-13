@@ -12,6 +12,26 @@ class BuildingSeeder extends Seeder
      */
     public function run(): void
     {
-        Building::factory()->create();
+        $file = fopen(database_path('data/buildings.csv'), 'r');
+
+        $buildings = [];
+
+        $firstLine = true;
+        while ( ($data = fgetcsv($file, 2000, ",")) !== FALSE )
+        {
+            if ($firstLine) {
+                $firstLine = false;
+                continue;
+            }
+
+            $buildings[] = [
+                'organization_id' => $data[0],
+                'name' => $data[1],
+                'location' => $data[2],
+                'building_type_id' => $data[3]
+            ];
+        }
+
+        Building::insert($buildings);
     }
 }

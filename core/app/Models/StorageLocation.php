@@ -6,10 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class StorageLocation extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

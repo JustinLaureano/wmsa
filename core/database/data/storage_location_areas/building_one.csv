@@ -1,0 +1,25 @@
+location,description,storage_location_group
+BFIX,"Bond Fixtures",1000
+CBS,"Component, Brackets, and Snubbers",1000
+CMET,"Cemented Metals",1000
+COLD,"Cold Room",1000
+COMP,"Compound Racks",1000
+DGS,"Degas Racks",1000
+DRY,"Dryfill Fixtures",1000
+FELT,"Felt Racks",1000
+IRM,"IRM Chemical Racks",1000
+JRNL,"Journal Racks",1000
+LN11,"Line 11 Racks",1000
+MOLD,"Mold Storage",1000
+MRB,"Restricted Movement Area",1100
+"MRB STAGING","Restricted Movement Staging Area",1100
+PFIX,"Paint Fixtures",1000
+PLAS,"Plastic Racks",1000
+PWIP,"Paint Work In Progress Racks",1000
+RAW,"Raw Metal Racks",1000
+SLIT,"Slitter Components",1000
+SWAGE,"Swage Racks",1000
+TEST,"test location",1000
+TUBE,"Tube Cut Off",1000
+WIP,"Work In Progress Racks",1000
+ZINC,"IRM Zinc Chemicals",1000
