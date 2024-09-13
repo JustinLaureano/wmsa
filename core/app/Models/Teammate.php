@@ -6,11 +6,12 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teammate extends Model implements
     AuthenticatableContract
 {
-    use Authenticatable, HasFactory;
+    use Authenticatable, HasFactory, SoftDeletes;
 
     /**
      * The primary key associated with the table.

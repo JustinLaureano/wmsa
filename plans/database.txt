@@ -133,12 +133,14 @@ storage_locations:
         - building: has one building
         - storage location type: has one type
 
+
 machine_types:
     attributes:
         - name
         - description
     relationships:
         - machine: has many machines
+
 
 machines:
     attributes:
@@ -165,11 +167,13 @@ materials:
     relationships:
         - material_containers: has many containers
 
+
 material_container_types:
     attributes:
         - name
     relationships:
         - material_containers: has many containers
+
 
 material_containers:
     attributes:
@@ -212,6 +216,7 @@ material_request_statuses:
         - description
     relationships:
         material request: has many material requests
+
 
 material_requests:
     attributes:
