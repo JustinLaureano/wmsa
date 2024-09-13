@@ -11,13 +11,8 @@ class StorageLocationAreaTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    public function test_create_storage_location_area(): void
     {
-        Building::factory()->create();
-
         $area = StorageLocationArea::factory()->create();
 
         $this->assertModelExists($area);

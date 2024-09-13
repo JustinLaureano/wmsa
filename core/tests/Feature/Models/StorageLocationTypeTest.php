@@ -3,16 +3,12 @@
 namespace Tests\Feature\Models;
 
 use App\Models\StorageLocationType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StorageLocationTypeTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+
+    public function test_all_storage_location_types_seeded_in_database(): void
     {
         $file = fopen(database_path('data/storage_location_types.csv'), 'r');
 

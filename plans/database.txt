@@ -120,7 +120,7 @@ storage_location_areas:
 
 storage_locations:
     attributes:
-        - building_id
+        - area_id
         - storage_location_type_id
         - barcode
         - max_containers (nullable)
