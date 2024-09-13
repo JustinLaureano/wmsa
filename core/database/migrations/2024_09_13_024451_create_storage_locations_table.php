@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('storage_locations', function (Blueprint $table) {
             $table->id();
+            $table->string('barcode', 40);
             $table->foreignIdFor(StorageLocationArea::class);
             $table->foreignIdFor(StorageLocationType::class);
-            $table->string('barcode', 40);
+            $table->integer('aisle')->nullable();
+            $table->integer('bay')->nullable();
+            $table->integer('shelf')->nullable();
+            $table->integer('position')->nullable();
             $table->integer('max_containers')->nullable();
             $table->tinyInteger('disabled')->default(0);
             $table->tinyInteger('allocatable')->default(1);

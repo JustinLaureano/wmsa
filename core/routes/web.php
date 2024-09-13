@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Models\Test;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,10 +13,10 @@ Route::get('/teammates', function () {
 
 
 /**
- * 
+ *
  * All dev and test above, all real below
- * 
- * 
+ *
+ *
  */
 
 
