@@ -39,7 +39,7 @@ class StorageLocation extends Model
      */
     public function area(): BelongsTo
     {
-        return $this->belongsTo(StorageLocationArea::class);
+        return $this->belongsTo(StorageLocationArea::class, 'storage_location_area_id', 'id');
     }
 
     /**
@@ -47,6 +47,6 @@ class StorageLocation extends Model
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(StorageLocationType::class);
+        return $this->belongsTo(StorageLocationType::class, 'storage_location_type_id', 'id');
     }
 }
