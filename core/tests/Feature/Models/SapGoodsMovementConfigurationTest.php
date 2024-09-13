@@ -27,8 +27,6 @@ class SapGoodsMovementConfigurationTest extends TestCase
             $configCount++;
         }
 
-        $configCount = SapGoodsMovementConfiguration::count();
-
-        $this->assertEquals($configCount, $configCount);
+        $this->assertEquals($configCount, SapGoodsMovementConfiguration::count());
     }
 }

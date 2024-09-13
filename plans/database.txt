@@ -95,9 +95,23 @@ storage_location_types:
     attributes:
         - name
         - description
-        - max_containers
+        - default_max_containers (nullable)
     relationships:
         storage locations: has many storage locations
+    seed:
+        types:
+            pallet rack
+            flow rack
+            shipping zone
+            floor
+            phosphate lane
+            sort-lane
+            receiving zone
+            inventory relief
+            trailer
+            recycling
+
+
 
 storage_location_labels:
     attributes:
@@ -109,8 +123,14 @@ storage_locations:
     attributes:
         - building_id
         - label_id
+        - storage_location_type_id
+        - max_containers (nullable)
+        - disabled
+        - allocatable
     relationships:
+        - building: has one building
         - labels: has one storage location label
+        - storage location type: has one type
 
 machine_types:
     attributes:

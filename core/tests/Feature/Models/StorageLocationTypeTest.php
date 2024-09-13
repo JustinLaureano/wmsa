@@ -2,17 +2,19 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\SapStorageLocationGroup;
+use App\Models\StorageLocationType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class SapStorageLocationGroupTest extends TestCase
+class StorageLocationTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
-    public function test_all_groups_seeded_in_database(): void
+    /**
+     * A basic feature test example.
+     */
+    public function test_example(): void
     {
-        $file = fopen(database_path('data/sap_storage_location_groups.csv'), 'r');
+        $file = fopen(database_path('data/storage_location_types.csv'), 'r');
 
         $seedCount = 0;
 
@@ -27,6 +29,6 @@ class SapStorageLocationGroupTest extends TestCase
             $seedCount++;
         }
 
-        $this->assertEquals($seedCount, SapStorageLocationGroup::count());
+        $this->assertEquals($seedCount, StorageLocationType::count());
     }
 }

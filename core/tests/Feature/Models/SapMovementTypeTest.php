@@ -27,8 +27,6 @@ class SapMovementTypeTest extends TestCase
             $codes[] = $data[0];
         }
 
-        $typeCount = SapMovementType::count();
-
-        $this->assertEquals(count($codes), $typeCount);
+        $this->assertEquals(count($codes), SapMovementType::count());
     }
 }

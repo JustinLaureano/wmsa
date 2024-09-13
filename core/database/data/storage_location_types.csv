@@ -1,0 +1,4 @@
+name,description,default_max_containers
+"pallet-rack","A pallet racking structure for storing goods and materials",1
+"flow-rack","rolling dynamic storage racking for storing high use materials",9
+"shipping-zone","Area designated for soon to be shipped goods",
