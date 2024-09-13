@@ -19,7 +19,7 @@ class BuildingFactory extends Factory
     public function definition(): array
     {
         return [
-            'organization_id' => Organization::inRandomOrder()->firstOrFail()->id,
+            'organization_id' => Organization::firstOrFail()->id,
             'name' => fake()->words(2, true),
             'location' => fake()->city(),
             'building_type_id' => BuildingType::inRandomOrder()->firstOrFail()->id

@@ -111,25 +111,23 @@ storage_location_types:
             trailer
             recycling
 
-
-
-storage_location_labels:
+storage_location_areas:
     attributes:
-        - barcode
+        - area
     relationships:
-        - storage_locations: has one storage location
+        storage locations: has many locations
+
 
 storage_locations:
     attributes:
         - building_id
-        - label_id
         - storage_location_type_id
+        - barcode
         - max_containers (nullable)
         - disabled
         - allocatable
     relationships:
         - building: has one building
-        - labels: has one storage location label
         - storage location type: has one type
 
 machine_types:
