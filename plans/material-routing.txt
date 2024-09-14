@@ -1,0 +1,30 @@
+# Steps
+
+- Create a material
+- Create a routing for that material
+- routing gets saved as a template
+- template id gets assigned to the material
+- now routing template can be reused on other materials
+
+## usage in app
+
+- Skid container gets created
+    - fetch routing for this part
+    - assign routing to this skid container
+        - this is where appendages for sort would happen
+    - set current step in routing process index to 0
+
+
+
+## What does routing designer look like
+
+
+
+## routing logic
+
+- start at building
+    - need to go to other building?
+        - send to building out location
+    - need to go to sort?
+
+set storage point
