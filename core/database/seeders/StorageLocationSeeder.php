@@ -41,7 +41,10 @@ class StorageLocationSeeder extends Seeder
                     $carry[$area->building_id] = [];
                 }
 
-                $carry[$area->building_id][$area->name] = $area->id;
+                $carry[$area->building_id][$area->name] = [
+                        'id' => $area->id,
+                        'building_id' => $area->building_id
+                    ];
 
                 return $carry;
             }, []);
@@ -58,19 +61,21 @@ class StorageLocationSeeder extends Seeder
 
         foreach ($csvReader->toArray() as $data) {
             foreach ($data as $key => $row) {
-                /**
-                 * MRB locations should all fall under the same area
-                 */
-                $area = $row['area'];
 
-                if (str_contains($row['area'], 'MRB')) {
-                    $area = 'MRB';
-                }
+                $name = $this->areas[$row['building']][$row['area']]['building_id'] 
+                    .'-'. $row['area'] 
+                    .'-'. $row['aisle'] 
+                    .'-'. $row['bay'] 
+                    .'-'. $row['shelf'] 
+                    .'-'. $row['position'];
+
+                $areaId = $this->areas[$row['building']][$row['area']]['id'];
 
                 $locationData = new StorageLocationData(
+                    name: $name,
                     barcode: $row['id'],
-                    storage_location_area_id: $this->areas[$row['building']][$area],
                     storage_location_type_id: $type->id,
+                    storage_location_area_id: $areaId,
                     aisle: $row['aisle'],
                     bay: $row['bay'],
                     shelf: $row['shelf'],

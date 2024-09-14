@@ -1,0 +1,38 @@
+to get to mvp
+
+storage location types
+    finalize types
+    add missing types
+        floor
+        phosphate lane
+        sort lane
+        receiving zone
+        inventory relief
+        trailer
+        recycling
+        mold rack
+        building exit
+    add enums for types
+
+
+storage locations
+
+    seed logic
+        truncate sha1 hash for barcode field
+
+    add missing location by categories
+        flow racks
+        shipping zones and areas
+        floor
+        phosphate lanes
+        sort lanes
+        receiving zones
+        inventory relief
+        trailers
+        recycling
+        mold racks
+        building exits
+        repack
+
+    check all disabled locations
+    check any missing locations

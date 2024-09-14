@@ -13,6 +13,7 @@ LN11,"Line 11 Racks",1000
 MOLD,"Mold Storage",1000
 MRB,"Restricted Movement Area",1100
 "MRB STAGING","Restricted Movement Staging Area",1100
+"MRB SORT","Restricted Movement Sorting Area",1100
 PFIX,"Paint Fixtures",1000
 PLAS,"Plastic Racks",1000
 PWIP,"Paint Work In Progress Racks",1000

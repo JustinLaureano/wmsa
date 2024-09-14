@@ -18,6 +18,8 @@
 
 ## What does routing designer look like
 
+- allow user to select material
+- allow user to select and sort order of locations that material needs to go to
 
 
 ## routing logic
@@ -27,4 +29,7 @@
         - send to building out location
     - need to go to sort?
 
-set storage point
+
+put away logic
+    user selects put away screen
+    
