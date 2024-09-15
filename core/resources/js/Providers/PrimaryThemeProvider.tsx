@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import { blue } from '@/Theme/colors';
+import dimensions from '@/Theme/dimensions';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import { PaletteMode } from '@mui/material';
 
@@ -35,6 +37,11 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
         () => createTheme({
             palette: {
                 mode,
+
+                primary: {
+                    main: blue[700]
+                },
+
                 background: {
                     default: '#10131c',
                     paper: '#10131c'
@@ -42,12 +49,23 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 ...(mode == 'light' && {
                     background: {
                         default: '#f0f2f5',
-                        // paper: '#f0f2f5'
                     }
                 }),
             },
 
             components: {
+
+                // TODO: make apply only to filled button
+                // MuiButton: {
+                //     styleOverrides: {
+                //         root: {
+                //             '&:hover': {
+                //                 backgroundColor: blue[600],
+                //             },
+                //         }
+                //     }
+                // },
+
                 MuiCard: {
                     styleOverrides: {
                         root: {
@@ -80,34 +98,113 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
             layouts: {
                 dashboard: {
-                    bottomAppBarHeight: '26px',
-                    bottomNavigationHeight: '48px',
-                    drawerWidth: '180px',
-                    drawerRailWidth: '60px',
-                    topAppBarHeight: '48px'
+                    bottomAppBarHeight: dimensions.bottomAppBarHeight,
+                    bottomNavigationHeight: dimensions.bottomNavigationHeight,
+                    drawerWidth: dimensions.drawerWidth,
+                    drawerRailWidth: dimensions.drawerRailWidth,
+                    topAppBarHeight: dimensions.topAppBarHeight
                 }
             },
 
             typography: {
 
-                h5: {
-                    fontSize: '1rem',
-                    fontWeight: 700,
+                button: {
                     color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.625,
-                    letterSpacing: '0.0075em',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.02857rem',
+                    lineHeight: 1.5,
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                body1: {
+                    color: 'rgb(52, 71, 103)',
+                    fontSize: '1rem',
+                    fontWeight: 400,
+                    margin: 0,
                     ...(mode == 'dark' && {
                         color: baseTheme.palette.common.white
                     })
                 },
 
+                body2: {
+                    color: 'rgb(123, 128, 154)',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.02857rem',
+                    lineHeight: 1.5,
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                h1: {
+                    fontSize: '2.25rem',
+                    fontWeight: 700,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.3,
+                    letterSpacing: '0em',
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                h2: {
+                    fontSize: '1.875rem',
+                    fontWeight: 700,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.375,
+                    letterSpacing: '0em',
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                h3: {
+                    fontSize: '1.375rem',
+                    fontWeight: 600,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.375,
+                    letterSpacing: '0.00735em',
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                h4: {
+                    fontSize: '1.25rem',
+                    fontWeight: 400,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.375,
+                    letterSpacing: '0em',
+                    margin: 0,
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
+                h5: {
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.625,
+                    letterSpacing: '0.0075em',
+                    ...(mode == 'dark' && {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    })
+                },
+
                 h6: {
-                    // fontSize: '1.125rem',
                     fontSize: '0.875rem',
                     fontWeight: 500,
                     color: grey[800],
                     ...(mode == 'dark' && {
-                        color: baseTheme.palette.common.white
+                        color: 'rgba(255, 255, 255, 0.8)'
                     })
                 },
               },

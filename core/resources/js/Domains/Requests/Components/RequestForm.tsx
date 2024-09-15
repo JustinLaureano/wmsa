@@ -44,7 +44,7 @@ export default function RequestForm({ onSubmitSuccess = () => {} }: any) {
             </Box>
 
             <Stack sx={{ pt: 2 }}>
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="contained" color="primary" sx={{ borderRadius: 2, py: 1 }}>
                     Create Request
                 </Button>
             </Stack>

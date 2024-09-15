@@ -1,12 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import {
-	Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton,
-	ListItemIcon, ListItemText, Toolbar, Tooltip, useMediaQuery, useTheme
+	Box, Drawer, IconButton, List, ListItem, ListItemButton,
+	ListItemIcon, ListItemText, styled, Tooltip, Typography, useMediaQuery, useTheme
 } from '@mui/material';
 import { Brightness6, LightMode } from '@mui/icons-material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import UIContext from '@/Contexts/UIContext';
+import dimensions from '@/Theme/dimensions';
+
+const NavList = styled(List)({
+
+	'& .MuiListItemIcon-root': {
+	  minWidth: 0,
+	  marginRight: 18,
+	},
+
+	'& .MuiSvgIcon-root': {
+		fontSize: 20,
+	  },
+  });
 
 export default function NavigationDrawer(props: Record<string, any>) {
 	const theme = useTheme();
@@ -33,7 +46,6 @@ export default function NavigationDrawer(props: Record<string, any>) {
 
 		setNavigationDrawerOpen(false);
 	}
-
 
 	useEffect(() => {
 		if (!isDesktop && navigationDrawerOpen) {
@@ -66,13 +78,17 @@ export default function NavigationDrawer(props: Record<string, any>) {
 			onClose={handleDrawerToggle}
 			elevation={0}
 			sx={{
-				width: drawerWidth,
+				width: `calc(${drawerWidth} + ${theme.spacing(2)})`,
 				flexShrink: 0,
 				transition: theme.transitions.create('width', {
 					easing: theme.transitions.easing.easeOut,
 					duration: theme.transitions.duration.standard,
 				}),
 				[`& .MuiDrawer-paper`]: {
+					borderRadius: 4,
+					height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - ${theme.spacing(2)})`,
+					marginLeft: theme.spacing(2),
+					marginTop: `calc(${dimensions.topAppBarHeight} + ${theme.spacing(1)})`,
 					borderRight: 'none',
 					boxSizing: 'border-box',
 					width: drawerWidth,
@@ -83,10 +99,9 @@ export default function NavigationDrawer(props: Record<string, any>) {
 				},
 			}}
 		>
-			<Toolbar variant="dense" />
 
-			<Box sx={{ overflow: 'hidden' }}>
-				<List>
+			<Box sx={{ overflow: 'scroll', '::-webkit-scrollbar': { display: 'none' } }}>
+				<NavList component="nav">
 					{links.map((link, index) => (
 						<ListItemWrapper link={link} key={index}>
 							<ListItem disablePadding >
@@ -95,15 +110,23 @@ export default function NavigationDrawer(props: Record<string, any>) {
 										{index % 2 === 0 ? <InboxIcon /> : <Brightness6 />}
 									</ListItemIcon>
 									<ListItemText
-										primary={link.label}
+										primary={
+											<React.Fragment>
+											  	<Typography
+													component="span"
+													variant="body2"
+											  	>
+													{link.label}
+											  	</Typography>
+
+											</React.Fragment>
+										}
 									/>
 								</ListItemButton>
 							</ListItem>
 						</ListItemWrapper>
 					))}
-				</List>
-
-				{/* <Divider /> */}
+				</NavList>
 
 				<Box>
 					<IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>

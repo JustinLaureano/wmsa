@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { Head, router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Box, Card, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import RequestForm from '@/Domains/Requests/Components/RequestForm';
+import { blue } from '@/Theme/colors';
 
 export default function Home({ recentRequests, ...props } : any) {
     const theme = useTheme();
@@ -58,15 +59,30 @@ export default function Home({ recentRequests, ...props } : any) {
             </Stack>
 
             <Stack direction="row" spacing={2}>
-                {['Shipping', 'Sort', 'Materials'].map((title, index) => (
+                {['Shipping', 'Sort'].map((title, index) => (
                     <Card key={index} sx={{ flexGrow: 1 }}>
                         <CardHeader
                             title={title}
                         />
                         <CardContent>
-                            <Typography>
-                                blah blah blah
-                            </Typography>
+                            <Typography variant="h1">H1: Company Profile</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="h2">H2: System Settings</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="h3">H3: Completed Tasks</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="h4">H4: Sales by Country</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="h5">H5: Exploring the Impact of Artificial Intelligence on Modern Healthcare</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="h6">H6: The Future of Renewable Energy: Innovations and Challenges Ahead</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="body1">body1: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="body2">body2: blah blah blah</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="button">button: blah blah blah</Typography>
+                            <Divider sx={{ my: 2 }} />
                         </CardContent>
                     </Card>
                 ))}

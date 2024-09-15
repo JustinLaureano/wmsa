@@ -46,7 +46,7 @@ export default function TopAppBar(props : Record<string, any>) {
                             
                         }}
                     >
-                        <Typography variant="h6" noWrap component="div">
+                        <Typography variant="h5" noWrap component="div">
                             WMS
                         </Typography>
                     </Stack>
