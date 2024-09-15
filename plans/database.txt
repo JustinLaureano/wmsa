@@ -113,7 +113,7 @@ storage_location_types:
             mold rack
             building exit
             repack (?)
-
+f0f2f5
 
 storage_location_areas:
     attributes:

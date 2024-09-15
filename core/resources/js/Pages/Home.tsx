@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { Head, router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Box, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import RequestForm from '@/Domains/Requests/Components/RequestForm';
 
 export default function Home({ recentRequests, ...props } : any) {
+    const theme = useTheme();
+    console.log(theme);
 
-    console.log(recentRequests)
+    // console.log(recentRequests)
 
     useEffect(() => {
         window.Echo.channel('request-created')
@@ -22,12 +24,11 @@ export default function Home({ recentRequests, ...props } : any) {
         }
     }, [])
 
-
     return (
         <DashboardLayout>
             <Head title="Home" />
 
-            <Stack direction="row" spacing={2} sx={{ mb: 4 }}>
+            <Stack direction="row" spacing={4} sx={{ mb: 4 }}>
                 <Card sx={{ flexGrow: 1 }}>
                     <CardHeader
                         title={'New Request'}
@@ -40,6 +41,7 @@ export default function Home({ recentRequests, ...props } : any) {
                 <Card sx={{ flexGrow: 1 }}>
                     <CardHeader
                         title={"Recent"}
+                        subheader="past 15 minutes"
                     />
                     <CardContent>
                     {

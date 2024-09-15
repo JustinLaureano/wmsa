@@ -41,14 +41,31 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 },
                 ...(mode == 'light' && {
                     background: {
-                        default: grey[50],
-                        paper: grey[50]
+                        default: '#f0f2f5',
+                        // paper: '#f0f2f5'
                     }
                 }),
             },
 
-            ...(mode == 'light' && {
-                components: {
+            components: {
+                MuiCard: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 12,
+                            borderColor: 'rgba(0, 0, 0, 0.125)'
+                        }
+                    }
+                },
+
+                MuiPaper: {
+                    styleOverrides: {
+                        root: {
+                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px'
+                        }
+                    }
+                },
+
+                ...(mode == 'light' && {
                     MuiAppBar: {
                         styleOverrides: {
                             colorPrimary: {
@@ -57,8 +74,9 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                             },
                         }
                     }
-                },
-            }),
+                }),
+            },
+
 
             layouts: {
                 dashboard: {
@@ -71,8 +89,21 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
             },
 
             typography: {
+
+                h5: {
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: 'rgb(52, 71, 103)',
+                    lineHeight: 1.625,
+                    letterSpacing: '0.0075em',
+                    ...(mode == 'dark' && {
+                        color: baseTheme.palette.common.white
+                    })
+                },
+
                 h6: {
-                    fontSize: '1.125rem',
+                    // fontSize: '1.125rem',
+                    fontSize: '0.875rem',
                     fontWeight: 500,
                     color: grey[800],
                     ...(mode == 'dark' && {
