@@ -24,8 +24,9 @@ return [
     */
     'settings' => 'Settings',
 
-    'english' => 'Inglés',
-    'language' => 'Idioma',
+    'english' => 'English',
+    'language' => 'Language',
+    'light_dark_mode' => 'Light/Dark Mode',
     'select_your_preferred_language' => 'Select your preferred language.',
-    'spanish' => 'Español',
+    'spanish' => 'Spanish',
 ];

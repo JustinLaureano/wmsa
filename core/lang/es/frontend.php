@@ -23,10 +23,11 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'settings' => 'Settings',
+    'settings' => 'Ajustes',
 
-    'english' => 'English',
-    'language' => 'Language',
+    'english' => 'Inglés',
+    'language' => 'Inglés',
+    'light_dark_mode' => 'Modo claro/oscuro',
     'select_your_preferred_language' => 'Seleccione su idioma preferido.',
-    'spanish' => 'Spanish',
+    'spanish' => 'Inglés',
 ];

@@ -35,7 +35,7 @@ export default function LanguageSettings({ ...props } : LanguageSettingsProps) {
         <Box sx={{ p: theme.spacing(2) }}>
             
             <Typography variant="h5">
-                Language
+            {lang.language}
             </Typography>
 
             <Typography variant="body2">
