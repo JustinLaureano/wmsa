@@ -1,5 +1,9 @@
 to get to mvp
 
+localization
+    add middle ware to global stack
+
+
 storage location types
     finalize types
     add missing types
