@@ -22,8 +22,7 @@ export default function Home({ recentRequests, ...props } : any) {
     }, [])
 
     return (
-        <DashboardLayout>
-            <Head title="Home" />
+        <DashboardLayout title="Home">
 
             <Stack direction="row" spacing={4} sx={{ mb: 4 }}>
                 <Card sx={{ flexGrow: 1 }}>

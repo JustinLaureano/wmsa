@@ -11,6 +11,7 @@ interface AppContainerProps {
 }
 
 export default function AppContainer({ children, ...props }: AppContainerProps) {
+    console.log(props)
     return (
         <LanguageProvider {...props}>
             <PrimaryThemeProvider>

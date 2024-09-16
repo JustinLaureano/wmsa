@@ -9,7 +9,11 @@ import NotificationButton from '../Notifications/NotificationButton';
 import SettingsButton from '../Settings/SettingsButton';
 import SearchButton from '../Search/SearchButton';
 
-export default function TopAppBar(props : Record<string, any>) {
+interface TopAppBarProps {
+    title: string;
+}
+
+export default function TopAppBar({ title, ...props } : TopAppBarProps) {
     const theme = useTheme();
     const { user } = useContext(AuthContext);
 
@@ -39,10 +43,8 @@ export default function TopAppBar(props : Record<string, any>) {
                         <NavigationToggle />
 
                         <Typography variant="h6" noWrap component="div">
-                            Sobchak Securities &nbsp;{'-'}&nbsp; WMS
+                            Sobchak Securities
                         </Typography>
-
-                        {/* <AppBarLogo /> */}
                     </Stack>
 
                     <Stack
@@ -54,7 +56,7 @@ export default function TopAppBar(props : Record<string, any>) {
                         }}
                     >
                         <Typography variant="h6" noWrap component="div">
-                            Sobchak Securities &nbsp;{'-'}&nbsp; WMS
+                            WMS {title && `- ${title}`}
                         </Typography>
                     </Stack>
 
