@@ -17,8 +17,6 @@ class StorageLocationAreaSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->setCurrentTime();
-
         $this->setBuildingOneAreas();
         $this->setBuildingTwoAreas();
     }

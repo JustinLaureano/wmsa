@@ -37,3 +37,28 @@ where type = 20
 group by id
 order by id asc;
 ```
+
+
+### Material Types
+
+
+This is a new category that is not in the legacy WMS system so there is no import statement. The initial seed file is the only thing needed here.
+
+
+
+### Materials
+
+Materials will be sourced through the view via the following statement
+
+`company` database
+
+```sql
+SELECT
+	COALESCE(psam_part_number, '') AS material_number,
+	COALESCE(bapm_part_number, '') AS part_number,
+    COALESCE(material_description, '') AS material_description,
+    COALESCE(base_quantity, '') AS base_quantity,
+    COALESCE(base_uom, '') AS base_unit_of_measure
+FROM prospira_web.view_sap_material_labor;
+```
+

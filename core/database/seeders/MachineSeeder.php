@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Domain\Production\DataTransferObjects\MachineData;
-use App\Models\Building;
 use App\Models\Machine;
 use App\Models\MachineType;
 use App\Support\CsvReader;
@@ -22,8 +21,6 @@ class MachineSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->setCurrentTime();
-
         $this->getMachineTypeOptions();
 
         $this->setMachines();

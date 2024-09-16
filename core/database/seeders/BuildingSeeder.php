@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Building;
+use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Seeder;
 
 class BuildingSeeder extends Seeder
 {
+    use Timestamps;
+
     /**
      * Run the database seeds.
      */
@@ -24,12 +27,12 @@ class BuildingSeeder extends Seeder
                 continue;
             }
 
-            $buildings[] = [
+            $buildings[] = array_merge([
                 'organization_id' => $data[0],
                 'name' => $data[1],
                 'location' => $data[2],
                 'building_type_id' => $data[3]
-            ];
+            ], $this->getTimestamps());
         }
 
         Building::insert($buildings);

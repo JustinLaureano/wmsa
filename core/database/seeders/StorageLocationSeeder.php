@@ -23,8 +23,6 @@ class StorageLocationSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->setCurrentTime();
-
         $this->getAreaOptions();
 
         $this->setPalletRackStorageLocations();
