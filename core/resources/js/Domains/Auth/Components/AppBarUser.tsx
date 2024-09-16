@@ -30,7 +30,7 @@ export default function AppBarUser(props: any) {
             <IconButton
                 onClick={handleUserButtonClick}
             >
-                <AccountCircleOutlined />
+                <AccountCircleOutlined sx={{ color: 'gray.main' }} />
             </IconButton>
 
             <Menu

@@ -12,6 +12,7 @@ export default function SettingsButton(props : Record<string, any>) {
         <IconButton
             aria-label="toggle-navigation"
             onClick={handleButtonClick}
+            color="gray"
         >
             <Settings />
         </IconButton>

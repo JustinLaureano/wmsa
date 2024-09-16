@@ -14,6 +14,7 @@ export default function NavigationToggle(props : Record<string, any>) {
         <IconButton
             aria-label="toggle-navigation"
             onClick={handleMenuButtonClick}
+            {...props}
         >
             <Menu />
         </IconButton>

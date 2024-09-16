@@ -7,6 +7,7 @@ import AuthContext from '@/Contexts/AuthContext';
 import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
 import NotificationButton from '../Notifications/NotificationButton';
 import SettingsButton from '../Settings/SettingsButton';
+import SearchButton from '../Search/SearchButton';
 
 export default function TopAppBar(props : Record<string, any>) {
     const theme = useTheme();
@@ -33,11 +34,15 @@ export default function TopAppBar(props : Record<string, any>) {
                         direction="row"
                         alignItems="center"
                         spacing={theme.spacing(1)}
-                        sx={{ flexGrow: 1 }}
+                        sx={{ flexGrow: 1, ml: theme.spacing(2) }}
                     >
                         <NavigationToggle />
 
-                        <AppBarLogo />
+                        <Typography variant="h6" noWrap component="div">
+                            Sobchak Securities &nbsp;{'-'}&nbsp; WMS
+                        </Typography>
+
+                        {/* <AppBarLogo /> */}
                     </Stack>
 
                     <Stack
@@ -49,7 +54,7 @@ export default function TopAppBar(props : Record<string, any>) {
                         }}
                     >
                         <Typography variant="h6" noWrap component="div">
-                            Prospira America Corporation &nbsp;{'>'}&nbsp; WMS
+                            Sobchak Securities &nbsp;{'-'}&nbsp; WMS
                         </Typography>
                     </Stack>
 
@@ -62,6 +67,8 @@ export default function TopAppBar(props : Record<string, any>) {
                             
                         }}
                     >
+
+                        <SearchButton />
 
                         <NotificationButton />
 

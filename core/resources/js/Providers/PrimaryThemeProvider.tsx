@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { alpha, createTheme, getContrastRatio, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import { blue } from '@/Theme/colors';
 import dimensions from '@/Theme/dimensions';
@@ -13,6 +13,28 @@ declare module '@mui/material' {
 
     interface ThemeOptions {
         layouts?: any;
+    }
+}
+
+declare module '@mui/material/styles' {
+    interface Palette {
+        greay: Palette['primary'];
+    }
+  
+    interface PaletteOptions {
+        gray?: PaletteOptions['primary'];
+    }
+}
+
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        gray: true;
+    }
+}
+
+declare module '@mui/material/IconButton' {
+    interface IconButtonPropsColorOverrides {
+        gray: true;
     }
 }
 
@@ -40,6 +62,13 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
                 primary: {
                     main: blue[700]
+                },
+
+                gray: {
+                    main: 'rgb(52, 71, 103)',
+                    light: alpha('rgb(52, 71, 103)', 0.5),
+                    dark: alpha('rgb(52, 71, 103)', 0.9),
+                    contrastText: getContrastRatio('rgb(52, 71, 103)', '#fff') > 4.5 ? '#fff' : '#111',
                 },
 
                 background: {
