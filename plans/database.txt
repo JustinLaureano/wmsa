@@ -147,6 +147,7 @@ machine_types:
 machines:
     attributes:
         - name
+        - building_id
         - machine_type_id
     relationships:
         - machine type: has one machine type

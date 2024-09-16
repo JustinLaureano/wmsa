@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\StorageLocationType;
+use App\Models\MachineType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StorageLocationTypeTest extends TestCase
+class MachineTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_all_storage_location_types_seeded_in_database(): void
+    public function test_all_machine_types_seeded_in_database(): void
     {
-        $file = fopen(database_path('data/storage_location_types.csv'), 'r');
+        $file = fopen(database_path('data/machine_types.csv'), 'r');
 
         $seedCount = 0;
 
@@ -27,6 +27,6 @@ class StorageLocationTypeTest extends TestCase
             $seedCount++;
         }
 
-        $this->assertEquals($seedCount, StorageLocationType::count());
+        $this->assertEquals($seedCount, MachineType::count());
     }
 }

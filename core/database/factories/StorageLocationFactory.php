@@ -21,6 +21,7 @@ class StorageLocationFactory extends Factory
         $type = StorageLocationType::inRandomOrder()->first();
 
         return [
+            'name' => fake()->bothify('#-????-#-#-#-#'),
             'storage_location_area_id' => StorageLocationArea::inRandomOrder()->first()->id,
             'storage_location_type_id' => $type->id,
             'barcode' => fake()->sha1(),
