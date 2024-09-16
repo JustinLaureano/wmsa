@@ -171,17 +171,26 @@ machines:
 
 ##### Materials #####
 
+material_types:
+    attributes:
+        - name
+        - abbreviation
+    relationships:
+        - materials: has many materials
 
 
 materials:
     attributes:
-        - bapm_part_number
-        - psam_part_number
+        - uuid
+        - material_number (sap psam_part_number)
+        - part_number (bapm_part_number)
         - description
         - base_qty
         - base_unit_of_measure
+        - material_type_id
     relationships:
         - material_containers: has many containers
+        - material_types: has one type
 
 
 material_container_types:
