@@ -55,11 +55,29 @@ fonts
 
 
 
-
-
-
-
 test cases
     models
         test repository actions
         test relationships
+
+
+
+
+
+
+legacy environment
+    wms database
+    pics database
+        for material requests from presses initially, but eventually prod data
+
+    legacy-data-faker
+        small laravel app to simply run jobs every so often to create fake data in legacy db
+            - skids
+            - material requests
+            - etc
+
+    legacy-data-importer
+        running laravel commands that will import new data from legacy wms db to the new db
+        this will keep them in sync so a hard cutover will not be required, but can be gradual
+
+        have to be careful that imports do not fire any sap transactions
