@@ -13,17 +13,12 @@ export default function SearchButton(props : Record<string, any>) {
     return (
         <Button
             size="small"
-            color="gray"
             variant="outlined"
             startIcon={<Search />}
             onClick={handleButtonClick}
             sx={{
-                borderColor: grey[300],
                 borderRadius: 4,
                 textTransform: 'none',
-                '&:hover': {
-                    borderColor: grey[300]
-                }
             }}
         >
             Search...

@@ -12,7 +12,6 @@ export default function NotificationButton(props : Record<string, any>) {
         <IconButton
             aria-label="toggle-navigation"
             onClick={handleButtonClick}
-            color="gray"
         >
             <NotificationsOutlined />
         </IconButton>

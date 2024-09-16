@@ -7,5 +7,7 @@ export default {
 
     drawerRailWidth: '54px',
 
+    settingsDrawerWidth: '320px',
+
     topAppBarHeight: '48px',
 }

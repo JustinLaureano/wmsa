@@ -18,7 +18,7 @@ declare module '@mui/material' {
 
 declare module '@mui/material/styles' {
     interface Palette {
-        greay: Palette['primary'];
+        gray: Palette['primary'];
     }
   
     interface PaletteOptions {
@@ -69,6 +69,12 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     light: alpha('rgb(52, 71, 103)', 0.5),
                     dark: alpha('rgb(52, 71, 103)', 0.9),
                     contrastText: getContrastRatio('rgb(52, 71, 103)', '#fff') > 4.5 ? '#fff' : '#111',
+                    ...(mode == 'dark' && {
+                        main: 'rgba(255, 255, 255, 0.8)',
+                        light: 'rgba(255, 255, 255, 0.8)',
+                        dark: 'rgba(255, 255, 255, 0.8)',
+                        contrastText: getContrastRatio('rgb(52, 71, 103)', '#fff') > 4.5 ? '#fff' : '#111',
+                    }),
                 },
 
                 background: {
@@ -131,6 +137,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     bottomNavigationHeight: dimensions.bottomNavigationHeight,
                     drawerWidth: dimensions.drawerWidth,
                     drawerRailWidth: dimensions.drawerRailWidth,
+                    settingsDrawerWidth: dimensions.settingsDrawerWidth,
                     topAppBarHeight: dimensions.topAppBarHeight
                 }
             },
