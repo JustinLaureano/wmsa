@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { Head, router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Box, Button, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import RequestForm from '@/Domains/Requests/Components/RequestForm';
-import { blue } from '@/Theme/colors';
 
 export default function Home({ recentRequests, ...props } : any) {
-    const theme = useTheme();
-    console.log(theme);
-
     // console.log(recentRequests)
 
     useEffect(() => {

@@ -5,6 +5,8 @@ import AppBarLogo from '../Logos/AppBarLogo';
 import AppBarLogin from '@/Domains/Auth/Components/AppBarLogin';
 import AuthContext from '@/Contexts/AuthContext';
 import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
+import NotificationButton from '../Notifications/NotificationButton';
+import SettingsButton from '../Settings/SettingsButton';
 
 export default function TopAppBar(props : Record<string, any>) {
     const theme = useTheme();
@@ -46,8 +48,8 @@ export default function TopAppBar(props : Record<string, any>) {
                             
                         }}
                     >
-                        <Typography variant="h5" noWrap component="div">
-                            WMS
+                        <Typography variant="h6" noWrap component="div">
+                            Prospira America Corporation &nbsp;{'>'}&nbsp; WMS
                         </Typography>
                     </Stack>
 
@@ -60,6 +62,11 @@ export default function TopAppBar(props : Record<string, any>) {
                             
                         }}
                     >
+
+                        <NotificationButton />
+
+                        <SettingsButton />
+
                         {
                             user ? <AppBarUser /> : <AppBarLogin />
                         }

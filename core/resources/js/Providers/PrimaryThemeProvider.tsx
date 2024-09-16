@@ -202,7 +202,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 h6: {
                     fontSize: '0.875rem',
                     fontWeight: 500,
-                    color: grey[800],
+                    color: 'rgb(52, 71, 103)',
                     ...(mode == 'dark' && {
                         color: 'rgba(255, 255, 255, 0.8)'
                     })

@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { router } from '@inertiajs/react';
-import { grey } from '@mui/material/colors';
-import { Box, Button, ListItemText, Menu, MenuItem } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { IconButton, ListItemText, Menu, MenuItem } from '@mui/material';
+import { AccountCircleOutlined } from '@mui/icons-material';
 import AuthContext from '@/Contexts/AuthContext';
 import LanguageContext from '@/Contexts/LanguageContext';
 
@@ -27,15 +26,12 @@ export default function AppBarUser(props: any) {
 
     return (
         <>
-            <Box>
-                <Button
-                    variant="text"
-                    startIcon={<AccountCircle sx={{ color: grey[700] }} />}
-                    onClick={handleUserButtonClick}
-                >
-                    {user?.name}
-                </Button>
-            </Box>
+
+            <IconButton
+                onClick={handleUserButtonClick}
+            >
+                <AccountCircleOutlined />
+            </IconButton>
 
             <Menu
                 anchorEl={userMenuEl}
