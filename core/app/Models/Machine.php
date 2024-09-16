@@ -19,9 +19,19 @@ class Machine extends Model
     protected $fillable = [
         'uuid',
         'name',
+        'barcode',
         'building_id',
-        'machine_type_id'
+        'machine_type_id',
+        'disabled'
     ];
+
+    /**
+     * Get the building for the machine.
+     */
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class, 'building_id', 'id');
+    }
 
     /**
      * Get the machine type for the machine.

@@ -113,7 +113,7 @@ storage_location_types:
             mold rack
             building exit
             repack (?)
-f0f2f5
+
 
 storage_location_areas:
     attributes:
@@ -124,6 +124,8 @@ storage_location_areas:
 
 storage_locations:
     attributes:
+        - uuid
+        - name
         - area_id
         - storage_location_type_id
         - barcode
@@ -136,6 +138,11 @@ storage_locations:
         - storage location type: has one type
 
 
+
+
+##### Production #####
+
+
 machine_types:
     attributes:
         - name
@@ -146,11 +153,17 @@ machine_types:
 
 machines:
     attributes:
+        - uuid
         - name
+        - barcode
         - building_id
         - machine_type_id
+        - disabled
     relationships:
         - machine type: has one machine type
+
+
+# Mold stuff goes here #
 
 
 

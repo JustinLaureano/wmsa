@@ -18,9 +18,13 @@ return new class extends Migration
             $table->id();
             $table->uuid()->index();
             $table->string('name', 40);
+            $table->string('barcode', 40);
             $table->foreignIdFor(Building::class);
             $table->foreignIdFor(MachineType::class);
-            // TODO: add active status for machine - whether retired or not, in user or not, etc
+
+            // TODO: add/change active status for machine - whether retired or not, in user or not, etc
+            $table->tinyInteger('disabled')->default(0);
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,0 +1,124 @@
+building,id,area,disabled,machine_type
+1,10957c0b838484945d14466e600a6b094b503c28,"Line 1 Press8",0,press
+1,"1103 Bump Stop","1103 Bump Stop",0,press
+1,1622DeflSwagePaint,1622DeflSwagePaint,0,press
+2,"180L Assembly","180L Assembly",1,assembly
+1,"180L Hydro Mount","180L Hydro Mount",0,press
+2,180LAssembly,180LAssembly,0,assembly
+1,1833DeflSwagePaint,1833DeflSwagePaint,0,press
+2,"1907 RAV4","1907 RAV4",0,press
+1,1d2108ec,"Line 7 Press6",0,press
+1,1d76cadd7ae14437c99362d5100961e3dab5ebba,"Line 6 Press1",0,press
+1,"2007 Damper Assy","2007 Damper Assy",0,press
+1,2067ff337704936ad287e447784bf18689c54d33,"Line 9 Press1",0,press
+1,2adc1564ee9e63129c6c6cffe7e7d58fc54cb077,"Line 11 Press 8",0,press
+1,2d198d573d8c4adde5b27d3d64012063b556ccc2,"Assembly 440",0,assembly
+2,47cd30dbeed0b9eb4e17b9fe941d57de4092649f,"Line 14 Press 1",0,press
+1,5210fc6fc23f69413ece09957ea04eb8681f9c88,Expansion,0,press
+1,586985bfcbfd4765045992a0c068df8a00c4810a,"Assembly 439",0,assembly
+2,5b2fab2da45c6cf686fac64790eb202a32ad0c17,"Line 13 Press 1",0,press
+1,69d7b402,"BOND LINE",0,press
+1,714bf46313bf25de3ab7418963ec5354cb3c7d0f,"Line 2 Press1",0,press
+1,"780B Dryfill Cell","780B Dryfill Cell",0,press
+1,7cff41a1c9b6a818d3f563b7aa07eeca854955b5,Vert_Plastic_8,0,press
+2,8660549aff4e187965239906b194a7316a20b2e6,"Line 12 Press 1",0,press
+1,9402,9402,0,press
+1,981f38fd55177c7443adace58cbb68fa8a9463e0,Vert_Plastic_1,0,press
+1,a7056cd5ea400533a1ded187715e58835daeb7ce,"Line 5 Press1",0,press
+1,ac379f8e4bd8846944ace1c8d1677b3b3335d993,Vert_Plastic_7,0,press
+1,"Alum Blast 1",Alum_Blast_1,0,press
+1,"Alum Blast 2",Alum_Blast_2,0,press
+1,"Alum Blast 3","Alum Blast 3",0,press
+2,"Assembly 441","Assembly 441",0,assembly
+2,"Assembly 442","Assembly 442",0,assembly
+2,"Assembly 443","Assembly 443",0,assembly
+1,"Auto Swage 1602","Auto Swage 1602",0,press
+1,b2e410c549e7ee02a1ac9f13eaad974959384247,"Line 20 Press1",0,press
+1,BANBURY,BANBURY,0,press
+1,"BOND LINE 1","BOND LINE 1",1,press
+1,"BOND LINE 13","BOND LINE 13",0,press
+1,"BOND LINE 14","BOND LINE 14",0,press
+2,"Bracket Assembly","Bracket Assembly",0,assembly
+2,"Bracket Assembly 1","Bracket Assembly 1",0,assembly
+2,"Bracket Assembly 2","Bracket Assembly 2",0,assembly
+1,"Bumpcrimp 2211","Bumpcrimp 2211",0,press
+1,c1ee2f9fd1d6b72e8c391edab596cc47983309ca,Vert_Plastic_2,0,press
+1,"CARBON WEIGHT","CARBON WEIGHT",0,press
+1,cc7587c054b03f82b66f389ec3011b5da366bd36,THK,0,press
+1,cf92160aa269cb9c44272780df0d9eac85ae971c,"Line 4 Press1",0,press
+1,"COMPOUND STAGING","COMPOUND STAGING",1,press
+2,d44033ba1b000d9b62df4448b3f5afee58253e0f,"Nissan 2",0,press
+1,d458cff74247849c0660c581c1e67ca724089e8b,"Line 3 Press1",0,press
+1,Dryfill,Dryfill,0,press
+1,DSTOP,DSTOP,0,press
+2,"Dual Servo Press","Dual Servo Press",0,press
+1,e0b8ef82505a3716c28393ed60b262814488e4ac,"Line 8 Press1",0,press
+1,Felt,Felt,1,press
+1,"Felt Station","Felt Station",0,press
+1,Highlander,Highlander,0,press
+1,"Highlander 2","Highlander 2",0,press
+1,"Honda Bond Line","Honda Bond Line",0,press
+1,"Honda Engine Mount","Honda Engine Mount",0,press
+1,"Honda Torque Rod","Honda Torque Rod",0,press
+2,"Honda Trans Mount","Honda Trans Mount",0,press
+1,"Line 1 Swage","Line 1 Swage",0,press
+1,"Line 10","Line 10",0,press
+1,"Line 11 Bump Stop","Line 11 Bump Stop",0,press
+1,"Line 11 Press 12","Line 11 Press 12",0,press
+2,"Line 14 Bump Stop","Line 14 Bump Stop",0,press
+1,"Line 2 Swage","Line 2 Swage",0,press
+1,"Line3 YAT","Line3 YAT",0,press
+1,"Link Curl Swage 1708","Link Curl Swage 1708",0,press
+1,"Manual Glue","Manual Glue",0,press
+2,MDX,MDX,0,press
+2,"New Front","New Front",0,press
+2,"NEW Front Assembly","NEW Front Assembly",0,assembly
+2,"NEW LEXUS","NEW LEXUS",0,press
+1,"NEW Rear Assembly","NEW Rear Assembly",0,assembly
+1,"Nissan 3","Nissan 3",0,press
+2,"Nissan Strut Mount","Nissan Strut Mount",0,press
+2,Nissan1,Nissan1,0,press
+1,"Old Front Assembly","Old Front Assembly",0,assembly
+2,"OLD LEXUS","OLD LEXUS",0,press
+2,"Old Rear Assembly","Old Rear Assembly",0,assembly
+2,OldRearAssembly,OldRearAssembly,0,assembly
+2,"Omega 0807","Omega 0807",0,press
+1,"Orifice 2209","Orifice 2209",0,press
+1,Paint,Paint,0,press
+2,"Paintline 7","Paintline 7",0,press
+2,"Projection Welder","Projection Welder",0,press
+2,RAV4,RAV4,0,press
+2,RAV_4_Glue,RAV_4_Glue,0,press
+1,"RDX Assembly","RDX Assembly",0,assembly
+2,"Rear Assembly 30Ton","Rear Assembly 30Ton",0,assembly
+1,SCRAP,SCRAP,0,press
+2,SERVICE,"Service Cell",0,press
+2,"Showa Strut Mount","Showa Strut Mount",0,press
+2,"Sub Dry Fill #4","Sub Dry Fill #4",0,press
+2,"Sub Dryfill #2","Sub Dryfill #2",0,press
+2,"Sub Dryfill #3","Sub Dryfill #3",0,press
+2,"Sub Final #2","Sub Final #2",0,press
+2,"Sub Final #3","Sub Final #3",0,press
+2,"Sub Final #4","Sub Final #4",0,press
+2,"Subaru 0809 Push In","Subaru 0809 Push In",0,press
+2,"Subaru Paintline","Subaru Paintline",0,press
+1,"Subaru Strut Mount","Subaru Strut Mount",0,press
+1,THK_Autoswage,THK_Autoswage,1,press
+2,"Torque Machine","Torque Machine",0,press
+2,"Toyota 1","Toyota 1",0,press
+1,"Toyota Cell 2","Toyota Cell 2",0,press
+2,"Toyota Dryfill","Toyota Dryfill",0,press
+2,"Toyota Final Bracket","Toyota Final Bracket",0,press
+2,"Toyota Torque","Toyota Torque",0,press
+2,"Toyota Underwater","Toyota Underwater",0,press
+2,"Ultrasonic Welder","Ultrasonic Welder",0,press
+1,"Underwater 1","Underwater 1",0,press
+1,"Underwater 3","Underwater 3",0,press
+2,"Underwater 4","Underwater 4",0,press
+2,"Underwater 6","Underwater 6",0,press
+2,"UW2 0520","UW2 0520",0,press
+2,"UW5 0138","UW5 0138",0,press
+2,UW6,UW6,0,press
+2,YAT,YAT,0,press
+1,YMEX,YMEX,0,press
+2,"YMEX 30 Ton","YMEX 30 Ton",0,press
