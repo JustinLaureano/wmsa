@@ -171,6 +171,15 @@ machines:
 
 ##### Materials #####
 
+
+movement_statuses:
+    attributes:
+        name
+        description
+    relations:
+        material_containers: has many containers
+
+
 material_types:
     attributes:
         - name
@@ -203,8 +212,8 @@ material_container_types:
 material_containers:
     attributes:
         - material_id
-        - barcode_id
         - material_container_type_id
+        - barcode
         - quantity
 
         - storage_location_id
@@ -214,6 +223,25 @@ material_containers:
 
                 have to think of the best way to assume that this matches up
                 a container history record kept somewhere else though.
+
+        - quality_status_id
+            reason:
+                can handle various quality states that prevent/allow movement
+                    quarantine (locked)
+                    restricted (mrb)
+                    released stock (free to move)
+                    inspection hold (receiving or sort)
+                    quality check (sort)
+                    scrap
+                    concession (irm stock that passed quality retest)
+
+
+    computed:
+        lot_number (derived from barcode)
+        expiration data (derived from barcode maybe?)
+        skid_id (sha1 hash of trimmed barcode)
+        employee (label print employee)
+
 
     relationships:
         - material: has one material
