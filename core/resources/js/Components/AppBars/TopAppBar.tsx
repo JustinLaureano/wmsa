@@ -4,7 +4,7 @@ import NavigationToggle from './NavigationToggle';
 import AppBarLogin from '@/Domains/Auth/Components/AppBarLogin';
 import AuthContext from '@/Contexts/AuthContext';
 import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
-import NotificationsButton from '../Notifications/NotificationsButton';
+import NotificationsButton from '@/Components/Notifications/NotificationsButton';
 import SettingsButton from '../Settings/SettingsButton';
 import SearchButton from '../Search/SearchButton';
 
@@ -21,8 +21,16 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
             position="fixed"
             elevation={0}
             sx={{
+                /** Transparent Background */
+                // borderBottom: 'none',
+                // borderColor: 'none',
+                // backgroundColor: 'transparent',
+                // boxShadow: 'none',
+
+                /** With background Color */
                 borderBottom: 1,
                 borderColor: theme.palette.mode == 'light' ? '#0000001f' : '#ffffff2e',
+
                 zIndex: (theme) => theme.zIndex.drawer + 1,
                 '& .MuiToolbar-root': {
                     paddingLeft: '.5rem',

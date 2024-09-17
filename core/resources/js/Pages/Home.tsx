@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import RequestForm from '@/Domains/Requests/Components/RequestForm';
+import HomeTabs from '@/Components/HomeTabs';
 
 export default function Home({ recentRequests, ...props } : any) {
     // console.log(recentRequests)
+    const theme = useTheme();
 
     useEffect(() => {
         window.Echo.channel('request-created')
@@ -23,6 +25,18 @@ export default function Home({ recentRequests, ...props } : any) {
 
     return (
         <DashboardLayout title="Home">
+
+            <Stack
+                sx={{
+
+                    mb: theme.spacing(4)
+                }}
+            >
+                <Typography variant="h3">Production</Typography>
+
+                <HomeTabs />
+            </Stack>
+
 
             <Stack direction="row" spacing={4} sx={{ mb: 4 }}>
                 <Card sx={{ flexGrow: 1 }}>

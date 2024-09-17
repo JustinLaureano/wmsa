@@ -1,6 +1,6 @@
 import { Divider, Stack, SwipeableDrawer, useTheme } from '@mui/material';
-import dimensions from '@/Theme/dimensions';
 import NotificationsDrawerHeader from './NotificationsDrawerHeader';
+import dimensions from '@/Theme/dimensions';
 
 interface NotificationsDrawerProps {
     open: boolean;
@@ -18,11 +18,15 @@ export default function NotificationsDrawer({ open, onOpen, onClose, ...props } 
             onOpen={onOpen}
             onClose={onClose}
             sx={{
+                zIndex: 9999,
 				[`& .MuiDrawer-paper`]: {
-                    borderTopLeftRadius: 10,
-                    borderBottomLeftRadius: 10,
-                    height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight})`,
-					marginTop: `calc(${dimensions.topAppBarHeight})`,
+                    borderTopLeftRadius: 8,
+                    borderBottomLeftRadius: 8,
+                    height: '100vh',
+
+                    /** Drawer below app bar */
+                    // height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight})`,
+					// marginTop: `calc(${dimensions.topAppBarHeight})`,
 				},
             }}
         >

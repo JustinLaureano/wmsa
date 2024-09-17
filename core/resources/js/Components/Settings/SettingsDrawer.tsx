@@ -20,11 +20,15 @@ export default function SettingsDrawer({ open, onOpen, onClose, ...props } : Set
             onOpen={onOpen}
             onClose={onClose}
             sx={{
+                zIndex: 9999,
 				[`& .MuiDrawer-paper`]: {
-                    borderTopLeftRadius: 10,
-                    borderBottomLeftRadius: 10,
-                    height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight})`,
-					marginTop: `calc(${dimensions.topAppBarHeight})`,
+                    borderTopLeftRadius: 8,
+                    borderBottomLeftRadius: 8,
+                    height: '100vh',
+
+                    /** Drawer below app bar */
+                    // height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight})`,
+					// marginTop: `calc(${dimensions.topAppBarHeight})`,
 				},
             }}
         >
