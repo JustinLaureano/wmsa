@@ -11,6 +11,4 @@ Route::get('/user', function (Request $request) {
     ->middleware('auth:sanctum');
 
 
-Route::post('/localization', [LocalizationController::class, 'set'])
-    ->middleware('auth:sanctum')
-    ->name('localization');
+Route::post('/localization', [LocalizationController::class, 'set'])->name('localization');

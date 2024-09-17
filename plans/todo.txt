@@ -1,22 +1,5 @@
 to get to mvp
 
-localization
-    add middle ware to global stack
-
-
-storage location types
-    finalize types
-    add missing types
-        floor
-        phosphate lane
-        sort lane
-        receiving zone
-        inventory relief
-        trailer
-        recycling
-        mold rack
-        building exit
-    add enums for types
 
 
 storage locations
@@ -40,19 +23,6 @@ storage locations
 
     check all disabled locations
     check any missing locations
-
-
-
-
-fonts
-    2.25rem
-    1.875rem
-    1.375rem
-    1.25rem
-    1rem
-    0.875rem
-
-
 
 
 

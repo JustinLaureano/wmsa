@@ -31,7 +31,6 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                 borderBottom: 1,
                 borderColor: theme.palette.mode == 'light' ? '#0000001f' : '#ffffff2e',
 
-                zIndex: (theme) => theme.zIndex.drawer + 1,
                 '& .MuiToolbar-root': {
                     paddingLeft: '.5rem',
                   },
@@ -50,7 +49,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         <NavigationToggle />
 
                         <Typography variant="h6" noWrap component="div">
-                            Sobchak Securities
+                            Prospira America Co
                         </Typography>
                     </Stack>
 
@@ -59,7 +58,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         alignItems="center"
                         sx={{
                             flexGrow: 2,
-                            
+
                         }}
                     >
                         <Typography variant="h6" noWrap component="div">
@@ -73,7 +72,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         alignItems="center"
                         sx={{
                             flexGrow: 1,
-                            
+
                         }}
                     >
 

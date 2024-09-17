@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import RequestForm from '@/Domains/Requests/Components/RequestForm';
 import HomeTabs from '@/Components/HomeTabs';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function Home({ recentRequests, ...props } : any) {
     // console.log(recentRequests)
     const theme = useTheme();
+    const { lang } = useContext(LanguageContext);
 
     useEffect(() => {
         window.Echo.channel('request-created')
@@ -24,7 +26,7 @@ export default function Home({ recentRequests, ...props } : any) {
     }, [])
 
     return (
-        <DashboardLayout title="Home">
+        <DashboardLayout title={lang.home}>
 
             <Stack
                 sx={{

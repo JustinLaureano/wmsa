@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\SetLocalization;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,9 +22,10 @@ Route::get('/teammates', function () {
 
 
 
- Route::get('/', HomeController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 
- Route::get('/dashboard', function () {
+
+Route::get('/dashboard', function () {
     return redirect()->route('home');
 
 })

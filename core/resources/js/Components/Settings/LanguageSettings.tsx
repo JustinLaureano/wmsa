@@ -1,7 +1,7 @@
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
 
 interface LanguageSettingsProps {
 
@@ -9,6 +9,7 @@ interface LanguageSettingsProps {
 
 export default function LanguageSettings({ ...props } : LanguageSettingsProps) {
     const theme = useTheme();
+    const [initialLoad, setInitialLoad] = useState(true);
     const { lang, setLang } = useContext(LanguageContext);
     const [langCode, setLangCode] = useState(lang.lang_code);
 
@@ -20,6 +21,11 @@ export default function LanguageSettings({ ...props } : LanguageSettingsProps) {
     }
 
     useEffect(() => {
+        if (initialLoad) {
+            setInitialLoad(false);
+            return;
+        }
+
         axios.post(
                 route('localization'),
                 {
@@ -33,7 +39,7 @@ export default function LanguageSettings({ ...props } : LanguageSettingsProps) {
     return (
 
         <Box sx={{ p: theme.spacing(2) }}>
-            
+
             <Typography variant="h5">
             {lang.language}
             </Typography>

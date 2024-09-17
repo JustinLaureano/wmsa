@@ -7,10 +7,12 @@ return [
     | Frontend Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines contain the frontend content shown to users. 
+    | The following language lines contain the frontend content shown to users.
     |
     */
     'lang_code' => 'en',
+
+    'home' => 'Home',
 
     'email' => 'Email',
     'password' => 'Password',
