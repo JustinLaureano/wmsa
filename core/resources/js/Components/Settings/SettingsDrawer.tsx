@@ -22,6 +22,7 @@ export default function SettingsDrawer({ open, onOpen, onClose, ...props } : Set
             sx={{
                 zIndex: 9999,
 				[`& .MuiDrawer-paper`]: {
+                    backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
                     borderTopLeftRadius: 8,
                     borderBottomLeftRadius: 8,
                     height: '100vh',

@@ -22,21 +22,24 @@ export default function SearchButton(props : Record<string, any>) {
             }}
         >
             Search...
-            &nbsp;
 
             <Box
                 component="span"
                 sx={{
                     background: grey[200],
                     padding: '1px 8px',
-                    marginLeft: theme.spacing(1),
+                    marginLeft: theme.spacing(2),
                     borderRadius: 2,
-                    fontSize: '.675rem'
+                    fontSize: '.675rem',
+                    ...(
+                        theme.palette.mode == 'dark' && {
+                            background: '#1c1f27',
+                        }
+                    )
                 }}
             >
                 Ctrl + P
             </Box>
         </Button>
-
     );
 }

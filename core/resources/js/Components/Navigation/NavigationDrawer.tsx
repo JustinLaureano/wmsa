@@ -85,6 +85,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 					duration: theme.transitions.duration.standard,
 				}),
 				[`& .MuiDrawer-paper`]: {
+					backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
 					borderRadius: 4,
 					height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - ${theme.spacing(2)})`,
 					marginLeft: theme.spacing(2),

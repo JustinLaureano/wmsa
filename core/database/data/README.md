@@ -62,3 +62,76 @@ SELECT
 FROM prospira_web.view_sap_material_labor;
 ```
 
+
+
+
+## Legacy Data Cleaning
+
+Removing Skid Location History Archive records for skids that do not have a location
+
+
+```sql
+DELETE FROM wms_dev.tblwms_skid_location_history_archive ha
+WHERE ha.skid_id IN 
+
+(
+	SELECT
+		i.skid_id
+	FROM wms_dev.tblwms_skid_item i
+	LEFT JOIN tblwms_skid_location sl
+		ON sl.skid_id = i.skid_id
+	WHERE location_uid IS NULL
+)
+;
+```
+
+Removing Skid Location History records for skids that do not have a location
+
+```sql
+DELETE FROM wms_dev.tblwms_skid_location_history h
+WHERE h.skid_id IN 
+
+(
+	SELECT
+		i.skid_id
+	FROM wms_dev.tblwms_skid_item i
+	LEFT JOIN tblwms_skid_location sl
+		ON sl.skid_id = i.skid_id
+	WHERE location_uid IS NULL
+)
+;
+```
+
+Removing Skid Alloted History records for skids that do not have a location
+
+```sql
+DELETE FROM wms_dev.tblwms_skid_alloted_history ah
+WHERE ah.skid_id IN 
+
+(
+	SELECT
+		i.skid_id
+	FROM wms_dev.tblwms_skid_item i
+	LEFT JOIN tblwms_skid_location sl
+		ON sl.skid_id = i.skid_id
+	WHERE location_uid IS NULL
+)
+;
+```
+
+Removing Skid item archive records for skids that do not have a location
+
+```sql
+DELETE FROM wms_dev.tblwms_skid_item_archive sia
+WHERE sia.skid_id IN 
+
+(
+	SELECT
+		i.skid_id
+	FROM wms_dev.tblwms_skid_item i
+	LEFT JOIN tblwms_skid_location sl
+		ON sl.skid_id = i.skid_id
+	WHERE location_uid IS NULL
+)
+;
+```
