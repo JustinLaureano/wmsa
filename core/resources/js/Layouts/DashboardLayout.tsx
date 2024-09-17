@@ -17,7 +17,7 @@ export default function DashboardLayout({ title, children, ...props } : Dashboar
     return (
         <Box sx={{
             display: 'flex',
-            height: '100vh',
+            minHeight: '99vh',
         }}>
 
             <Head title={title} />

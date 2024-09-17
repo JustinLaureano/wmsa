@@ -137,6 +137,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     bottomNavigationHeight: dimensions.bottomNavigationHeight,
                     drawerWidth: dimensions.drawerWidth,
                     drawerRailWidth: dimensions.drawerRailWidth,
+                    notificationsDrawerWidth: dimensions.notificationsDrawerWidth,
                     settingsDrawerWidth: dimensions.settingsDrawerWidth,
                     topAppBarHeight: dimensions.topAppBarHeight
                 }

@@ -128,12 +128,6 @@ export default function NavigationDrawer(props: Record<string, any>) {
 					))}
 				</NavList>
 
-				<Box>
-					<IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
-						{theme.palette.mode === 'dark' ? <Brightness6 /> : <LightMode />}
-					</IconButton>
-				</Box>
-
 			</Box>
 		</Drawer>
 	);

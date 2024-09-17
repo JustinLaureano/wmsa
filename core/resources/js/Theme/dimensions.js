@@ -7,6 +7,8 @@ export default {
 
     drawerRailWidth: '54px',
 
+    notificationsDrawerWidth: '420px',
+
     settingsDrawerWidth: '320px',
 
     topAppBarHeight: '48px',

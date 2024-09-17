@@ -1,16 +1,14 @@
 import { Divider, Stack, SwipeableDrawer, useTheme } from '@mui/material';
-import SettingsHeader from './SettingsHeader';
-import LanguageSettings from './LanguageSettings';
-import ThemeSettings from './ThemeSettings';
 import dimensions from '@/Theme/dimensions';
+import NotificationsDrawerHeader from './NotificationsDrawerHeader';
 
-interface SettingsDrawerProps {
+interface NotificationsDrawerProps {
     open: boolean;
     onOpen: () => void;
     onClose: () => void;
 }
 
-export default function SettingsDrawer({ open, onOpen, onClose, ...props } : SettingsDrawerProps) {
+export default function NotificationsDrawer({ open, onOpen, onClose, ...props } : NotificationsDrawerProps) {
     const theme = useTheme();
 
     return (
@@ -29,16 +27,8 @@ export default function SettingsDrawer({ open, onOpen, onClose, ...props } : Set
             }}
         >
 
-            <Stack sx={{ padding: theme.spacing(1), width: theme.layouts.dashboard.settingsDrawerWidth }}>
-                <SettingsHeader onCloseClick={onClose} />
-
-                <Divider />
-
-                <LanguageSettings />
-
-                <Divider />
-
-                <ThemeSettings />
+            <Stack sx={{ padding: theme.spacing(1), width: theme.layouts.dashboard.notificationsDrawerWidth }}>
+                <NotificationsDrawerHeader onCloseClick={onClose} />
 
                 <Divider />
             </Stack>

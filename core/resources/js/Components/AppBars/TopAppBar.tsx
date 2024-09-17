@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Stack, Typography, useTheme } from '@mui/material';
 import NavigationToggle from './NavigationToggle';
-import AppBarLogo from '../Logos/AppBarLogo';
 import AppBarLogin from '@/Domains/Auth/Components/AppBarLogin';
 import AuthContext from '@/Contexts/AuthContext';
 import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
-import NotificationButton from '../Notifications/NotificationButton';
+import NotificationsButton from '../Notifications/NotificationsButton';
 import SettingsButton from '../Settings/SettingsButton';
 import SearchButton from '../Search/SearchButton';
 
@@ -72,7 +71,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
 
                         <SearchButton />
 
-                        <NotificationButton />
+                        <NotificationsButton />
 
                         <SettingsButton />
 
