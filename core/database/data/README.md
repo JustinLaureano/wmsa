@@ -135,3 +135,30 @@ WHERE sia.skid_id IN
 )
 ;
 ```
+
+Trimming employees that aren't active in other tables
+
+
+```sql
+DELETE FROM wms_dev.tblemployee where emp_num not in (
+
+	SELECT distinct(clock_number) as emp_num FROM wms_dev.tblwms_user_login
+
+	union
+
+	SELECT distinct(clock_number) as emp_num FROM wms_dev.skid_lock_employees
+
+	union
+
+	SELECT distinct(clock_number) as emp_num FROM wms_dev.inventory_auditors
+
+	-- union
+
+	-- SELECT distinct(clock_number) as emp_num FROM wms_dev.departmental_group_employees
+
+	union
+
+	SELECT distinct(clock_number) as emp_num FROM wms_dev.tblsortlist_inventory_admins
+
+);
+```
