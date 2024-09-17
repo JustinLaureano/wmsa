@@ -55,3 +55,9 @@ legacy environment
         this will keep them in sync so a hard cutover will not be required, but can be gradual
 
         have to be careful that imports do not fire any sap transactions
+
+
+sap-data-mocker
+    create a simple application to generate document records that come from SAP.
+        delivery documents
+        material documents
