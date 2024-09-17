@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\MachineType;
+use App\Models\MaterialContainerType;
 use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Seeder;
 
-class MachineTypeSeeder extends Seeder
+class MaterialContainerTypeSeeder extends Seeder
 {
     use Timestamps;
 
@@ -15,7 +15,7 @@ class MachineTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $file = fopen(database_path('data/machine_types.csv'), 'r');
+        $file = fopen(database_path('data/material_container_types.csv'), 'r');
 
         $types = [];
 
@@ -33,6 +33,6 @@ class MachineTypeSeeder extends Seeder
             ], $this->getTimestamps());
         }
 
-        MachineType::insert($types);
+        MaterialContainerType::insert($types);
     }
 }
