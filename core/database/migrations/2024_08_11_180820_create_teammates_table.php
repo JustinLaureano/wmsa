@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('teammates', function (Blueprint $table) {
             $table->bigInteger('clock_number')->primary();
-            $table->string('name');
-            $table->string('password')->default(Hash::make('password'));
-            $table->rememberToken();
+            $table->string('first_name', 40);
+            $table->string('last_name', 40);
+            $table->date('hire_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

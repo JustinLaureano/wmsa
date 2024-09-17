@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('movement_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 25);
+            $table->string('code', 20);
             $table->string('description', 100)->nullable();
             $table->timestamps();
             $table->softDeletes();

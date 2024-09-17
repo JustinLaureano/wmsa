@@ -29,7 +29,8 @@ class MovementStatusSeeder extends Seeder
 
             $statuses[] = array_merge([
                 'name' => $data[0],
-                'description' => $data[1]
+                'code' => $data[1],
+                'description' => $data[2]
             ], $this->getTimestamps());
         }
 

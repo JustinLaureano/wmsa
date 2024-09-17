@@ -1,0 +1,11 @@
+  00000001/16/240000Q600000000000 OTTAWARUBBER1030         607760      011624S000566026
+
+1.	000000 – PSAM Part number (8 characters, left padded with spaces)
+2.	01/16/24 – MFG. date (M/D/Y format)
+3.	000Q600 – Quantity 600, is 0000Q600.  A quantity of 10,000 would be 00Q10000
+4.	000000000 – Clock Number is an internal field, pad with 9 0s.
+5.	OTTAWARUBBER – Supplier name (13 characters, left padded spaces)
+6.	1030 – Time the label was produced (HHMM) 24hour format.  6:00 PM would be 1800.
+7.	607760 – Supplier part number (15 characters, left padded with spaces)
+8.	011624 – Supplier lot number (MMDDYY 12 characters, left padded with spaces)
+9.	S000566026 – Serial Number (10 characters, prepended with an S)

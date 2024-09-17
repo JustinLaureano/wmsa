@@ -1,6 +1,6 @@
-name,description
-"Unrestricted Use","Available for use or movement in production"
-"Restricted/Blocked","These materials cannot be moved or used in production"
-"Quarantine","These materials cannot be moved until further inspection"
-"Inspection Hold","Movement halted until quality inspection is verified"
-"Quality Check","A checkpoint to evaluate necessary standards"
+name,code,description
+"Unrestricted Use","unrestricted","Available for use or movement in production"
+"Restricted/Blocked","restricted","These materials cannot be moved or used in production"
+"Quarantine","quarantine","These materials cannot be moved until further inspection"
+"Inspection Hold","inspection-hold","Movement halted until quality inspection is verified"
+"Quality Check","quality-check","A checkpoint to evaluate necessary standards"
