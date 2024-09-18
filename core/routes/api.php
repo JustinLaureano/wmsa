@@ -25,7 +25,7 @@ Route::post('/localization', [LocalizationController::class, 'set'])->name('loca
 
 Route::get('/barcode', function () {
     $con = MaterialContainer::inRandomOrder()->first();
-    $barcode = BarcodeFactory::create($con->barcode);
+    $barcode = BarcodeFactory::make($con->barcode);
 
     return response()->json([
         'string' => $con->barcode,

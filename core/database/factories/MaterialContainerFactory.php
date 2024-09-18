@@ -31,10 +31,9 @@ class MaterialContainerFactory extends Factory
          *   use material container data object to create instead
          */
 
-        $barcode = BarcodeFactory::create( BarcodeFaker::make()->getBarcode() );
+        $barcode = BarcodeFactory::make( BarcodeFaker::make()->getBarcode() );
 
         $material = Material::where('part_number', $barcode->getPartNumber())->first();
-
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
         $storageLocation = StorageLocation::inRandomOrder()->first();
         $movementStatus = MovementStatus::where('code', MovementStatusEnum::UNRESTRICTED)->first();

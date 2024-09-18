@@ -2,17 +2,17 @@
 
 namespace App\Domain\Materials\Support\Barcode;
 
-abstract class BarcodeBase
+use App\Domain\Materials\Contracts\BarcodeContract;
+
+abstract class Barcode implements BarcodeContract
 {
     protected string $barcode;
 
-    /** @var string */
-    protected $barcodeType;
+    protected string $barcodeType;
 
-    /** @var string */
     protected string $partNumber;
 
-    protected int|string|null $quantity;
+    protected int|null $quantity;
 
     /**
      * Create a new class instance.
@@ -35,7 +35,7 @@ abstract class BarcodeBase
     /**
      * Set the barcode string value.
      */
-    protected function setBarcode(string $barcode) : self
+    public function setBarcode(string $barcode) : self
     {
         $this->barcode = trim($barcode);
 
@@ -79,17 +79,17 @@ abstract class BarcodeBase
     /**
      * Return the barcode quantity value.
      */
-    public function getQuantity() : string|int|null
+    public function getQuantity() : int
     {
-        return $this->quantity;
+        return (int) $this->quantity;
     }
 
     /**
      * Set the quantity value parsed from the barcode string.
      */
-    protected function setQuantity(string|int $quantity) : self
+    protected function setQuantity(int $quantity) : self
     {
-        $this->quantity = (string) $quantity;
+        $this->quantity = (int) $quantity;
 
         return $this;
     }

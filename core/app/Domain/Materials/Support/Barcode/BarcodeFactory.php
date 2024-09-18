@@ -2,9 +2,11 @@
 
 namespace App\Domain\Materials\Support\Barcode;
 
+use App\Domain\Materials\Contracts\BarcodeContract;
+
 class BarcodeFactory
 {
-    public static function create($barcode): BarcodeBase
+    public static function make($barcode): BarcodeContract
     {
         // if (strrpos($barcode, '/') === strlen($barcode) - 5) {
         //     return new CompoundBarcode($barcode);
@@ -22,6 +24,8 @@ class BarcodeFactory
         //     return new MoldBarcode($barcode);
         // }
 
-        return new MaterialBarcode($barcode);
+        $data = MaterialBarcodeParser::toData($barcode);
+
+        return MaterialBarcode::from($data);
     }
 }
