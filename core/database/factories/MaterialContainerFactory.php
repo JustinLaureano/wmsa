@@ -46,7 +46,7 @@ class MaterialContainerFactory extends Factory
             'storage_location_id' => $storageLocation->id,
             'movement_status_id' => $movementStatus->id,
             'barcode' => $barcode->getBarcode(),
-            'quantity' => fake()->numberBetween(1, 500),
+            'quantity' => $barcode->getQuantity(),
         ];
     }
 }

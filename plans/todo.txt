@@ -3,7 +3,9 @@ to get to mvp
 material container factory
     barcode faker
 
-Create barcode faker class
+move material barcode parser logic into own class
+implement in barcode factory
+
 seed material_containers properly
 
 
