@@ -14,21 +14,3 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('/localization', [LocalizationController::class, 'set'])->name('localization');
-
-
-
-
-
-
-
-/** Test routes */
-
-Route::get('/barcode', function () {
-    $con = MaterialContainer::inRandomOrder()->first();
-    $barcode = BarcodeFactory::make($con->barcode);
-
-    return response()->json([
-        'string' => $con->barcode,
-        'barcode' => $barcode->toArray()
-    ]);
-});

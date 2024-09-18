@@ -7,16 +7,16 @@ use Spatie\LaravelData\Data;
 class MaterialBarcodeData extends Data
 {
     public function __construct(
-        public string $barcode,
-        public string $partNumber,
-        public int $quantity,
-        public string $manufactureDate,
-        public string $clockNumber,
-        public string $supplier,
-        public string $time,
-        public string $supplierPartNumber,
-        public string $lotNumber,
-        public string $serialNumber
+        public readonly string $barcode,
+        public readonly string $partNumber,
+        public readonly int $quantity,
+        public readonly string $manufactureDate,
+        public readonly string $clockNumber,
+        public readonly string $supplier,
+        public readonly string $time,
+        public readonly string $supplierPartNumber,
+        public readonly string $lotNumber,
+        public readonly string $serialNumber
     ) {
 
     }

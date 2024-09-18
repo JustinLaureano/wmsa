@@ -3,7 +3,6 @@
 namespace App\Domain\Requests\Actions;
 
 use App\Domain\Requests\DataTransferObjects\RequestData;
-use App\Domain\Requests\Events\RequestCreated;
 use App\Domain\Requests\Jobs\StoreRequestRecord;
 use App\Domain\Requests\Jobs\UpsertRecentRequestsCache;
 
