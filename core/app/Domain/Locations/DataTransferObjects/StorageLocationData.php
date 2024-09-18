@@ -17,7 +17,7 @@ class StorageLocationData extends Data
         public int $position,
         public int $max_containers,
         public int $disabled,
-        public int $allocatable
+        public int $reservable
     ) {
 
     }

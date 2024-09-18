@@ -1,0 +1,101 @@
+User Stories
+    Production
+        Material gets requested to a machine
+
+        a teammate moves material to a machine to satisfy a material request
+
+        a teammate moves material from one location to another
+
+        a teammate wants to update a quantity of a material
+
+
+    IRM
+        receive in inventory
+
+        move inventory
+
+        use inventory
+
+        set safety stock levels of chemicals
+
+        see live inventory levels of chemicals
+
+
+    Quality
+        add a material to the sort list
+
+        view the current sort list
+
+        view the current inventory at the sort stations
+
+        view historical data about the sort list
+
+        lock/unlock skids from movement
+
+        monitor the mrb inventory
+
+
+    Shipping
+        view upcoming deliveries
+
+        mark inventory as being staged for delivery
+
+        submit delivery to SAP
+
+        modify the delivery document details after they have been sent from SAP
+
+
+    Receiving
+        scan incoming materials as received
+
+        submit this data to SAP when finished with the receiving process
+
+
+    Materials
+        see all materials in inventory
+
+        perform audits on materials
+
+        keep KPI's on materials and warehouse capacity
+
+        send notifications regarding recycled rubber trailers
+
+        configure the optimal routing for material through its lifecycle in the plant
+
+        configure unique properties about a material
+
+        set safety stock levels that can trigger notifications
+
+        see expiration dates for materials in danger of expiring
+
+
+    Locations
+        view SAP configurations and change if required
+
+        view storage locations
+
+        edit storage locations
+
+        view/edit the organization and wareouse details
+
+
+    Engineering
+        view current mold locations
+
+        move a mold to another location
+
+        keep a cleaning log for all molds
+
+        manage parts in inventory on engineering racks
+
+        manage standard rates for engineering data
+
+
+    Support
+        interact with IT support for any problems they may be facing
+
+
+    Authorization
+        view/edit user permissions to perform certain tasks
+
+

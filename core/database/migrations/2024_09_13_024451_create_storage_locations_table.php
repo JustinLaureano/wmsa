@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('position')->nullable();
             $table->integer('max_containers')->nullable();
             $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('allocatable')->default(1);
+            $table->tinyInteger('reservable')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

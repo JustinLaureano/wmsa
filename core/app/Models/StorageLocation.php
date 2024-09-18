@@ -31,7 +31,7 @@ class StorageLocation extends Model
         'barcode',
         'max_containers',
         'disabled',
-        'allocatable',
+        'reservable',
     ];
 
     /**

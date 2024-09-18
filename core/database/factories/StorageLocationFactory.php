@@ -27,7 +27,7 @@ class StorageLocationFactory extends Factory
             'barcode' => fake()->sha1(),
             'max_containers' => $type->default_max_containers,
             'disabled' => 0,
-            'allocatable' => 1,
+            'reservable' => 1,
         ];
     }
 }

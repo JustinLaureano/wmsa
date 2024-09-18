@@ -60,11 +60,11 @@ class StorageLocationSeeder extends Seeder
         foreach ($csvReader->toArray() as $data) {
             foreach ($data as $key => $row) {
 
-                $name = $this->areas[$row['building']][$row['area']]['building_id'] 
-                    .'-'. $row['area'] 
-                    .'-'. $row['aisle'] 
-                    .'-'. $row['bay'] 
-                    .'-'. $row['shelf'] 
+                $name = $this->areas[$row['building']][$row['area']]['building_id']
+                    .'-'. $row['area']
+                    .'-'. $row['aisle']
+                    .'-'. $row['bay']
+                    .'-'. $row['shelf']
                     .'-'. $row['position'];
 
                 $areaId = $this->areas[$row['building']][$row['area']]['id'];
@@ -80,7 +80,7 @@ class StorageLocationSeeder extends Seeder
                     position: $row['position'],
                     max_containers: 1,
                     disabled: $row['disabled'],
-                    allocatable: $row['exclude_allocations'] ? 0 : 1
+                    reservable: $row['exclude_allocations'] ? 0 : 1
                 );
 
                 $data[$key] = array_merge(

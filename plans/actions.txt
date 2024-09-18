@@ -1,0 +1,16 @@
+Production
+    CreateMaterialRequestAction
+        StoreMaterialRequest
+        StoreActionEvent
+        AllocateMaterial
+        UpdateCurrentMaterialRequestList
+
+    UpdateMaterialRequestAction
+        UpdateMaterialRequest
+        StoreActionEvent
+        UpdateCurrentMaterialRequestList
+
+    CloseMaterialRequestAction
+        UpdateMaterialRequest
+        StoreActionEvent
+        UpdateCurrentMaterialRequestList

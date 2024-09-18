@@ -131,7 +131,7 @@ storage_locations:
         - barcode
         - max_containers (nullable)
         - disabled
-        - allocatable
+        - reservable
         - split_request (?)
     relationships:
         - building: has one building
