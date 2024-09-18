@@ -1,6 +1,7 @@
 to get to mvp
 
-seed teammates db
+material container factory
+    barcode faker
 
 Create barcode faker class
 seed material_containers properly

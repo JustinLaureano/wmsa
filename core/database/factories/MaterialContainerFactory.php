@@ -22,6 +22,12 @@ class MaterialContainerFactory extends Factory
      */
     public function definition(): array
     {
+        /**
+         * TODO:
+         *   create barcode faker
+         *   use it to fill in blanks in factory fields
+         */
+
         $material = Material::inRandomOrder()->first();
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
         $storageLocation = StorageLocation::inRandomOrder()->first();
