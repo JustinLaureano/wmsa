@@ -1,7 +1,5 @@
 to get to mvp
 
-finish material container model
-
 seed teammates db
 
 Create barcode faker class

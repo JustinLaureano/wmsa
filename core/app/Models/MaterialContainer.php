@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -32,4 +33,48 @@ class MaterialContainer extends Model
         'barcode',
         'quantity',
     ];
+
+    /**
+     * Get the material for this container.
+     */
+    public function material(): HasOne
+    {
+        return $this->hasOne(Material::class, 'material_id', 'id');
+    }
+
+    /**
+     * Get the type for this container.
+     */
+    public function containerType(): HasOne
+    {
+        return $this->hasOne(
+                MaterialContainerType::class,
+                'material_container_type_id',
+                'id'
+            );
+    }
+
+    /**
+     * Get the storage location for this container.
+     */
+    public function location(): HasOne
+    {
+        return $this->hasOne(
+                StorageLocation::class,
+                'storage_location_id',
+                'id'
+            );
+    }
+
+    /**
+     * Get the movement status for this container.
+     */
+    public function movementStatus(): HasOne
+    {
+        return $this->hasOne(
+                MovementStatus::class,
+                'movement_status_id',
+                'id'
+            );
+    }
 }
