@@ -1,9 +1,7 @@
 <?php
 
-use App\Models\Material;
 use App\Models\MaterialContainerType;
 use App\Models\MovementStatus;
-use App\Models\StorageLocation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;

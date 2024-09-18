@@ -1,9 +1,5 @@
 to get to mvp
 
-material container
-    change material relationship from id to uuid
-    update seeder and factory
-
 
 material container factory
     barcode faker
