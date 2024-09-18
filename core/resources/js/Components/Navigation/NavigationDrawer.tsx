@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { router } from '@inertiajs/react';
 import {
-	Box, Drawer, IconButton, List, ListItem, ListItemButton,
+	Box, Drawer, List, ListItem, ListItemButton,
 	ListItemIcon, ListItemText, styled, Tooltip, Typography, useMediaQuery, useTheme
 } from '@mui/material';
-import { Brightness6, LightMode } from '@mui/icons-material';
+import { Brightness6 } from '@mui/icons-material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import UIContext from '@/Contexts/UIContext';
@@ -33,7 +34,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 
 	const links = [
 		{ label: 'Home', icon: '', route: route('home') },
-		{ label: 'Requests', icon: '', route: route('home') },
+		{ label: 'Production', icon: '', route: route('production.requests') },
 		{ label: 'Receiving', icon: '', route: route('home') },
 		{ label: 'Shipping', icon: '', route: route('home') },
 		{ label: 'IRM', icon: '', route: route('home') },
@@ -106,7 +107,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 					{links.map((link, index) => (
 						<ListItemWrapper link={link} key={index}>
 							<ListItem disablePadding >
-								<ListItemButton>
+								<ListItemButton onClick={() => router.get(link.route)}>
 									<ListItemIcon>
 										{index % 2 === 0 ? <InboxIcon /> : <Brightness6 />}
 									</ListItemIcon>

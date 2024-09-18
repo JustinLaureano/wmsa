@@ -1,0 +1,68 @@
+# Pages (Routes)
+
+
+## Production
+    view requests
+        material
+        phosphate
+    create requests
+        new material
+        new phosphate
+        new cardboard
+    put away / stock transfer
+
+
+## IRM
+    irm chemical inventory
+    irm chemical receiving
+    irm chemical movement
+    chemical management
+
+
+## Quality
+    sort list
+    sort inventory
+    sort history
+    sort admin management
+    skid locks / quarantine management
+
+
+
+## Shipping
+    shipping requests
+    new shipping request
+    shipping delivery docs/management
+
+
+## Receiving
+    receiving process for sap
+    document log
+
+
+## Materials
+    part search
+    part inventory
+    safety stocks
+
+## Locations
+    building (warehouse) KPI
+    location management
+
+
+## Engineering
+    - mold stuff here at some point
+
+
+
+## Support
+    debug page
+
+
+
+## Authorization
+    user management
+    teammate management
+    role/permission management
+
+
+## Uncategorized

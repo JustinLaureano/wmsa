@@ -14,6 +14,7 @@ return [
     'lang_code' => 'es',
 
     'home' => 'Hogar',
+    'requests' => 'Solicitudes',
 
     'email' => 'correo',
     'password' => 'Contraseña',

@@ -1,8 +1,6 @@
 <?php
 
-use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Http\Controllers\LocalizationController;
-use App\Models\MaterialContainer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

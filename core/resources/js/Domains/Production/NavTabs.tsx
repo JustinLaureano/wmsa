@@ -1,23 +1,21 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Box, Tab, Tabs } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { Box } from '@mui/material';
 import StyledTabs from '@/Components/Styled/StyledTabs';
 import StyledTab from '@/Components/Styled/StyledTab';
 
-export default function HomeTabs(props : Record<string, any>) {
+export default function NavTabs(props : Record<string, any>) {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
+        setValue(newValue);
     };
 
     return (
         <Box>
             <StyledTabs value={value} onChange={handleChange}>
-                <StyledTab label="Overview"></StyledTab>
-                <StyledTab label="Reports"></StyledTab>
-                <StyledTab label="Analytics"></StyledTab>
+                <StyledTab label="Material Requests"></StyledTab>
+                <StyledTab label="New Request"></StyledTab>
+                <StyledTab label="Stock Transfer"></StyledTab>
             </StyledTabs>
         </Box>
     )

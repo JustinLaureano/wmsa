@@ -13,6 +13,7 @@ return [
     'lang_code' => 'en',
 
     'home' => 'Home',
+    'requests' => 'Requests',
 
     'email' => 'Email',
     'password' => 'Password',

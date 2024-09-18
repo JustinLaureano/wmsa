@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ClockinController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::middleware('guest')->group(function () {
 
@@ -24,6 +25,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth:teammate')
-    ->post('clockout', [ClockinController::class, 'destroy'])
-    ->name('clockout');
+Route::middleware('auth:teammate')->group(function () {
+
+    Route::get('/teammates', function () {
+            return Inertia::render('Test/Teammates');
+        })
+        ->name('teammates');
+
+    Route::post('clockout', [ClockinController::class, 'destroy'])
+        ->name('clockout');
+});
