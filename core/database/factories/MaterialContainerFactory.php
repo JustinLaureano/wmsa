@@ -41,9 +41,9 @@ class MaterialContainerFactory extends Factory
 
         return [
             'uuid' => Str::uuid(),
-            'material_id' => $material->id,
+            'material_uuid' => $material->uuid,
             'material_container_type_id' => $materialContainerType->id,
-            'storage_location_id' => $storageLocation->id,
+            'storage_location_uuid' => $storageLocation->uuid,
             'movement_status_id' => $movementStatus->id,
             'barcode' => $barcode->getBarcode(),
             'quantity' => $barcode->getQuantity(),

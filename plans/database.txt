@@ -211,12 +211,12 @@ material_container_types:
 
 material_containers:
     attributes:
-        - material_id
+        - material_uuid
         - material_container_type_id
         - barcode
         - quantity
 
-        - storage_location_id
+        - storage_location_uuid
             reason:
                 can keep this here because it is always a 'to one' relationship
                 from the container side of things.
@@ -253,7 +253,7 @@ material_containers:
 
 material_routing:
     attributes:
-        - material_id
+        - material_uuid
     relationship:
         material: has one material
 
@@ -274,9 +274,9 @@ material_request_statuses:
 
 material_requests:
     attributes:
-        - material_id
+        - material_uuid
         - machine_id (nullable)
-        - storage_location_id (nullable)
+        - storage_location_uuid (nullable)
         - status_id
         - teammate_id (nullable maybe?)
             reason:

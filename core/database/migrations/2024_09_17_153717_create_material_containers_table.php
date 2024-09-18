@@ -19,9 +19,14 @@ return new class extends Migration
         Schema::create('material_containers', function (Blueprint $table) {
             $table->id();
             $table->uuid()->index();
-            $table->foreignIdFor(Material::class);
+            $table->foreignUuid('material_uuid')
+                ->references('uuid')
+                ->on('materials');
             $table->foreignIdFor(MaterialContainerType::class)->nullable();
-            $table->foreignIdFor(StorageLocation::class)->nullable();
+            $table->foreignUuid('storage_location_uuid')
+                ->references('uuid')
+                ->on('storage_locations')
+                ->nullable();
             $table->foreignIdFor(MovementStatus::class, 'movement_status_id');
             $table->string('barcode', 100);
             $table->integer('quantity');

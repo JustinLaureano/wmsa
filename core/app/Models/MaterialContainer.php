@@ -26,9 +26,9 @@ class MaterialContainer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'material_id',
+        'material_uuid',
         'material_container_type_id',
-        'storage_location_id',
+        'storage_location_uuid',
         'movement_status_id',
         'barcode',
         'quantity',
@@ -39,7 +39,7 @@ class MaterialContainer extends Model
      */
     public function material(): HasOne
     {
-        return $this->hasOne(Material::class, 'material_id', 'id');
+        return $this->hasOne(Material::class, 'material_uuid', 'uuid');
     }
 
     /**
@@ -61,8 +61,8 @@ class MaterialContainer extends Model
     {
         return $this->hasOne(
                 StorageLocation::class,
-                'storage_location_id',
-                'id'
+                'storage_location_uuid',
+                'uuid'
             );
     }
 
