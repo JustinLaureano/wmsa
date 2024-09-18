@@ -1,26 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import {
-	Box, Drawer, List, ListItem, ListItemButton,
-	ListItemIcon, ListItemText, styled, Tooltip, Typography, useMediaQuery, useTheme
+	Box, Drawer, ListItem, ListItemButton,
+	ListItemIcon, ListItemText, Tooltip, Typography, useMediaQuery, useTheme
 } from '@mui/material';
 import { Brightness6 } from '@mui/icons-material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
-
-const NavList = styled(List)({
-
-	'& .MuiListItemIcon-root': {
-	  minWidth: 0,
-	  marginRight: 18,
-	},
-
-	'& .MuiSvgIcon-root': {
-		fontSize: 20,
-	  },
-  });
+import StyledNavList from '@/Components/Styled/StyledNavList';
 
 export default function NavigationDrawer(props: Record<string, any>) {
 	const theme = useTheme();
@@ -103,7 +92,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		>
 
 			<Box sx={{ overflow: 'scroll', '::-webkit-scrollbar': { display: 'none' } }}>
-				<NavList component="nav">
+				<StyledNavList component="nav">
 					{links.map((link, index) => (
 						<ListItemWrapper link={link} key={index}>
 							<ListItem disablePadding >
@@ -128,7 +117,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 							</ListItem>
 						</ListItemWrapper>
 					))}
-				</NavList>
+				</StyledNavList>
 
 			</Box>
 		</Drawer>
