@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Domain\Materials\Enums\MovementStatus as MovementStatusEnum;
+use App\Domain\Materials\Support\Barcode\BarcodeFactory;
+use App\Domain\Materials\Support\Fakers\BarcodeFaker;
 use App\Models\Material;
 use App\Models\MaterialContainerType;
 use App\Models\MovementStatus;
@@ -24,11 +26,15 @@ class MaterialContainerFactory extends Factory
     {
         /**
          * TODO:
-         *   create barcode faker
-         *   use it to fill in blanks in factory fields
+         *   use barcode to fill in blanks in factory fields
+         *
+         *   use material container data object to create instead
          */
 
-        $material = Material::inRandomOrder()->first();
+        $barcode = BarcodeFactory::create( BarcodeFaker::make()->getBarcode() );
+
+        $material = Material::where('part_number', $barcode->getPartNumber())->first();
+
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
         $storageLocation = StorageLocation::inRandomOrder()->first();
         $movementStatus = MovementStatus::where('code', MovementStatusEnum::UNRESTRICTED)->first();
@@ -39,7 +45,7 @@ class MaterialContainerFactory extends Factory
             'material_container_type_id' => $materialContainerType->id,
             'storage_location_id' => $storageLocation->id,
             'movement_status_id' => $movementStatus->id,
-            'barcode' => fake()->bothify('  ########/##/##000000Q##0000#####       ??????####         ######     ######?00#######'),
+            'barcode' => $barcode->getBarcode(),
             'quantity' => fake()->numberBetween(1, 500),
         ];
     }
