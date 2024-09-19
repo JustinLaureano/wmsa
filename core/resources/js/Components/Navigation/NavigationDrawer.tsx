@@ -4,7 +4,7 @@ import {
 	Box, Drawer, ListItem, ListItemButton,
 	ListItemIcon, ListItemText, Tooltip, Typography, useMediaQuery, useTheme
 } from '@mui/material';
-import { Home, Factory, Inventory, LocalShipping, PrecisionManufacturing, Verified, Warehouse } from '@mui/icons-material';
+import { Home, Factory, Inventory, LocalShipping, PrecisionManufacturing, Verified, Warehouse, AssignmentTurnedIn } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
 import StyledNavList from '@/Components/Styled/StyledNavList';
@@ -22,10 +22,11 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		{ label: 'Home', icon: <Home />, route: route('home') },
 		{ label: 'Production', icon: <PrecisionManufacturing />, route: route('production.requests') },
 		{ label: 'IRM', icon: <Factory />, route: route('home') },
-		{ label: 'Receiving', icon: <Warehouse />, route: route('home') },
+		{ label: 'Receiving', icon: <AssignmentTurnedIn />, route: route('home') }, // TODO: change
 		{ label: 'Shipping', icon: <LocalShipping />, route: route('home') },
-		{ label: 'Materials', icon: <Inventory />, route: route('home') },
 		{ label: 'Quality', icon: <Verified />, route: route('home') },
+		{ label: 'Materials', icon: <Inventory />, route: route('home') },
+		{ label: 'Locations', icon: <Warehouse />, route: route('home') },
 	];
 
 	const handleDrawerToggle = (e: React.MouseEvent<HTMLElement>) => {

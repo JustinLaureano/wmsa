@@ -1,6 +1,12 @@
 to get to mvp
 
 
+get front end page framework working
+    materials first
+    link to header bar and meta title tag
+    highlight nav bar icons on active page
+
+
 create material container repository
 seed material_containers properly
 
