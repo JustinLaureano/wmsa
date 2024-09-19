@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
 import StyledTabs from '@/Components/Styled/StyledTabs';
 import StyledTab from '@/Components/Styled/StyledTab';
+import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
 
 export default function NavTabs(props : Record<string, any>) {
     const [value, setValue] = useState(0);
@@ -11,12 +11,12 @@ export default function NavTabs(props : Record<string, any>) {
     };
 
     return (
-        <Box>
+        <StyledTabsContainer>
             <StyledTabs value={value} onChange={handleChange}>
                 <StyledTab label="Material Requests"></StyledTab>
                 <StyledTab label="New Request"></StyledTab>
                 <StyledTab label="Stock Transfer"></StyledTab>
             </StyledTabs>
-        </Box>
+        </StyledTabsContainer>
     )
 }
