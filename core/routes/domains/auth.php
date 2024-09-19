@@ -5,18 +5,19 @@ use App\Http\Controllers\Auth\ClockinController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
+Route::get('clockin', [ClockinController::class, 'create'])
+->name('clockin');
+
+Route::post('clockin', [ClockinController::class, 'store']);
+
+
 Route::middleware('guest')->group(function () {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
-    Route::get('clockin', [ClockinController::class, 'create'])
-        ->name('clockin');
-
-    Route::post('clockin', [ClockinController::class, 'store']);
-
 });
 
 Route::middleware('auth')->group(function () {

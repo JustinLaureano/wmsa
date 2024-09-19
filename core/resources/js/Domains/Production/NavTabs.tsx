@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
-import StyledTabs from '@/Components/Styled/StyledTabs';
-import StyledTab from '@/Components/Styled/StyledTab';
-import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
+import React from 'react';
+import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
 
 export default function NavTabs(props : Record<string, any>) {
-    const [value, setValue] = useState(0);
+    const href = window.location.href;
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+    const tabs = [
+        { label: 'Material Requests', route: route('production.requests') },
+        { label: 'New Request', route: route('production.requests.create') },
+    ]
+
+    let value = 0;
+
+    tabs.map((tab, index) => {
+        if (href == tab.route) {
+            value = index;
+        }
+    })
 
     return (
-        <StyledTabsContainer>
-            <StyledTabs value={value} onChange={handleChange}>
-                <StyledTab label="Material Requests"></StyledTab>
-                <StyledTab label="New Request"></StyledTab>
-                <StyledTab label="Stock Transfer"></StyledTab>
-            </StyledTabs>
-        </StyledTabsContainer>
+        <SubpageNavigationTabs
+            tabs={tabs}
+            value={value}
+        />
     )
 }

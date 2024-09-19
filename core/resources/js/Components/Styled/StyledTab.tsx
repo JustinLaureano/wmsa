@@ -1,8 +1,10 @@
 import { styled } from '@mui/material/styles';
 import { Tab } from '@mui/material';
+import { Link } from '@inertiajs/react';
 
 interface StyledTabProps {
     label: string;
+    onClick: () => void;
 }
 
 const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
