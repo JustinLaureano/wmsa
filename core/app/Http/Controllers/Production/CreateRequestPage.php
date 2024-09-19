@@ -13,6 +13,6 @@ class CreateRequestPage extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('Production/Requests/Create');
+        return Inertia::render('Production/Requests/CreateRequest');
     }
 }

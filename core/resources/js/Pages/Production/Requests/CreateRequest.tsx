@@ -3,9 +3,9 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import PageHeader from '@/Domains/Production/Layout/Header/PageHeader';
 
-interface MaterialRequestsProps {}
+interface CreateRequestProps {}
 
-export default function MaterialRequests({ ...props } : MaterialRequestsProps) {
+export default function CreateRequest({ ...props } : CreateRequestProps) {
     const { lang } = useContext(LanguageContext);
 
     return (

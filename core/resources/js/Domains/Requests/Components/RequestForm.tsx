@@ -13,6 +13,10 @@ const FormStack = ({ children, ...props } : any) => {
     )
 }
 
+/**
+ * TODO: get rid of this class
+ */
+
 export default function RequestForm({ onSubmitSuccess = () => {} }: any) {
     const lang = useContext(LanguageContext);
 

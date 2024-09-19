@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StyledTabs from '@/Components/Styled/StyledTabs';
 import StyledTab from '@/Components/Styled/StyledTab';
 import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
@@ -11,15 +11,29 @@ interface TabInterface {
 
 interface SubpageNavigationTabsProps {
     tabs: TabInterface[];
-    value: number;
-    onChange: (event: React.SyntheticEvent, newValue: number) => void;
 }
 
-export default function SubpageNavigationTabs({ tabs, value, onChange } : SubpageNavigationTabsProps) {
+export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsProps) {
+
+    const href = window.location.href;
+
+    let initialValue = 0;
+
+    tabs.map((tab, index) => {
+        if (href == tab.route) {
+            initialValue = index;
+        }
+    })
+
+    const [value, setValue] = useState(initialValue);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+    };
 
     return (
         <StyledTabsContainer>
-            <StyledTabs value={value} onChange={onChange}>
+            <StyledTabs value={value} onChange={handleChange}>
                 { tabs.map((tab : TabInterface, index) => (
                     <StyledTab
                         key={index}
