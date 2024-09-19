@@ -4,9 +4,7 @@ import {
 	Box, Drawer, ListItem, ListItemButton,
 	ListItemIcon, ListItemText, Tooltip, Typography, useMediaQuery, useTheme
 } from '@mui/material';
-import { Brightness6 } from '@mui/icons-material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import ColorModeContext from '@/Contexts/ColorModeContext';
+import { Home, Factory, Inventory, LocalShipping, PrecisionManufacturing, Verified, Warehouse } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
 import StyledNavList from '@/Components/Styled/StyledNavList';
@@ -14,7 +12,6 @@ import StyledNavList from '@/Components/Styled/StyledNavList';
 export default function NavigationDrawer(props: Record<string, any>) {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-	const colorMode = useContext(ColorModeContext);
 	const { navigationDrawerOpen, setNavigationDrawerOpen } = useContext(UIContext);
 
 	const drawerWidth = navigationDrawerOpen
@@ -22,13 +19,13 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		: theme.layouts.dashboard.drawerRailWidth;
 
 	const links = [
-		{ label: 'Home', icon: '', route: route('home') },
-		{ label: 'Production', icon: '', route: route('production.requests') },
-		{ label: 'Receiving', icon: '', route: route('home') },
-		{ label: 'Shipping', icon: '', route: route('home') },
-		{ label: 'IRM', icon: '', route: route('home') },
-		{ label: 'Materials', icon: '', route: route('home') },
-		{ label: 'Quality', icon: '', route: route('home') },
+		{ label: 'Home', icon: <Home />, route: route('home') },
+		{ label: 'Production', icon: <PrecisionManufacturing />, route: route('production.requests') },
+		{ label: 'IRM', icon: <Factory />, route: route('home') },
+		{ label: 'Receiving', icon: <Warehouse />, route: route('home') },
+		{ label: 'Shipping', icon: <LocalShipping />, route: route('home') },
+		{ label: 'Materials', icon: <Inventory />, route: route('home') },
+		{ label: 'Quality', icon: <Verified />, route: route('home') },
 	];
 
 	const handleDrawerToggle = (e: React.MouseEvent<HTMLElement>) => {
@@ -98,7 +95,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 							<ListItem disablePadding >
 								<ListItemButton onClick={() => router.get(link.route)}>
 									<ListItemIcon>
-										{index % 2 === 0 ? <InboxIcon /> : <Brightness6 />}
+										{link.icon}
 									</ListItemIcon>
 									<ListItemText
 										primary={

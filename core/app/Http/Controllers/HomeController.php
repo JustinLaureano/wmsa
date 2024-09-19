@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Request;
 use App\Repositories\RequestRepository;
 use Inertia\Inertia;
 

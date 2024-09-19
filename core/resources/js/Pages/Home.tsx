@@ -8,7 +8,6 @@ import HomeTabs from '@/Components/HomeTabs';
 import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function Home({ recentRequests, ...props } : any) {
-    // console.log(recentRequests)
     const theme = useTheme();
     const { lang } = useContext(LanguageContext);
 
