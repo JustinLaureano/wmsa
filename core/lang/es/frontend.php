@@ -15,6 +15,7 @@ return [
 
     'home' => 'Hogar',
     'requests' => 'Solicitudes',
+    'inventory' => 'Inventario',
 
     'email' => 'correo',
     'password' => 'Contraseña',

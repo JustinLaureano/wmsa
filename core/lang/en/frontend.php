@@ -14,6 +14,7 @@ return [
 
     'home' => 'Home',
     'requests' => 'Requests',
+    'inventory' => 'Inventory',
 
     'email' => 'Email',
     'password' => 'Password',

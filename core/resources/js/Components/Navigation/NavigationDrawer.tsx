@@ -25,7 +25,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		{ label: 'Receiving', icon: <AssignmentTurnedIn />, route: route('home') }, // TODO: change
 		{ label: 'Shipping', icon: <LocalShipping />, route: route('home') },
 		{ label: 'Quality', icon: <Verified />, route: route('home') },
-		{ label: 'Materials', icon: <Inventory />, route: route('home') },
+		{ label: 'Materials', icon: <Inventory />, route: route('materials.inventory') },
 		{ label: 'Locations', icon: <Warehouse />, route: route('home') },
 	];
 

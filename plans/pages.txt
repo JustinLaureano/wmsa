@@ -40,8 +40,8 @@
 
 
 ## Materials
-    part search
     part inventory
+    part search
     safety stocks
 
 ## Locations
