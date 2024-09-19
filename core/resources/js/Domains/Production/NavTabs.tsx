@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
 
 export default function NavTabs(props : Record<string, any>) {
@@ -9,18 +9,25 @@ export default function NavTabs(props : Record<string, any>) {
         { label: 'New Request', route: route('production.requests.create') },
     ]
 
-    let value = 0;
+    let initialValue = 0;
 
     tabs.map((tab, index) => {
         if (href == tab.route) {
-            value = index;
+            initialValue = index;
         }
     })
+
+    const [value, setValue] = useState(initialValue);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+    };
 
     return (
         <SubpageNavigationTabs
             tabs={tabs}
             value={value}
+            onChange={handleChange}
         />
     )
 }
