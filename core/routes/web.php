@@ -15,6 +15,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/domains/auth.php';
 require __DIR__.'/domains/irm.php';
+require __DIR__.'/domains/locations.php';
 require __DIR__.'/domains/materials.php';
 require __DIR__.'/domains/production.php';
 require __DIR__.'/domains/quality.php';

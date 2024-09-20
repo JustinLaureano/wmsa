@@ -26,7 +26,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		{ label: 'Shipping', icon: <LocalShipping />, route: route('shipping.requests') },
 		{ label: 'Quality', icon: <Verified />, route: route('quality.sort') },
 		{ label: 'Materials', icon: <Inventory />, route: route('materials.inventory') },
-		{ label: 'Locations', icon: <Warehouse />, route: route('home') },
+		{ label: 'Locations', icon: <Warehouse />, route: route('locations.buildings.kpi') },
 	];
 
 	const handleDrawerToggle = (e: React.MouseEvent<HTMLElement>) => {
