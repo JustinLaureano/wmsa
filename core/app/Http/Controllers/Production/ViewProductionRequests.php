@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class GetProductionRequests extends Controller
+class ViewProductionRequests extends Controller
 {
     /**
      * Handle the incoming request.

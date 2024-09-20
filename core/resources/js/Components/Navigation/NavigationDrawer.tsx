@@ -23,7 +23,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 		{ label: 'Production', icon: <PrecisionManufacturing />, route: route('production.requests') },
 		{ label: 'IRM', icon: <Factory />, route: route('irm.chemicals.inventory') },
 		{ label: 'Receiving', icon: <AssignmentTurnedIn />, route: route('receiving.documents') },
-		{ label: 'Shipping', icon: <LocalShipping />, route: route('home') },
+		{ label: 'Shipping', icon: <LocalShipping />, route: route('shipping.requests') },
 		{ label: 'Quality', icon: <Verified />, route: route('home') },
 		{ label: 'Materials', icon: <Inventory />, route: route('materials.inventory') },
 		{ label: 'Locations', icon: <Warehouse />, route: route('home') },

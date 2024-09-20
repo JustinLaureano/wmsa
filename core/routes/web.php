@@ -18,6 +18,7 @@ require __DIR__.'/domains/irm.php';
 require __DIR__.'/domains/materials.php';
 require __DIR__.'/domains/production.php';
 require __DIR__.'/domains/receiving.php';
+require __DIR__.'/domains/shipping.php';
 
 require __DIR__.'/orders.php';
 require __DIR__.'/test.php';
