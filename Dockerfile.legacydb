@@ -1,0 +1,18 @@
+FROM percona:8.0-centos
+
+ENV TZ=America/Detroit
+
+# Set proper permissions for mysql data
+RUN chown -R mysql:root /var/lib/mysql/
+
+# Add custom config settings
+COPY ./docker/legacydb/conf/config.cnf /etc/my.cnf.d/docker.cnf
+
+COPY ./docker/legacydb/schema_init.sql /docker-entrypoint-initdb.d/schema_init.sql
+COPY ./docker/legacydb/legacy_wms_seed.sql /docker-entrypoint-initdb.d/legacy_wms_seed.sql
+
+# Expose the mysql port
+EXPOSE 3306
+
+# Start mysql service
+CMD ["mysqld", "--default-time-zone=-06:00"]

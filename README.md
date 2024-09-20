@@ -67,6 +67,51 @@ docker-compose down
 ```
 
 
+## Building Local Development Images
+
+To build a container from the `docker-compose.yaml` file, run the following command:
+
+```bash
+docker-compose build <container_name>
+```
+
+You can also build without using the Docker cache:
+```bash
+docker-compose build --no-cache <container_name>
+```
+
+## Running Containers Locally
+
+You can start and run a container with the following command:
+
+```bash
+docker-compose up <container_name>
+```
+
+You can start multiple containers by entering all container names to start
+```bash
+docker-compose up <container_name1> <container_name2>
+```
+
+The `-d` flag will start and run the containers in the background
+```bash
+docker-compose up -d <container_name>
+```
+
+To start all containers in the backgroun
+```bash
+docker-compose up -d
+```
+
+To build and run a container with one command, run the following:
+```bash
+docker-compose up --build <container_name>
+```
+
+To view running containers, run:
+```bash
+docker ps
+```
 
 
 ## Building Deployment Images

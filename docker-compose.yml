@@ -217,6 +217,37 @@ services:
         networks:
             - web
 
+
+    #############################
+    ##### Legacy Containers #####
+    #############################
+
+    # Legacy WMS MySQL database
+    legacydb:
+        build:
+            context: .
+            dockerfile: Dockerfile.legacydb
+        container_name: legacydb
+        ports:
+            - "${FORWARD_DB_PORT:-33061}:3306"
+        environment:
+            - MYSQL_DATABASE=wms
+            - MYSQL_USER=dbuser
+            - MYSQL_PASSWORD=dbuser
+            - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - legacydb-data:/var/lib/mysql
+        networks:
+            - web
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+
 networks:
     web:
         driver: bridge
@@ -224,3 +255,4 @@ networks:
 volumes:
     mysql-data:
     redis-data:
+    legacydb-data:
