@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { grey } from '@mui/material/colors';
 import {
     Box, Button, Dialog, DialogContent,
@@ -41,7 +41,7 @@ export default function AppBarLogin(props: any) {
                 <DialogTitle>Login</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Yada ya
+                        Sign In
                     </DialogContentText>
 
                     <LoginForm onLoginSuccess={handleCloseDialog} />

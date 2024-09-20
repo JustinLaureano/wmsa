@@ -21,7 +21,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 	const links = [
 		{ label: 'Home', icon: <Home />, route: route('home') },
 		{ label: 'Production', icon: <PrecisionManufacturing />, route: route('production.requests') },
-		{ label: 'IRM', icon: <Factory />, route: route('home') },
+		{ label: 'IRM', icon: <Factory />, route: route('irm.chemicals.inventory') },
 		{ label: 'Receiving', icon: <AssignmentTurnedIn />, route: route('home') }, // TODO: change
 		{ label: 'Shipping', icon: <LocalShipping />, route: route('home') },
 		{ label: 'Quality', icon: <Verified />, route: route('home') },
