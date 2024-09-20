@@ -25,8 +25,9 @@ class TeammateFactory extends Factory
     {
         return [
             'clock_number' => '6000',
-            'name' => 'process',
-            'password' => static::$password ??= Hash::make('password'),
+            'first_name' => 'process',
+            'last_name' => 'worker',
+            'hire_date' => fake()->dateTimeBetween(startDate: '-10 years'),
         ];
     }
 }

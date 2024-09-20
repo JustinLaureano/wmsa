@@ -33,6 +33,8 @@ class Teammate extends Model implements AuthenticatableContract
      */
     protected $fillable = [
         'clock_number',
-        'name',
+        'first_name',
+        'last_name',
+        'hire_date',
     ];
 }
