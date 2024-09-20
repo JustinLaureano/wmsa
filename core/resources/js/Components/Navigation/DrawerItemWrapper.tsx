@@ -1,13 +1,7 @@
 import { ReactElement, useContext } from "react";
-import { SvgIconTypeMap, Tooltip } from "@mui/material"
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { Tooltip } from "@mui/material"
 import UIContext from "@/Contexts/UIContext";
-
-interface Link {
-    label: string;
-    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-    route: string;
-}
+import { Link } from "./links";
 
 interface DrawerItemWrapperProps {
     link: Link;

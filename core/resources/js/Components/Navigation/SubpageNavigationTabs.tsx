@@ -28,7 +28,7 @@ export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsPr
     const [value, setValue] = useState(initialValue);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
+        setValue(newValue);
     };
 
     return (

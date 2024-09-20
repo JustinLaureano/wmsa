@@ -1,3 +1,4 @@
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 import {
     Home,
     Factory,
@@ -8,6 +9,7 @@ import {
     Warehouse,
     AssignmentTurnedIn
 } from '@mui/icons-material';
+import { SvgIconTypeMap } from "@mui/material";
 
 export const navigationDrawerLinks = [
     { label: 'Home', icon: Home, route: route('home') },
@@ -19,3 +21,9 @@ export const navigationDrawerLinks = [
     { label: 'Materials', icon: Inventory, route: route('materials.inventory') },
     { label: 'Locations', icon: Warehouse, route: route('locations.buildings.kpi') },
 ];
+
+export interface Link {
+    label: string;
+    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+    route: string;
+}

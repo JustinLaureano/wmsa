@@ -1,7 +1,9 @@
 import { styled } from '@mui/material/styles';
 import { List } from "@mui/material";
 
-const StyledNavList = styled(List)({
+interface StyledNavListProps {}
+
+const StyledNavList = styled((props: StyledNavListProps) => <List component="nav" {...props} />)({
 	'& .MuiListItemIcon-root': {
 	  minWidth: 0,
 	  marginRight: 18,
