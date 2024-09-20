@@ -65,7 +65,6 @@ export default function NavigationDrawer(props: Record<string, any>) {
 				<StyledNavList component="nav">
 					{navigationDrawerLinks.map((link, index) => (
 						<DrawerItemWrapper
-                            navigationDrawerOpen={navigationDrawerOpen}
                             link={link}
                             key={index}
                         >

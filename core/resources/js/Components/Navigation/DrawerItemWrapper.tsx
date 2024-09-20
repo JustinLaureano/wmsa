@@ -1,6 +1,7 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import { SvgIconTypeMap, Tooltip } from "@mui/material"
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import UIContext from "@/Contexts/UIContext";
 
 interface Link {
     label: string;
@@ -9,12 +10,13 @@ interface Link {
 }
 
 interface DrawerItemWrapperProps {
-    navigationDrawerOpen: boolean;
     link: Link;
     children: ReactElement<any, any>;
 }
 
-export default function DrawerItemWrapper({ navigationDrawerOpen, link, children, ...props } : DrawerItemWrapperProps) {
+export default function DrawerItemWrapper({ link, children } : DrawerItemWrapperProps) {
+	const { navigationDrawerOpen } = useContext(UIContext);
+
     if (navigationDrawerOpen) {
         return (
             <>{children}</>
