@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
-import PageHeader from '@/Domains/Production/Layout/Header/PageHeader';
+import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 
 interface MaterialRequestsProps {}
 
@@ -10,7 +10,7 @@ export default function MaterialRequests({ ...props } : MaterialRequestsProps) {
 
     return (
         <DashboardLayout title={lang.requests}>
-            <PageHeader />
+            <ProductionPageHeader />
 
         </DashboardLayout>
     );
