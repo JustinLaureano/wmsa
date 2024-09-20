@@ -2,12 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import {
 	Box, Drawer, ListItem, ListItemButton,
-	ListItemIcon, ListItemText, Tooltip, Typography, useMediaQuery, useTheme
+	ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme
 } from '@mui/material';
-import { Home, Factory, Inventory, LocalShipping, PrecisionManufacturing, Verified, Warehouse, AssignmentTurnedIn } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
 import StyledNavList from '@/Components/Styled/StyledNavList';
+import { navigationDrawerLinks } from './links';
+import DrawerItemWrapper from './DrawerItemWrapper';
 
 export default function NavigationDrawer(props: Record<string, any>) {
 	const theme = useTheme();
@@ -17,17 +18,6 @@ export default function NavigationDrawer(props: Record<string, any>) {
 	const drawerWidth = navigationDrawerOpen
 		? theme.layouts.dashboard.drawerWidth
 		: theme.layouts.dashboard.drawerRailWidth;
-
-	const links = [
-		{ label: 'Home', icon: <Home />, route: route('home') },
-		{ label: 'Production', icon: <PrecisionManufacturing />, route: route('production.requests') },
-		{ label: 'IRM', icon: <Factory />, route: route('irm.chemicals.inventory') },
-		{ label: 'Receiving', icon: <AssignmentTurnedIn />, route: route('receiving.documents') },
-		{ label: 'Shipping', icon: <LocalShipping />, route: route('shipping.requests') },
-		{ label: 'Quality', icon: <Verified />, route: route('quality.sort') },
-		{ label: 'Materials', icon: <Inventory />, route: route('materials.inventory') },
-		{ label: 'Locations', icon: <Warehouse />, route: route('locations.buildings.kpi') },
-	];
 
 	const handleDrawerToggle = (e: React.MouseEvent<HTMLElement>) => {
 		if (isDesktop) return;
@@ -40,24 +30,6 @@ export default function NavigationDrawer(props: Record<string, any>) {
 			setNavigationDrawerOpen(false);
 		}
 	}, [isDesktop])
-
-	const ListItemWrapper = ({ link, children } : any) => {
-		if (navigationDrawerOpen) {
-			return (
-				<>{children}</>
-			)
-		}
-
-		return (
-			<Tooltip
-				title={link.label}
-				placement="right"
-				arrow
-			>
-				{children}
-			</Tooltip>
-		)
-	}
 
 	return (
 		<Drawer
@@ -91,12 +63,16 @@ export default function NavigationDrawer(props: Record<string, any>) {
 
 			<Box sx={{ overflow: 'scroll', '::-webkit-scrollbar': { display: 'none' } }}>
 				<StyledNavList component="nav">
-					{links.map((link, index) => (
-						<ListItemWrapper link={link} key={index}>
+					{navigationDrawerLinks.map((link, index) => (
+						<DrawerItemWrapper
+                            navigationDrawerOpen={navigationDrawerOpen}
+                            link={link}
+                            key={index}
+                        >
 							<ListItem disablePadding >
 								<ListItemButton onClick={() => router.get(link.route)}>
 									<ListItemIcon>
-										{link.icon}
+										<link.icon />
 									</ListItemIcon>
 									<ListItemText
 										primary={
@@ -113,7 +89,7 @@ export default function NavigationDrawer(props: Record<string, any>) {
 									/>
 								</ListItemButton>
 							</ListItem>
-						</ListItemWrapper>
+						</DrawerItemWrapper>
 					))}
 				</StyledNavList>
 
