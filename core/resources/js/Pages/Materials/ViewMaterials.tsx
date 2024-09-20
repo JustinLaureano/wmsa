@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
-import PageHeader from '@/Domains/Materials/Layout/Header/PageHeader';
+import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 
 interface ViewMaterialsProps {}
 
@@ -10,7 +10,7 @@ export default function ViewMaterials({ ...props } : ViewMaterialsProps) {
 
     return (
         <DashboardLayout title={lang.inventory}>
-            <PageHeader />
+            <MaterialsPageHeader />
         </DashboardLayout>
     );
 }
