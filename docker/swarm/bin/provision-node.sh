@@ -50,4 +50,4 @@ fi
 scp -C -o StrictHostKeyChecking=no docker/swarm/bin/rocky-9-setup.sh root@$SERVER_IP:./provision-node.sh
 
 # Run to script
-ssh -tt -o StrictHostKeyChecking=no root@$SERVER_IP "chmod +x ./provision-node.sh && ./provision-node.sh --user=\$USER --password=\$PASSWORD --dockerhub-username=\$DOCKERHUB_USERNAME --dockerhub-token=\$DOCKERHUB_TOKEN"
+ssh -tt -o StrictHostKeyChecking=no root@$SERVER_IP "chmod +x ./provision-node.sh && ./provision-node.sh --user=$USER --password=$PASSWORD --dockerhub-username=$DOCKERHUB_USERNAME --dockerhub-token=$DOCKERHUB_TOKEN"
