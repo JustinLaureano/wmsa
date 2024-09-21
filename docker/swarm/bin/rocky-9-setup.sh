@@ -3,7 +3,7 @@
 set -e
 
 USER="billy"
-PASSWORD="dillydilly"
+PASSWORD=""
 DOCKERHUB_USERNAME=""
 DOCKERHUB_TOKEN=""
 
