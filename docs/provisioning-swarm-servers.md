@@ -1,4 +1,4 @@
-# Provision Docker Swarm Servers
+# Provisioning Docker Swarm Servers
 
 This application is intended to be deployed in a Docker Swarm environment, so this guide covers how leader and worker node servers should be initially setup and provisioned to work correctly.
 
