@@ -106,3 +106,9 @@ docker node update --label-add <LABEL_NAME>=<LABEL_VALUE> <SERVER_IP
 # Example
 docker node update --label-add db=true node-3
 ```
+
+
+***Note:***
+
+You need at least one server labeled `db=true` for the application's database server to have a node to join.
+You also need at least one node not labeled `db=true` as well. This however should be the default in a 3+ container environment.
