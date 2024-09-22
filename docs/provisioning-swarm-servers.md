@@ -45,6 +45,34 @@ ssh <USER>@<SERVER_IP>
 
 
 
+```bash
+chmod +x ./docker/swarm/bin/provision-node.sh
+
+./docker/swarm/bin/provision-node.sh --server-ip=<SERVER_IP> --user=<USER> --password=<PASSWORD> --dockerhub-username=<DOCKERHUB_USERNAME> --dockerhub-token=<DOCKERHUB_TOKEN>
+```
+
+For example, you could create a temporary`.env.swarm.tmp` file that looks like this,
+
+```bash
+SERVER_IP="1.2.3.4"
+USER=webuser
+PASSWORD=password
+#... Dockerhub variables as well
+```
+
+And then export the variables into the session and call the commands like in the following example.
+
+```bash
+# Example usage
+export (cat .env.swarm.tmp)
+
+chmod +x ./docker/swarm/bin/provision-node.sh
+
+./docker/swarm/bin/provision-node.sh --server-ip=$SERVER_IP --user=$USER --password=$PASSWORD --dockerhub-username=$DOCKERHUB_USERNAME --dockerhub-token=$DOCKERHUB_TOKEN
+```
+
+
+
 ## Provisioning Docker Swarm Leader Node
 
 If thie swarm is just initially being created, the first server created needs to be designated at a leader node in the swarm.
