@@ -20,9 +20,9 @@ cp .env.worker.example .env.worker
 # make sure all .sh files are LF for end of line sequence
 
 # Build images
-chmod +x ./docker/bin/build.sh
+chmod +x ./docker/bin/build-initial.sh
 
-./docker/bin/build.sh
+./docker/bin/build-initial.sh
 
 # Start containers
 docker-compose up -d
