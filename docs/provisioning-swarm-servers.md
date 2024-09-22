@@ -109,7 +109,7 @@ The important takeaway from this text is the token value. Store that value in a 
 First login into the node server that has been designated as a worker node.
 
 ```bash
-ssh root@<SERVER_IP>
+ssh <USER>@<SERVER_IP>
 ```
 
 Join the swarm cluster as a worker. You will need to have your swarm token and leader server IP address in order to join.
