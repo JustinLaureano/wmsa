@@ -45,6 +45,18 @@ php artisan db:seed
 ```
 
 
+Enter legacy faker container
+```bash
+docker exec -it wmsa-legacyfaker bash
+```
+
+Run artisan commands to generate app key
+```bash
+php artisan key:generate
+```
+
+
+
 
 ## Starting Project
 

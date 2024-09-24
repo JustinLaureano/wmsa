@@ -248,6 +248,24 @@ services:
             retries: 3
             timeout: 5s
 
+    # Legacy Faker
+    legacyfaker:
+        build:
+            context: .
+            dockerfile: Dockerfile.legacyfaker
+        container_name: wmsa-legacyfaker
+        restart: unless-stopped
+        ports:
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        volumes:
+            - './legacy-faker:/var/www/html'
+        networks:
+            - web
+        depends_on:
+            - legacydb
+
+
+
 networks:
     web:
         driver: bridge

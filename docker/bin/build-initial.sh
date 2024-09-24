@@ -11,3 +11,5 @@ docker-compose build --no-cache reverb
 docker-compose build --no-cache redis
 docker-compose build --no-cache mysql
 docker-compose build --no-cache mailpit
+docker-compose build --no-cache legacydb
+docker-compose build --no-cache legacyfaker
