@@ -256,7 +256,7 @@ services:
         container_name: wmsa-legacyfaker
         restart: unless-stopped
         ports:
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            - '${VITE_PORT:-5174}:${VITE_PORT:-5173}'
         volumes:
             - './legacy-faker:/var/www/html'
         networks:
