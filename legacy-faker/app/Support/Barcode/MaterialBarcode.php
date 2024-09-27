@@ -71,14 +71,6 @@ class MaterialBarcode extends Barcode
     }
 
     /**
-     * Return the barcode clock number value.
-     */
-    public function getClockNumber() : string
-    {
-        return $this->clockNumber;
-    }
-
-    /**
      * Return the supplier parsed from the barcode.
      */
     public function getSupplier() : string
@@ -95,22 +87,6 @@ class MaterialBarcode extends Barcode
     }
 
     /**
-     * Return the time parsed from the barcode.
-     */
-    public function getTime() : string
-    {
-        return now();
-    }
-
-    /**
-     * Return the barcode lot number value.
-     */
-    public function getLotNumber() : string
-    {
-        return $this->lotNumber;
-    }
-
-    /**
      * Return the serial number parsed from the barcode.
      */
     public function getSerialNumber() : string
@@ -121,7 +97,7 @@ class MaterialBarcode extends Barcode
     /**
      * Return the expiration date parsed from the barcode manufacture date.
      */
-    public function getExpirationDate() : string
+    public function getExpirationDate() : string|null
     {
         return $this->getExpiresAt()->toDateString();
     }

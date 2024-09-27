@@ -29,7 +29,7 @@ class SkidItemFactory extends Factory
             'specific_tote_id' => null,
             'expire' => $barcode->getExpirationDate(),
             'emp_num' => $barcode->getClockNumber(),
-            'time' => $barcode->getTime(),
+            'time' => now(),
             'partial' => '0',
             'lot_timestamp' => LotNumber::lotToTimestamp($barcode->getLotNumber()),
             'run' => null,
