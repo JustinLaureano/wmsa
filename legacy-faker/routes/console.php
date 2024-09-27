@@ -5,4 +5,4 @@ use App\Jobs\GenerateSkidItems;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::job(new GenerateSkidItems)->everyMinute();
-Schedule::job(new GenerateMaterialRequests)->everyTwoMinutes();
+Schedule::job(new GenerateMaterialRequests)->everyThreeMinutes();

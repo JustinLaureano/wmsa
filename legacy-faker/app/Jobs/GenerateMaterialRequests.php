@@ -23,6 +23,6 @@ class GenerateMaterialRequests implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::debug('generate material requests job ran');
+        //
     }
 }

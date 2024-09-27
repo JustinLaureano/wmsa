@@ -63,3 +63,38 @@ Faker logic
         make record(s)
 
         remove same amount of oldest records as created
+
+
+
+
+
+
+Skid/request Logic
+    Create Skids - simulates barcode scanning
+
+    put skids away
+
+    make material requests
+
+    allocate skids
+
+    move skids
+
+    complete requests
+
+    clean up inventory
+
+    start loop all over
+
+
+
+    skid movements
+        simulate new skids being put on racks
+            needs alloted records for this
+        simulate skids being moved from rack to rack
+        simulate some skids moving to out/ship locations and leaving inventory
+
+        create skid location history records for these
+
+
+    skid cleanup
