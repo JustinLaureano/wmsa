@@ -1,0 +1,44 @@
+Data to Fake:
+
+    First Priority:
+
+        DeliveryDocumentItemLabels
+        DeliveryDocumentItems
+        DeliveryDocuments
+
+        IRMChemicalLocations
+        IRMChemicals
+        IRMTransactonHistory
+        IRMTransactionType
+
+        MaterialDocuemntItems
+        MaterialDocuments
+
+        MaterialRequestCancellations 
+
+        SAPPurchasingDocumentItemBarcodes
+        SAPPurchasingDocumentItems
+        SAPPurchasingDocuments
+
+        SAPResponses
+
+        SkidLocks
+
+        MaterialRequestActivity
+        MaterialRequestArchive
+        MaterialRequestMessage
+
+        RackLocationAlloted
+        SkidAlloted
+        SkidItem
+        SkidLocation
+
+    Second Priority:
+
+        HelpRequests
+
+        InventoryAudits
+
+        SkidStorageReason
+
+        SortList
