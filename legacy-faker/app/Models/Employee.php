@@ -12,4 +12,6 @@ class Employee extends Model
      * @var string
      */
     protected $table = 'tblemployee';
+
+    public $timestamps = false;
 }

@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class SkidItem extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
 
     /**
      * The table associated with the model.
@@ -24,6 +23,8 @@ class SkidItem extends Model
      * @var string
      */
     protected $primaryKey = 'uid';
+
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -46,4 +47,19 @@ class SkidItem extends Model
         'departmental_part_type_id',
         'barcode',
     ];
+
+    /**
+     * Get the rack location associated with the skid item.
+     */
+    public function location(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            RackLocation::class,
+            SkidLocation::class,
+            'skid_id',
+            'id',
+            'skid_id',
+            'location_srlnum',
+        );
+    }
 }

@@ -12,4 +12,6 @@ class ItemLocation extends Model
      * @var string
      */
     protected $table = 'tblwms_item_locations';
+
+    public $timestamps = false;
 }
