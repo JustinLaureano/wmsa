@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class SkidItem extends Model
@@ -47,6 +48,18 @@ class SkidItem extends Model
         'departmental_part_type_id',
         'barcode',
     ];
+
+    /**
+     * Get the rack location alloted for the skid item.
+     */
+    public function alloted(): HasOne
+    {
+        return $this->hasOne(
+            RackLocationAlloted::class,
+            'skid_id',
+            'skid_id'
+        );
+    }
 
     /**
      * Get the rack location associated with the skid item.

@@ -35,7 +35,6 @@ class PutSkidsAway implements ShouldQueue
         // get skids without locations for more than 10 minutes
         $this->putAwayNewSkids();
 
-        // get all receiving dock skids older than 8 minutes
         // move old receiving dock skids to location
         $this->putAwayReceivingDockSkids();
 
@@ -75,11 +74,9 @@ class PutSkidsAway implements ShouldQueue
             );
         }
 
+        // TODO: for other new skids not received
         // if building location, allocate for that location
-
         // if no location, put on floor
-
-
     }
 
     private function itemNeedsReceived(SkidItem $item) : bool
@@ -104,6 +101,7 @@ class PutSkidsAway implements ShouldQueue
             ->whereHas('location', function (Builder $query) {
                 $query->where('location_srlnum', 'RECEIVING DOCK');
             })
+            ->doesntHave('alloted')
             ->with([
                 'buildingOneArea',
                 'buildingTwoArea',
@@ -111,9 +109,63 @@ class PutSkidsAway implements ShouldQueue
             ])
             ->chunk(100, function (Collection $items) {
                 foreach ($items as $item) {
-                    Log::debug($item->skid_id);
-                    // $this->handleReceivingDockSkid($item);
+                    $this->handleReceivingDockSkid($item);
                 }
             });
+    }
+
+    /**
+     * Find the next location for the skid item.
+     * 
+     * 1. Look for building one area
+     * 2. If no suitable building one areas, Look for building two areas
+     * 3. If no suitable building two areas but can be stored there, send to expansion out so that 
+     *    it can be transferred to building two floor area
+     * 4. If no suitable building two areas, Look for building three areas
+     * 5. Choose random floor location in building one
+     */
+    private function handleReceivingDockSkid(SkidItem $item) : void
+    {
+        $putAway = Lottery::odds(1, 8)->choose();
+
+        if (!$putAway) return;
+
+        $location = null;
+
+        if ( $item->buildingOneArea ) {
+            $location = (new RackLocationRepository)
+                ->findEmptyByArea($item->buildingOneArea->location, building: 1);
+        }
+
+        if ( !$location && $item->buildingTwoArea ) {
+            $location = (new RackLocationRepository)
+                ->findEmptyByArea($item->buildingTwoArea->location, building: 2);
+
+            if (!$location) {
+                $location = (new RackLocationRepository)->findById('EXPANSION 1');
+            }
+        }
+
+        if ( !$location && $item->buildingThreeArea ) {
+            $location = (new RackLocationRepository)
+                ->findEmptyByArea($item->buildingThreeArea->location, building: 3);
+        }
+
+        if (!$location) {
+            $floorLocations = ['WIP FLOOR', 'PWIP FLOOR'];
+            $location = (new RackLocationRepository)
+                ->findById($floorLocations[array_rand($floorLocations)]);
+        }
+
+        $this->allot($item, $location);
+
+        // SkidLocation::query()->updateOrCreate(
+        //     ['skid_id' => $item->skid_id],
+        //     [
+        //         'location_uid' => $location->uid,
+        //         'location_srlnum' => $location->id,
+        //         'emp' => ClockNumber::getRandomMaterialHandler()
+        //     ]
+        // );
     }
 }
