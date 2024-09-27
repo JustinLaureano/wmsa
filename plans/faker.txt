@@ -7,9 +7,7 @@ Data to Fake:
         DeliveryDocuments
 
         IRMChemicalLocations
-        IRMChemicals
         IRMTransactonHistory
-        IRMTransactionType
 
         MaterialDocuemntItems
         MaterialDocuments
@@ -31,6 +29,8 @@ Data to Fake:
         RackLocationAlloted
         SkidAlloted
         SkidItem
+            200 records daily
+            make a new skid on average every 5-10 minutes
         SkidLocation
 
     Second Priority:
@@ -42,3 +42,24 @@ Data to Fake:
         SkidStorageReason
 
         SortList
+
+
+
+Interval Data
+    1440 minutes in day
+    make fake records based on number of expected records per day
+
+
+
+Faker logic
+    get last timestamp of previous record
+        while the diff in time between previous record and now() is greater than the max time gap allowed
+            run faker creator logic (make = true)
+
+    faker creator logic
+        random odds to make/create || make if set to true
+
+        create odds on how many to make
+        make record(s)
+
+        remove same amount of oldest records as created
