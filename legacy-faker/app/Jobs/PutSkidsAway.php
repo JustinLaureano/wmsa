@@ -35,7 +35,6 @@ class PutSkidsAway implements ShouldQueue
      */
     public function handle(): void
     {
-        // TODO steps
         $this->putAwayAllotedSkids();
 
         // get skids without locations for more than 10 minutes
@@ -43,6 +42,9 @@ class PutSkidsAway implements ShouldQueue
 
         // move old receiving dock skids to location
         $this->allotReceivingDockSkids();
+
+        // Move skids from expansion 1 location to building 2 floor
+        $this->allotExpansion1Skids();
 
     }
 
@@ -214,6 +216,31 @@ class PutSkidsAway implements ShouldQueue
             $location = (new RackLocationRepository)
                 ->findById($floorLocations[array_rand($floorLocations)]);
         }
+
+        $this->allot($item, $location);
+    }
+
+    private function allotExpansion1Skids() : void
+    {
+        SkidItem::query()
+            ->whereHas('location', function (Builder $query) {
+                $query->where('location_srlnum', 'EXPANSION 1');
+            })
+            ->doesntHave('alloted')
+            ->chunk(100, function (Collection $items) {
+                foreach ($items as $item) {
+                    $this->handleExpansion1Skid($item);
+                }
+            });
+    }
+
+    private function handleExpansion1Skid(SkidItem $item) : void
+    {
+        $allot = Lottery::odds(1, 6)->choose();
+
+        if (!$allot) return;
+
+        $location = (new RackLocationRepository)->findById('99727070e7046507c8f66f49f1c91e0e22fe5c61');
 
         $this->allot($item, $location);
     }
