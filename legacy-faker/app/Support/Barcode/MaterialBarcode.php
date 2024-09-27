@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Materials\Support\Barcode;
+namespace App\Support\Barcode;
 
-use App\Domain\Materials\DataTransferObjects\MaterialBarcodeData;
+use App\DataTransferObjects\MaterialBarcodeData;
 use Carbon\Carbon;
 
 class MaterialBarcode extends Barcode
