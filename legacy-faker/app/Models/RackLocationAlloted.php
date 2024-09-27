@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RackLocationAlloted extends Model
 {
@@ -24,4 +25,28 @@ class RackLocationAlloted extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Get the rack location that is alloted.
+     */
+    public function location(): HasOne
+    {
+        return $this->hasOne(
+            RackLocation::class,
+            'id',
+            'location_srlnum'
+        );
+    }
+
+    /**
+     * Get the skid item that is alloted.
+     */
+    public function item(): HasOne
+    {
+        return $this->hasOne(
+            SkidItem::class,
+            'skid_id',
+            'skid_id'
+        );
+    }
 }

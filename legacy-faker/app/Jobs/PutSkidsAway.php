@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\RackLocation;
 use App\Models\RackLocationAlloted;
 use App\Models\SkidItem;
+use App\Models\SkidLocation;
 use App\Models\SkidLocationHistory;
 use App\Repositories\RackLocationRepository;
 use App\Support\BuildingArea;
@@ -35,6 +36,7 @@ class PutSkidsAway implements ShouldQueue
     public function handle(): void
     {
         // TODO steps
+        $this->putAwayAllotedSkids();
 
         // get skids without locations for more than 10 minutes
         $this->allotNewSkids();
@@ -42,8 +44,41 @@ class PutSkidsAway implements ShouldQueue
         // move old receiving dock skids to location
         $this->allotReceivingDockSkids();
 
+    }
 
-        // $this->putAwayAllotedSkids();
+    private function putAwayAllotedSkids() : void
+    {
+        SkidItem::has('alloted')
+            ->with('alloted.location')
+            ->chunk(100, function (Collection $items) {
+                foreach ($items as $item) {
+                    $this->handleAllotedSkid($item);
+                }
+            });
+    }
+
+    private function handleAllotedSkid(SkidItem $item) : void
+    {
+        $putAway = Lottery::odds(1, 8)->choose();
+
+        if (!$putAway) return;
+
+        $location = $item->alloted->location;
+
+        DB::transaction(function () use ($item, $location) {
+            SkidLocation::where('skid_id', $item->skid_id)->delete();
+
+            SkidLocation::query()->create(
+                [
+                    'skid_id' => $item->skid_id,
+                    'location_uid' => $location->uid,
+                    'location_srlnum' => $location->id,
+                    'emp' => ClockNumber::getRandomMaterialHandler()
+                ]
+            );
+
+            RackLocationAlloted::where('skid_id', $item->skid_id)->delete();
+        });
     }
 
     private function allotNewSkids() : void
@@ -67,9 +102,9 @@ class PutSkidsAway implements ShouldQueue
 
     private function handleNewSkid(SkidItem $item) : void
     {
-        $putAway = Lottery::odds(1, 8)->choose();
+        $allot = Lottery::odds(1, 8)->choose();
 
-        if (!$putAway) return;
+        if (!$allot) return;
 
         if ($this->itemNeedsReceived($item)) {
             $this->allot(
@@ -138,7 +173,7 @@ class PutSkidsAway implements ShouldQueue
     }
 
     /**
-     * Find the next location for the skid item.
+     * Find and allot the next location for the skid item.
      * 
      * 1. Look for building one area
      * 2. If no suitable building one areas, Look for building two areas
@@ -149,9 +184,9 @@ class PutSkidsAway implements ShouldQueue
      */
     private function handleReceivingDockSkid(SkidItem $item) : void
     {
-        $putAway = Lottery::odds(1, 8)->choose();
+        $allot = Lottery::odds(1, 8)->choose();
 
-        if (!$putAway) return;
+        if (!$allot) return;
 
         $location = null;
 
@@ -181,14 +216,5 @@ class PutSkidsAway implements ShouldQueue
         }
 
         $this->allot($item, $location);
-
-        // SkidLocation::query()->updateOrCreate(
-        //     ['skid_id' => $item->skid_id],
-        //     [
-        //         'location_uid' => $location->uid,
-        //         'location_srlnum' => $location->id,
-        //         'emp' => ClockNumber::getRandomMaterialHandler()
-        //     ]
-        // );
     }
 }
