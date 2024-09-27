@@ -56,10 +56,55 @@ class SkidItem extends Model
         return $this->hasOneThrough(
             RackLocation::class,
             SkidLocation::class,
-            'skid_id',
-            'id',
-            'skid_id',
-            'location_srlnum',
+            'skid_id', // tblwms_skid_location.skid_id
+            'id', // tblwms_rack_location.id
+            'skid_id', // tblwms_skid_item.skid_id
+            'location_srlnum', // tblwms_skid_location.location_srlnum
+        );
+    }
+
+    /**
+     * Get the building one area associated with the skid item.
+     */
+    public function buildingOneArea(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            ItemLocationBuildingOne::class,
+            ItemLocation::class,
+            'item', // tblwms_item_locations.item
+            'id', // tblwms_item_locations_building_one.id
+            'item', // tblwms_skid_item.item
+            'building_1_area', // tblwms_item_locations.building_1_area
+        );
+    }
+
+    /**
+     * Get the building two area associated with the skid item.
+     */
+    public function buildingTwoArea(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            ItemLocationBuildingTwo::class,
+            ItemLocation::class,
+            'item', // tblwms_item_locations.item
+            'id', // tblwms_item_locations_building_one.id
+            'item', // tblwms_skid_item.item
+            'building_2_area', // tblwms_item_locations.building_2_area
+        );
+    }
+
+    /**
+     * Get the building three area associated with the skid item.
+     */
+    public function buildingThreeArea(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            ItemLocationBuildingThree::class,
+            ItemLocation::class,
+            'item', // tblwms_item_locations.item
+            'id', // tblwms_item_locations_building_one.id
+            'item', // tblwms_skid_item.item
+            'building_3_area', // tblwms_item_locations.building_3_area
         );
     }
 }
