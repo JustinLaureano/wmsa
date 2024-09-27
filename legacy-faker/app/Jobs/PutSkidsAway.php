@@ -59,7 +59,7 @@ class PutSkidsAway implements ShouldQueue
 
     private function handleAllotedSkid(SkidItem $item) : void
     {
-        $putAway = Lottery::odds(1, 8)->choose();
+        $putAway = Lottery::odds(1, 3)->choose();
 
         if (!$putAway) return;
 
