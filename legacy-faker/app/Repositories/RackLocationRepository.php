@@ -16,7 +16,7 @@ class RackLocationRepository
         return RackLocation::where('id', $id)->first();
     }
 
-    public function findEmptyByArea(string $area, int $building) : RackLocation
+    public function findEmptyByArea(string $area, int $building) : RackLocation|null
     {
         // TODO: exclude allotted locations
 

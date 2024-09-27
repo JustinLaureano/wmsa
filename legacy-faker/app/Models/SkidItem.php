@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -119,5 +120,13 @@ class SkidItem extends Model
             'item', // tblwms_skid_item.item
             'building_3_area', // tblwms_item_locations.building_3_area
         );
+    }
+
+    /**
+     * Get the location history for the skid item.
+     */
+    public function history(): HasMany
+    {
+        return $this->hasMany(SkidLocationHistory::class, 'skid_id', 'skid_id');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\SkidLocationHistory;
 use App\Repositories\RackLocationRepository;
 use App\Support\BuildingArea;
 use App\Support\ClockNumber;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -56,6 +57,7 @@ class PutSkidsAway implements ShouldQueue
                 'buildingTwoArea',
                 'buildingThreeArea'
             ])
+            ->orderBy('time', 'ASC')
             ->chunk(100, function (Collection $items) {
                 foreach ($items as $item) {
                     $this->handleNewSkid($item);
@@ -78,7 +80,11 @@ class PutSkidsAway implements ShouldQueue
 
         $buildingArea = BuildingArea::getRandomForSkidItem($item);
 
-        $this->allot($item, (new RackLocationRepository)->findEmptyByArea($buildingArea->area, $buildingArea->building));
+        $location = (new RackLocationRepository)->findEmptyByArea($buildingArea->area, $buildingArea->building);
+
+        if (!$location) return;
+
+        $this->allot($item, $location);
     }
 
     private function itemNeedsReceived(SkidItem $item) : bool
@@ -92,17 +98,21 @@ class PutSkidsAway implements ShouldQueue
     private function allot(SkidItem $item, RackLocation $location) : void
     {
         DB::transaction(function () use ($item, $location) {
+            $time = $item->history->count()
+                ? now()
+                : (new Carbon($item->time))->addMinutes(rand(1, 5));
+
             RackLocationAlloted::query()->updateOrCreate([
                 'location_srlnum' => $location->id,
                 'skid_id' => $item->skid_id
             ]);
-    
+
             SkidLocationHistory::query()->create([
                 'location_uid' => $location->uid,
                 'location_srlnum' => $location->id,
                 'skid_id' => $item->skid_id,
                 'emp' => ClockNumber::getRandomMaterialHandler(),
-                'time_stamp' => now(),
+                'time_stamp' => $time,
                 'action' => 'ALLOCATED',
             ]);
         });
