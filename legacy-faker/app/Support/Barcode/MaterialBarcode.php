@@ -14,11 +14,11 @@ class MaterialBarcode extends Barcode
         protected string $partNumber,
         protected int|null $quantity,
         private string $manufactureDate,
-        private string $clockNumber,
+        protected string|null $clockNumber,
         private string $supplier,
-        private string $time,
+        protected string|null $time,
         private string $supplierPartNumber,
-        private string $lotNumber,
+        protected string|null $lotNumber,
         private string $serialNumber
     )
     {
@@ -99,7 +99,7 @@ class MaterialBarcode extends Barcode
      */
     public function getTime() : string
     {
-        return $this->time;
+        return now();
     }
 
     /**
@@ -132,8 +132,8 @@ class MaterialBarcode extends Barcode
     public function getExpiresAt() : Carbon
     {
         return Carbon::createFromFormat(
-                'm/d/y',
-                $this->getManufactureDate()
+                'm/d/y H:i:s',
+                $this->getManufactureDate() .' '. Carbon::now()->toTimeString()
             )
             ->addDays(30);
     }
