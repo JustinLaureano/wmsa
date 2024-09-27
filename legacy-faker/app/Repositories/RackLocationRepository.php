@@ -18,6 +18,8 @@ class RackLocationRepository
 
     public function findEmptyByArea(string $area, int $building) : RackLocation
     {
+        // TODO: exclude allotted locations
+
         return RackLocation::where([
                 ['area', $area],
                 ['building', $building]

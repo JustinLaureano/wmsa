@@ -5,12 +5,15 @@ namespace App\Jobs;
 use App\Models\RackLocation;
 use App\Models\RackLocationAlloted;
 use App\Models\SkidItem;
+use App\Models\SkidLocationHistory;
 use App\Repositories\RackLocationRepository;
+use App\Support\BuildingArea;
+use App\Support\ClockNumber;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Lottery;
 
 class PutSkidsAway implements ShouldQueue
@@ -33,16 +36,16 @@ class PutSkidsAway implements ShouldQueue
         // TODO steps
 
         // get skids without locations for more than 10 minutes
-        $this->putAwayNewSkids();
+        $this->allotNewSkids();
 
         // move old receiving dock skids to location
-        $this->putAwayReceivingDockSkids();
+        $this->allotReceivingDockSkids();
 
 
         // $this->putAwayAllotedSkids();
     }
 
-    private function putAwayNewSkids() : void
+    private function allotNewSkids() : void
     {
         $waitTime = now()->subMinutes(10);
 
@@ -67,16 +70,15 @@ class PutSkidsAway implements ShouldQueue
         if (!$putAway) return;
 
         if ($this->itemNeedsReceived($item)) {
-            // allot to the receiving dock
             $this->allot(
                 $item,
                 (new RackLocationRepository)->getReceivingDock()
             );
         }
 
-        // TODO: for other new skids not received
-        // if building location, allocate for that location
-        // if no location, put on floor
+        $buildingArea = BuildingArea::getRandomForSkidItem($item);
+
+        $this->allot($item, (new RackLocationRepository)->findEmptyByArea($buildingArea->area, $buildingArea->building));
     }
 
     private function itemNeedsReceived(SkidItem $item) : bool
@@ -89,13 +91,24 @@ class PutSkidsAway implements ShouldQueue
 
     private function allot(SkidItem $item, RackLocation $location) : void
     {
-        RackLocationAlloted::query()->updateOrCreate([
-            'location_srlnum' => $location->id,
-            'skid_id' => $item->skid_id
-        ]);
+        DB::transaction(function () use ($item, $location) {
+            RackLocationAlloted::query()->updateOrCreate([
+                'location_srlnum' => $location->id,
+                'skid_id' => $item->skid_id
+            ]);
+    
+            SkidLocationHistory::query()->create([
+                'location_uid' => $location->uid,
+                'location_srlnum' => $location->id,
+                'skid_id' => $item->skid_id,
+                'emp' => ClockNumber::getRandomMaterialHandler(),
+                'time_stamp' => now(),
+                'action' => 'ALLOCATED',
+            ]);
+        });
     }
 
-    private function putAwayReceivingDockSkids() : void
+    private function allotReceivingDockSkids() : void
     {
         SkidItem::query()
             ->whereHas('location', function (Builder $query) {
