@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class MaterialRequest extends Model
 {
@@ -26,17 +26,27 @@ class MaterialRequest extends Model
      */
     protected $primaryKey = 'srlnum';
 
+    /**
+     * The "type" of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
     public $timestamps = false;
 
     /**
      * Get the skid item for the material request.
      */
-    public function skid(): HasOne
+    public function skid(): HasOneThrough
     {
-        return $this->hasOne(
+        return $this->hasOneThrough(
             SkidItem::class,
-            'skid_id',
-            'skid_id'
+            SkidAlloted::class,
+            'material_request_srlnum', // tblwms_skid_alloted.material_request_srlnum
+            'skid_id', // tblwms_skid_item.skid_id
+            'srlnum', // tblmaterialrequest.srlnum
+            'skid_id', // tblwms_skid_alloted.skid_id
         );
     }
 
@@ -46,6 +56,19 @@ class MaterialRequest extends Model
     public function scopeNewest(Builder $query): void
     {
         $query->orderBy('date', 'DESC')->orderBy('time', 'DESC');
+    }
+
+    /**
+     * Scope a query to filter for non closed requests.
+     */
+    public function scopeWhereNotClosed(Builder $query): void
+    {
+        $query->whereIn('request_sts', [
+            MaterialRequestStatus::OPEN,
+            MaterialRequestStatus::PENDING,
+            MaterialRequestStatus::PARTIAL,
+            MaterialRequestStatus::STAGED,
+        ]);
     }
 
     /**
