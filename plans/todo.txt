@@ -35,7 +35,8 @@ storage locations
     check any missing locations
 
 
-
+fix legacydb timezone issues
+    needs to be in america/detroit timezone for data
 
 
 
