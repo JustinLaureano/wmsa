@@ -45,7 +45,7 @@ class MaterialRequest extends Model
      */
     public function scopeNewest(Builder $query): void
     {
-        $query->orderBy('date', 'asc')->orderBy('time', 'asc');
+        $query->orderBy('date', 'DESC')->orderBy('time', 'DESC');
     }
 
     /**
