@@ -6,5 +6,7 @@ use App\Jobs\PutSkidsAway;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::job(new GenerateSkidItems)->everyMinute();
-Schedule::job(new PutSkidsAway)->everyTwoMinutes();
-Schedule::job(new GenerateMaterialRequests)->everyThreeMinutes();
+Schedule::job(new PutSkidsAway)->everyMinute();
+// Schedule::job(new PutSkidsAway)->everyTwoMinutes();
+Schedule::job(new GenerateMaterialRequests)->everyMinute();
+// Schedule::job(new GenerateMaterialRequests)->everyThreeMinutes();

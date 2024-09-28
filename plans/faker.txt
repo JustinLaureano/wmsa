@@ -70,13 +70,13 @@ Faker logic
 
 
 Skid/request Logic
-    Create Skids - simulates barcode scanning
+    Create Skids - simulates barcode scanning - done
 
-    put skids away
+    put skids away - done
 
     make material requests
 
-    allocate skids
+    allot skids for requests
 
     move skids
 

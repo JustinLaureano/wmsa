@@ -8,7 +8,7 @@ use App\Support\LotNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Part>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SkidItem>
  */
 class SkidItemFactory extends Factory
 {
