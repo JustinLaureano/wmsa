@@ -45,6 +45,15 @@ php artisan db:seed
 ```
 
 
+### Legacy Faker
+
+```bash
+cp ./legacyfaker/.env.example ./legacyfaker/.env
+
+# make sure all password fields are filled in
+```
+
+
 Enter legacy faker container
 ```bash
 docker exec -it wmsa-legacyfaker bash
