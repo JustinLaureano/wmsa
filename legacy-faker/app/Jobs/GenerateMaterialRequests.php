@@ -39,8 +39,6 @@ class GenerateMaterialRequests implements ShouldQueue
 
             $this->mostRecent->addMinute();
         }
-
-        $this->randomlyGenerateMaterialRequest();
     }
 
     /**
