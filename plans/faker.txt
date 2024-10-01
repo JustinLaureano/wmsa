@@ -107,3 +107,9 @@ Skid/request Logic
 
 
     skid cleanup
+
+
+shipping
+    create delivery docs periodically
+
+    assign material requests to them once they have been created and are within 7 days of delivery
