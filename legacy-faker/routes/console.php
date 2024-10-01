@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\AllotRequestSkids;
+use App\Jobs\DeliverRequestedSkids;
 use App\Jobs\GenerateMaterialRequests;
 use App\Jobs\GenerateSkidItems;
 use App\Jobs\PutSkidsAway;
@@ -18,5 +19,6 @@ Schedule::job(new GenerateMaterialRequests)->everyMinute();
 // Schedule::job(new GenerateMaterialRequests)->everyThreeMinutes();
 
 
-
 Schedule::job(new AllotRequestSkids)->everyMinute();
+
+Schedule::job(new DeliverRequestedSkids)->everyMinute();

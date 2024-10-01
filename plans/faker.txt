@@ -76,9 +76,19 @@ Skid/request Logic
 
     make material requests - done
 
-    allot skids for requests
+    allot skids for requests - done
 
-    move skids
+    move skids for requests
+        determine lottery odds to make movement - done
+        determine skid location and final delivery location - done
+        make a movement toward that delivery location - done
+        make skid location history record - done
+        update material request if necessary (activity table record as well) - done
+        if skid arrives at final location, complete material request - done
+        clean up skid artifacts - like rack location alloted or skid locks - done
+        remove skid alloted record - done
+        ** make sure skid is removed from inventory table **
+
 
     complete requests
 

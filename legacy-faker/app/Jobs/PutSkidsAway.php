@@ -238,7 +238,7 @@ class PutSkidsAway implements ShouldQueue
 
         if (!$allot) return;
 
-        $location = (new RackLocationRepository)->findById('99727070e7046507c8f66f49f1c91e0e22fe5c61');
+        $location = (new RackLocationRepository)->findById(config('domain.building_two_in_id'));
 
         $this->allot($item, $location);
     }
