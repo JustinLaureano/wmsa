@@ -3,9 +3,15 @@
 namespace App\Jobs;
 
 use App\Models\MaterialRequest;
+use App\Models\SkidAlloted;
+use App\Models\SkidItem;
+use App\Models\SkidLocationHistory;
+use App\Support\ClockNumber;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
 
 class AllotRequestSkids implements ShouldQueue
 {
@@ -26,16 +32,61 @@ class AllotRequestSkids implements ShouldQueue
     {
         MaterialRequest::whereNotClosed()
             ->doesntHave('skid')
-            ->chunk(100, function (Collection $requests) {
+            ->with('rackLocation')
+            ->chunk(50, function (Collection $requests) {
                 foreach ($requests as $request) {
-                    // $this->handleRequest($request);
+                    $this->handleRequest($request);
                 }
             });
     }
 
-    private function handleRequest() : void
+    private function handleRequest(MaterialRequest $request) : void
     {
-        // TODO: find a skid to allot
-        // make allotment
+        $item = SkidItem::query()
+            ->where('item', $request->item)
+            ->whereHas('location', function (Builder $query) {
+                $query->whereNotIn('area', $this->getOmittedAreas());
+            })
+            ->doesntHave('request')
+            ->first();
+
+        if (!$item) return;
+
+        DB::transaction(function () use ($item, $request) {
+            SkidAlloted::query()->create([
+                'skid_id' => $item->skid_id,
+                'material_request_srlnum' => $request->srlnum
+            ]);
+
+            SkidLocationHistory::query()->create([
+                'location_uid' => $request->rackLocation->uid,
+                'location_srlnum' => $request->rackLocation->id,
+                'skid_id' => $item->skid_id,
+                'emp' => ClockNumber::getRandomMaterialHandler(),
+                'time_stamp' => now(),
+                'action' => 'ORDERED',
+            ]);
+        });
+    }
+
+    private function getOmittedAreas() : array
+    {
+        return [
+            'COATERS',
+            'COMPOUND STAGING',
+            'IRM FLOOR',
+            'MBDS OUT',
+            'MRB',
+            'MRB CAGE EXPANSION',
+            'MRB FLOOR',
+            'MRB STAGING',
+            'MRB OVERFLOW',
+            'MRB SORT',
+            'Shipping Dock',
+            'TOYOTA OUT',
+            'Trailer 1',
+            'Trailer 2',
+            'Trailer 3'
+        ];
     }
 }

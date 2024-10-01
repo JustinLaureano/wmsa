@@ -70,14 +70,12 @@ class PutSkidsAway implements ShouldQueue
         DB::transaction(function () use ($item, $location) {
             SkidLocation::where('skid_id', $item->skid_id)->delete();
 
-            SkidLocation::query()->create(
-                [
-                    'skid_id' => $item->skid_id,
-                    'location_uid' => $location->uid,
-                    'location_srlnum' => $location->id,
-                    'emp' => ClockNumber::getRandomMaterialHandler()
-                ]
-            );
+            SkidLocation::query()->create([
+                'skid_id' => $item->skid_id,
+                'location_uid' => $location->uid,
+                'location_srlnum' => $location->id,
+                'emp' => ClockNumber::getRandomMaterialHandler()
+            ]);
 
             RackLocationAlloted::where('skid_id', $item->skid_id)->delete();
         });
@@ -240,7 +238,7 @@ class PutSkidsAway implements ShouldQueue
 
         if (!$allot) return;
 
-        $location = (new RackLocationRepository)->findById('99727070e7046507c8f66f49f1c91e0e22fe5c61');
+        $location = (new RackLocationRepository)->findById(config('domain.building_two_in_id'));
 
         $this->allot($item, $location);
     }

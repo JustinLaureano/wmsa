@@ -15,6 +15,20 @@ class SkidAlloted extends Model
     protected $table = 'tblwms_skid_alloted';
 
     /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'material_request_srlnum';
+
+    /**
+     * The "type" of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

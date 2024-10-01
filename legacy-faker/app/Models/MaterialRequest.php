@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class MaterialRequest extends Model
@@ -34,6 +35,18 @@ class MaterialRequest extends Model
     protected $keyType = 'string';
 
     public $timestamps = false;
+
+    /**
+     * Get the rack location associated with the material request.
+     */
+    public function rackLocation(): HasOne
+    {
+        return $this->hasOne(
+            RackLocation::class,
+            'area',
+            'location'
+        );
+    }
 
     /**
      * Get the skid item for the material request.
