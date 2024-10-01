@@ -78,6 +78,21 @@ class SkidItem extends Model
     }
 
     /**
+     * Get the material request associated with the skid item.
+     */
+    public function request(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            MaterialRequest::class,
+            SkidAlloted::class,
+            'skid_id', // tblwms_skid_alloted.skid_id
+            'srlnum', // tblmaterialrequest.srlnum
+            'skid_id', // tblwms_skid_item.skid_id
+            'material_request_srlnum', // tblwms_skid_alloted.material_request_srlnum
+        );
+    }
+
+    /**
      * Get the building one area associated with the skid item.
      */
     public function buildingOneArea(): HasOneThrough
