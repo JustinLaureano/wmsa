@@ -2,6 +2,7 @@
 
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Models\MaterialContainer;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/barcode', function () {
@@ -30,9 +31,15 @@ Route::get('/barcode/create', function () {
 
  
 Route::get('/table/test', function () {
-    $containers = MaterialContainer::query()->paginate();
+        Log::debug('here');
+        foreach (request()->query() as $field => $value) {
+            Log::debug('field: '. $field .' | value: '. $value);
+        }
 
-    return \Inertia\Inertia::render('Test/Tables', [
-        'containers' => $containers
-    ]);
-});
+        $containers = MaterialContainer::query()->paginate(5);
+
+        return \Inertia\Inertia::render('Test/Tables', [
+            'containers' => $containers
+        ]);
+    })
+    ->name('table.test');

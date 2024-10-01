@@ -1,5 +1,3 @@
-import { PaginationClassKey } from "@mui/material";
-
 export interface LinkInterface {
     url?: string;
     label: string;
@@ -36,4 +34,12 @@ export interface DataTableProps {
     rows: RowInterface[];
     dense?: boolean;
     pagination: Pagination;
+    onFilterEvent: () => void;
+}
+
+export interface DataTableHeaderCellProps {
+    column: ColumnInterface;
+    active: boolean;
+    direction: 'asc' | 'desc';
+    onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
 }
