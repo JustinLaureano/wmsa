@@ -19,3 +19,20 @@ Route::get('/barcode/create', function () {
 
     return response()->json($con);
 });
+
+
+
+
+
+/**
+ * testing front end tables
+ */
+
+ 
+Route::get('/table/test', function () {
+    $containers = MaterialContainer::query()->paginate();
+
+    return \Inertia\Inertia::render('Test/Tables', [
+        'containers' => $containers
+    ]);
+});
