@@ -78,7 +78,7 @@ Skid/request Logic
 
     allot skids for requests - done
 
-    move skids for requests
+    move skids for requests - done
         determine lottery odds to make movement - done
         determine skid location and final delivery location - done
         make a movement toward that delivery location - done
@@ -89,10 +89,9 @@ Skid/request Logic
         remove skid alloted record - done
         ** make sure skid is removed from inventory table **
 
+    complete requests - done
 
-    complete requests
-
-    clean up inventory
+    clean up inventory - done
 
     start loop all over
 
