@@ -72,3 +72,18 @@ sap-data-mocker
     create a simple application to generate document records that come from SAP.
         delivery documents
         material documents
+
+
+
+
+
+
+filtering
+    create trait
+    define valid operators as enums
+    define proper query methods for each operator
+
+
+https://github.com/LaravelLegends/eloquent-filter
+
+https://github.com/IndexZer0/eloquent-filtering
