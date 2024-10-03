@@ -13,6 +13,7 @@ interface ViewTablesProps {
 const columns = [
     { field: 'material_uuid', headerName: 'Material UUID' },
     { field: 'storage_location_uuid', headerName: 'Storage Location UUID' },
+    { field: 'quantity', headerName: 'Qty' },
     { field: 'created_at', headerName: 'Created At' },
 ];
 
@@ -26,7 +27,7 @@ export default function ViewTables({ containers, ...props } : ViewTablesProps) {
         console.log('handling filter event')
 
         router.get(route('table.test'), {
-            material_uuid: 'btn:ec,2b'
+            quantity: 'eq:338'
         })
     }
 

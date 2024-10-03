@@ -31,12 +31,7 @@ Route::get('/barcode/create', function () {
 
  
 Route::get('/table/test', function () {
-        Log::debug('here');
-        foreach (request()->query() as $field => $value) {
-            Log::debug('field: '. $field .' | value: '. $value);
-        }
-
-        $containers = MaterialContainer::query()->paginate(5);
+        $containers = MaterialContainer::query()->filter()->paginate(5);
 
         return \Inertia\Inertia::render('Test/Tables', [
             'containers' => $containers

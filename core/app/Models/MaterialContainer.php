@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -10,7 +11,7 @@ use Illuminate\Support\Str;
 
 class MaterialContainer extends Model
 {
-    use HasFactory, SoftDeletes;
+    use Filterable, HasFactory, SoftDeletes;
 
     public static function boot() {
         parent::boot();
@@ -30,6 +31,17 @@ class MaterialContainer extends Model
         'material_container_type_id',
         'storage_location_uuid',
         'movement_status_id',
+        'barcode',
+        'quantity',
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $filterable = [
+        'material_uuid',
         'barcode',
         'quantity',
     ];
