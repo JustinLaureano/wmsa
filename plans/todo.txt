@@ -1,16 +1,12 @@
 to get to mvp
 
-data table filtering
-    create list of filter components
-    loop through list of filters
-    add onfilterChange method to each component
-    pass filter urlParams to page that used data table
-    refresh data based on filter url params in get request
 
 filtering
     add relationship filtering on eloquent models
     make relationship seperator as a '.'
     if has relationship seperator, then use builder rule to create relationship where clause
+
+    add scout general search components to filter logic
 
 
 get front end page framework working
