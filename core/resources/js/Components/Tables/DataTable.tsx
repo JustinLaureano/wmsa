@@ -10,6 +10,7 @@ import {
 import { DataTableProps } from "./types";
 import TablePagination from "./TablePagination";
 import DataTableHeaderCell from "./DataTableHeaderCell";
+import DataTableFilters from "./Filters/DataTableFilters";
 
 export default function DataTable({
     columns,
@@ -19,16 +20,25 @@ export default function DataTable({
     dense = false,
     ...props
 } : DataTableProps) {
-    
-
 
     const handleSortRequest = (event: React.MouseEvent<unknown>, property: string) => {
         console.log(event, property);
         onFilterEvent();
     }
 
+    const handleFilterRequest = (field: string, value: string) => {
+        console.log('top', 'field', field, 'value', value);
+        // TODO: start handling actual filter value data
+        // onFilterEvent();
+    }
+
     return (
         <Box>
+            <DataTableFilters
+                filters={[]}
+                onFilterRequest={handleFilterRequest}
+            />
+
             <TableContainer>
                 <Table size={dense ? "small" : "medium"}>
                     <TableHead>

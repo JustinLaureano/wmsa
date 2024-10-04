@@ -27,7 +27,7 @@ export default function ViewTables({ containers, ...props } : ViewTablesProps) {
         console.log('handling filter event')
 
         router.get(route('table.test'), {
-            quantity: 'eq:338'
+            quantity: 'like:1'
         })
     }
 
