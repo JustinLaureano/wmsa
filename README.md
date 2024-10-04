@@ -28,7 +28,7 @@ chmod +x ./docker/bin/build-initial.sh
 docker-compose up -d
 
 # Copy package dependencies to local file system
-chmod +x ./docker/bin/copy-deps.sh
+chmod +x ./docker/bin/copy-deps.sh ./docker/bin/core-vendor.sh
 
 ./docker/bin/copy-deps.sh
 ```
