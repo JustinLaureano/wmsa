@@ -29,7 +29,7 @@ Route::get('/barcode/create', function () {
  * testing front end tables
  */
 
- 
+
 Route::get('/table/test', function () {
         $containers = MaterialContainer::query()->filter()->paginate(5);
 

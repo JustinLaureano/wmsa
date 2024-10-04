@@ -6,11 +6,18 @@ export const getUrlParams = () => {
     const paramArray = window.location.search.replace('?', '').split('&');
 
     const filterData = paramArray.reduce((obj, param) => {
+
         const filterArray = param.split('=');
         const key = filterArray[0];
-        const value = filterArray[1];
+        const filter = filterArray[1].replace(/%3A/, OPERATOR_SEPARATOR).split(OPERATOR_SEPARATOR);
+        const operator = filter[0];
+        const value = filter[2];
 
-        return { ...obj, [key]: value }
+        if (!value) {
+            return obj;
+        }
+
+        return { ...obj, [key]: createFilterParamValue(operator, value) }
     }, {})
 
     return filterData;

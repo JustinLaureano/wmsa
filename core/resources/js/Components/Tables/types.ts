@@ -1,11 +1,9 @@
+import { JsonObject } from "@/types";
+
 export interface LinkInterface {
     url?: string;
     label: string;
     active: boolean;
-}
-
-export interface JsonObject {
-    [key: string]: any;
 }
 
 export interface Pagination {
@@ -40,7 +38,7 @@ export interface DataTableProps {
     dense?: boolean;
     pagination: Pagination;
     filters: any[];
-    onFilterEvent: (field: string, operation: string, value: string) => void;
+    onFilterEvent: (filterParams: JsonObject) => void;
 }
 
 export interface DataTableHeaderCellProps {

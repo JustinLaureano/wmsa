@@ -15,6 +15,6 @@ class MaterialRepository
 
     public function paginate() : LengthAwarePaginator
     {
-        return Material::query()->paginate();
+        return Material::query()->filter()->paginate();
     }
 }

@@ -31,6 +31,7 @@
         "@fontsource/roboto": "^5.0.14",
         "@mui/icons-material": "^5.16.7",
         "@mui/material": "^5.16.7",
+        "lodash.clonedeep": "^4.5.0",
         "react-toastify": "^10.0.5"
     }
 }

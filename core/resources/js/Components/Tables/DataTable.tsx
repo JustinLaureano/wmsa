@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import cloneDeep from 'lodash.clonedeep';
+import { JsonObject } from "@/types";
+import { DataTableProps } from "./types";
 import {
     Box,
     Table,
@@ -9,7 +11,6 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
-import { DataTableProps } from "./types";
 import { createFilterParamValue, getUrlParams } from "./Filters/params";
 import DataTableFilters from "./Filters/DataTableFilters";
 import DataTableHeaderCell from "./DataTableHeaderCell";
@@ -24,29 +25,39 @@ export default function DataTable({
     dense = false,
     ...props
 } : DataTableProps) {
-    const [filterParams, setFilterParams] = useState(getUrlParams());
+    const [loaded, setLoaded] = useState(false);
+    const [filterParams, setFilterParams] = useState({});
 
     const handleSortRequest = (event: React.MouseEvent<unknown>, property: string) => {
-        console.log(event, property);
+        // console.log(event, property);
         // TODO: set sort by filter param
         // onFilterEvent();
     }
 
     const handleFilterRequest = (field: string, operation: string, value: string) => {
-        setFilterParams(prevFilterParams => {
+        setFilterParams((prevFilterParams : JsonObject) => {
+            if (!value) {
+                delete prevFilterParams[field];
+                return { ...prevFilterParams };
+            }
+
             return {
                 ...prevFilterParams,
                 [field]: createFilterParamValue(operation, value)
             };
         });
-
-
     }
 
     useEffect(() => {
-        console.log(filterParams)
-        // onFilterEvent(cloneDeep(filterParams));
+        if (!loaded) return;
+
+        onFilterEvent(cloneDeep(filterParams));
     }, [filterParams])
+
+    useEffect(() => {
+        setFilterParams(getUrlParams());
+        setLoaded(true)
+    }, [])
 
     return (
         <Box>

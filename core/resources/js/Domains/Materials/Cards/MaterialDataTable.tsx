@@ -1,7 +1,10 @@
+import { useContext, useState } from 'react';
+import axios from 'axios';
+import { MaterialDataTableProps } from '../types';
+import { JsonObject } from '@/types';
+import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
-import { MaterialDataTableProps } from '../types';
-import { router } from '@inertiajs/react';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
 
@@ -18,24 +21,23 @@ const filters = [
 ];
 
 export default function MaterialDataTable({ materials } : MaterialDataTableProps) {
+    const { lang } = useContext(LanguageContext);
 
-    const handleFilterEvent = (filterParams) => {
-        console.log(filterParams)
-        console.log('handling filter event')
+    const [data, setData] = useState(materials);
 
-        router.get(route('materials'), filterParams, {
-            only: ['materials']
-        })
+    const handleFilterEvent = (filterParams: JsonObject) => {
+        axios.get(route('materials'), { params: filterParams })
+            .then(res => setData(res.data))
     }
 
     return (
         <Card sx={{ flexGrow: 1 }}>
-            <CardHeader title={'Materials'} />
+            <CardHeader title={lang.materials} />
             <CardContent>
                 <DataTable
                     columns={columns}
-                    rows={materials.data}
-                    pagination={materials}
+                    rows={data.data}
+                    pagination={data}
                     filters={filters}
                     onFilterEvent={handleFilterEvent}
                 />

@@ -23,6 +23,10 @@ class ViewMaterials extends Controller
      */
     public function __invoke(Request $request)
     {
+        if ($request->expectsJson()) {
+            return $this->materialRepository->paginate();
+        }
+
         return Inertia::render('Materials/ViewMaterials', [
             'materials' => $this->materialRepository->paginate()
         ]);
