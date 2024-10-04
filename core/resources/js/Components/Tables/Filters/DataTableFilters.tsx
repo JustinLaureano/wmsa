@@ -24,7 +24,7 @@ export default function DataTableFilters({
         >
             <TextSearchFilter
                 field={'material_uuid'}
-                label={'Material'}
+                label={'Material UUID'}
                 onFilterChange={handleFilterChange}
             />
         </Stack>
