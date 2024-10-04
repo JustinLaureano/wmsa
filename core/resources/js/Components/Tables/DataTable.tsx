@@ -16,6 +16,7 @@ export default function DataTable({
     columns,
     rows,
     pagination,
+    filters = [],
     onFilterEvent,
     dense = false,
     ...props
@@ -35,7 +36,7 @@ export default function DataTable({
     return (
         <Box>
             <DataTableFilters
-                filters={[]}
+                filters={filters}
                 onFilterRequest={handleFilterRequest}
             />
 

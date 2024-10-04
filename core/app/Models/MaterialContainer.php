@@ -36,11 +36,9 @@ class MaterialContainer extends Model
     ];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
+     * The attributes that are filterable.
      */
-    protected $filterable = [
+    protected array $filterable = [
         'material_uuid',
         'barcode',
         'quantity',

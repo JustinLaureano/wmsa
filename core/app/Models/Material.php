@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Material extends Model
 {
-    use HasFactory, SoftDeletes;
+    use Filterable,
+        HasFactory,
+        SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +27,15 @@ class Material extends Model
         'base_qty',
         'base_unit_of_measure',
         'material_type_id'
+    ];
+
+    /**
+     * The attributes that are filterable.
+     */
+    protected array $filterable = [
+        'material_number',
+        'part_number',
+        'description',
     ];
 
     /**

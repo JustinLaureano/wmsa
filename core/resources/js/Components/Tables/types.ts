@@ -4,8 +4,13 @@ export interface LinkInterface {
     active: boolean;
 }
 
+export interface JsonObject {
+    [key: string]: any;
+}
+
 export interface Pagination {
     current_page: number;
+    data: JsonObject[];
     from: number;
     last_page: number;
     prev_page_url: string;
@@ -34,6 +39,7 @@ export interface DataTableProps {
     rows: RowInterface[];
     dense?: boolean;
     pagination: Pagination;
+    filters: any[];
     onFilterEvent: () => void;
 }
 
