@@ -1,23 +1,32 @@
 import { Search } from "@mui/icons-material";
 import { Box, Divider, InputBase, Paper, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface TextSearchFilterProps {
     field: string;
     label?: string;
+    operation?: string;
     placeholder?: string;
-    onFilterChange: (field: string, value: string) => void;
+    onFilterChange: (field: string, operation: string, value: string) => void;
 }
 
 export default function TextSearchFilter({
     field,
     label = '',
+    operation = 'like',
     placeholder = 'Search...',
     onFilterChange,
     ...props
-} : TextSearchFilterProps) {    
+} : TextSearchFilterProps) {
+
+    const [filterTimeout, setFilterTimeout] = useState<NodeJS.Timeout | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onFilterChange(field, e.target.value)
+        if (filterTimeout) clearTimeout(filterTimeout);
+
+        setFilterTimeout(setTimeout(() => {
+            onFilterChange(field, operation, e.target.value)
+        }, 400))
     }
 
     return (
@@ -42,7 +51,7 @@ export default function TextSearchFilter({
                     {label}
                 </Typography>
 
-                { 
+                {
                     label &&
                     <Divider
                         orientation="vertical"

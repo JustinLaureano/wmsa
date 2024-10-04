@@ -1,4 +1,4 @@
 export interface DataTableFiltersProps {
     filters: any[];
-    onFilterRequest: (field: string, value: string) => void;
+    onFilterRequest: (field: string, operation: string, value: string) => void;
 }

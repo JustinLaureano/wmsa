@@ -40,7 +40,7 @@ export interface DataTableProps {
     dense?: boolean;
     pagination: Pagination;
     filters: any[];
-    onFilterEvent: () => void;
+    onFilterEvent: (field: string, operation: string, value: string) => void;
 }
 
 export interface DataTableHeaderCellProps {

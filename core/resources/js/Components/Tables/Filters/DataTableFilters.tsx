@@ -6,8 +6,8 @@ export default function DataTableFilters({
     onFilterRequest
 } : DataTableFiltersProps) {
 
-    const handleFilterChange = (field: string, value: string) => {
-        onFilterRequest(field, value);
+    const handleFilterChange = (field: string, operation: string, value: string) => {
+        onFilterRequest(field, operation, value);
     }
 
     return (

@@ -19,10 +19,13 @@ const filters = [
 
 export default function MaterialDataTable({ materials } : MaterialDataTableProps) {
 
-    const handleFilterEvent = () => {
+    const handleFilterEvent = (filterParams) => {
+        console.log(filterParams)
         console.log('handling filter event')
 
-        router.get(route('materials'), {})
+        router.get(route('materials'), filterParams, {
+            only: ['materials']
+        })
     }
 
     return (

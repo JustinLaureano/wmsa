@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import cloneDeep from 'lodash.clonedeep';
 import {
     Box,
     Table,
@@ -8,9 +10,10 @@ import {
     TableRow
 } from "@mui/material";
 import { DataTableProps } from "./types";
-import TablePagination from "./TablePagination";
-import DataTableHeaderCell from "./DataTableHeaderCell";
+import { createFilterParamValue, getUrlParams } from "./Filters/params";
 import DataTableFilters from "./Filters/DataTableFilters";
+import DataTableHeaderCell from "./DataTableHeaderCell";
+import TablePagination from "./TablePagination";
 
 export default function DataTable({
     columns,
@@ -21,17 +24,29 @@ export default function DataTable({
     dense = false,
     ...props
 } : DataTableProps) {
+    const [filterParams, setFilterParams] = useState(getUrlParams());
 
     const handleSortRequest = (event: React.MouseEvent<unknown>, property: string) => {
         console.log(event, property);
-        onFilterEvent();
-    }
-
-    const handleFilterRequest = (field: string, value: string) => {
-        console.log('top', 'field', field, 'value', value);
-        // TODO: start handling actual filter value data
+        // TODO: set sort by filter param
         // onFilterEvent();
     }
+
+    const handleFilterRequest = (field: string, operation: string, value: string) => {
+        setFilterParams(prevFilterParams => {
+            return {
+                ...prevFilterParams,
+                [field]: createFilterParamValue(operation, value)
+            };
+        });
+
+
+    }
+
+    useEffect(() => {
+        console.log(filterParams)
+        // onFilterEvent(cloneDeep(filterParams));
+    }, [filterParams])
 
     return (
         <Box>

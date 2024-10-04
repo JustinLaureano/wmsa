@@ -13,6 +13,7 @@ export default function LanguageProvider({
     initialPage = defaultInitialPage,
     ...props
 }: LanguageProviderProps) {
+
     const [lang, setLang] = useState(initialPage.props?.lang || {});
 
     const defaultValue = {
