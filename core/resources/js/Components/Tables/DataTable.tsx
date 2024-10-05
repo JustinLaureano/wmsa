@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import cloneDeep from 'lodash.clonedeep';
 import { JsonObject } from "@/types";
 import { DataTableProps } from "./types";
 import {
@@ -28,10 +27,25 @@ export default function DataTable({
     const [loaded, setLoaded] = useState(false);
     const [filterParams, setFilterParams] = useState({});
 
+    const [sortParams, setSortParams] = useState({ field: columns[0].field, direction: '+' });
+
     const handleSortRequest = (event: React.MouseEvent<unknown>, property: string) => {
-        // console.log(event, property);
-        // TODO: set sort by filter param
-        // onFilterEvent();
+        const newSortParams = {
+            field: sortParams.field,
+            direction: sortParams.direction
+        };
+
+        if ( sortParams.field !== property ) {
+            newSortParams.field = property;
+            newSortParams.direction = '+';
+        }
+        else {
+            const newSortDir = sortParams.direction == '+' ? '-' : '+';
+
+            newSortParams.direction = newSortDir;
+        }
+
+        setSortParams(newSortParams)
     }
 
     const handleFilterRequest = (field: string, operation: string, value: string) => {
@@ -68,6 +82,17 @@ export default function DataTable({
     }, [filterParams])
 
     useEffect(() => {
+        if (!loaded) return;
+
+        setFilterParams((prevFilterParams : JsonObject) => {
+            return {
+                ...prevFilterParams,
+                'sortBy': `${sortParams.direction}${sortParams.field}`
+            };
+        });
+    }, [sortParams])
+
+    useEffect(() => {
         setFilterParams(getUrlParams());
         setLoaded(true)
     }, [])
@@ -83,15 +108,22 @@ export default function DataTable({
                 <Table size={dense ? "small" : "medium"}>
                     <TableHead>
                         <TableRow>
-                            { columns.map( (column, index) => (
-                                <DataTableHeaderCell
-                                    key={index}
-                                    column={column}
-                                    active={false}
-                                    direction={'asc'}
-                                    onRequestSort={handleSortRequest}
-                                />
-                            )) }
+                            { columns.map( (column, index) => {
+                                const active = sortParams.field == column.field;
+                                const direction = sortParams.field == column.field
+                                    ? (sortParams.direction == '+' ? 'asc' : 'desc') 
+                                    : 'asc';
+
+                                return (
+                                    <DataTableHeaderCell
+                                        key={index}
+                                        column={column}
+                                        active={active}
+                                        direction={direction}
+                                        onRequestSort={handleSortRequest}
+                                    />
+                                )
+                            }) }
                         </TableRow>
                     </TableHead>
                     <TableBody>
