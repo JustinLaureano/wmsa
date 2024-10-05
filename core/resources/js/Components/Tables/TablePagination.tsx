@@ -1,8 +1,7 @@
-import { Link } from '@inertiajs/react';
-import { PaginationItem, Pagination, Stack, Typography, useTheme } from '@mui/material';
+import { Pagination, Stack, Typography, useTheme } from '@mui/material';
 import { TablePaginationProps } from './types';
 
-export default function TablePagination({ pagination } : TablePaginationProps) {
+export default function TablePagination({ pagination, onChange } : TablePaginationProps) {
     const theme = useTheme();
 
     const {
@@ -17,6 +16,10 @@ export default function TablePagination({ pagination } : TablePaginationProps) {
         total
     } = pagination;
 
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        onChange(value)
+    }
+
     return (
         <Stack
             direction="row"
@@ -30,36 +33,12 @@ export default function TablePagination({ pagination } : TablePaginationProps) {
             </Typography>
 
             <Pagination
+                page={current_page}
                 defaultPage={current_page}
                 count={last_page}
                 siblingCount={1}
                 size="small"
-                renderItem={(item) => {
-
-                    let url : string = path;
-
-                    if (item.type == 'previous') {
-                        url = prev_page_url;
-                    }
-                    else if (item.type == 'next') {
-                        url = next_page_url
-                    }
-                    else if (item.type == 'page') {
-                        const link = links.filter(link => parseInt(link.label) == item.page)[0];
-                        url = link.url || '';
-                    }
-                    else if (item.type == 'end-ellipsis') {
-                        url = '';
-                    }
-
-                    return (
-                        <PaginationItem
-                            component={Link}
-                            href={url}
-                            {...item}
-                        />
-                    )
-                }}
+                onChange={handlePageChange}
             />
         </Stack>
     )

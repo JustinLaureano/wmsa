@@ -36,6 +36,9 @@ export default function DataTable({
 
     const handleFilterRequest = (field: string, operation: string, value: string) => {
         setFilterParams((prevFilterParams : JsonObject) => {
+            // Any filter modification should start on a clean page
+            delete prevFilterParams['page'];
+
             if (!value) {
                 delete prevFilterParams[field];
                 return { ...prevFilterParams };
@@ -48,10 +51,20 @@ export default function DataTable({
         });
     }
 
+    const handlePageChange = (page: number) => {
+        setFilterParams((prevFilterParams : JsonObject) => {
+            return {
+                ...prevFilterParams,
+                'page': page
+            };
+        });
+        
+    }
+
     useEffect(() => {
         if (!loaded) return;
 
-        onFilterEvent(cloneDeep(filterParams));
+        onFilterEvent(filterParams);
     }, [filterParams])
 
     useEffect(() => {
@@ -96,7 +109,10 @@ export default function DataTable({
                 </Table>
             </TableContainer>
 
-            <TablePagination pagination={pagination} />
+            <TablePagination
+                pagination={pagination}
+                onChange={handlePageChange}
+            />
         </Box>
     )
 }

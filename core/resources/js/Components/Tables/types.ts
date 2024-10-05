@@ -21,6 +21,7 @@ export interface Pagination {
 
 export interface TablePaginationProps {
     pagination: Pagination;
+    onChange: (page: number) => void;
 }
 
 export interface ColumnInterface {
