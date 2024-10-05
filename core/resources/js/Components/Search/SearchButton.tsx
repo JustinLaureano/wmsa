@@ -38,7 +38,7 @@ export default function SearchButton(props : Record<string, any>) {
                     )
                 }}
             >
-                Ctrl + P
+                Ctrl + K
             </Box>
         </Button>
     );
