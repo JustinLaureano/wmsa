@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // TODO: delete
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
             $table->string('number', 10);

@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // TODO: delete
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Part::class);
