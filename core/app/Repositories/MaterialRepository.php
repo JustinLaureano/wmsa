@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Material;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class MaterialRepository
 {
@@ -13,8 +14,14 @@ class MaterialRepository
         return Material::query()->get();
     }
 
-    public function paginate() : LengthAwarePaginator
+    public function filterPaginate($search = null) : LengthAwarePaginator
     {
-        return Material::query()->filter()->paginate();
+        if ($search === null) {
+            $search = request()->query('search');
+        }
+
+        return Material::search($search)
+            ->query(fn (Builder $query) => $query->filter())
+            ->paginate();
     }
 }

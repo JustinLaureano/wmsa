@@ -24,11 +24,11 @@ class ViewMaterials extends Controller
     public function __invoke(Request $request)
     {
         if ($request->expectsJson()) {
-            return $this->materialRepository->paginate();
+            return $this->materialRepository->filterPaginate();
         }
 
         return Inertia::render('Materials/ViewMaterials', [
-            'materials' => $this->materialRepository->paginate()
+            'materials' => $this->materialRepository->filterPaginate()
         ]);
     }
 }

@@ -27,7 +27,7 @@ export default function DataTable({
     const [loaded, setLoaded] = useState(false);
     const [filterParams, setFilterParams] = useState({});
 
-    const [sortParams, setSortParams] = useState({ field: columns[0].field, direction: '+' });
+    const [sortParams, setSortParams] = useState({ field: '', direction: '' });
 
     const handleSortRequest = (event: React.MouseEvent<unknown>, property: string) => {
         const newSortParams = {
