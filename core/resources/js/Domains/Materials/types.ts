@@ -21,6 +21,10 @@ export interface MaterialDataTableProps {
     materials: MaterialPagination;
 }
 
+export interface MaterialSearchFilterProps {
+    onFilterChange: (field: string, value: string) => void;
+}
+
 export interface MaterialNumberSearchFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }

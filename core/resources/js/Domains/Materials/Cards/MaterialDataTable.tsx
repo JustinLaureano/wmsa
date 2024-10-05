@@ -5,6 +5,7 @@ import { JsonObject } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
+import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
 
@@ -16,6 +17,7 @@ const columns = [
 ];
 
 const filters = [
+    { component: MaterialSearchFilter },
     { component: MaterialNumberSearchFilter },
     { component: PartNumberSearchFilter },
 ];

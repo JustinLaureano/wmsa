@@ -24,5 +24,9 @@ export const getUrlParams = () => {
 }
 
 export function createFilterParamValue(operation: string, value: string) {
-    return `${operation}${OPERATOR_SEPARATOR}${value}`
+    if (operation == '' || operation == 'search') {
+        return value;
+    }
+
+    return `${operation}${OPERATOR_SEPARATOR}${value}`;
 }

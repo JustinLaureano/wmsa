@@ -47,9 +47,12 @@ export default function TextSearchFilter({
                     <Search color="action" fontSize="small" />
                 </Box>
 
-                <Typography variant="body2">
-                    {label}
-                </Typography>
+                {
+                    label &&
+                    <Typography variant="body2">
+                        {label}
+                    </Typography>
+                }
 
                 {
                     label &&
