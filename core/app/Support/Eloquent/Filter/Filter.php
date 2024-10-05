@@ -19,6 +19,9 @@ class Filter
         'in' => Rules\In::class,
     ];
 
+    /** TODO: set to search */
+    protected string $defaultRule = 'like';
+
     protected array $baseFilters = [
         'sortBy',
         'perPage',
@@ -64,12 +67,12 @@ class Filter
     protected function getFilterRule(string $filter) : QueryFilter
     {
         if ( !str_contains($filter, static::OPERATOR_SEPARATOR) ) {
-            return $this->rules['like'];
+            return $this->rules[$this->defaultRule];
         }
 
         [$operator] = explode(static::OPERATOR_SEPARATOR, $filter);
 
-        $rule = $this->rules[$operator] ?? $this->rules['like'];
+        $rule = $this->rules[$operator] ?? $this->rules[$this->defaultRule];
 
         return new $rule;
     }
