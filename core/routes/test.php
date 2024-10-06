@@ -38,3 +38,10 @@ Route::get('/table/test', function () {
         ]);
     })
     ->name('table.test');
+
+
+
+Route::get('/container/test', function () {
+        return \Inertia\Inertia::render('Test/Containers');
+    })
+    ->name('container.test');

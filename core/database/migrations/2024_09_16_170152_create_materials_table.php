@@ -25,7 +25,8 @@ return new class extends Migration
         });
 
         Artisan::call('db:seed --class=MaterialSeeder');
-        Artisan::call("scout:import 'App\Models\Material'");
+        // TODO: fix this
+        // Artisan::call("scout:import 'App\\Models\\Material'");
     }
 
     /**

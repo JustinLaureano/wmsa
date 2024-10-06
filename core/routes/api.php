@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\Materials\FindOrCreateMaterialContainer;
 use App\Http\Controllers\Materials\ViewMaterials;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,6 @@ Route::post('/localization', [LocalizationController::class, 'set'])->name('loca
 
 Route::get('/materials', ViewMaterials::class)
     ->name('api.materials');
+
+Route::get('/materials/container/{barcode}', FindOrCreateMaterialContainer::class)
+    ->name('api.materials.container');

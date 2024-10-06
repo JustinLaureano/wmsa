@@ -6,7 +6,7 @@ use App\Domain\Materials\Contracts\BarcodeContract;
 
 class BarcodeFactory
 {
-    public static function make($barcode): BarcodeContract
+    public static function make(string $barcode): BarcodeContract
     {
         // if (strrpos($barcode, '/') === strlen($barcode) - 5) {
         //     return new CompoundBarcode($barcode);
