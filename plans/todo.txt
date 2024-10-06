@@ -86,12 +86,7 @@ sap-data-mocker
 
 
 
-filtering
-    create trait
-    define valid operators as enums
-    define proper query methods for each operator
+filtering inspiration
+    https://github.com/LaravelLegends/eloquent-filter
 
-
-https://github.com/LaravelLegends/eloquent-filter
-
-https://github.com/IndexZer0/eloquent-filtering
+    https://github.com/IndexZer0/eloquent-filtering

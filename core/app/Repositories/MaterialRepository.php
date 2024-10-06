@@ -24,4 +24,9 @@ class MaterialRepository
             ->query(fn (Builder $query) => $query->filter())
             ->paginate();
     }
+
+    public function findByPartNumber(string $partNumber) : Material|null
+    {
+        return Material::query()->wherePartNumber($partNumber)->first();
+    }
 }

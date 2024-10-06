@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Eloquent\Filter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,5 +61,13 @@ class Material extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(MaterialType::class, 'material_type_id', 'id');
+    }
+
+    /**
+     * Scope a query to filter on the part_number column.
+     */
+    public function scopeWherePartNumber(Builder $query, string $partNumber): void
+    {
+        $query->where('part_number', $partNumber);
     }
 }

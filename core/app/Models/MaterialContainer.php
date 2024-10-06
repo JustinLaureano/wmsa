@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Eloquent\Filter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -86,5 +87,13 @@ class MaterialContainer extends Model
                 'movement_status_id',
                 'id'
             );
+    }
+
+    /**
+     * Scope a query to filter on the barcode column.
+     */
+    public function scopeWhereBarcode(Builder $query, string $barcode): void
+    {
+        $query->where('barcode', $barcode);
     }
 }
