@@ -1,10 +1,10 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler } from 'react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
+        samaccountname: '',
         password: '',
         remember: false,
     });
@@ -18,14 +18,12 @@ export default function Login({ status, canResetPassword }: { status?: string, c
     };
 
     return (
-        <DashboardLayout>
-            <Head title="Log in" />
-
+        <DashboardLayout title={"Login"}>
             <form onSubmit={submit}>
                 <div>Login</div>
 
                 <div className="flex flex-col gap-3">
-                    <input onChange={e => setData('email', e.target.value)} />
+                    <input onChange={e => setData('samaccountname', e.target.value)} />
                     <input onChange={e => setData('password', e.target.value)} />
                 </div>
 

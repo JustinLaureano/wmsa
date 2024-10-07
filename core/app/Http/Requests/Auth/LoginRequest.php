@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +23,17 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ];
+        $rules = ['samaccountname' => ['required', 'string']];
+
+        if ( !app()->environment(['local', 'testing']) ) {
+            $rules['password'] = ['required', 'string'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -41,11 +45,46 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if ( app()->environment(['local', 'testing']) ) {
+            $this->authenticateLocal();
+            return;
+        }
+
+        $this->authenticateProduction();
+    }
+
+    /**
+     * Attempt to authenticate for local development
+     * based on the given username.
+     */
+    public function authenticateLocal() : void
+    {
+        $user = (new UserRepository)->findBy('username', $this->input('samaccountname'));
+
+        if (!$user) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'samaccountname' => trans('auth.failed'),
+            ]);
+        }
+
+        Auth::login($user);
+
+        RateLimiter::clear($this->throttleKey());
+    }
+
+    /**
+     * Attempt to authenticate in production
+     * based on the given username.
+     */
+    public function authenticateProduction() : void
+    {
+        if (! Auth::attempt($this->only('samaccountname', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'samaccountname' => trans('auth.failed'),
             ]);
         }
 
@@ -68,7 +107,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'samaccountname' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -80,6 +119,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('samaccountname')).'|'.$this->ip());
     }
 }
