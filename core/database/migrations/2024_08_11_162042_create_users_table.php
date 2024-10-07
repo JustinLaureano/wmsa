@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Organization;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -26,26 +27,21 @@ return new class extends Migration
         // memberof,
         // password,
         // remember_token
-        // FROM prospira_web.users;
+        // FROM users;
         // plus organization_id instead of company
 
 
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('guid')->primary();
+            $table->foreignIdFor(Organization::class);
             $table->string('username')->unique()->nullable();
-            $table->string('company')->nullable();
-            $table->string('department')->nullable();
-            $table->string('description')->nullable();
-            $table->string('displayname')->nullable();
-            $table->string('givenname')->nullable();
-            $table->string('mail')->nullable();
-            $table->string('manager')->nullable();
-            $table->text('memberof')->nullable();
-            $table->string('name')->nullable();
-            $table->string('samaccountname')->nullable();
-            $table->string('sn')->nullable();
+            $table->string('first_name')->nullable(); // givenname
+            $table->string('last_name')->nullable(); // sn
+            $table->string('display_name')->nullable(); // displayname
             $table->string('title')->nullable();
-            $table->string('userprincipalname')->nullable();
+            $table->string('description')->nullable();
+            $table->string('department')->nullable();
+            $table->string('email')->nullable(); // mail
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

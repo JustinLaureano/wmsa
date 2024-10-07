@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Organization;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -14,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('teammates', function (Blueprint $table) {
             $table->bigInteger('clock_number')->primary();
+            $table->foreignIdFor(Organization::class);
             $table->string('first_name', 40);
             $table->string('last_name', 40);
             $table->date('hire_date')->nullable();

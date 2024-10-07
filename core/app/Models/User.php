@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,7 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'organization_id',
+        'username',
+        'first_name',
+        'last_name',
+        'display_name',
+        'title',
+        'description',
         'email',
         'password',
     ];
@@ -41,16 +47,44 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
     /**
-     * Get the tests for this users.
+     * The attributes that are filterable.
      */
-    public function test(): HasMany
+    protected array $filterable = [
+        'username',
+        'first_name',
+        'last_name',
+        'title',
+        'description',
+        'email',
+    ];
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
     {
-        return $this->hasMany(Test::class);
+        return [
+            'username' => $this->username,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'title' => $this->title,
+            'description' => $this->description,
+            'email' => $this->email,
+        ];
+    }
+
+    /**
+     * Get the organization for the user.
+     */
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id');
     }
 }
