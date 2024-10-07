@@ -29,9 +29,10 @@ class TeammateSeeder extends Seeder
 
             $teammates[] = array_merge([
                 'clock_number' => $data[0],
-                'first_name' => $data[1],
-                'last_name' => $data[2],
-                'hire_date' => $data[3],
+                'organization_id' => $data[1],
+                'first_name' => $data[2],
+                'last_name' => $data[3],
+                'hire_date' => $data[4],
             ], $this->getTimestamps());
         }
 
