@@ -19,6 +19,28 @@ create material container repository
 seed material_containers properly
 
 
+messages and message groups
+    create messages table
+        sender_uuid
+        sender_type ENUM ('user', 'teammate', 'group')
+        receiver_uuid
+        receiver_type ENUM ('user', 'teammate', 'group')
+        content TEXT
+        sent_at TIMESTAMP
+        is_read BOOLEAN DEFAULT FALSE
+
+    message groups
+        material handlers
+        supervisors
+        shipping
+        mold cleaners
+        engineering
+        quality
+            sort leads, quality team, supplier quality
+        irm
+        manufacturing
+            line leaders, supervisors, material handlers, irm
+
 
 storage locations
 

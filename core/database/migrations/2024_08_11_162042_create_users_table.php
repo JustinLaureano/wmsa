@@ -23,8 +23,6 @@ return new class extends Migration
         // description,
         // department,
         // mail,
-        // manager,
-        // memberof,
         // password,
         // remember_token
         // FROM users;
