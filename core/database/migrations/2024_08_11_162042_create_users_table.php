@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('department')->nullable();
             $table->string('email')->nullable(); // mail
+            $table->string('domain')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
