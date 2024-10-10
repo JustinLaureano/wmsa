@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = ['samaccountname' => ['required', 'string']];
+        $rules = ['username' => ['required', 'string']];
 
         if ( !app()->environment(['local', 'testing']) ) {
             $rules['password'] = ['required', 'string'];
@@ -59,13 +59,13 @@ class LoginRequest extends FormRequest
      */
     public function authenticateLocal() : void
     {
-        $user = (new UserRepository)->findBy('username', $this->input('samaccountname'));
+        $user = (new UserRepository)->findBy('username', $this->input('username'));
 
         if (!$user) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'samaccountname' => trans('auth.failed'),
+                'username' => trans('auth.failed'),
             ]);
         }
 
@@ -80,11 +80,11 @@ class LoginRequest extends FormRequest
      */
     public function authenticateProduction() : void
     {
-        if (! Auth::attempt($this->only('samaccountname', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'samaccountname' => trans('auth.failed'),
+                'username' => trans('auth.failed'),
             ]);
         }
 
@@ -107,7 +107,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'samaccountname' => trans('auth.throttle', [
+            'username' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -119,6 +119,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('samaccountname')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('username')).'|'.$this->ip());
     }
 }

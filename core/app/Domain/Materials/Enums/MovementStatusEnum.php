@@ -2,7 +2,7 @@
 
 namespace App\Domain\Materials\Enums;
 
-enum MovementStatus: string
+enum MovementStatusEnum: string
 {
     case UNRESTRICTED = 'unrestricted';
     case RESTRICTED = 'restricted';

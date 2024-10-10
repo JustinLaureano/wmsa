@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 
 Route::get('clockin', [ClockinController::class, 'create'])
-->name('clockin');
+    ->name('clockin');
 
 Route::post('clockin', [ClockinController::class, 'store']);
 

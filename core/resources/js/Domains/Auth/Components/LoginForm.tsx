@@ -29,7 +29,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
 
     /** Form */
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
-        samaccountname: '',
+        username: '',
         password: ''
     });
 
@@ -64,14 +64,14 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
 
             <TextField
                 required
-                value={data.samaccountname}
-                error={Boolean(errors.samaccountname)}
-                helperText={errors.samaccountname}
+                value={data.username}
+                error={Boolean(errors.username)}
+                helperText={errors.username}
                 label={lang.username}
-                name="samaccountname"
+                name="username"
                 size="small"
                 fullWidth
-                onChange={e => setData('samaccountname', e.target.value)}
+                onChange={e => setData('username', e.target.value)}
             />
 
             <TextField

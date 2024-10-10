@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Domain\Materials\Enums\MovementStatus as MovementStatusEnum;
+use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Models\MovementStatus;
 
 class MovementStatusRepository

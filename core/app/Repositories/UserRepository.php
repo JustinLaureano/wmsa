@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Domain\Auth\DataTransferObjects\AssignUserRoleData;
+use App\Domain\Auth\DataTransferObjects\RemoveUserRoleData;
 use App\Models\User;
 
 class UserRepository
@@ -29,5 +30,13 @@ class UserRepository
     public function findForTeammate(string $firstName, string $lastName) : User|null
     {
         return User::query()->whereName($firstName, $lastName)->first();
+    }
+
+    /**
+     * Remove a role for the user.
+     */
+    public function removeRole(RemoveUserRoleData $data) : void
+    {
+        $data->user->removeRole($data->role);
     }
 }

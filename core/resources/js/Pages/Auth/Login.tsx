@@ -4,7 +4,7 @@ import { Head, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        samaccountname: '',
+        username: '',
         password: '',
         remember: false,
     });
@@ -23,7 +23,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                 <div>Login</div>
 
                 <div className="flex flex-col gap-3">
-                    <input onChange={e => setData('samaccountname', e.target.value)} />
+                    <input onChange={e => setData('username', e.target.value)} />
                     <input onChange={e => setData('password', e.target.value)} />
                 </div>
 

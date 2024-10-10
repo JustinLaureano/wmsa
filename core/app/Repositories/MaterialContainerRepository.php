@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Domain\Materials\Contracts\BarcodeContract;
 use App\Domain\Materials\DataTransferObjects\MaterialContainerData;
-use App\Domain\Materials\Enums\MovementStatus as MovementStatusEnum; 
+use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Models\MaterialContainer;
 
 class MaterialContainerRepository

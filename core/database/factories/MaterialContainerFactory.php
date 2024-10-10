@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Domain\Materials\DataTransferObjects\MaterialContainerData;
-use App\Domain\Materials\Enums\MovementStatus as MovementStatusEnum;
+use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Domain\Materials\Support\Fakers\BarcodeFaker;
 use App\Models\Material;
