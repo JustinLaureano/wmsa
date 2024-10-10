@@ -2,10 +2,19 @@
 
 namespace App\Repositories;
 
+use App\Domain\Auth\DataTransferObjects\AssignUserRoleData;
 use App\Models\User;
 
 class UserRepository
 {
+    /**
+     * Assign a role for the user.
+     */
+    public function assignRole(AssignUserRoleData $data) : void
+    {
+        $data->user->assignRole($data->role);
+    }
+
     /**
      * Find a user record by a given column name.
      */
