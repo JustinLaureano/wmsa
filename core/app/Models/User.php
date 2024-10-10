@@ -3,20 +3,25 @@
 namespace App\Models;
 
 use App\Support\Eloquent\Filter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Filterable,
+    use AuthenticatesWithLdap,
+        Filterable,
         HasApiTokens,
         HasFactory,
         HasRoles,
+        HasUuids,
         Notifiable,
         Searchable;
 
@@ -93,6 +98,13 @@ class User extends Authenticatable
         'email',
     ];
 
+    public static $objectClasses = [
+        'top',
+        'person',
+        'organizationalperson',
+        'user',
+    ];
+
     /**
      * Get the indexable data array for the model.
      *
@@ -116,5 +128,24 @@ class User extends Authenticatable
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Get the teammate for the user.
+     */
+    public function teammate(): BelongsTo
+    {
+        return $this->belongsTo(Teammate::class, 'user_guid', 'guid');
+    }
+
+    /**
+     * Scope a query to filter on the barcode column.
+     */
+    public function scopeWhereName(Builder $query, string $firstName, string $lastName): void
+    {
+        $query->where([
+            ['first_name', $firstName],
+            ['last_name', $lastName]
+        ]);
     }
 }

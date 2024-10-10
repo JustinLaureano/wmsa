@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Auth\Ldap\OrganizationIdAttributeHandler;
+
 return [
 
     /*
@@ -38,7 +40,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'ldap',
         ],
 
         'teammate' => [
@@ -75,6 +77,26 @@ return [
             'model' => env('AUTH_MODEL', App\Models\Teammate::class),
         ],
 
+        'ldap' => [
+            'driver' => 'ldap',
+            'model' => \LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => true,
+                'sync_attributes' => [
+                    OrganizationIdAttributeHandler::class,
+                    'username' => 'samaccountname',
+                    'first_name' => 'givenname',
+                    'last_name' => 'sn',
+                    'display_name' => 'displayname',
+                    'title' => 'title',
+                    'description' => 'description',
+                    'department' => 'department',
+                    'email' => 'mail',
+                ]
+            ]
+        ]
     ],
 
     /*
