@@ -1,6 +1,14 @@
 to get to mvp
 
 
+define base roles and permissions
+
+apply roles and permissions to seeded users based on 'department' or title
+if the users have no guid, consider them production floor employees
+    make either material handlers, press operator, or sorters
+
+
+
 filtering
     add relationship filtering on eloquent models
     make relationship seperator as a '.'
