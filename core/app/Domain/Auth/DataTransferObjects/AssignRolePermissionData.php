@@ -10,7 +10,7 @@ class AssignRolePermissionData extends Data
 {
     public function __construct(
         public readonly Role $role,
-        public readonly Permission $permission
+        public readonly Permission|string $permission
     ) {
 
     }
