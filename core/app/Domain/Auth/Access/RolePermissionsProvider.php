@@ -17,11 +17,30 @@ class RolePermissionsProvider
     {
         return [
             new RolePermissionsData(
+                name: RoleEnum::IRM_MANAGER->value,
+                permissions: [
+                    PermissionEnum::TRANSFER_MATERIAL_STOCK->value,
+                ]
+            ),
+            new RolePermissionsData(
                 name: RoleEnum::MATERIAL_HANDLER->value,
                 permissions: [
-                    PermissionEnum::TRANSFER_MATERIAL_STOCK->value
+                    PermissionEnum::TRANSFER_MATERIAL_STOCK->value,
                 ]
-            )
+            ),
+            new RolePermissionsData(
+                name: RoleEnum::PRODUCTION_SUPERVISOR->value,
+                permissions: [
+                    PermissionEnum::TRANSFER_MATERIAL_STOCK->value,
+                ]
+            ),
+            new RolePermissionsData(
+                name: RoleEnum::QUALITY_MANAGER->value,
+                permissions: [
+                    PermissionEnum::TRANSFER_MATERIAL_STOCK->value,
+                    PermissionEnum::UPDATE_CONTAINER_MOVEMENT_STATUS->value,
+                ]
+            ),
         ];
     }
 }

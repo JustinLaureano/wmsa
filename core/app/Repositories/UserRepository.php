@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Domain\Auth\DataTransferObjects\AssignUserRoleData;
 use App\Domain\Auth\DataTransferObjects\RemoveUserRoleData;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
@@ -22,6 +23,14 @@ class UserRepository
     public function findBy(string $column, string $value) : User|null
     {
         return User::query()->where($column, $value)->first();
+    }
+
+    /**
+     * Retrieve all user records.
+     */
+    public function get() : Collection
+    {
+        return User::query()->get();
     }
 
     /**

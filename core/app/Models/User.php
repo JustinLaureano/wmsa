@@ -47,6 +47,13 @@ class User extends Authenticatable
     public $incrementing = false;
 
     /**
+     * The authentication guard driver for the user model.
+     *
+     * @var string
+     */
+    protected $guard_name = 'web';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
