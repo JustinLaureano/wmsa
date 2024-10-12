@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Teammate extends Model implements AuthenticatableContract
 {
-    use Authenticatable, HasFactory, SoftDeletes;
+    use Authenticatable,
+        HasFactory,
+        HasRoles,
+        Notifiable,
+        SoftDeletes;
 
     /**
      * The primary key associated with the table.
@@ -47,6 +53,22 @@ class Teammate extends Model implements AuthenticatableContract
         'first_name',
         'last_name',
     ];
+
+    /**
+     * The authentication guard driver for the user model.
+     *
+     * This variables only use is to enforce roles/permissions
+     * and does not affect application authentication.
+     */
+    protected string $guard_name = 'web';
+
+    /**
+     * Returns the default guard for the model.
+     *
+     * This variables only use is to enforce roles/permissions
+     * and does not affect application authentication.
+     */
+    protected function getDefaultGuardName(): string { return 'web'; }
 
     /**
      * Get the indexable data array for the model.

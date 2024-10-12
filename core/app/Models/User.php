@@ -49,9 +49,10 @@ class User extends Authenticatable
     /**
      * The authentication guard driver for the user model.
      *
-     * @var string
+     * This variables only use is to enforce roles/permissions
+     * and does not affect application authentication.
      */
-    protected $guard_name = 'web';
+    protected string $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.

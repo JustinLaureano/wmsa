@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\Auth\Enums\RoleEnum;
+use App\Models\Teammate;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Database\Seeders\Traits\Timestamps;
@@ -16,6 +17,12 @@ class ModelHasRoleSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
+    {
+        $this->seedUsers();
+        $this->seedTeammates();
+    }
+
+    protected function seedUsers() : void
     {
         $users = (new UserRepository)->get();
 
@@ -35,6 +42,16 @@ class ModelHasRoleSeeder extends Seeder
             if ($this->isQualityManager($user)) {
                 $user->assignRole(RoleEnum::QUALITY_MANAGER);
             }
+        }
+    }
+
+    public function seedTeammates() : void
+    {
+        $teammates = Teammate::query()->doesntHave('user')->get();
+
+        // TODO: set more production job roles
+        foreach ($teammates as $teammate) {
+            $teammate->assignRole(RoleEnum::MATERIAL_HANDLER);
         }
     }
 
