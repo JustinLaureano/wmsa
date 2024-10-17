@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,6 @@ class MaterialContainer extends Model
     protected $fillable = [
         'material_uuid',
         'material_container_type_id',
-        'storage_location_uuid',
         'movement_status_id',
         'barcode',
         'quantity',
@@ -66,15 +66,18 @@ class MaterialContainer extends Model
     }
 
     /**
-     * Get the storage location for this container.
+     * Get the rack location associated with the skid item.
      */
-    public function location(): HasOne
+    public function location(): HasOneThrough
     {
-        return $this->hasOne(
-                StorageLocation::class,
-                'storage_location_uuid',
-                'uuid'
-            );
+        return $this->hasOneThrough(
+            StorageLocation::class,
+            ContainerLocation::class,
+            'material_container_uuid', // container_locations.material_container_uuid
+            'uuid', // storage_locations.uuid
+            'uuid', // material_containers.uuid
+            'storage_location_uuid', // container_locations.storage_location_uuid
+        );
     }
 
     /**

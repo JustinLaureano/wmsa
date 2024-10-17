@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
 class StorageLocation extends Model
@@ -40,6 +41,21 @@ class StorageLocation extends Model
     public function area(): BelongsTo
     {
         return $this->belongsTo(StorageLocationArea::class, 'storage_location_area_id', 'id');
+    }
+
+    /**
+     * Get the containers for the storage location.
+     */
+    public function containers(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            MaterialContainer::class,
+            ContainerLocation::class,
+            'storage_location_uuid', // container_locations.storage_location_uuid
+            'uuid', // storage_locations.uuid
+            'uuid', // material_containers.uuid
+            'material_container_uuid', // container_locations.material_container_uuid
+        );
     }
 
     /**

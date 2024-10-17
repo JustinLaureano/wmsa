@@ -118,7 +118,8 @@ return [
     ],
 
     'ignore_commands' => [
-        'ldap:import'
+        'ldap:import',
+        'reverb:restart',
     ],
 
     /*

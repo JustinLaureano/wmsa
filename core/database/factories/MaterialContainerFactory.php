@@ -27,13 +27,11 @@ class MaterialContainerFactory extends Factory
         $barcode = BarcodeFactory::make( BarcodeFaker::make()->getBarcode() );
         $material = Material::where('part_number', $barcode->getPartNumber())->first();
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
-        $storageLocation = StorageLocation::inRandomOrder()->first();
         $movementStatus = MovementStatus::where('code', MovementStatusEnum::UNRESTRICTED)->first();
 
         $data = new MaterialContainerData(
             material_uuid: $material->uuid,
             material_container_type_id: $materialContainerType->id,
-            storage_location_uuid: $storageLocation->uuid,
             movement_status_id: $movementStatus->id,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),

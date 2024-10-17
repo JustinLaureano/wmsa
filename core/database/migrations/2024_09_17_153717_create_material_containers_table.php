@@ -21,10 +21,6 @@ return new class extends Migration
                 ->references('uuid')
                 ->on('materials');
             $table->foreignIdFor(MaterialContainerType::class)->nullable();
-            $table->foreignUuid('storage_location_uuid')
-                ->references('uuid')
-                ->on('storage_locations')
-                ->nullable();
             $table->foreignIdFor(MovementStatus::class, 'movement_status_id');
             $table->string('barcode', 100);
             $table->integer('quantity');
