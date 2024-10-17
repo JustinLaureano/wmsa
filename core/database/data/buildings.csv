@@ -1,4 +1,9 @@
-organization_id,name,location,building_type_id
-1,"Building 1 (Plant 2)","Upper Sandusky, OH",1
-1,"Building 2 (Blackhawk)","Upper Sandusky, OH",1
-1,"Defiance","Upper Sandusky, OH",2
+id,organization_id,name,location,building_type_id
+1,1,"Building 1 (Plant 2)","Upper Sandusky, OH",1
+2,1,"Building 2 (Blackhawk)","Upper Sandusky, OH",1
+3,1,"Defiance","Upper Sandusky, OH",2
+5,1,"Wharton","Upper Sandusky, OH",2
+8,1,"SJW","Upper Sandusky, OH",2
+9,1,"BWST","Upper Sandusky, OH",2
+10,1,"SANJI","Upper Sandusky, OH",2
+11,1,"OLG","Upper Sandusky, OH",2

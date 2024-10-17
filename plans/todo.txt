@@ -1,6 +1,8 @@
 to get to mvp
 
 
+add building seeds and building area seeds
+
 define base roles and permissions
 
 apply roles and permissions to seeded users based on 'department' or title

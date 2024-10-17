@@ -14,6 +14,31 @@ Document to outline all data collection methodology used and the reasoning behin
 
 The storage locations have been imported by area category.
 
+### Floor Locations
+
+```sql
+SELECT
+	id,
+    building,
+    area,
+    aisle,
+    bay,
+    shelf,
+    position,
+    `type`,
+    split_request,
+    disabled,
+    exclude_allocations
+FROM wms.tblwms_rack_location
+where
+	`type` = 30
+    and disabled = 0
+order by
+	building asc,
+	area asc;
+```
+
+
 
 ### Machines
 

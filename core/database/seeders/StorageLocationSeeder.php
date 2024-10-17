@@ -26,6 +26,7 @@ class StorageLocationSeeder extends Seeder
         $this->getAreaOptions();
 
         $this->setPalletRackStorageLocations();
+        $this->setFloorStorageLocations();
     }
 
     /**
@@ -79,6 +80,57 @@ class StorageLocationSeeder extends Seeder
                     shelf: $row['shelf'],
                     position: $row['position'],
                     max_containers: 1,
+                    disabled: $row['disabled'],
+                    reservable: $row['exclude_allocations'] ? 0 : 1
+                );
+
+                $data[$key] = array_merge(
+                    $locationData->toArray(),
+                    $this->getUuid(),
+                    $this->getTimestamps()
+                );
+            }
+
+            StorageLocation::insert($data);
+        }
+    }
+
+    /**
+     * Seed the floor storage locations.
+     */
+    protected function setFloorStorageLocations() : void
+    {
+        $file = database_path('data/storage_locations/floor.csv');
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR)->first();
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+
+                if ($row['aisle']) {
+                    $name = $this->areas[$row['building']][$row['area']]['building_id']
+                        .'-'. $row['area']
+                        .'-'. $row['aisle']
+                        .'-'. $row['bay']
+                        .'-'. $row['shelf']
+                        .'-'. $row['position'];
+                }
+                else {
+                    $name = $row['area'];
+                }
+
+                $areaId = $this->areas[$row['building']][$row['area']]['id'];
+
+                $locationData = new StorageLocationData(
+                    name: $name,
+                    barcode: $row['id'],
+                    storage_location_type_id: $type->id,
+                    storage_location_area_id: $areaId,
+                    aisle: $row['aisle'],
+                    bay: $row['bay'],
+                    shelf: $row['shelf'],
+                    position: $row['position'],
+                    max_containers: null,
                     disabled: $row['disabled'],
                     reservable: $row['exclude_allocations'] ? 0 : 1
                 );

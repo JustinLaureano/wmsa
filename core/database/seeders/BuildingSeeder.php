@@ -28,10 +28,11 @@ class BuildingSeeder extends Seeder
             }
 
             $buildings[] = array_merge([
-                'organization_id' => $data[0],
-                'name' => $data[1],
-                'location' => $data[2],
-                'building_type_id' => $data[3]
+                'id' => $data[0],
+                'organization_id' => $data[1],
+                'name' => $data[2],
+                'location' => $data[3],
+                'building_type_id' => $data[4]
             ], $this->getTimestamps());
         }
 
