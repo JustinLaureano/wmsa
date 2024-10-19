@@ -22,6 +22,9 @@ class StorageLocationAreaSeeder extends Seeder
         $this->setBuildingThreeAreas();
         $this->setBuildingFiveAreas();
         $this->setBuildingEightAreas();
+        $this->setBuildingNineAreas();
+        $this->setBuildingTenAreas();
+        $this->setBuildingElevenAreas();
     }
 
     /**
@@ -151,6 +154,96 @@ class StorageLocationAreaSeeder extends Seeder
     {
         $file = fopen(database_path('data/storage_location_areas/building_eight.csv'), 'r');
         $building = Building::where('name', 'SJW')->first();
+        $areas = [];
+        $firstLine = true;
+
+        while ( ($data = fgetcsv($file, 2000, ",")) !== FALSE )
+        {
+            if ($firstLine) {
+                $firstLine = false;
+                continue;
+            }
+
+            $area = new StorageLocationAreaData(
+                building_id: $building->id,
+                name: $data[0],
+                description: $data[1],
+                sap_storage_location_group: $data[2]
+            );
+
+            $areas[] = array_merge( $area->toArray(), $this->getTimestamps());
+        }
+
+        StorageLocationArea::insert($areas);
+    }
+
+    /**
+     * Seed the building nine storage location areas.
+     */
+    protected function setBuildingNineAreas() : void
+    {
+        $file = fopen(database_path('data/storage_location_areas/building_nine.csv'), 'r');
+        $building = Building::where('name', 'BWST')->first();
+        $areas = [];
+        $firstLine = true;
+
+        while ( ($data = fgetcsv($file, 2000, ",")) !== FALSE )
+        {
+            if ($firstLine) {
+                $firstLine = false;
+                continue;
+            }
+
+            $area = new StorageLocationAreaData(
+                building_id: $building->id,
+                name: $data[0],
+                description: $data[1],
+                sap_storage_location_group: $data[2]
+            );
+
+            $areas[] = array_merge( $area->toArray(), $this->getTimestamps());
+        }
+
+        StorageLocationArea::insert($areas);
+    }
+
+    /**
+     * Seed the building ten storage location areas.
+     */
+    protected function setBuildingTenAreas() : void
+    {
+        $file = fopen(database_path('data/storage_location_areas/building_ten.csv'), 'r');
+        $building = Building::where('name', 'SANJI')->first();
+        $areas = [];
+        $firstLine = true;
+
+        while ( ($data = fgetcsv($file, 2000, ",")) !== FALSE )
+        {
+            if ($firstLine) {
+                $firstLine = false;
+                continue;
+            }
+
+            $area = new StorageLocationAreaData(
+                building_id: $building->id,
+                name: $data[0],
+                description: $data[1],
+                sap_storage_location_group: $data[2]
+            );
+
+            $areas[] = array_merge( $area->toArray(), $this->getTimestamps());
+        }
+
+        StorageLocationArea::insert($areas);
+    }
+
+    /**
+     * Seed the building eleven storage location areas.
+     */
+    protected function setBuildingElevenAreas() : void
+    {
+        $file = fopen(database_path('data/storage_location_areas/building_eleven.csv'), 'r');
+        $building = Building::where('name', 'OLG')->first();
         $areas = [];
         $firstLine = true;
 
