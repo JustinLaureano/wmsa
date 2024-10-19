@@ -19,6 +19,11 @@ class MaterialContainerRepository
         return MaterialContainer::query()->whereBarcode($barcode->getBarcode())->first();
     }
 
+    public function findByUuid(string $uuid) : MaterialContainer
+    {
+        return MaterialContainer::query()->whereUuid($uuid)->first();
+    }
+
     public function findOrCreate(BarcodeContract $barcode) : MaterialContainer
     {
         $container = $this->findByBarcode($barcode);
@@ -32,7 +37,6 @@ class MaterialContainerRepository
         $data = new MaterialContainerData(
             material_uuid: $material->uuid,
             material_container_type_id: null,
-            storage_location_uuid: null,
             movement_status_id: $movementStatus->id,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),

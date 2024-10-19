@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -64,5 +65,13 @@ class StorageLocation extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(StorageLocationType::class, 'storage_location_type_id', 'id');
+    }
+
+    /**
+     * Scope a query to filter on the uuid column.
+     */
+    public function scopeWhereUuid(Builder $query, string $uuid): void
+    {
+        $query->where('uuid', $uuid);
     }
 }

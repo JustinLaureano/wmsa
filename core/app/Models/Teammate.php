@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Domain\Materials\Contracts\HandlerContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Teammate extends Model implements AuthenticatableContract
+class Teammate extends Model implements AuthenticatableContract, HandlerContract
 {
     use Authenticatable,
         HasFactory,
@@ -62,6 +64,11 @@ class Teammate extends Model implements AuthenticatableContract
      */
     protected string $guard_name = 'web';
 
+    public function getHandlerId(): string
+    {
+        return $this->clock_number;
+    }
+
     /**
      * Returns the default guard for the model.
      *
@@ -90,5 +97,13 @@ class Teammate extends Model implements AuthenticatableContract
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'guid', 'user_guid');
+    }
+
+    /**
+     * Scope a query to filter on the clock number column.
+     */
+    public function scopeWhereClockNumber(Builder $query, string $clockNumber): void
+    {
+        $query->where('clock_number', $clockNumber);
     }
 }

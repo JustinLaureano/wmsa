@@ -13,14 +13,14 @@ Route::get('/dashboard', function () {
 
 
 
-require __DIR__.'/domains/auth.php';
-require __DIR__.'/domains/irm.php';
-require __DIR__.'/domains/locations.php';
-require __DIR__.'/domains/materials.php';
-require __DIR__.'/domains/production.php';
-require __DIR__.'/domains/quality.php';
-require __DIR__.'/domains/receiving.php';
-require __DIR__.'/domains/shipping.php';
+require __DIR__.'/web/auth.php';
+require __DIR__.'/web/irm.php';
+require __DIR__.'/web/locations.php';
+require __DIR__.'/web/materials.php';
+require __DIR__.'/web/production.php';
+require __DIR__.'/web/quality.php';
+require __DIR__.'/web/receiving.php';
+require __DIR__.'/web/shipping.php';
 
 require __DIR__.'/orders.php';
 require __DIR__.'/test.php';
