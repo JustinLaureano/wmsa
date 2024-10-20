@@ -7,6 +7,7 @@ use App\Domain\Materials\DataTransferObjects\InitiateContainerMovementData;
 use App\Domain\Materials\Resolvers\HandlerResolver;
 use App\Repositories\MaterialContainerRepository;
 use App\Repositories\StorageLocationRepository;
+use Carbon\Carbon;
 
 class ContainerMovementTransformer
 {
@@ -15,11 +16,13 @@ class ContainerMovementTransformer
         $container = (new MaterialContainerRepository)->findByUuid($data->material_container_uuid);
         $location = (new StorageLocationRepository)->findByUuid($data->storage_location_uuid);
         $handler = HandlerResolver::getHandler($data->handler_type, $data->handler_id);
+        $movedAt = new Carbon($data->moved_at);
 
         return new ContainerMovementData(
             container: $container,
             location: $location,
-            handler: $handler
+            handler: $handler,
+            moved_at: $movedAt
         );
     }
 }
