@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TeammateRepository
 {
-    public function findByClockNumber(string $clockNumber) : Teammate
+    public function findByClockNumber(string $clockNumber) : Teammate|null
     {
         return Teammate::query()->whereClockNumber($clockNumber)->first();
     }
