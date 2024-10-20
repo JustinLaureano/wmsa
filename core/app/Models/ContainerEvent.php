@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ContainerEvent extends Model
 {
@@ -28,5 +29,13 @@ class ContainerEvent extends Model
         return [
             'event_data' => 'object',
         ];
+    }
+
+    /**
+     * Get the container for this event.
+     */
+    public function container(): BelongsTo
+    {
+        return $this->belongsTo(MaterialContainer::class, 'material_container_uuid', 'uuid');
     }
 }

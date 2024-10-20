@@ -6,6 +6,7 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,6 +45,14 @@ class MaterialContainer extends Model
         'barcode',
         'quantity',
     ];
+
+    /**
+     * Get the events for this container.
+     */
+    public function events(): HasMany
+    {
+        return $this->hasMany(ContainerEvent::class, 'material_container_uuid', 'uuid');
+    }
 
     /**
      * Get the material for this container.
