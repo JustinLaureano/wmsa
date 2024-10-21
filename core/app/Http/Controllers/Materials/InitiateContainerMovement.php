@@ -16,6 +16,6 @@ class InitiateContainerMovement extends Controller
     {
         $action->handle(ContainerMovementTransformer::initiateToData($data));
 
-        return response()->json();
+        return response()->json([]);
     }
 }

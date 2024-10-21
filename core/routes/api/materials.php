@@ -11,5 +11,5 @@ Route::get('/materials', ViewMaterials::class)
 Route::get('/materials/container/{barcode}', FindOrCreateMaterialContainer::class)
     ->name('api.materials.container');
 
-Route::post('/container-movement', InitiateContainerMovement::class)
+Route::post('/materials/container-movement', InitiateContainerMovement::class)
     ->name('api.container.movement');
