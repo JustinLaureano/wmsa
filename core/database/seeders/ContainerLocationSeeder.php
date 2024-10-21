@@ -29,8 +29,8 @@ class ContainerLocationSeeder extends Seeder
 
             if ($noLocation) continue;
 
-            // $palletRack = Lottery::odds(9, 10)->choose();
-            $palletRack = Lottery::odds(10, 10)->choose();
+            $palletRack = Lottery::odds(9, 10)->choose();
+            // $palletRack = Lottery::odds(10, 10)->choose();
 
             if ($palletRack) {
                 $location = StorageLocation::query()

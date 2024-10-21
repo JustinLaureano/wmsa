@@ -56,7 +56,7 @@ class PerformContainerMovement implements ShouldQueue
     {
         (new ContainerEventRepository)
             ->store(new ContainerEventData(
-                material_container_uuid: '123',
+                material_container_uuid: $this->data->container->uuid,
                 event_type: 'moved',
                 event_data: [],
                 occurred_at: Carbon::now(),

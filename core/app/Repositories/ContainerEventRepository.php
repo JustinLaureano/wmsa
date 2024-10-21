@@ -9,6 +9,6 @@ class ContainerEventRepository
 {
     public function store(ContainerEventData $data) : ContainerEvent
     {
-        return ContainerEvent::create($data->toArray());
+        return ContainerEvent::query()->create($data->toArray());
     }
 }

@@ -12,6 +12,6 @@ class MaterialContainerSeeder extends Seeder
      */
     public function run(): void
     {
-        MaterialContainer::factory(100)->create();
+        MaterialContainer::factory(200)->create();
     }
 }
