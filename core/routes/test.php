@@ -2,7 +2,6 @@
 
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Models\MaterialContainer;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/barcode', function () {
