@@ -71,9 +71,9 @@ messages and message groups
                         MessageMeta
                         MessageCard
 
-                DateDivider
+                MessageDateDivider
 
-                MessageInput
+                NewMessageInput
 
                 ParticipantSearch
                     SearchInput
