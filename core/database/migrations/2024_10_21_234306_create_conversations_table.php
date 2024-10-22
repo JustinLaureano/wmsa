@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid()->index();
             $table->boolean('group_chat')->default(false); // TODO: do I need this column?
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
