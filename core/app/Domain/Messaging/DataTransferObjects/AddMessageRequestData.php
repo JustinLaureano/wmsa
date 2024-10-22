@@ -12,7 +12,7 @@ class AddMessageRequestData extends Data
         public readonly string $conversation_uuid,
         public readonly string $sender_id,
         public readonly string $sender_type,
-        public readonly string $message,
+        public readonly string $content,
     ) {
 
     }
@@ -32,7 +32,7 @@ class AddMessageRequestData extends Data
                 'required',
                 Rule::in(SenderTypeEnum::toArray())
             ],
-            'message' => [
+            'content' => [
                 'required',
                 'string'
             ],
