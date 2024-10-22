@@ -13,6 +13,7 @@ class StartConversationRequestData extends Data
         public readonly string $sender_type,
         public readonly string $participants,
         public readonly string $message,
+        public readonly bool $group_conversation,
     ) {
 
     }
@@ -34,6 +35,10 @@ class StartConversationRequestData extends Data
             'message' => [
                 'required',
                 'string'
+            ],
+            'group_conversation' => [
+                'required',
+                'boolean'
             ],
         ];
     }
