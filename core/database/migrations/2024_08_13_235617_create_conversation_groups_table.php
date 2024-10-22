@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('conversation_groups', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->index();
             $table->string('name', 120);
             $table->timestamps();
             $table->softDeletes();
