@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Domain\Materials\Enums;
+namespace App\Domain\Messaging\Enums;
 
 use App\Support\Enums\Arrayable;
 
-enum HandlerTypeEnum: string
+enum ParticipantTypeEnum: string
 {
     use Arrayable;
 
+    case USER = 'user';
     case TEAMMATE = 'teammate';
 }
