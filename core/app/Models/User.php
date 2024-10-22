@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Messaging\Contracts\MessengerContract;
 use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -14,7 +15,7 @@ use Laravel\Scout\Searchable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MessengerContract
 {
     use AuthenticatesWithLdap,
         Filterable,
@@ -112,6 +113,11 @@ class User extends Authenticatable
         'organizationalperson',
         'user',
     ];
+
+    public function getMessengerId(): string
+    {
+        return $this->uuid;
+    }
 
     /**
      * Get the indexable data array for the model.

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Domain\Materials\Contracts\HandlerContract;
+use App\Domain\Messaging\Contracts\MessengerContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Teammate extends Model implements AuthenticatableContract, HandlerContract
+class Teammate extends Model implements AuthenticatableContract, HandlerContract, MessengerContract
 {
     use Authenticatable,
         HasFactory,
@@ -65,6 +66,11 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
     protected string $guard_name = 'web';
 
     public function getHandlerId(): string
+    {
+        return $this->clock_number;
+    }
+
+    public function getMessengerId(): string
     {
         return $this->clock_number;
     }
