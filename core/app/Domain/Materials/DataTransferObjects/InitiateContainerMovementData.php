@@ -35,7 +35,7 @@ class InitiateContainerMovementData extends Data
                 Rule::in(HandlerTypeEnum::toArray())
             ],
             'handler_id' => [
-                'required', 
+                'required',
                 new HandlerExists
             ],
             'moved_at' => [
