@@ -51,9 +51,34 @@ messages and message groups
         manufacturing
             line leaders, supervisors, material handlers, irm
 
+    chat
+        conversations with messages between users/teammates and groups
 
-chat
-    conversations with messages between users/teammates and groups
+    front end components
+        MessagingDialog
+
+            MessagingSidebar
+                SidebarHeader
+                ConversationList
+                ConversationItem
+
+            MessagingContent
+                MessagesHeader
+                    ConversationParticipants
+
+                MessageList
+                    Message
+                        MessageMeta
+                        MessageCard
+
+                DateDivider
+
+                MessageInput
+
+                ParticipantSearch
+                    SearchInput
+                    SearchResultList
+                    SearchResultItem
 
 
 
