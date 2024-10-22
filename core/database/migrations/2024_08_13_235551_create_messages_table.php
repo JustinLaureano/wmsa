@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Messaging\Enums\SenderTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
                 ->references('uuid')
                 ->on('conversations');
             $table->string('sender_id', 40); // TODO: index?
-            $table->enum('sender_type', ['user', 'teammate']);
+            $table->enum('sender_type', SenderTypeEnum::toArray());
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();

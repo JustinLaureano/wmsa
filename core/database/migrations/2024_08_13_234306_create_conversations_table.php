@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->uuid()->index();
-            $table->boolean('group_chat')->default(false); // TODO: do I need this column?
+            $table->boolean('group_conversation')->default(false); // TODO: do I need this column?
             $table->timestamps();
             $table->softDeletes();
         });
