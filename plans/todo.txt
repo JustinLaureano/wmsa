@@ -39,7 +39,7 @@ messages and message groups
         sent_at TIMESTAMP
         is_read BOOLEAN DEFAULT FALSE
 
-    message groups
+    conversation groups
         material handlers
         supervisors
         shipping
@@ -50,6 +50,19 @@ messages and message groups
         irm
         manufacturing
             line leaders, supervisors, material handlers, irm
+
+
+chat
+    conversations with messages between users/teammates and groups
+
+
+
+notifications
+    app information provided to specific user
+
+announcements
+    app information for all users
+
 
 
 storage locations
