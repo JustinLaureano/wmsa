@@ -18,8 +18,7 @@ class Conversation extends Model
      */
     protected $fillable = [
         'uuid',
-        'material_number',
-        'group_chat'
+        'group_conversation'
     ];
 
     /**

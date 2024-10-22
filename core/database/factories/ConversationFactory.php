@@ -19,7 +19,7 @@ class ConversationFactory extends Factory
     {
         return [
             'uuid' => Str::uuid(),
-            'group_chat' => false,
+            'group_conversation' => false,
         ];
     }
 }
