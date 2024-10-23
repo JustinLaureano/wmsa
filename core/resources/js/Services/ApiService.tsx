@@ -7,9 +7,9 @@ interface ApiResponse<T> {
 }
 
 class ApiService {
-    public async get<T>(endpoint: string, params: any = {}): Promise<AxiosResponse<T>> {
+    public async get<T>(endpoint: string): Promise<AxiosResponse<T>> {
         try {
-            const response: AxiosResponse<T> = await axios.get(endpoint, params);
+            const response: AxiosResponse<T> = await axios.get(endpoint);
 
             return response;
         }

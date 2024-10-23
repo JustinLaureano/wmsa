@@ -2,12 +2,19 @@ import { AxiosResponse } from 'axios';
 import ApiService from './ApiService';
 
 class MessagingService {
-    public async getConversations() {
+    public async getConversations(participant_id: string, participant_type: string) {
+        const params = {
+            participant_id,
+            participant_type
+        }
+
         try {
-            const response = await new ApiService().get<AxiosResponse>(route('api.materials'));
-            return response.data.data;
+            const response: AxiosResponse = await new ApiService()
+                .get(route('api.conversations', params));
+            return response.data;
         }
         catch (error) {
+            console.log(error)
             // TODO: log or something failure
             return [];
         }
