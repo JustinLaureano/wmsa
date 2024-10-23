@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, useTheme } from '@mui/material';
+import { Dialog, DialogContent, Drawer, useTheme } from '@mui/material';
 import { dialogStyleOverrides } from './styles';
 
 interface MessagingDialogProps {
@@ -19,6 +19,19 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
         >
             <DialogContent>
                 Dialog
+                <Drawer
+                    variant="permanent"
+                    anchor="left"
+                    open={false}
+                    PaperProps={{
+                        style: {
+                            position: "absolute",
+                            width: '300px'
+                        }
+                    }}
+                >
+                    <div>conversations</div>
+                </Drawer>
             </DialogContent>
         </Dialog>
     );
