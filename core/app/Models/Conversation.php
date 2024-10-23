@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,5 +36,18 @@ class Conversation extends Model
     public function participants(): HasMany
     {
         return $this->hasMany(ConversationParticipant::class, 'conversation_uuid', 'uuid');
+    }
+
+    /**
+     * Scope a query to filter on the barcode column.
+     */
+    public function scopeWhereParticipant(Builder $query, string $id, string $type): void
+    {
+        $query->whereHas('participants', function (Builder $builder) use ($id, $type) {
+            $builder->where([
+                ['participant_id', $id],
+                ['participant_type', $type]
+            ]);
+        });
     }
 }
