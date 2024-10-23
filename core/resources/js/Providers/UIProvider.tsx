@@ -7,17 +7,21 @@ interface UIProviderProps {
 
 export default function UIProvider({ children }: UIProviderProps) {
     const [navigationDrawerOpen, setNavigationDrawerOpen] = useState(true);
+    const [messagesDialogOpen, setMessagesDialogOpen] = useState(false);
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
 
     const defaultValue = {
         navigationDrawerOpen,
         setNavigationDrawerOpen,
+        messagesDialogOpen,
+        setMessagesDialogOpen,
         loginDialogOpen,
         setLoginDialogOpen,
     }
 
     const dependencies = [
         loginDialogOpen,
+        messagesDialogOpen,
         navigationDrawerOpen
     ];
 

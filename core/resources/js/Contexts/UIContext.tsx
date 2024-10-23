@@ -4,13 +4,19 @@ type UIContextType = {
     navigationDrawerOpen: boolean;
     setNavigationDrawerOpen: (navigationDrawerOpen: boolean) => void;
 
+    messagesDialogOpen: boolean;
+    setMessagesDialogOpen: (messagesDialogOpen: boolean) => void;
+
     loginDialogOpen: boolean;
-    setLoginDialogOpen: (navigationDrawerOpen: boolean) => void;
+    setLoginDialogOpen: (loginDialogOpen: boolean) => void;
 }
 
 export const defaultUIContext = {
     navigationDrawerOpen: true,
     setNavigationDrawerOpen: () => {},
+
+    messagesDialogOpen: false,
+    setMessagesDialogOpen: () => {},
 
     loginDialogOpen: false,
     setLoginDialogOpen: () => {},

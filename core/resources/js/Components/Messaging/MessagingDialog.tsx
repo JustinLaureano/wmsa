@@ -1,23 +1,24 @@
-import { useState } from 'react';
 import { Dialog, DialogContent, useTheme } from '@mui/material';
+import { dialogStyleOverrides } from './styles';
 
 interface MessagingDialogProps {
-    children: React.ReactNode;
+    open: boolean;
+    onClose: () => void;
 }
 
-export default function MessagingDialog({ children, ...props }: MessagingDialogProps) {
+export default function MessagingDialog({ open, onClose, ...props }: MessagingDialogProps) {
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
-
-    const handleClose = () => setOpen(false);
 
     return (
         <Dialog
             open={open}
-            onClose={handleClose}
+            onClose={onClose}
+            fullWidth={true}
+            maxWidth={'xl'}
+            sx={dialogStyleOverrides}
         >
             <DialogContent>
-                {children}
+                Dialog
             </DialogContent>
         </Dialog>
     );

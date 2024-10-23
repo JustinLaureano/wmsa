@@ -7,6 +7,7 @@ import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
 import NotificationsButton from '@/Components/Notifications/NotificationsButton';
 import SettingsButton from '../Settings/SettingsButton';
 import SearchButton from '../Search/SearchButton';
+import MessagingButton from '../Messaging/MessagingButton';
 
 interface TopAppBarProps {
     title: string;
@@ -79,6 +80,11 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         <SearchButton />
 
                         <NotificationsButton />
+
+                        {
+                            user &&
+                            <MessagingButton />
+                        }
 
                         <SettingsButton />
 
