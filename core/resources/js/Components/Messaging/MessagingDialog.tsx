@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, Drawer, useTheme } from '@mui/material';
+import { Box, Dialog, DialogContent, Drawer, Stack, useTheme } from '@mui/material';
 import { dialogStyleOverrides } from './styles';
 
 interface MessagingDialogProps {
@@ -14,11 +14,11 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
             open={open}
             onClose={onClose}
             fullWidth={true}
-            maxWidth={'xl'}
+            maxWidth={'lg'}
             sx={dialogStyleOverrides}
         >
             <DialogContent>
-                Dialog
+
                 <Drawer
                     variant="permanent"
                     anchor="left"
@@ -26,12 +26,17 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
                     PaperProps={{
                         style: {
                             position: "absolute",
-                            width: '300px'
+                            width: '320px'
                         }
                     }}
                 >
                     <div>conversations</div>
                 </Drawer>
+
+                <Stack sx={{ marginLeft: '320px' }}>
+                    Dialog Content Here
+                </Stack>
+
             </DialogContent>
         </Dialog>
     );
