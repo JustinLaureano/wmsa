@@ -28,7 +28,9 @@ class MessageFactory extends Factory
             'conversation_uuid' => $conversationUuid,
             'sender_id' => $senderId,
             'sender_type' => $senderType,
-            'content' => fake()->paragraph()
+            'content' => fake()->paragraph(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

@@ -20,6 +20,8 @@ class ConversationFactory extends Factory
         return [
             'uuid' => Str::uuid(),
             'group_conversation' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
