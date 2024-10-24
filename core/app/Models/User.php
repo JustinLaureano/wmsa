@@ -147,6 +147,14 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
+     * Get the message status for a user's message.
+     */
+    public function messageStatus(): MorphOne
+    {
+        return $this->morphOne(MessageStatus::class, 'participant');
+    }
+
+    /**
      * Get the organization for the user.
      */
     public function organization(): BelongsTo
