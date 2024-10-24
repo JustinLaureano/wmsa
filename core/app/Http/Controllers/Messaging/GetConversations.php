@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Messaging;
 use App\Domain\Messaging\Actions\GetConversationsAction;
 use App\Domain\Messaging\DataTransferObjects\GetConversationsData;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Messaging\ConversationResource;
 
 class GetConversations extends Controller
 {
@@ -20,12 +21,6 @@ class GetConversations extends Controller
 
         $conversations = $action->handle($data);
 
-        // TODO: get conversations for participant
-        return response()
-            ->json([
-                'conversations' => $conversations,
-                'id' => $participant_id,
-                'type' => $participant_type,
-            ]);
+        return ConversationResource::collection($conversations);
     }
 }
