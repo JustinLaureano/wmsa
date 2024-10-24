@@ -107,6 +107,14 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
     }
 
     /**
+     * Get the user as a participant of a conversation.
+     */
+    public function participant(): MorphOne
+    {
+        return $this->morphOne(Message::class, 'participant');
+    }
+
+    /**
      * Get the user account for the teammate.
      */
     public function user(): HasOne

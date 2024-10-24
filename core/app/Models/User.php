@@ -155,6 +155,14 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
+     * Get the user as a participant of a conversation.
+     */
+    public function participant(): MorphOne
+    {
+        return $this->morphOne(Message::class, 'participant');
+    }
+
+    /**
      * Get the teammate for the user.
      */
     public function teammate(): HasOne
