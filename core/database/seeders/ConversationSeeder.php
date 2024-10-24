@@ -24,7 +24,7 @@ class ConversationSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->teammates = Teammate::query()->get()->toArray();
+        $this->teammates = Teammate::query()->with('user')->get()->toArray();
 
         $this->conversations = [];
         $this->participants = [];
@@ -93,15 +93,30 @@ class ConversationSeeder extends Seeder
                     $messagesSent = 0;
 
                     while ($messagesSent < $numberOfMessages) {
-                        $senderId = Lottery::odds(1, 2)->choose()
+                        $senderIsParticipant1 = Lottery::odds(1, 2)->choose();
+                        $useUser = Lottery::odds(1, 5)->choose();
+
+                        $senderId = $senderIsParticipant1
                             ? $participant1['participant_id']
                             : $participant2['participant_id'];
+                        $senderType = ParticipantTypeEnum::TEAMMATE->value;
+
+                        if ($useUser) {
+                            $user = $senderIsParticipant1
+                                ? $teammate1['user']
+                                : $teammate2['user'];
+
+                            if ($user) {
+                                $senderId = $user['guid'];
+                                $senderType = ParticipantTypeEnum::USER->value;
+                            }
+                        }
 
                         $this->messages[] = [
                             'uuid' => Str::uuid(),
                             'conversation_uuid' => $conversation['uuid'],
                             'sender_id' => $senderId,
-                            'sender_type' => ParticipantTypeEnum::TEAMMATE->value,
+                            'sender_type' => $senderType,
                             'content' => fake()->sentence(fake()->numberBetween(3, 14)),
                             'created_at' => $messageDate->toDateTimeString(),
                             'updated_at' => $messageDate->toDateTimeString()
