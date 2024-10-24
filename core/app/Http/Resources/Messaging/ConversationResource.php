@@ -14,6 +14,20 @@ class ConversationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+
+        return [
+            'uuid' => $this->uuid,
+            'attributes' => $this->resource->getAttributes(),
+            'relations' => [
+                'latest_message' => $this->latestMessage,
+                'participants' => $this->participants
+            ],
+            'computed' => [
+                'unread_messages' => 5
+            ],
+            'meta' => [
+                'timestamp' => now()
+            ]
+        ];
     }
 }
