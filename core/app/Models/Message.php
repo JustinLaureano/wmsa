@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Message extends Model
@@ -37,5 +38,13 @@ class Message extends Model
     public function sender(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Get the status of the message.
+     */
+    public function status(): HasMany
+    {
+        return $this->hasMany(MessageStatus::class, 'message_uuid', 'uuid');
     }
 }
