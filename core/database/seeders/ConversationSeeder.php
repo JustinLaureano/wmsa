@@ -63,6 +63,8 @@ class ConversationSeeder extends Seeder
                     'conversation_uuid' => $conversation['uuid'],
                     'participant_id' => $teammate1['clock_number'],
                     'participant_type' => ParticipantTypeEnum::TEAMMATE->value,
+                    'created_at' => $startDate->toDateTimeString(),
+                    'updated_at' => $startDate->toDateTimeString()
                 ];
 
                 $participant2 = [
@@ -70,6 +72,8 @@ class ConversationSeeder extends Seeder
                     'conversation_uuid' => $conversation['uuid'],
                     'participant_id' => $teammate2['clock_number'],
                     'participant_type' => ParticipantTypeEnum::TEAMMATE->value,
+                    'created_at' => $startDate->toDateTimeString(),
+                    'updated_at' => $startDate->toDateTimeString()
                 ];
 
                 $this->participants[] = $participant1;
