@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -147,9 +148,9 @@ class User extends Authenticatable implements MessengerContract
     /**
      * Get the teammate for the user.
      */
-    public function teammate(): BelongsTo
+    public function teammate(): HasOne
     {
-        return $this->belongsTo(Teammate::class, 'user_guid', 'guid');
+        return $this->hasOne(Teammate::class, 'user_guid', 'guid');
     }
 
     /**
