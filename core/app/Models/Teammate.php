@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -95,6 +96,14 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
         ];
+    }
+
+    /**
+     * Get the teammate's conversation message.
+     */
+    public function message(): MorphOne
+    {
+        return $this->morphOne(Message::class, 'sender');
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Box, Stack, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 
 interface MessageDateDividerProps {
 

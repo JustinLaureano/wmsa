@@ -29,7 +29,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
             participant_type = 'teammate';
         }
         else if (user) {
-            participant_id = user.uuid;
+            participant_id = user.guid;
             participant_type = 'user';
         }
 
@@ -37,7 +37,6 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
 
         const response = await new MessagingService().getConversations(participant_id, participant_type);
         console.log(response);
-        
     };
 
     useEffect(() => {

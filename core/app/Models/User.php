@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -135,6 +136,14 @@ class User extends Authenticatable implements MessengerContract
             'description' => $this->description,
             'email' => $this->email,
         ];
+    }
+
+    /**
+     * Get the user's conversation message.
+     */
+    public function message(): MorphOne
+    {
+        return $this->morphOne(Message::class, 'sender');
     }
 
     /**

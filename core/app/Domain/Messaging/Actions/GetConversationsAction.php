@@ -55,7 +55,7 @@ class GetConversationsAction
 
         $conversations = $primaryConversations
             ->merge($secondaryConversations)
-            ->sortBy('created_at');
+            ->sortBy('latestMessage.created_at', descending: true);
 
         return $conversations;
     }
