@@ -2,7 +2,7 @@
 
 namespace App\Domain\Messaging\Actions;
 
-use App\Domain\Messaging\DataTransferObjects\GetConversationsData;
+use App\Domain\Messaging\DataTransferObjects\ParticipantConversationsData;
 use App\Domain\Messaging\Enums\ParticipantTypeEnum;
 use App\Repositories\ConversationRepository;
 use App\Repositories\TeammateRepository;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GetConversationsAction
 {
-    public function handle(GetConversationsData $data) : Collection
+    public function handle(ParticipantConversationsData $data) : Collection
     {
         $conversationRepository = new ConversationRepository;
 

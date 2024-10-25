@@ -14,6 +14,7 @@ class ConversationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'uuid' => $this->uuid,
             'attributes' => $this->resource->getAttributes(),
@@ -22,11 +23,38 @@ class ConversationResource extends JsonResource
                 'participants' => $this->participants
             ],
             'computed' => [
-                'unread_messages' => 5
+                'title' => $this->getTitle(),
+                'subject' => $this->getSubject(),
             ],
             'meta' => [
                 'timestamp' => now()
             ]
         ];
+    }
+
+    protected function getTitle() : string
+    {
+        // TODO:
+        // strip participants of current participant
+        // if only one participant left, use full name
+        // if more, cycle through names and use syntax: firstname, firstname, firstname
+
+        $title = $this->participants[0]->participant->last_name .', '. $this->participants[0]->participant->first_name;
+
+        return $title;
+    }
+
+    protected function getSubject() : string
+    {
+        // TODO:
+        // if last message unread - show "New Message"
+        // if not, show sender name and content of last message
+        //   ex:
+        //      You: I just sent you an email.
+        //      Joshua: Somebody just called for you.
+
+        $subject = 'New Message';
+
+        return $subject;
     }
 }
