@@ -12,6 +12,11 @@ class TeammateRepository
         return Teammate::query()->whereClockNumber($clockNumber)->first();
     }
 
+    public function findByUserGuid(string $userGuid) : Teammate|null
+    {
+        return Teammate::query()->where('user_guid', $userGuid)->first();
+    }
+
     public function get() : Collection
     {
         return Teammate::query()->get();

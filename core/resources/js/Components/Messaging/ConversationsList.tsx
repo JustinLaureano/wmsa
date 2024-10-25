@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
-import { Divider, List } from '@mui/material';
+import { useContext } from 'react';
+import { List } from '@mui/material';
 import OverflowScrollBox from '../Shared/OverflowScrollBox';
 import MessagingContext from '@/Contexts/MessagingContext';
 import ConversationsListItem from './ConversationListItem';
 
-interface ConversationsListProps {
-
-}
+interface ConversationsListProps {}
 
 export default function ConversationsList({ ...props }: ConversationsListProps ) {
     const { conversations } = useContext(MessagingContext);
@@ -16,18 +14,14 @@ export default function ConversationsList({ ...props }: ConversationsListProps )
     return (
         <OverflowScrollBox>
             <List>
-                {
-                    conversations?.map((conversation, index) => (
-                        <>
-                            <ConversationsListItem
-                                key={conversation.uuid}
-                                conversation={conversation}
-                            />
+                {conversations?.map((conversation, index) => (
 
-                            <Divider key={index} component="li" />
-                        </>
-                    ))
-                }
+                    <ConversationsListItem
+                        key={conversation.uuid}
+                        conversation={conversation}
+                    />
+
+                ))}
             </List>
         </OverflowScrollBox>
     );
