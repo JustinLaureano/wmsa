@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Messaging;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,6 +26,7 @@ class ConversationResource extends JsonResource
             'computed' => [
                 'title' => $this->getTitle(),
                 'subject' => $this->getSubject(),
+                'latest_message_date' => $this->getLatestMessageDate(),
             ]
         ];
     }
@@ -53,5 +55,10 @@ class ConversationResource extends JsonResource
         $subject = 'New Message';
 
         return $subject;
+    }
+
+    protected function getLatestMessageDate() : string
+    {
+        return (new Carbon( $this->latestMessage->created_at ))->format('n/j');
     }
 }

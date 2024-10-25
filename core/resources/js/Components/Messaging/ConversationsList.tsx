@@ -1,32 +1,33 @@
-import React from 'react';
-import { List, ListItem, ListItemText, Stack, Typography, useTheme } from '@mui/material';
+import React, { useContext } from 'react';
+import { Divider, List } from '@mui/material';
 import OverflowScrollBox from '../Shared/OverflowScrollBox';
+import MessagingContext from '@/Contexts/MessagingContext';
+import ConversationsListItem from './ConversationListItem';
 
 interface ConversationsListProps {
 
 }
 
 export default function ConversationsList({ ...props }: ConversationsListProps ) {
-    const theme = useTheme();
+    const { conversations } = useContext(MessagingContext);
+
+    console.log(conversations)
 
     return (
         <OverflowScrollBox>
             <List>
-                <ListItem>
-                    <ListItemText
-                        primary={"Jack S."}
-                        secondary={
-                            <React.Fragment>
-                                <Typography
-                                    component="span"
-                                    variant="body2"
-                                >
-                                    to Scott, Alex, Jennifer
-                                </Typography>
-                            </React.Fragment>
-                        }
-                    />
-                </ListItem>
+                {
+                    conversations?.map((conversation, index) => (
+                        <>
+                            <ConversationsListItem
+                                key={conversation.uuid}
+                                conversation={conversation}
+                            />
+
+                            <Divider key={index} component="li" />
+                        </>
+                    ))
+                }
             </List>
         </OverflowScrollBox>
     );

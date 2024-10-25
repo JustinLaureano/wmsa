@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import MessagingContext, { Conversation } from '@/Contexts/MessagingContext';
+import MessagingContext from '@/Contexts/MessagingContext';
 import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
+import { ConversationResource } from '@/types/messaging';
 
 interface MessagingProviderProps {
     children: React.ReactNode;
@@ -10,11 +11,14 @@ interface MessagingProviderProps {
 export default function MessagingProvider({ children, ...props }: MessagingProviderProps) {
     const { teammate, user } = useContext(AuthContext);
 
-    const [conversations, setConversations] = useState<Conversation[]>([]);
+    const [conversations, setConversations] = useState<ConversationResource[]>([]);
+    const [unreadMessages, setUnreadMessages] = useState(0);
 
     const defaultValue = {
         conversations,
-        setConversations
+        setConversations,
+        unreadMessages,
+        setUnreadMessages
     };
 
     const dependencies = [conversations];
@@ -36,7 +40,9 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         if ( !participant_id ) return;
 
         const response = await new MessagingService().getConversations(participant_id, participant_type);
-        console.log(response);
+
+        setConversations(response.data)
+        setUnreadMessages(response.computed.unread_messages)
     };
 
     useEffect(() => {

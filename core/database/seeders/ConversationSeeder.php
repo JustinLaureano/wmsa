@@ -80,6 +80,8 @@ class ConversationSeeder extends Seeder
                 $this->participants[] = $participant2;
 
                 while ($startDate->lt($now)) {
+                    $startDate->addDay();
+
                     $hasMessages = Lottery::odds(1, 3)->choose();
 
                     if ( !$hasMessages ) continue;
@@ -132,8 +134,6 @@ class ConversationSeeder extends Seeder
 
                         $messagesSent++;
                     }
-
-                    $startDate->addDay();
                 }
             }
         }

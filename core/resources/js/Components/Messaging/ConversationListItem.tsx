@@ -1,28 +1,43 @@
 import React from 'react';
-import { ListItem, ListItemText, Typography, useTheme } from '@mui/material';
+import { Avatar, Badge, Box, IconButton, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography, useTheme } from '@mui/material';
+import { ConversationResource } from '@/types/messaging';
+import { Delete, Folder } from '@mui/icons-material';
 
 interface ConversationsListItemProps {
-
+    conversation: ConversationResource
 }
 
-export default function ConversationsListItem({ ...props }: ConversationsListItemProps ) {
-    const theme = useTheme();
+export default function ConversationsListItem({ conversation, ...props }: ConversationsListItemProps ) {
+    const { title, subject, latest_message_date } = conversation.computed;
 
     return (
-        <ListItem>
+        <ListItemButton
+            selected={false}
+        >
+            <ListItemAvatar>
+                <Avatar>
+                    <Folder />
+                </Avatar>
+            </ListItemAvatar>
+
             <ListItemText
-                primary={"Jack S."}
+                primary={title}
                 secondary={
                     <React.Fragment>
                         <Typography
                             component="span"
                             variant="body2"
                         >
-                            to Scott, Alex, Jennifer
+                            {subject}
                         </Typography>
                     </React.Fragment>
                 }
             />
-        </ListItem>
+
+            <Stack alignSelf="stretch" sx={{ mt: 1 }}>
+                <Typography variant="body2">{latest_message_date}</Typography>
+            </Stack>
+
+        </ListItemButton>
     );
 }

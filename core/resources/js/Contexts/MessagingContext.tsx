@@ -1,17 +1,19 @@
+import { ConversationResource } from "@/types/messaging";
 import { createContext } from "react";
 
-export interface Conversation {
-    [key: string]: any;
-}
-
 type MessagingContextType = {
-    conversations: Conversation[];
-    setConversations: (conversations: Conversation[]) => void;
+    conversations: ConversationResource[];
+    setConversations: (conversations: ConversationResource[]) => void;
+
+    unreadMessages: number;
+    setUnreadMessages: (unreadMessages: number) => void;
 }
 
 const MessagingContext = createContext<MessagingContextType>({
     conversations: [],
     setConversations: () => {},
+    unreadMessages: 0,
+    setUnreadMessages: () => {}
 });
 
 export default MessagingContext;

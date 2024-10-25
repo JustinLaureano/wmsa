@@ -1,15 +1,28 @@
-import { Stack, useTheme } from '@mui/material';
+import { Drawer, useTheme } from '@mui/material';
+import SidebarHeader from './SidebarHeader';
+import ConversationsList from './ConversationsList';
 
 interface MessagingSidebarProps {
-    children: React.ReactNode;
+
 }
 
-export default function MessagingSidebar({ children, ...props }: MessagingSidebarProps ) {
+export default function MessagingSidebar({ ...props }: MessagingSidebarProps ) {
     const theme = useTheme();
 
     return (
-        <Stack>
-            {children}
-        </Stack>
+        <Drawer
+            variant="permanent"
+            anchor="left"
+            open={false}
+            PaperProps={{
+                style: {
+                    position: "absolute",
+                    width: '320px'
+                }
+            }}
+        >
+            <SidebarHeader />
+            <ConversationsList />
+        </Drawer>
     );
 }

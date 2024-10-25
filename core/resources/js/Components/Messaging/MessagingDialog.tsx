@@ -1,5 +1,7 @@
-import { Box, Dialog, DialogContent, Drawer, Stack, useTheme } from '@mui/material';
+import { Dialog, DialogContent, useTheme } from '@mui/material';
 import { dialogStyleOverrides } from './styles';
+import MessagingSidebar from './MessagingSidebar';
+import MessagesContent from './MessagesContent';
 
 interface MessagingDialogProps {
     open: boolean;
@@ -7,7 +9,6 @@ interface MessagingDialogProps {
 }
 
 export default function MessagingDialog({ open, onClose, ...props }: MessagingDialogProps) {
-    const theme = useTheme();
 
     return (
         <Dialog
@@ -19,24 +20,9 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
         >
             <DialogContent>
 
-                <Drawer
-                    variant="permanent"
-                    anchor="left"
-                    open={false}
-                    PaperProps={{
-                        style: {
-                            position: "absolute",
-                            width: '320px'
-                        }
-                    }}
-                >
-                    <div>conversations</div>
-                </Drawer>
+                <MessagingSidebar />
 
-                <Stack sx={{ marginLeft: '320px' }}>
-                    Dialog Content Here
-                </Stack>
-
+                <MessagesContent />
             </DialogContent>
         </Dialog>
     );
