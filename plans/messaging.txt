@@ -1,0 +1,43 @@
+# Messaging
+
+
+## Unread messages count query
+
+Turn into view
+
+
+WITH conversations AS (
+	SELECT
+		distinct(c.uuid)
+	FROM conversations c
+	INNER JOIN conversation_participants p
+		ON p.conversation_uuid = c.uuid
+	WHERE p.participant_id = '2360'
+		AND p.participant_type = 'teammate'
+)
+SELECT
+	*
+FROM messages m
+WHERE m.conversation_uuid IN (SELECT uuid FROM conversations)
+	AND ( 
+		(sender_id <> '2360' AND sender_type = 'teammate')
+        OR
+        (sender_id <> 'de47c11b-6db4-4251-a337-4f63da53c9e4' AND sender_type = 'user')
+	)
+
+
+
+### Gets Count of Unread for teammate / user combo account
+
+SELECT
+	COUNT(*)
+FROM messages m
+LEFT JOIN message_status ms
+	ON ms.message_uuid = m.uuid
+WHERE m.conversation_uuid IN (SELECT uuid FROM conversations)
+	AND ms.uuid IS NULL
+	AND ( 
+		(sender_id <> '2360' AND sender_type = 'teammate')
+        OR
+        (sender_id <> 'de47c11b-6db4-4251-a337-4f63da53c9e4' AND sender_type = 'user')
+	)
