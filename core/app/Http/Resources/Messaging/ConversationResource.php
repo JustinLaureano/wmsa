@@ -133,16 +133,19 @@ class ConversationResource extends JsonResource
      */
     protected function getSubject() : string
     {
-        // TODO:
-        // if last message unread - show "New Message"
-        // if not, show sender name and content of last message
-        //   ex:
-        //      You: I just sent you an email.
-        //      Joshua: Somebody just called for you.
 
-        $subject = 'New Message';
+        // TODO: if new message from another participant, display "New Message"
+        // if () {
 
-        return $subject;
+        // }
+        if ( $this->participantSentLatestMessage() ) {
+            return ucfirst(__('you')) .': '. substr($this->latestMessage->content, 0, 35);
+        }
+        else {
+            return substr($this->latestMessage->content, 0, 40);
+        }
+
+        return 'New Message';
     }
 
     /**
@@ -177,6 +180,18 @@ class ConversationResource extends JsonResource
         }
 
         return $this->otherParticipants;
+    }
+
+    protected function participantSentLatestMessage() : bool
+    {
+        return (
+                $this->latestMessage->sender_type == ParticipantTypeEnum::TEAMMATE->value &&
+                $this->latestMessage->sender_id == $this->teammate?->clock_number
+            ) ||
+            (
+                $this->latestMessage->sender_type == ParticipantTypeEnum::USER->value &&
+                $this->latestMessage->sender_id == $this->user?->guid
+            );
     }
 
     /**

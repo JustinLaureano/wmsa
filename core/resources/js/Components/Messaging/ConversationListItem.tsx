@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react';
-import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography, useTheme } from '@mui/material';
+import {
+    Avatar, Box, Divider, ListItemAvatar,
+    ListItemButton, ListItemText, Stack, Typography
+} from '@mui/material';
 import { ConversationResource } from '@/types/messaging';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 
@@ -24,15 +27,26 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                 </ListItemAvatar>
 
                 <ListItemText
+                    disableTypography={true}
                     primary={title}
                     secondary={
                         <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
+                            <Box
+                                sx={{
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    width: '210px'
+                                }}
                             >
-                                {subject}
-                            </Typography>
+                                <Typography
+                                    component="span"
+                                    variant="body2"
+                                    noWrap
+                                >
+                                    {subject}
+                                </Typography>
+                            </Box>
                         </React.Fragment>
                     }
                 />

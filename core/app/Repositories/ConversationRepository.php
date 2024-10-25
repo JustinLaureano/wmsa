@@ -15,7 +15,13 @@ class ConversationRepository
     {
         return Conversation::query()
             ->whereParticipant($participant_id, $participant_type)
-            ->with(['latestMessage.sender', 'participants.participant'])
+            ->with([
+                'latestMessage' => [
+                    'sender',
+                    'status'
+                ],
+                'participants.participant'
+            ])
             ->get();
     }
 
