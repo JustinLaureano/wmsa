@@ -8,7 +8,7 @@ export default function MessagesContent({ ...props }: MessagesContentProps) {
     const theme = useTheme();
 
     return (
-        <Stack sx={{ marginLeft: '320px' }}>
+        <Stack sx={{ marginLeft: theme.layouts.dashboard.conversationDrawerWidth }}>
             Dialog Content Here
         </Stack>
     );

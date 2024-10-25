@@ -2,9 +2,7 @@ import { Drawer, useTheme } from '@mui/material';
 import SidebarHeader from './SidebarHeader';
 import ConversationsList from './ConversationsList';
 
-interface MessagingSidebarProps {
-
-}
+interface MessagingSidebarProps {}
 
 export default function MessagingSidebar({ ...props }: MessagingSidebarProps ) {
     const theme = useTheme();
@@ -17,7 +15,7 @@ export default function MessagingSidebar({ ...props }: MessagingSidebarProps ) {
             PaperProps={{
                 style: {
                     position: "absolute",
-                    width: '320px'
+                    width: theme.layouts.dashboard.conversationDrawerWidth
                 }
             }}
         >

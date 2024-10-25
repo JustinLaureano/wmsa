@@ -7,6 +7,8 @@ export default {
 
     drawerRailWidth: '54px',
 
+    conversationDrawerWidth: '320px',
+
     notificationsDrawerWidth: '420px',
 
     settingsDrawerWidth: '320px',

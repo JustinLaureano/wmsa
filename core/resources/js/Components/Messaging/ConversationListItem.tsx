@@ -5,13 +5,20 @@ import {
 } from '@mui/material';
 import { ConversationResource } from '@/types/messaging';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
+import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
 
 interface ConversationsListItemProps {
     conversation: ConversationResource
 }
 
 export default function ConversationsListItem({ conversation, ...props }: ConversationsListItemProps ) {
-    const { avatar_initials, title, subject, latest_message_date } = conversation.computed;
+    const {
+        avatar_initials,
+        title,
+        subject,
+        latest_message_date,
+        unread_messages
+    } = conversation.computed;
 
     const badgeColor = useMemo(() => getRandomAvatarBadgeColor(), [conversation.uuid]);
 
@@ -21,14 +28,44 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                 selected={false}
             >
                 <ListItemAvatar>
-                    <Avatar  sx={{ bgcolor: badgeColor }}>
-                        {avatar_initials}
-                    </Avatar>
+                    {unread_messages ? (
+                        <UnreadConversationMessagesBadge
+                            badgeColor={badgeColor}
+                            avatarInitials={avatar_initials}
+                        />
+                    ) : (
+                        <Avatar sx={{ bgcolor: badgeColor }}>
+                            {avatar_initials}
+                        </Avatar>
+                    )}
+
                 </ListItemAvatar>
 
                 <ListItemText
                     disableTypography={true}
-                    primary={title}
+                    primary={
+                        <React.Fragment>
+                            <Box
+                                sx={{
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    width: '180px'
+                                }}
+                            >
+                                <Typography
+                                    component="span"
+                                    variant="body1"
+                                    noWrap
+                                    sx={{
+                                        fontWeight: unread_messages ? '600' : '400'
+                                    }}
+                                >
+                                    {title}
+                                </Typography>
+                            </Box>
+                        </React.Fragment>
+                    }
                     secondary={
                         <React.Fragment>
                             <Box
@@ -43,6 +80,7 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                                     component="span"
                                     variant="body2"
                                     noWrap
+                                    color={unread_messages ? 'textPrimary' : 'gray'}
                                 >
                                     {subject}
                                 </Typography>
@@ -52,7 +90,15 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                 />
 
                 <Stack alignSelf="stretch" sx={{ mt: 1 }}>
-                    <Typography variant="body2">{latest_message_date}</Typography>
+                    <Typography
+                        variant="body2"
+                        color={unread_messages ? 'textPrimary' : 'gray'}
+                        sx={{
+                            fontWeight: unread_messages ? '500' : '400'
+                        }}
+                    >
+                        {latest_message_date}
+                    </Typography>
                 </Stack>
 
             </ListItemButton>
