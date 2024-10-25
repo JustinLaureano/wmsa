@@ -81,6 +81,9 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                                     variant="body2"
                                     noWrap
                                     color={unread_messages ? 'textPrimary' : 'gray'}
+                                    sx={{
+                                        fontWeight: unread_messages ? '500' : '400'
+                                    }}
                                 >
                                     {subject}
                                 </Typography>
