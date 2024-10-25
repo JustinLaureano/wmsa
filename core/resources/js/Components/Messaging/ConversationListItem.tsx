@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import {
     Avatar, Box, Divider, ListItemAvatar,
     ListItemButton, ListItemText, Stack, Typography
@@ -6,12 +6,15 @@ import {
 import { ConversationResource } from '@/types/messaging';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
+import MessagingContext from '@/Contexts/MessagingContext';
 
 interface ConversationsListItemProps {
     conversation: ConversationResource
 }
 
 export default function ConversationsListItem({ conversation, ...props }: ConversationsListItemProps ) {
+    const { activeConversation, setActiveConversation } = useContext(MessagingContext)
+
     const {
         avatar_initials,
         title,
@@ -23,13 +26,13 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
     const badgeColor = useMemo(() => getRandomAvatarBadgeColor(), [conversation.uuid]);
 
     const handleButtonClick = () => {
-        console.log(conversation.uuid)
+        setActiveConversation(conversation)
     }
 
     return (
         <>
             <ListItemButton
-                selected={false}
+                selected={activeConversation?.uuid == conversation.uuid}
                 onClick={handleButtonClick}
             >
                 <ListItemAvatar>

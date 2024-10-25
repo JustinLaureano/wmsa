@@ -13,15 +13,19 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
 
     const [conversations, setConversations] = useState<ConversationResource[]>([]);
     const [unreadMessages, setUnreadMessages] = useState(0);
+    
+    const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
 
     const defaultValue = {
         conversations,
         setConversations,
         unreadMessages,
-        setUnreadMessages
+        setUnreadMessages,
+        activeConversation,
+        setActiveConversation
     };
 
-    const dependencies = [conversations];
+    const dependencies = [conversations, unreadMessages, activeConversation];
 
     const value = useMemo(() => defaultValue, dependencies)
 
@@ -48,6 +52,10 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     useEffect(() => {
         fetchConversations();
     }, [])
+
+    useEffect(() => {
+        // TODO: load messages for active conversation
+    }, [activeConversation])
 
     return (
         <MessagingContext.Provider value={value}>
