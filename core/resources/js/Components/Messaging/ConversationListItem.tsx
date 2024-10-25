@@ -22,10 +22,15 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
 
     const badgeColor = useMemo(() => getRandomAvatarBadgeColor(), [conversation.uuid]);
 
+    const handleButtonClick = () => {
+        console.log(conversation.uuid)
+    }
+
     return (
         <>
             <ListItemButton
                 selected={false}
+                onClick={handleButtonClick}
             >
                 <ListItemAvatar>
                     {unread_messages ? (
@@ -38,57 +43,52 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                             {avatar_initials}
                         </Avatar>
                     )}
-
                 </ListItemAvatar>
 
                 <ListItemText
                     disableTypography={true}
                     primary={
-                        <React.Fragment>
-                            <Box
+                        <Box
+                            sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '180px'
+                            }}
+                        >
+                            <Typography
+                                component="span"
+                                variant="body1"
+                                noWrap
                                 sx={{
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
-                                    width: '180px'
+                                    fontWeight: unread_messages ? '600' : '400'
                                 }}
                             >
-                                <Typography
-                                    component="span"
-                                    variant="body1"
-                                    noWrap
-                                    sx={{
-                                        fontWeight: unread_messages ? '600' : '400'
-                                    }}
-                                >
-                                    {title}
-                                </Typography>
-                            </Box>
-                        </React.Fragment>
+                                {title}
+                            </Typography>
+                        </Box>
                     }
                     secondary={
-                        <React.Fragment>
-                            <Box
+                        <Box
+                            sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '210px'
+                            }}
+                        >
+                            <Typography
+                                component="span"
+                                variant="body2"
+                                noWrap
+                                color={unread_messages ? 'textPrimary' : 'gray'}
                                 sx={{
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
-                                    width: '210px'
+                                    fontWeight: unread_messages ? '500' : '400'
                                 }}
                             >
-                                <Typography
-                                    component="span"
-                                    variant="body2"
-                                    noWrap
-                                    color={unread_messages ? 'textPrimary' : 'gray'}
-                                    sx={{
-                                        fontWeight: unread_messages ? '500' : '400'
-                                    }}
-                                >
-                                    {subject}
-                                </Typography>
-                            </Box>
-                        </React.Fragment>
+                                {subject}
+                            </Typography>
+                        </Box>
                     }
                 />
 
