@@ -25,9 +25,6 @@ class ConversationResource extends JsonResource
             'computed' => [
                 'title' => $this->getTitle(),
                 'subject' => $this->getSubject(),
-            ],
-            'meta' => [
-                'timestamp' => now()
             ]
         ];
     }
