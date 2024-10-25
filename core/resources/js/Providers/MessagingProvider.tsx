@@ -40,7 +40,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         if ( !participant_id ) return;
 
         const response = await new MessagingService().getConversations(participant_id, participant_type);
-
+        console.log(response)
         setConversations(response.data)
         setUnreadMessages(response.computed.unread_messages)
     };

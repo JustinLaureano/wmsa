@@ -46,11 +46,10 @@ class ConversationCollection extends ResourceCollection
             );
         });
 
-
         return [
             'data' => $this->collection->toArray(),
             'computed' => [
-                'unread_comments' => $this->getUnreadComments()
+                'unread_messages' => $this->getUnreadMessages()
             ],
             'meta' => [
                 'timestamp' => now()
@@ -92,7 +91,7 @@ class ConversationCollection extends ResourceCollection
      * across all conversations. This also includes any related
      * account conversations in the total as well.
      */
-    protected function getUnreadComments() : int
+    protected function getUnreadMessages() : int
     {
         $primaryId = $this->participantData->participant_id;
         $primaryType = $this->participantData->participant_type;

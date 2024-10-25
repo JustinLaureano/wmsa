@@ -7,6 +7,7 @@ use App\Domain\Messaging\Enums\ParticipantTypeEnum;
 use App\Models\ConversationParticipant;
 use App\Models\Teammate;
 use App\Models\User;
+use App\Repositories\MessageRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class ConversationResource extends JsonResource
                 'title' => $this->getTitle(),
                 'subject' => $this->getSubject(),
                 'latest_message_date' => $this->getLatestMessageDate(),
+                'unread_messages' => $this->getUnreadMessages()
             ]
         ];
     }
@@ -182,6 +184,45 @@ class ConversationResource extends JsonResource
         return $this->otherParticipants;
     }
 
+    /**
+     * Returns the total number of unread messages for the participant
+     * for a single conversations. This also includes any related
+     * account conversations in the total as well.
+     */
+    protected function getUnreadMessages() : int
+    {
+        $conversationUuid = $this->uuid;
+        $primaryId = $this->participant_id;
+        $primaryType = $this->participant_type;
+        $secondaryId = $this->participant_type;
+        $secondaryType = $this->participant_type;
+
+        if (
+            $this->participantIsTeammate() &&
+            $this->user
+        ) {
+            $secondaryId = $this->user->guid;
+            $secondaryType = ParticipantTypeEnum::USER->value;
+        }
+
+        else if (
+            $this->participantIsUser() &&
+            $this->teammate
+        ) {
+            $secondaryId = $this->teammate->clock_number;
+            $secondaryType = ParticipantTypeEnum::TEAMMATE->value;
+        }
+
+        return (new MessageRepository)
+            ->getUnreadConversationMessagesCount(
+                conversationUuid: $conversationUuid,
+                primaryId: $primaryId,
+                primaryType: $primaryType,
+                secondaryId: $secondaryId,
+                secondaryType: $secondaryType
+            );
+    }
+
     protected function participantSentLatestMessage() : bool
     {
         return (
@@ -210,5 +251,15 @@ class ConversationResource extends JsonResource
         $this->participant_type = $participantData->participant_type;
         $this->teammate = $teammate;
         $this->user = $user;
+    }
+
+    protected function participantIsTeammate() : bool
+    {
+        return $this->participant_type === ParticipantTypeEnum::TEAMMATE->value;
+    }
+
+    protected function participantIsUser() : bool
+    {
+        return $this->participant_type === ParticipantTypeEnum::USER->value;
     }
 }
