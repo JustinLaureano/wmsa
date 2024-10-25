@@ -30,7 +30,7 @@ WHERE m.conversation_uuid IN (SELECT uuid FROM conversations)
 ### Gets Count of Unread for teammate / user combo account
 
 SELECT
-	COUNT(*)
+	COUNT(m.uuid) AS unread_messages
 FROM messages m
 LEFT JOIN message_status ms
 	ON ms.message_uuid = m.uuid
