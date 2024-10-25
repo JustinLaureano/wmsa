@@ -33,7 +33,12 @@ class ConversationCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'unread_comments' => $this->getUnreadComments()
+            'computed' => [
+                'unread_comments' => $this->getUnreadComments()
+            ],
+            'meta' => [
+                'timestamp' => now()
+            ],
         ];
     }
 
@@ -44,7 +49,6 @@ class ConversationCollection extends ResourceCollection
      */
     protected function getUnreadComments() : int
     {
-    
         $primaryId = $this->participantData->participant_id;
         $primaryType = $this->participantData->participant_type;
         $secondaryId = $this->participantData->participant_type;
