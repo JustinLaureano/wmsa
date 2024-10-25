@@ -18,6 +18,7 @@ class ConversationSeeder extends Seeder
     protected array $conversations;
     protected array $participants;
     protected array $messages;
+    protected array $statuses;
 
     /**
      * Run the database seeds.
@@ -29,6 +30,7 @@ class ConversationSeeder extends Seeder
         $this->conversations = [];
         $this->participants = [];
         $this->messages = [];
+        $this->statuses = [];
 
         $this->generateConversations();
         $this->storeConversations();
@@ -114,7 +116,7 @@ class ConversationSeeder extends Seeder
                             }
                         }
 
-                        $this->messages[] = [
+                        $message = [
                             'uuid' => Str::uuid(),
                             'conversation_uuid' => $conversation['uuid'],
                             'sender_id' => $senderId,
@@ -124,13 +126,53 @@ class ConversationSeeder extends Seeder
                             'updated_at' => $messageDate->toDateTimeString()
                         ];
 
-                        $hours = fake()->randomElement([0, 0, 0, 1]);
-                        $minutes = fake()->numberBetween(4, 59);
-                        $seconds = fake()->numberBetween(4, 59);
+                        $this->messages[] = $message;
 
-                        $messageDate->addHours($hours)
-                            ->addMinutes($minutes)
-                            ->addSeconds($seconds);
+                        // randomly determine if message has been read by other participants
+                        $daysInPast = abs( $messageDate->diffInDays($now) );
+
+                        if ( $daysInPast < 2 ) {
+                            $isRead = Lottery::odds(3, 10)->choose();
+                        }
+                        if ( $daysInPast < 3 ) {
+                            $isRead = Lottery::odds(6, 10)->choose();
+                        }
+                        else if ( $daysInPast < 5 ) {
+                            $isRead = Lottery::odds(7, 10)->choose();
+                        }
+                        else if ( $daysInPast < 10 ) {
+                            $isRead = Lottery::odds(8, 10)->choose();
+                        }
+                        else if ( $daysInPast < 15 ) {
+                            $isRead = Lottery::odds(9, 10)->choose();
+                        }
+                        else {
+                            $isRead = Lottery::odds(19, 20)->choose();
+                        }
+
+                        if ($isRead) {
+                            $reader = $senderIsParticipant1
+                                ? $participant2
+                                : $participant1;
+
+                            $readAt = $messageDate->copy()
+                                ->addHours($this->getFakeHours())
+                                ->addMinutes($this->getFakeMinutes())
+                                ->addSeconds($this->getFakeSeconds());
+
+                            $this->statuses[] = [
+                                'uuid' => Str::uuid(),
+                                'message_uuid' => $message['uuid'],
+                                'participant_id' => $reader['participant_id'],
+                                'participant_type' => $reader['participant_type'],
+                                'is_read' => 1,
+                                'read_at' => $readAt
+                            ];
+                        }
+
+                        $messageDate->addHours($this->getFakeHours())
+                            ->addMinutes($this->getFakeMinutes())
+                            ->addSeconds($this->getFakeSeconds());
 
                         $messagesSent++;
                     }
@@ -156,5 +198,28 @@ class ConversationSeeder extends Seeder
         $messages->chunk(500)->each(function($chunk) {
             DB::table('messages')->insert($chunk->toArray());
         });
+
+        $statuses = collect($this->statuses)
+            ->sortBy('read_at')
+            ->values();
+
+        $statuses->chunk(500)->each(function($chunk) {
+            DB::table('message_status')->insert($chunk->toArray());
+        });
+    }
+
+    protected function getFakeHours() : int
+    {
+        return fake()->randomElement([0, 0, 0, 0, 1, 1, 2]);
+    }
+
+    protected function getFakeMinutes() : int
+    {
+        return fake()->numberBetween(4, 59);
+    }
+
+    protected function getFakeSeconds() : int
+    {
+        return fake()->numberBetween(4, 59);
     }
 }
