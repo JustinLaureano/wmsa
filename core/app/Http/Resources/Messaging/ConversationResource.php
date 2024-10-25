@@ -14,7 +14,6 @@ class ConversationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'uuid' => $this->uuid,
             'attributes' => $this->resource->getAttributes(),

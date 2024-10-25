@@ -41,3 +41,11 @@ WHERE m.conversation_uuid IN (SELECT uuid FROM conversations)
         OR
         (sender_id <> 'de47c11b-6db4-4251-a337-4f63da53c9e4' AND sender_type = 'user')
 	)
+
+
+
+
+## Call stored procedure example
+
+CALL get_unread_messages_count('2360', 'teammate', 'd20eee04-534a-48a5-95e9-71964c13f504', 'user');
+
