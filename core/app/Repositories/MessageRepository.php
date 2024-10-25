@@ -30,6 +30,30 @@ class MessageRepository
     }
 
     /**
+     * Get the number of combined unread messages
+     * for a user across joint accounts for a 
+     * single conversation.
+     */
+    public function getUnreadConversationMessagesCount(
+        string $conversationUuid,
+        string $primaryId,
+        string $primaryType,
+        string $secondaryId,
+        string $secondaryType
+    ) : int
+    {
+        $result = DB::select('CALL get_unread_conversation_messages_count(?, ?, ?, ?, ?)', [
+            $conversationUuid,
+            $primaryId,
+            $primaryType,
+            $secondaryId,
+            $secondaryType
+        ]);
+
+        return $result[0]->unread_messages ?? 0;
+    }
+
+    /**
      * Store a message record.
      */
     public function store(MessageData $data) : Message

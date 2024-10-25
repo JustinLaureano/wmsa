@@ -11,8 +11,9 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
-            DROP PROCEDURE IF EXISTS get_unread_messages_count;
-            CREATE PROCEDURE get_unread_messages_count(
+            DROP PROCEDURE IF EXISTS get_unread_conversation_messages_count;
+            CREATE PROCEDURE get_unread_conversation_messages_count(
+                IN conversationUuid VARCHAR(36),
                 IN primaryId VARCHAR(40),
                 IN primaryType ENUM('user','teammate'),
                 IN secondaryId VARCHAR(40),
@@ -25,11 +26,12 @@ return new class extends Migration
                     FROM conversations c
                     INNER JOIN conversation_participants p
                         ON p.conversation_uuid = c.uuid
-                    WHERE (
-                        (p.participant_id = primaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = primaryType COLLATE utf8mb4_unicode_ci)
-                        OR
-                        (p.participant_id = secondaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = secondaryType COLLATE utf8mb4_unicode_ci)
-                    )
+                    WHERE c.uuid = conversationUuid COLLATE utf8mb4_unicode_ci
+                        AND (
+                            (p.participant_id = primaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = primaryType COLLATE utf8mb4_unicode_ci)
+                            OR
+                            (p.participant_id = secondaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = secondaryType COLLATE utf8mb4_unicode_ci)
+                        )
                 )
                 SELECT
                     COUNT(m.uuid) AS unread_messages
@@ -52,6 +54,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("DROP PROCEDURE IF EXISTS get_unread_messages_count");
+        DB::unprepared("DROP PROCEDURE IF EXISTS get_unread_conversation_messages_count");
     }
 };
