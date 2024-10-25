@@ -1,7 +1,6 @@
-import React from 'react';
-import { Avatar, Badge, Box, Divider, IconButton, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography, useTheme } from '@mui/material';
+import React, { useMemo } from 'react';
+import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography, useTheme } from '@mui/material';
 import { ConversationResource } from '@/types/messaging';
-import { Delete, Folder } from '@mui/icons-material';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 
 interface ConversationsListItemProps {
@@ -11,13 +10,15 @@ interface ConversationsListItemProps {
 export default function ConversationsListItem({ conversation, ...props }: ConversationsListItemProps ) {
     const { avatar_initials, title, subject, latest_message_date } = conversation.computed;
 
+    const badgeColor = useMemo(() => getRandomAvatarBadgeColor(), [conversation.uuid]);
+
     return (
         <>
             <ListItemButton
                 selected={false}
             >
                 <ListItemAvatar>
-                    <Avatar  sx={{ bgcolor: getRandomAvatarBadgeColor() }}>
+                    <Avatar  sx={{ bgcolor: badgeColor }}>
                         {avatar_initials}
                     </Avatar>
                 </ListItemAvatar>
