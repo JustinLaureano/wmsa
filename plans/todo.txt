@@ -68,8 +68,9 @@ messages and message groups
 
                 MessageList
                     Message
-                        MessageMeta
-                        MessageCard
+                        MessageContainer
+                            MessageMeta
+                            MessageCard
 
                 MessageDateDivider
 

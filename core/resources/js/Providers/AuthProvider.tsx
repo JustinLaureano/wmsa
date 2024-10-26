@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import AuthContext from '@/Contexts/AuthContext';
 
 interface AuthProviderProps {
@@ -23,9 +23,19 @@ export default function AuthProvider({
         setUser
     };
 
-    const dependencies = [user];
+    const dependencies = [user, teammate];
 
     const value = useMemo(() => defaultValue, dependencies)
+
+    useEffect(() => {
+        if (
+            user &&
+            user.teammate &&
+            (!teammate || teammate.clock_number != user.teammate.clock_number)
+        ) {
+            setTeammate(user.teammate);
+        }
+    }, [user])
 
     return (
         <AuthContext.Provider value={value}>
