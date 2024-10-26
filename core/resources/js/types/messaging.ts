@@ -6,6 +6,13 @@ export interface Conversation {
     created_at: string
 }
 
+export interface MessagesResource {
+    uuid: string;
+    attributes: JsonObject;
+    computed: JsonObject;
+    relations: JsonObject;
+}
+
 export interface ConversationResource {
     uuid: string;
     attributes: ConversationAttributes;
