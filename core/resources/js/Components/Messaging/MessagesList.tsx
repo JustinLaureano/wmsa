@@ -29,7 +29,7 @@ export default function MessagesList() {
             >
                 {
                     activeMessages.map((message : MessageResource) => (
-                        <div>{message.uuid}</div>
+                        <div>{message.uuid} - {message.attributes.created_at}</div>
                     ))
                 }
             </InfiniteScroll>
