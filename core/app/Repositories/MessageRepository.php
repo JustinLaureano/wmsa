@@ -4,10 +4,20 @@ namespace App\Repositories;
 
 use App\Domain\Messaging\DataTransferObjects\MessageData;
 use App\Models\Message;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class MessageRepository
 {
+    public function getForConversation(string $conversationUuid) : Collection
+    {
+        return Message::query()
+            ->where('conversation_uuid', $conversationUuid)
+            ->orderBy('created_at', 'asc')
+            ->limit(500)
+            ->get();
+    }
+
     /**
      * Get the number of combined unread messages
      * for a user across joint accounts.
