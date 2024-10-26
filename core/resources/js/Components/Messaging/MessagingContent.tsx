@@ -1,8 +1,10 @@
 import MessagingContext from '@/Contexts/MessagingContext';
-import { Stack, useTheme } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/material';
 import { useContext } from 'react';
 import MessagesHeader from './MessagesHeader';
 import MessagesList from './MessagesList';
+import OverflowScrollBox from '../Shared/OverflowScrollBox';
+import MessagesActions from './MessagesActions';
 
 interface MessagingContentProps {}
 
@@ -11,11 +13,15 @@ export default function MessagingContent({ ...props }: MessagingContentProps) {
     const { activeConversation, activeMessages } = useContext(MessagingContext);
 
     return (
-        <Stack sx={{ marginLeft: theme.layouts.dashboard.conversationDrawerWidth }}>
+        <Stack sx={{
+            height: '100%',
+            marginLeft: theme.layouts.dashboard.conversationDrawerWidth,
+        }}>
             <MessagesHeader />
 
-
             { activeConversation && activeMessages && <MessagesList /> }
+
+            <MessagesActions />
         </Stack>
     );
 }

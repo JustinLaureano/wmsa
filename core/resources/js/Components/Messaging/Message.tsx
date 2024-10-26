@@ -2,6 +2,8 @@ import MessageContainer from './MessageContainer';
 import { MessageResource } from '@/types/messaging';
 import AuthContext from '@/Contexts/AuthContext';
 import { useContext } from 'react';
+import MessageMeta from './MessageMeta';
+import MessageCard from './MessageCard';
 
 interface MessageProps {
     message: MessageResource;
@@ -31,8 +33,14 @@ export default function Message({ message, ...props }: MessageProps) {
 
     return (
         <MessageContainer justify={justify}>
-            <div>{message.attributes.created_at}</div>
-            <div>{message.computed.filtered_content}</div>
+            <MessageMeta
+                justify={justify}
+                message={message}
+            />
+            <MessageCard
+                justify={justify}
+                message={message}
+            />
         </MessageContainer>
     );
 }

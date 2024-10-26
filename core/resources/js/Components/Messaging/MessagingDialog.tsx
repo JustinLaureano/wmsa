@@ -9,6 +9,7 @@ interface MessagingDialogProps {
 }
 
 export default function MessagingDialog({ open, onClose, ...props }: MessagingDialogProps) {
+    const theme = useTheme();
 
     return (
         <Dialog
@@ -18,7 +19,15 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
             maxWidth={'lg'}
             sx={dialogStyleOverrides}
         >
-            <DialogContent>
+            <DialogContent
+                sx={{
+                    ...(
+                        theme.palette.mode == 'dark' && {
+                            background: '#1c1f27',
+                        }
+                    )
+                }}
+            >
 
                 <MessagingSidebar />
 

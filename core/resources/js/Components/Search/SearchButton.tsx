@@ -33,7 +33,7 @@ export default function SearchButton(props : Record<string, any>) {
                     fontSize: '.675rem',
                     ...(
                         theme.palette.mode == 'dark' && {
-                            background: '#1c1f27',
+                            background: theme.palette.background.default,
                         }
                     )
                 }}
