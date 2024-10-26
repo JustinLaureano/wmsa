@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, useTheme } from '@mui/material';
 import { dialogStyleOverrides } from './styles';
 import MessagingSidebar from './MessagingSidebar';
-import MessagesContent from './MessagesContent';
+import MessagingContent from './MessagingContent';
 
 interface MessagingDialogProps {
     open: boolean;
@@ -22,7 +22,7 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
 
                 <MessagingSidebar />
 
-                <MessagesContent />
+                <MessagingContent />
             </DialogContent>
         </Dialog>
     );

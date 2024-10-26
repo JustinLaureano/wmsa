@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Messaging;
 
 use App\Domain\Messaging\Actions\GetConversationMessagesAction;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Messaging\MessageCollection;
 
 class GetConversationMessages extends Controller
 {
@@ -14,6 +15,6 @@ class GetConversationMessages extends Controller
     {
         $messages = $action->handle($conversation_uuid);
 
-        return $messages;
+        return new MessageCollection($messages);
     }
 }

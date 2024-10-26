@@ -1,4 +1,4 @@
-import { ConversationResource, MessagesResource } from "@/types/messaging";
+import { ConversationResource, MessageResource } from "@/types/messaging";
 import { createContext } from "react";
 
 type MessagingContextType = {
@@ -11,8 +11,8 @@ type MessagingContextType = {
     activeConversation: ConversationResource | null;
     setActiveConversation: (activeConversation: ConversationResource | null) => void;
 
-    activeMessages: MessagesResource | null;
-    setActiveMessages: (activeMessages: MessagesResource | null) => void;
+    activeMessages: MessageResource[] | null;
+    setActiveMessages: (activeMessages: MessageResource[] | null) => void;
 }
 
 const MessagingContext = createContext<MessagingContextType>({

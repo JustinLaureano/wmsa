@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import MessagingContext from '@/Contexts/MessagingContext';
 import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
-import { ConversationResource, MessagesResource } from '@/types/messaging';
+import { ConversationResource, MessageResource } from '@/types/messaging';
 
 interface MessagingProviderProps {
     children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     const [unreadMessages, setUnreadMessages] = useState(0);
     
     const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
-    const [activeMessages, setActiveMessages] = useState<MessagesResource | null>(null);
+    const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
 
     const defaultValue = {
         conversations,
@@ -28,7 +28,12 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         setActiveMessages
     };
 
-    const dependencies = [conversations, unreadMessages, activeConversation];
+    const dependencies = [
+        conversations,
+        unreadMessages,
+        activeConversation,
+        activeMessages
+    ];
 
     const value = useMemo(() => defaultValue, dependencies)
 
@@ -61,7 +66,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         }
 
         const response = await messagingService.getConversationMessages(activeConversation.uuid);
-        console.log(response)
+
         setActiveMessages(response.data);
     }
 

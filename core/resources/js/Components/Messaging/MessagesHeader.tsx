@@ -1,12 +1,6 @@
-import { Stack, Typography, useTheme } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
-interface MessagesHeaderProps {
-    children: React.ReactNode;
-}
-
-export default function MessagesHeader({ children, ...props }: MessagesHeaderProps ) {
-    const theme = useTheme();
-
+export default function MessagesHeader() {
     return (
         <Stack
             direction="row"
