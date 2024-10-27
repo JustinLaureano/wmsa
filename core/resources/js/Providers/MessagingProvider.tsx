@@ -88,9 +88,6 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     }, [])
 
     useEffect(() => {
-        console.log(`conversation.user.${user?.guid}`)
-        console.log(`conversation.teammate.${teammate?.clock_number}`)
-
         window.Echo.private(`conversation.user.${user?.guid}`)
             .listen('.message.sent', (e: any) => {
                 console.log('message for user', e)
@@ -111,7 +108,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
             window.Echo.leave(`conversation.user.${user?.guid}`)
             window.Echo.leave(`conversation.teammate.${teammate?.clock_number}`)
         }
-    }, [])
+    }, [teammate, user])
 
     useEffect(() => {
         fetchConversationMessages();
@@ -130,11 +127,12 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     };
 
     const dependencies = [
+        teammate,
+        user,
         conversations,
         unreadMessages,
         activeConversation,
-        activeMessages,
-        handleNewMessageRequest
+        activeMessages
     ];
 
     const value = useMemo(() => defaultValue, dependencies)

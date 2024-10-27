@@ -34,8 +34,9 @@ class MessageSent implements ShouldBroadcast
 
         $participantChannels = $this->message->conversation->participants
             ->reduce(function (array $carry, ConversationParticipant $p) {
-                $channel = 'conversation.'. $p->sender_type .'.'. $p->sender_id;
+                $channel = 'conversation.'. $p->participant_type .'.'. $p->participant_id;
                 $carry[] = new PrivateChannel($channel);
+
                 return $carry;
             }, []);
 
