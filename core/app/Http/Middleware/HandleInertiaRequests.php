@@ -36,8 +36,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user()?->load('teammate'),
-                'teammate' => $request->user('teammate'),
+                'user' => $request->user('web')?->load('teammate'),
+                'teammate' => $request->user('teammate')?->load('user'),
             ],
 
             'lang' => __('frontend'),
