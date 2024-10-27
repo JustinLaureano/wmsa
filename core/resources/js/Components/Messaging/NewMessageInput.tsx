@@ -1,12 +1,46 @@
-import { Send } from '@mui/icons-material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Divider, IconButton, Paper, Stack } from '@mui/material';
+import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
+import MessagingContext from '@/Contexts/MessagingContext';
 
 export default function NewMessageInput() {
+    const { activeConversation, handleNewMessageRequest } = useContext(MessagingContext);
+    const [content, setContent] = useState('');
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
+        setContent(e.target.value)
     }
+
+    const handleNewMessage = async () => {
+        const response = await handleNewMessageRequest(content);
+
+        console.log('response', response)
+    }
+
+    const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+        handleNewMessage();
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key !== 'Enter') return;
+
+        handleNewMessage();
+    }
+
+    const focusInput = () => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }
+
+    useEffect(() => {
+        setContent('');
+        focusInput();
+    }, [activeConversation])
+
+    useEffect(() => focusInput(), []);
 
     return (
         <Paper
@@ -23,17 +57,26 @@ export default function NewMessageInput() {
                 alignItems="center"
             >
                 <StyledInputBase
+                    inputRef={inputRef}
                     placeholder={'Type a message'}
+                    value={content}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    multiline
+                    maxRows={2}
+                    sx={{ flexGrow: 1 }}
                 />
 
                 <Divider
                     orientation="vertical"
                     flexItem
-                    sx={{ pl: 1 }}
+                    sx={{ mr: 1 }}
                 />
 
-                <IconButton>
+                <IconButton
+                    color="gray"
+                    onClick={handleButtonClick}
+                >
                     <Send />
                 </IconButton>
             </Stack>

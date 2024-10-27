@@ -1,7 +1,23 @@
 import { AxiosResponse } from 'axios';
 import ApiService from './ApiService';
+import { MessageResource, NewMessageRequestData } from '@/types/messaging';
 
 class MessagingService {
+    public async createMessage(
+        data: NewMessageRequestData
+    ) : Promise<MessageResource | null> {
+        try {
+            const response: AxiosResponse = await new ApiService()
+                .post(route('api.messaging.message'), data);
+
+            return response.data.data as MessageResource;
+        }
+        catch (error) {
+            console.log(error)
+            return null;
+        }
+    }
+
     public async getConversations(participant_id: string, participant_type: string) {
         const params = {
             participant_id,

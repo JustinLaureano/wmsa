@@ -13,6 +13,8 @@ type MessagingContextType = {
 
     activeMessages: MessageResource[] | null;
     setActiveMessages: (activeMessages: MessageResource[] | null) => void;
+
+    handleNewMessageRequest: (content: string) => Promise<any>;
 }
 
 const MessagingContext = createContext<MessagingContextType>({
@@ -23,7 +25,8 @@ const MessagingContext = createContext<MessagingContextType>({
     activeConversation: null,
     setActiveConversation: () => {},
     activeMessages: null,
-    setActiveMessages: () => {}
+    setActiveMessages: () => {},
+    handleNewMessageRequest: async () => {}
 });
 
 export default MessagingContext;

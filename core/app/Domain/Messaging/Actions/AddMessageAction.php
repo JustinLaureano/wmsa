@@ -4,7 +4,7 @@ namespace App\Domain\Messaging\Actions;
 
 use App\Domain\Messaging\DataTransferObjects\AddMessageRequestData;
 use App\Domain\Messaging\DataTransferObjects\MessageData;
-use App\Domain\Requests\Events\MessageSent;
+use App\Domain\Messaging\Events\MessageSent;
 use App\Models\Message;
 use App\Repositories\MessageRepository;
 use Illuminate\Support\Str;

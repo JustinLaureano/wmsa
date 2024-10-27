@@ -19,6 +19,13 @@ export interface MessageResource {
     relations: JsonObject;
 }
 
+export interface NewMessageRequestData {
+    conversation_uuid: string;
+    sender_id: string;
+    sender_type: string;
+    content: string;
+}
+
 export interface ConversationResource {
     uuid: string;
     attributes: ConversationAttributes;

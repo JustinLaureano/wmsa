@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Requests\Events;
+namespace App\Domain\Messaging\Events;
 
 use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;

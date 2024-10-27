@@ -21,7 +21,8 @@ class Message extends Model
         'uuid',
         'conversation_uuid',
         'sender_id',
-        'sender_type'
+        'sender_type',
+        'content'
     ];
 
     /**

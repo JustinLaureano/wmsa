@@ -11,11 +11,11 @@ export default function OverflowScrollBox({ children, ...props }: OverflowScroll
 	return (
         <Box
             sx={{
-                ...sx,
                 overflow: 'scroll',
                 '::-webkit-scrollbar': {
                     display: 'none'
-                }
+                },
+                ...sx
             }}
             {...rest}
         >
@@ -34,11 +34,11 @@ export const RefOverflowScrollBox = forwardRef<HTMLDivElement, OverflowScrollBox
         <Box
             ref={ref}
             sx={{
-                ...sx,
                 overflow: 'scroll',
                 '::-webkit-scrollbar': {
                     display: 'none'
-                }
+                },
+                ...sx
             }}
             {...rest}
         >

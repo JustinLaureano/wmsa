@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Messaging;
 use App\Domain\Messaging\Actions\AddMessageAction;
 use App\Domain\Messaging\DataTransferObjects\AddMessageRequestData;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Messaging\MessageResource;
 
 class AddMessage extends Controller
 {
@@ -15,9 +16,6 @@ class AddMessage extends Controller
     {
         $message = $action->handle($data);
 
-        return response()
-            ->json([
-                'message' => $message
-            ]);
+        return new MessageResource($message);
     }
 }

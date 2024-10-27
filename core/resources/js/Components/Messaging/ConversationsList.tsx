@@ -9,8 +9,6 @@ interface ConversationsListProps {}
 export default function ConversationsList({ ...props }: ConversationsListProps ) {
     const { conversations } = useContext(MessagingContext);
 
-    console.log(conversations)
-
     return (
         <OverflowScrollBox>
             <List>
