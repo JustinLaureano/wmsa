@@ -11,19 +11,17 @@ export default function MessagesList() {
     if (!activeMessages) return '';
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
-    const [initialLoad, setInitialLoad] = useState(true);
 
     const loadMore = (page: number) => {
         console.log(page)
     }
 
     useEffect(() => {
-        if (initialLoad && scrollRef.current) {
+        if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-            setInitialLoad(false);
         }
 
-    }, [activeMessages, initialLoad]);
+    }, [activeMessages]);
 
     return (
         <RefOverflowScrollBox

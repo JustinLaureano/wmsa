@@ -83,7 +83,7 @@ class ConversationSeeder extends Seeder
 
                 $needsMessages = true;
 
-                while ($startDate->lt($now)) {
+                while ($startDate->lt(now()->subDay())) {
                     $startDate->addDay();
 
                     $hasMessages = Lottery::odds(1, 3)->choose();

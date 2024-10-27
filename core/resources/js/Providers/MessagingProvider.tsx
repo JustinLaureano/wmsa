@@ -4,6 +4,7 @@ import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
 import { ConversationResource, MessageResource, NewMessageRequestData } from '@/types/messaging';
 import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
+import { JsonObject } from '@/types';
 
 interface MessagingProviderProps {
     children: React.ReactNode;
@@ -66,6 +67,19 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         return message;
     };
 
+    const handleMessageSent = (e: JsonObject) => {
+        const message = e.message;
+
+        if (
+            (message.sender_type == 'teammate' && teammate && message.sender_id === teammate.clock_number) ||
+            (message.sender_type == 'user' && user && message.sender_id === user.guid)
+        ) {
+            return;
+        }
+
+        fetchConversationMessages();
+    }
+
     useEffect(() => {
         fetchConversations();
     }, []);
@@ -77,11 +91,13 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     useEffect(() => {
         window.Echo.private(`conversation.user.${user?.guid}`)
             .listen('.message.sent', (e: any) => {
+                handleMessageSent(e);
                 console.log('message for user', e)
             });
 
         window.Echo.private(`conversation.teammate.${teammate?.clock_number}`)
             .listen('.message.sent', (e: any) => {
+                handleMessageSent(e);
                 console.log('message for clock number', e)
             });
 
