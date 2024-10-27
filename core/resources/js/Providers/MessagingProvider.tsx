@@ -32,6 +32,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     };
 
     const fetchConversationMessages = async () => {
+        // TODO: start loading
         if ( !activeConversation ) {
             setActiveMessages(null);
             return;
@@ -70,9 +71,11 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     const handleMessageSent = (e: JsonObject) => {
         const message = e.message;
 
+        fetchConversations();
+
         if (
-            (message.sender_type == 'teammate' && teammate && message.sender_id === teammate.clock_number) ||
-            (message.sender_type == 'user' && user && message.sender_id === user.guid)
+            (message.sender_type == 'teammate' && teammate && message.sender_id == teammate.clock_number) ||
+            (message.sender_type == 'user' && user && message.sender_id == user.guid)
         ) {
             return;
         }
@@ -102,7 +105,6 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
             });
 
         return () => {
-            window.Echo.leave('conversations')
             window.Echo.leave(`conversation.user.${user?.guid}`)
             window.Echo.leave(`conversation.teammate.${teammate?.clock_number}`)
         }

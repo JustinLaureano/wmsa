@@ -14,7 +14,7 @@ class MessageRepository
         return Message::query()
             ->where('conversation_uuid', $conversationUuid)
             ->orderBy('created_at', 'asc')
-            ->limit(500)
+            ->limit(100)
             ->get();
     }
 

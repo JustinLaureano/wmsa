@@ -14,9 +14,12 @@ export default function NewMessageInput() {
     }
 
     const handleNewMessage = async () => {
-        const response = await handleNewMessageRequest(content);
+        const message = await handleNewMessageRequest(content);
 
-        console.log('response', response)
+        if (!message) return;
+
+        setContent('');
+        focusInput();
     }
 
     const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -24,8 +27,15 @@ export default function NewMessageInput() {
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && e.shiftKey) {
+            e.preventDefault();
+            setContent(content => `${content}\n`);
+            return;
+        }
+
         if (e.key !== 'Enter') return;
 
+        e.preventDefault();
         handleNewMessage();
     }
 
