@@ -88,6 +88,17 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     }, [])
 
     useEffect(() => {
+        window.Echo.channel('conversations')
+            .listen('.messages.sent', (e: any) => {
+                console.log('message sent', e)
+            });
+
+        return () => {
+            window.Echo.leave('conversations')
+        }
+    }, [])
+
+    useEffect(() => {
         fetchConversationMessages();
     }, [activeConversation])
 

@@ -3,6 +3,7 @@
 namespace App\Domain\Messaging\Events;
 
 use App\Models\Message;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -29,6 +30,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
+            new Channel('conversations'),
             new PrivateChannel('messages.'. $this->message->sender_id),
         ];
     }
