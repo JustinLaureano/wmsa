@@ -1,13 +1,42 @@
-import { Box, useTheme } from '@mui/material';
+import { Send } from '@mui/icons-material';
+import { Divider, IconButton, Paper, Stack } from '@mui/material';
+import StyledInputBase from '../Styled/StyledInputBase';
 
-interface NewMessageInputProps {
+export default function NewMessageInput() {
 
-}
-
-export default function NewMessageInput({ ...props }: NewMessageInputProps ) {
-    const theme = useTheme();
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value)
+    }
 
     return (
-        <Box>Input</Box>
+        <Paper
+            elevation={0}
+            variant="outlined"
+            sx={{
+                p: '3px 8px',
+                minWidth: '240px',
+                boxShadow: 'none'
+            }}
+        >
+            <Stack
+                direction="row"
+                alignItems="center"
+            >
+                <StyledInputBase
+                    placeholder={'Type a message'}
+                    onChange={handleInputChange}
+                />
+
+                <Divider
+                    orientation="vertical"
+                    flexItem
+                    sx={{ pl: 1 }}
+                />
+
+                <IconButton>
+                    <Send />
+                </IconButton>
+            </Stack>
+        </Paper>
     );
 }

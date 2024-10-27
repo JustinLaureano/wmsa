@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Search } from "@mui/icons-material";
-import { Box, Divider, InputBase, Paper, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import StyledInputBase from "@/Components/Styled/StyledInputBase";
 
 interface TextSearchFilterProps {
     field: string;
@@ -63,16 +64,10 @@ export default function TextSearchFilter({
                     />
                 }
 
-                <InputBase
+                <StyledInputBase
                     placeholder={placeholder}
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={handleInputChange}
-                    sx={{
-                        ml: 1,
-                        '.MuiInputBase-input:focus': {
-                            boxShadow: 'none'
-                        }
-                    }}
                 />
             </Stack>
         </Paper>
