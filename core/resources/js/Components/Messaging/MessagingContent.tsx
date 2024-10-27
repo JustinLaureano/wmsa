@@ -16,6 +16,7 @@ export default function MessagingContent({ ...props }: MessagingContentProps) {
         <Stack sx={{
             height: '100%',
             marginLeft: theme.layouts.dashboard.conversationDrawerWidth,
+            paddingLeft: 2.5
         }}>
             <MessagesHeader />
 

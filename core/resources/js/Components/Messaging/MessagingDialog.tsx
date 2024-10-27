@@ -21,6 +21,8 @@ export default function MessagingDialog({ open, onClose, ...props }: MessagingDi
         >
             <DialogContent
                 sx={{
+                    paddingTop: 0,
+                    paddingLeft: 0,
                     ...(
                         theme.palette.mode == 'dark' && {
                             background: '#1c1f27',

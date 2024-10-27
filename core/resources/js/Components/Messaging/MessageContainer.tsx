@@ -14,7 +14,11 @@ export default function MessageContainer({ justify, children, ...props }: Messag
             {...props}
         >
             <Box
-                sx={{ width: '60%' }}
+                sx={{
+                    width: '60%',
+                    minWidth: '400px',
+                    maxWidth: '95%'
+                }}
             >
                 {children}
             </Box>
