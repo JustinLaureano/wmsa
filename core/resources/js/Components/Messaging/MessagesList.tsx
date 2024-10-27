@@ -26,7 +26,10 @@ export default function MessagesList() {
     }, [activeMessages, initialLoad]);
 
     return (
-        <RefOverflowScrollBox ref={scrollRef}>
+        <RefOverflowScrollBox
+            ref={scrollRef}
+            sx={{ px: 2 }}
+        >
             <InfiniteScroll
                 hasMore={true}
                 loadMore={loadMore}

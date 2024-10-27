@@ -6,15 +6,18 @@ interface OverflowScrollBoxProps extends React.ComponentProps<any> {
 }
 
 export default function OverflowScrollBox({ children, ...props }: OverflowScrollBoxProps) {
+    const { sx, ...rest } = props;
+
 	return (
         <Box
             sx={{
+                ...sx,
                 overflow: 'scroll',
                 '::-webkit-scrollbar': {
                     display: 'none'
                 }
             }}
-            {...props}
+            {...rest}
         >
             {children}
         </Box>
@@ -24,17 +27,22 @@ export default function OverflowScrollBox({ children, ...props }: OverflowScroll
 export const RefOverflowScrollBox = forwardRef<HTMLDivElement, OverflowScrollBoxProps>((
     { children, ...props },
     ref
-) => (
-    <Box
-        ref={ref}
-        sx={{
-            overflow: 'scroll',
-            '::-webkit-scrollbar': {
-                display: 'none'
-            }
-        }}
-        {...props}
-    >
-        {children}
-    </Box>
-));
+) => {
+    const { sx, ...rest } = props;
+
+    return (
+        <Box
+            ref={ref}
+            sx={{
+                ...sx,
+                overflow: 'scroll',
+                '::-webkit-scrollbar': {
+                    display: 'none'
+                }
+            }}
+            {...rest}
+        >
+            {children}
+        </Box>
+    )
+});
