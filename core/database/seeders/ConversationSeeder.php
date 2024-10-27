@@ -81,10 +81,17 @@ class ConversationSeeder extends Seeder
                 $this->participants[] = $participant1;
                 $this->participants[] = $participant2;
 
+                $needsMessages = true;
+
                 while ($startDate->lt($now)) {
                     $startDate->addDay();
 
                     $hasMessages = Lottery::odds(1, 3)->choose();
+
+                    if ($needsMessages) {
+                        $hasMessages = true;
+                        $needsMessages = false;
+                    }
 
                     if ( !$hasMessages ) continue;
 

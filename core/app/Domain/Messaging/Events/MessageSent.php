@@ -2,6 +2,7 @@
 
 namespace App\Domain\Messaging\Events;
 
+use App\Models\ConversationParticipant;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -29,10 +30,18 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [
+        $this->message->load('conversation');
+
+        $participantChannels = $this->message->conversation->participants
+            ->reduce(function (array $carry, ConversationParticipant $p) {
+                $channel = 'conversation.'. $p->sender_type .'.'. $p->sender_id;
+                $carry[] = new PrivateChannel($channel);
+                return $carry;
+            }, []);
+
+        return array_merge([
             new Channel('conversations'),
-            new PrivateChannel('messages.'. $this->message->sender_id),
-        ];
+        ], $participantChannels);
     }
 
     /**
@@ -40,6 +49,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastAs(): string
     {
-        return 'messages.sent';
+        return 'message.sent';
     }
 }

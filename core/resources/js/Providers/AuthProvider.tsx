@@ -47,6 +47,23 @@ export default function AuthProvider({
         }
     }, [teammate])
 
+    useEffect(() => {
+        if (
+            teammate &&
+            teammate.user &&
+            (!user || user.guid != teammate.user.guid)
+        ) {
+            setUser(teammate.user);
+        }
+        else if (
+            user &&
+            user.teammate &&
+            (!teammate || teammate.clock_number != user.teammate.clock_number)
+        ) {
+            setTeammate(user.teammate);
+        }
+    }, [])
+
     return (
         <AuthContext.Provider value={value}>
             {children}
