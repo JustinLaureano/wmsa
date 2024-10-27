@@ -41,7 +41,7 @@ class MessageSent implements ShouldBroadcast
             }, []);
 
         return array_merge([
-            new Channel('conversations'),
+            //
         ], $participantChannels);
     }
 

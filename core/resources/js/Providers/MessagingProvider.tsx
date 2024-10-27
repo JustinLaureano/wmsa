@@ -3,6 +3,7 @@ import MessagingContext from '@/Contexts/MessagingContext';
 import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
 import { ConversationResource, MessageResource, NewMessageRequestData } from '@/types/messaging';
+import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
 
 interface MessagingProviderProps {
     children: React.ReactNode;
@@ -19,16 +20,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
 
     const fetchConversations = async () => {
-        let participant_id, participant_type = '';
-
-        if (teammate) {
-            participant_id = teammate.clock_number;
-            participant_type = 'teammate';
-        }
-        else if (user) {
-            participant_id = user.guid;
-            participant_type = 'user';
-        }
+        const { id: participant_id, type: participant_type} = getPrimaryAuthIdentifiers(teammate, user);
 
         if ( !participant_id ) return;
 
@@ -47,19 +39,10 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         const response = await messagingService.getConversationMessages(activeConversation.uuid);
 
         setActiveMessages(response.data);
-    }
+    };
 
     const handleNewMessageRequest = async (content: string) => {
-        let sender_id, sender_type = '';
-
-        if (teammate) {
-            sender_id = teammate.clock_number.toString();
-            sender_type = 'teammate';
-        }
-        else if (user) {
-            sender_id = user.guid;
-            sender_type = 'user';
-        }
+        const { id: sender_id, type: sender_type} = getPrimaryAuthIdentifiers(teammate, user);
 
         if ( !sender_id || !activeConversation ) return;
 
@@ -81,11 +64,15 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         }
 
         return message;
-    }
+    };
 
     useEffect(() => {
         fetchConversations();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        fetchConversationMessages();
+    }, [activeConversation]);
 
     useEffect(() => {
         window.Echo.private(`conversation.user.${user?.guid}`)
@@ -98,21 +85,12 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
                 console.log('message for clock number', e)
             });
 
-        window.Echo.channel('conversations')
-            .listen('.message.sent', (e: any) => {
-                console.log('message sent', e)
-            });
-
         return () => {
             window.Echo.leave('conversations')
             window.Echo.leave(`conversation.user.${user?.guid}`)
             window.Echo.leave(`conversation.teammate.${teammate?.clock_number}`)
         }
-    }, [teammate, user])
-
-    useEffect(() => {
-        fetchConversationMessages();
-    }, [activeConversation])
+    }, [teammate, user]);
 
     const defaultValue = {
         conversations,
@@ -135,7 +113,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         activeMessages
     ];
 
-    const value = useMemo(() => defaultValue, dependencies)
+    const value = useMemo(() => defaultValue, dependencies);
 
     return (
         <MessagingContext.Provider value={value}>

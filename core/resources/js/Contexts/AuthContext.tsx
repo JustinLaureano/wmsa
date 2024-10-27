@@ -1,12 +1,5 @@
+import { Teammate, User } from "@/types/auth";
 import { createContext } from "react";
-
-interface User {
-    [key: string]: any;
-}
-
-interface Teammate {
-    [key: string]: any;
-}
 
 type AuthContextType = {
     teammate: Teammate | null;
