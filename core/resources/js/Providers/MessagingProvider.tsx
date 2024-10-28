@@ -16,7 +16,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
 
     const [conversations, setConversations] = useState<ConversationResource[]>([]);
     const [unreadMessages, setUnreadMessages] = useState(0);
-    
+
     const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
     const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
 
@@ -71,16 +71,20 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
     const handleMessageSent = (e: JsonObject) => {
         const message = e.message;
 
+        fetchConversationMessages();
         fetchConversations();
 
-        if (
-            (message.sender_type == 'teammate' && teammate && message.sender_id == teammate.clock_number) ||
-            (message.sender_type == 'user' && user && message.sender_id == user.guid)
-        ) {
-            return;
-        }
-
-        fetchConversationMessages();
+        // if (
+        //     (message.sender_type == 'teammate' && teammate && message.sender_id == teammate.clock_number) ||
+        //     (message.sender_type == 'user' && user && message.sender_id == user.guid)
+        // ) {
+        //     fetchConversationMessages();
+        //     fetchConversations();
+        //     return;
+        // }
+        // else {
+        //     fetchConversations();
+        // }
     }
 
     useEffect(() => {

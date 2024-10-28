@@ -7,10 +7,9 @@ import { RefOverflowScrollBox } from '../Shared/OverflowScrollBox';
 
 export default function MessagesList() {
     const { activeMessages } = useContext(MessagingContext);
+    const scrollRef = useRef<HTMLDivElement | null>(null);
 
     if (!activeMessages) return '';
-
-    const scrollRef = useRef<HTMLDivElement | null>(null);
 
     const loadMore = (page: number) => {
         console.log(page)

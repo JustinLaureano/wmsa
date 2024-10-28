@@ -13,9 +13,10 @@ class MessageRepository
     {
         return Message::query()
             ->where('conversation_uuid', $conversationUuid)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->limit(100)
-            ->get();
+            ->get()
+            ->reverse();
     }
 
     /**

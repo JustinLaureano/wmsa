@@ -1,10 +1,10 @@
 import MessagingContext from '@/Contexts/MessagingContext';
-import { Box, Stack, useTheme } from '@mui/material';
+import { Stack, useTheme } from '@mui/material';
 import { useContext } from 'react';
 import MessagesHeader from './MessagesHeader';
 import MessagesList from './MessagesList';
-import OverflowScrollBox from '../Shared/OverflowScrollBox';
 import MessagesActions from './MessagesActions';
+import MessagesPlaceholder from './MessagesPlaceholder';
 
 interface MessagingContentProps {}
 
@@ -20,6 +20,10 @@ export default function MessagingContent({ ...props }: MessagingContentProps) {
             <MessagesHeader />
 
             { activeConversation && activeMessages && <MessagesList /> }
+
+            {
+                (!activeConversation || !activeMessages) && <MessagesPlaceholder />
+            }
 
             <MessagesActions />
         </Stack>
