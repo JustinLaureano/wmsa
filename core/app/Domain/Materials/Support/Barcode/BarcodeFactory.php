@@ -8,20 +8,28 @@ class BarcodeFactory
 {
     public static function make(string $barcode): BarcodeContract
     {
-        // if (strrpos($barcode, '/') === strlen($barcode) - 5) {
-        //     return new CompoundBarcode($barcode);
-        // }
+        if (strrpos($barcode, '/') === strlen($barcode) - 5) {
+            $data = CompoundBarcodeParser::toData($barcode);
 
-        // if (substr($barcode, 0, 3) === 'IRM') {
-        //     return new IRMBarcode($barcode);
-        // }
+            return CompoundBarcode::from($data);
+        }
+
+        if (substr($barcode, 0, 3) === 'IRM') {
+            $data = IrmBarcodeParser::toData($barcode);
+
+            return IrmBarcode::from($data);
+        }
 
         // if (substr($barcode, 0, 3) === 'FIX') {
-        //     return new FixtureBarcode($barcode);
+            // $data = FixtureBarcodeParser::toData($barcode);
+
+            // return FixtureBarcode::from($data);
         // }
 
         // if (substr($barcode, 0, 4) === 'MOLD') {
-        //     return new MoldBarcode($barcode);
+            // $data = MoldBarcodeParser::toData($barcode);
+
+            // return MoldBarcode::from($data);
         // }
 
         $data = MaterialBarcodeParser::toData($barcode);
