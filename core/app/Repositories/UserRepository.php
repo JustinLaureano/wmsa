@@ -28,9 +28,13 @@ class UserRepository
     /**
      * Retrieve all user records.
      */
-    public function get() : Collection
+    public function get(array|string|null $with = null) : Collection
     {
-        return User::query()->get();
+        return User::query()
+            ->when($with, function ($query) use ($with) {
+                return $query->with($with);
+            })
+            ->get();
     }
 
     /**

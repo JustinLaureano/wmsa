@@ -16,15 +16,15 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = [];
+        $permissions = [];
 
         foreach (PermissionEnum::cases() as $permission) {
-            $roles[] = array_merge([
+            $permissions[] = array_merge([
                 'name' => $permission->value,
                 'guard_name' => 'web'
             ], $this->getTimestamps());
         }
 
-        Permission::insert($roles);
+        Permission::insert($permissions);
     }
 }

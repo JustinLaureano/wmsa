@@ -24,7 +24,7 @@ class ModelHasRoleSeeder extends Seeder
 
     protected function seedUsers() : void
     {
-        $users = (new UserRepository)->get();
+        $users = (new UserRepository)->get(with: 'domainAccount');
 
         foreach ($users as $user) {
             if ($this->isIrmManager($user)) {
@@ -57,7 +57,7 @@ class ModelHasRoleSeeder extends Seeder
 
     protected function isIrmManager(User $user) : bool
     {
-        return in_array($user->title, [
+        return in_array($user->domainAccount?->title, [
             'IRM Manager',
             'IRM Supervisor'
         ]);
@@ -65,7 +65,7 @@ class ModelHasRoleSeeder extends Seeder
 
     protected function isItAdmin(User $user) : bool
     {
-        return in_array($user->title, [
+        return in_array($user->domainAccount?->title, [
             'Application Developer',
             'IT Administrator'
         ]);
@@ -73,14 +73,14 @@ class ModelHasRoleSeeder extends Seeder
 
     protected function isProductionSupervisor(User $user) : bool
     {
-        return in_array($user->title, [
+        return in_array($user->domainAccount?->title, [
             'Production Supervisor',
         ]);
     }
 
     protected function isQualityManager(User $user) : bool
     {
-        return in_array($user->title, [
+        return in_array($user->domainAccount?->title, [
             'Quality Manager',
         ]);
     }

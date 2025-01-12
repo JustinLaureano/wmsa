@@ -102,6 +102,14 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
+     * Get the domain account for the user.
+     */
+    public function domainAccount(): HasOne
+    {
+        return $this->hasOne(DomainAccount::class, 'guid', 'domain_account_guid');
+    }
+
+    /**
      * Get the user's conversation message.
      */
     public function message(): MorphOne
@@ -134,7 +142,7 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
-     * Get the user account for the teammate.
+     * Get the teammate account for the user.
      */
     public function teammate(): HasOne
     {

@@ -69,6 +69,8 @@ class LoginRequest extends FormRequest
 
         Auth::login($user);
 
+        session(['auth_method' => 'domain']);
+
         RateLimiter::clear($this->throttleKey());
     }
 
