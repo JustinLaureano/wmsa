@@ -38,7 +38,7 @@ class ClockinController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('teammate')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
 

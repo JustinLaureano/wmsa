@@ -11,7 +11,3 @@ Route::middleware('auth')->group(function () {
     Route::get('materials', ViewMaterials::class)
         ->name('materials');
 });
-
-Route::middleware('auth:teammate')->group(function () {
-    //
-});

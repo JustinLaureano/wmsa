@@ -9,7 +9,3 @@ Route::get('shipping/requests', ViewShippingRequests::class)
 Route::middleware('auth')->group(function () {
     //
 });
-
-Route::middleware('auth:teammate')->group(function () {
-    //
-});

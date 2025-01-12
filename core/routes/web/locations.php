@@ -9,7 +9,3 @@ Route::get('locations/buildings/kpi', ViewWarehouseKpi::class)
 Route::middleware('auth')->group(function () {
     //
 });
-
-Route::middleware('auth:teammate')->group(function () {
-    //
-});

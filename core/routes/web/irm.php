@@ -12,6 +12,3 @@ Route::middleware('auth')->group(function () {
         ->name('irm.chemicals');
 });
 
-Route::middleware('auth:teammate')->group(function () {
-    //
-});

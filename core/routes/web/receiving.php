@@ -7,7 +7,3 @@ Route::middleware('auth')->group(function () {
     Route::get('receiving/documents', ViewPurchasingDocuments::class)
         ->name('receiving.documents');
 });
-
-Route::middleware('auth:teammate')->group(function () {
-    //
-});

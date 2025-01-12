@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth:teammate')->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/teammates', function () {
             return Inertia::render('Test/Teammates');
