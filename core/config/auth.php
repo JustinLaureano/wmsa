@@ -40,12 +40,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'ldap',
-        ],
-
-        'teammate' => [
-            'driver' => 'session',
-            'provider' => 'teammates',
+            'provider' => 'ldap', // TODO: users instead?
         ],
     ],
 
@@ -70,11 +65,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-
-        'teammates' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Teammate::class),
         ],
 
         'ldap' => [

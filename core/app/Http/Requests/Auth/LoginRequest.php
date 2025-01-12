@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Domain\Auth\Enums\AuthMethodEnum;
 use App\Repositories\DomainAccountRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Lockout;
@@ -69,7 +70,7 @@ class LoginRequest extends FormRequest
 
         Auth::login($user);
 
-        session(['auth_method' => 'domain']);
+        session(['auth_method' => AuthMethodEnum::DOMAIN->value]);
 
         RateLimiter::clear($this->throttleKey());
     }
@@ -95,6 +96,8 @@ class LoginRequest extends FormRequest
         }
 
         Auth::login($user);
+
+        session(['auth_method' => AuthMethodEnum::DOMAIN->value]);
 
         RateLimiter::clear($this->throttleKey());
     }

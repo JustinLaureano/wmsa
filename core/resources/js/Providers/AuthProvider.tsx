@@ -14,55 +14,15 @@ export default function AuthProvider({
     ...props
 }: AuthProviderProps) {
     const [user, setUser] = useState(initialPage.props?.auth?.user || null);
-    const [teammate, setTeammate] = useState(initialPage.props?.auth?.teammate || null);
 
     const defaultValue = {
-        teammate,
-        setTeammate,
         user,
         setUser
     };
 
-    const dependencies = [user, teammate];
+    const dependencies = [user];
 
     const value = useMemo(() => defaultValue, dependencies)
-
-    useEffect(() => {
-        if (
-            user &&
-            user.teammate &&
-            (!teammate || teammate.clock_number != user.teammate.clock_number)
-        ) {
-            setTeammate(user.teammate);
-        }
-    }, [user])
-
-    useEffect(() => {
-        if (
-            teammate &&
-            teammate.user &&
-            (!user || user.guid != teammate.user.guid)
-        ) {
-            setUser(teammate.user);
-        }
-    }, [teammate])
-
-    useEffect(() => {
-        if (
-            teammate &&
-            teammate.user &&
-            (!user || user.guid != teammate.user.guid)
-        ) {
-            setUser(teammate.user);
-        }
-        else if (
-            user &&
-            user.teammate &&
-            (!teammate || teammate.clock_number != user.teammate.clock_number)
-        ) {
-            setTeammate(user.teammate);
-        }
-    }, [])
 
     return (
         <AuthContext.Provider value={value}>

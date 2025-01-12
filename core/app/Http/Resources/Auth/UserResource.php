@@ -28,9 +28,6 @@ class UserResource extends JsonResource
             'email' => $this->teammate->domainAccount?->email,
             'hire_date' => $this->teammate->hire_date,
             'created_at' => $this->created_at,
-            'auth' => [
-                'auth_method' => session('auth_method')
-            ]
         ];
     }
 }

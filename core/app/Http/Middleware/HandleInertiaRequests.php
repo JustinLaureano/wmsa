@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\Auth\UserResource;
 use App\Support\Localization;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -36,8 +37,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user('web')?->load('teammate'),
-                'teammate' => $request->user('teammate')?->load('user'),
+                'user' => $request->user() ? new UserResource($request->user()) : null,
+                'auth_method' => session('auth_method')
             ],
 
             'lang' => __('frontend'),

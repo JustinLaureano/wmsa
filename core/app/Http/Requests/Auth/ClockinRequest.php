@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Domain\Auth\Enums\AuthMethodEnum;
 use App\Repositories\TeammateRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Lockout;
@@ -55,6 +56,8 @@ class ClockinRequest extends FormRequest
         }
 
         Auth::login($user);
+
+        session(['auth_method' => AuthMethodEnum::CLOCK_NUMBER->value]);
 
         RateLimiter::clear($this->throttleKey());
     }
