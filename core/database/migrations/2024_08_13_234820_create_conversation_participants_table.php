@@ -24,7 +24,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Artisan::call('db:seed --class=ConversationSeeder');
+        // Artisan::call('db:seed --class=ConversationSeeder');
     }
 
     /**

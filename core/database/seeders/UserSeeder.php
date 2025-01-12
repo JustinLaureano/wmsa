@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Domain\Auth\DataTransferObjects\UserData;
+use App\Models\Teammate;
 use App\Models\User;
-use App\Support\CsvReader;
 use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
@@ -27,33 +26,23 @@ class UserSeeder extends Seeder
      */
     protected function setUsers() : void
     {
-        $file = database_path('data/users.csv');
-        $csvReader = new CsvReader($file);
+        $teammates = Teammate::with('domainAccount')->get();
+        $data = [];
 
-        foreach ($csvReader->toArray() as $data) {
-            foreach ($data as $key => $row) {
+        foreach ($teammates as $teammate) {
+            $userData = new UserData(
+                uuid: Str::uuid(),
+                organization_id: 1,
+                domain_account_guid: $teammate->domainAccount?->guid,
+                teammate_clock_number: $teammate->clock_number,
+            );
 
-                $userData = new UserData(
-                    guid: Str::uuid(),
-                    organization_id: 1,
-                    username: $row['username'],
-                    first_name: $row['first_name'],
-                    last_name: $row['last_name'],
-                    display_name: $row['display_name'],
-                    title: $row['title'],
-                    description: $row['description'],
-                    department: $row['department'],
-                    email: $row['email']
-                );
-
-                $data[$key] = array_merge(
-                    $userData->toArray(),
-                    [ 'password' => Hash::make('password'), ],
-                    $this->getTimestamps()
-                );
-            }
-
-            User::insert($data);
+            $data[] = array_merge(
+                $userData->toArray(),
+                $this->getTimestamps()
+            );
         }
+
+        User::insert($data);
     }
 }

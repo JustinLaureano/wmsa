@@ -7,16 +7,10 @@ use Spatie\LaravelData\Data;
 class UserData extends Data
 {
     public function __construct(
-        public string $guid,
+        public string $uuid,
         public int $organization_id,
-        public string $username,
-        public string $first_name,
-        public string $last_name,
-        public string $display_name,
-        public string $title,
-        public string $description,
-        public string $department,
-        public string $email
+        public string|null $domain_account_guid,
+        public string|null $teammate_clock_number,
     ) {
 
     }

@@ -4,11 +4,9 @@ namespace App\Models;
 
 use App\Domain\Messaging\Contracts\MessengerContract;
 use App\Support\Eloquent\Filter\Filterable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,7 +31,7 @@ class User extends Authenticatable implements MessengerContract
      *
      * @var string
      */
-    protected $primaryKey = 'guid';
+    protected $primaryKey = 'uuid';
 
     /**
      * The "type" of the primary key ID.
@@ -64,38 +62,9 @@ class User extends Authenticatable implements MessengerContract
      */
     protected $fillable = [
         'organization_id',
-        'username',
-        'first_name',
-        'last_name',
-        'display_name',
-        'title',
-        'description',
-        'email',
-        'domain',
-        'password',
+        'domain_account_guid',
+        'teammate_clock_number',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'password' => 'hashed',
-        ];
-    }
 
     /**
      * The attributes that are filterable.
@@ -107,13 +76,6 @@ class User extends Authenticatable implements MessengerContract
         'title',
         'description',
         'email',
-    ];
-
-    public static $objectClasses = [
-        'top',
-        'person',
-        'organizationalperson',
-        'user',
     ];
 
     public function getMessengerId(): string
@@ -168,24 +130,5 @@ class User extends Authenticatable implements MessengerContract
     public function participant(): MorphOne
     {
         return $this->morphOne(Message::class, 'participant');
-    }
-
-    /**
-     * Get the teammate for the user.
-     */
-    public function teammate(): HasOne
-    {
-        return $this->hasOne(Teammate::class, 'user_guid', 'guid');
-    }
-
-    /**
-     * Scope a query to filter on the barcode column.
-     */
-    public function scopeWhereName(Builder $query, string $firstName, string $lastName): void
-    {
-        $query->where([
-            ['first_name', $firstName],
-            ['last_name', $lastName]
-        ]);
     }
 }

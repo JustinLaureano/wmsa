@@ -99,6 +99,14 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
     }
 
     /**
+     * Get the domaint account for the teammate.
+     */
+    public function domainAccount(): HasOne
+    {
+        return $this->hasOne(DomainAccount::class, 'guid', 'domain_account_guid');
+    }
+
+    /**
      * Get the teammate's conversation message.
      */
     public function message(): MorphOne
@@ -127,7 +135,7 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
      */
     public function user(): HasOne
     {
-        return $this->hasOne(User::class, 'guid', 'user_guid');
+        return $this->hasOne(User::class, 'teammate_clock_number', 'clock_number');
     }
 
     /**

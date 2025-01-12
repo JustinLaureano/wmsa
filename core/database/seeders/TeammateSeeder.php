@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Teammate;
-use App\Repositories\UserRepository;
+use App\Repositories\DomainAccountRepository;
 use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Seeder;
 
@@ -31,11 +31,11 @@ class TeammateSeeder extends Seeder
             $firstName = $data[2];
             $lastName = $data[3];
 
-            $user = (new UserRepository)->findForTeammate($firstName, $lastName);
+            $da = (new DomainAccountRepository)->findForTeammate($firstName, $lastName);
 
             $teammates[] = array_merge([
                 'clock_number' => $data[0],
-                'user_guid' => $user->guid ?? null,
+                'domain_account_guid' => $da->guid ?? null,
                 'organization_id' => $data[1],
                 'first_name' => $firstName,
                 'last_name' => $lastName,

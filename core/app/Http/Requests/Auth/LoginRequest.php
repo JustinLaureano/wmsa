@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Repositories\DomainAccountRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -59,14 +60,11 @@ class LoginRequest extends FormRequest
      */
     public function authenticateLocal() : void
     {
-        $user = (new UserRepository)->findBy('username', $this->input('username'));
+        $domainAccount = (new DomainAccountRepository)->findBy('username', $this->input('username'));
+        $user = (new UserRepository)->findBy('domain_account_guid', $domainAccount->guid);
 
-        if (!$user) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
+        if ( !$user ) {
+            $this->loginFailed();
         }
 
         Auth::login($user);
@@ -80,13 +78,21 @@ class LoginRequest extends FormRequest
      */
     public function authenticateProduction() : void
     {
-        if (! Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        $daRepository = new DomainAccountRepository();
+        $domainAccount = $daRepository->findBy('username', $this->input('username'));
+        $authenticated = $daRepository->validateCredentials($domainAccount->getDn(), $this->input('password'));
 
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
+        if (!$authenticated) {
+            $this->loginFailed();
         }
+
+        $user = (new UserRepository)->findBy('domain_account_guid', $domainAccount->guid);
+
+        if ( !$user ) {
+            $this->loginFailed();
+        }
+
+        Auth::login($user);
 
         RateLimiter::clear($this->throttleKey());
     }
@@ -120,5 +126,17 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('username')).'|'.$this->ip());
+    }
+
+    /**
+     * Add a rate limit hit and fail the login with a response message.
+     */
+    protected function loginFailed() : void
+    {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'username' => trans('auth.failed'),
+        ]);
     }
 }

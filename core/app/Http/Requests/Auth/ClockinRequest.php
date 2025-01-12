@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Repositories\TeammateRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,18 +42,19 @@ class ClockinRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $validLogin = Auth::guard('teammate')->loginUsingId($this->only('clock_number'));
+        $teammate = (new TeammateRepository)->findByClockNumber($this->input('clock_number'));
 
-        \Illuminate\Support\Facades\Log::debug($validLogin);
-
-        if ( !$validLogin )
-        {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'clock_number' => trans('auth.failed'),
-            ]);
+        if ( !$teammate ) {
+            $this->loginFailed();
         }
+
+        $user = (new UserRepository)->findBy('teammate_clock_number', $teammate->clock_number);
+
+        if ( !$user ) {
+            $this->loginFailed();
+        }
+
+        Auth::login($user);
 
         RateLimiter::clear($this->throttleKey());
     }
@@ -85,5 +88,17 @@ class ClockinRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('clock_number')).'|'.$this->ip());
+    }
+
+    /**
+     * Add a rate limit hit and fail the login with a response message.
+     */
+    protected function loginFailed() : void
+    {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'clock_number' => trans('auth.failed'),
+        ]);
     }
 }

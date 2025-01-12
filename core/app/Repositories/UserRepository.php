@@ -34,14 +34,6 @@ class UserRepository
     }
 
     /**
-     * Find a user record for a teammate by the given first and last name.
-     */
-    public function findForTeammate(string $firstName, string $lastName) : User|null
-    {
-        return User::query()->whereName($firstName, $lastName)->first();
-    }
-
-    /**
      * Remove a role for the user.
      */
     public function removeRole(RemoveUserRoleData $data) : void
