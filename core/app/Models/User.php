@@ -7,6 +7,7 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -130,5 +131,13 @@ class User extends Authenticatable implements MessengerContract
     public function participant(): MorphOne
     {
         return $this->morphOne(Message::class, 'participant');
+    }
+
+    /**
+     * Get the user account for the teammate.
+     */
+    public function teammate(): HasOne
+    {
+        return $this->hasOne(Teammate::class, 'clock_number', 'teammate_clock_number');
     }
 }
