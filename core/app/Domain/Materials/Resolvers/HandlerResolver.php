@@ -2,20 +2,20 @@
 
 namespace App\Domain\Materials\Resolvers;
 
-use App\Domain\Materials\Contracts\HandlerContract;
-use App\Domain\Materials\Enums\HandlerTypeEnum;
-use App\Exceptions\InvalidHandlerTypeException;
-use App\Repositories\TeammateRepository;
+use App\Exceptions\InvalidHandlerException;
+use App\Models\User;
+use App\Repositories\UserRepository;
 
 class HandlerResolver
 {
-    public static function getHandler(string $type, string $handlerId) : HandlerContract | null
+    public static function getHandler(string $handlerUserUuId) : User | null
     {
-        if ($type === HandlerTypeEnum::TEAMMATE->value) {
-            return (new TeammateRepository)->findByClockNumber($handlerId);
+        $handler = (new UserRepository)->findBy('uuid', $handlerUserUuId);
+
+        if (!$handler) {
+            throw new InvalidHandlerException('The handler does not exist.');
         }
-        else {
-            throw new InvalidHandlerTypeException('The handler type '. $type .' does not exist.');
-        }
+
+        return $handler;
     }
 }

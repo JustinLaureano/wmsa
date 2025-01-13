@@ -35,7 +35,7 @@ class HandlerExists implements DataAwareRule, ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if ( !HandlerResolver::getHandler($this->data['handler_type'], $value) ) {
+        if ( !HandlerResolver::getHandler($value) ) {
             $fail('This handler does not exist.');
         }
     }

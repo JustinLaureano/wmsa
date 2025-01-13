@@ -15,7 +15,7 @@ class ContainerMovementTransformer
     {
         $container = (new MaterialContainerRepository)->findByUuid($data->material_container_uuid);
         $location = (new StorageLocationRepository)->findByUuid($data->storage_location_uuid);
-        $handler = HandlerResolver::getHandler($data->handler_type, $data->handler_id);
+        $handler = HandlerResolver::getHandler($data->handler_user_uuid);
         $movedAt = new Carbon($data->moved_at);
 
         return new ContainerMovementData(

@@ -2,9 +2,7 @@
 
 namespace App\Domain\Materials\DataTransferObjects;
 
-use App\Domain\Materials\Enums\HandlerTypeEnum;
 use App\Domain\Materials\Rules\HandlerExists;
-use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
 class InitiateContainerMovementData extends Data
@@ -12,8 +10,7 @@ class InitiateContainerMovementData extends Data
     public function __construct(
         public readonly string $material_container_uuid,
         public readonly string $storage_location_uuid,
-        public readonly string $handler_type,
-        public readonly string $handler_id,
+        public readonly string $handler_user_uuid,
         public readonly string $moved_at,
     ) {
 
@@ -30,11 +27,7 @@ class InitiateContainerMovementData extends Data
                 'required',
                 'exists:storage_locations,uuid'
             ],
-            'handler_type' => [
-                'required',
-                Rule::in(HandlerTypeEnum::toArray())
-            ],
-            'handler_id' => [
+            'handler_user_uuid' => [
                 'required',
                 new HandlerExists
             ],
