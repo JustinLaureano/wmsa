@@ -5,8 +5,19 @@ namespace App\Http\Resources\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class UserProfileCollection extends ResourceCollection
 {
+    /**
+     * The resource that this resource collects.
+     *
+     * @var string
+     */
+    public $collects = UserProfileResource::class;
+
+    public function setCollection($collection) {
+        $this->collects = $collection;
+    }
+
     /**
      * Transform the resource collection into an array.
      *
