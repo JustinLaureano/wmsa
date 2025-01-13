@@ -6,6 +6,7 @@ use App\Domain\Materials\Contracts\BarcodeContract;
 use App\Domain\Materials\DataTransferObjects\MaterialContainerData;
 use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Models\MaterialContainer;
+use App\Models\StorageLocation;
 
 class MaterialContainerRepository
 {
@@ -43,5 +44,17 @@ class MaterialContainerRepository
         );
 
         return $this->create($data);
+    }
+
+    /**
+     * Return the storage location that the given material container is located at.
+     */
+    public function findLocation(string $material_container_uuid) : StorageLocation|null
+    {
+        return MaterialContainer::query()
+            ->whereUuid($material_container_uuid)
+            ->with('location')
+            ->first()
+            ?->location;
     }
 }

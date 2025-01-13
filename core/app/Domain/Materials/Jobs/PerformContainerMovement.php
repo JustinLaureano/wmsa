@@ -9,6 +9,7 @@ use App\Domain\Materials\Events\ContainerMovementFinished;
 use App\Models\ContainerLocation;
 use App\Repositories\ContainerEventRepository;
 use App\Repositories\ContainerLocationRepository;
+use App\Repositories\MaterialContainerRepository;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -28,6 +29,11 @@ class PerformContainerMovement implements ShouldQueue
     )
     {
         //
+        // TODO:
+        //    add starting location to data 
+        //        it is important to know if it can be moved or if something needs to be done post move to the location
+        //        also need info for undo/redo stack and event logging
+        //
     }
 
     /**
@@ -36,11 +42,18 @@ class PerformContainerMovement implements ShouldQueue
     public function handle(): void
     {
         DB::transaction(function () {
+            $this->determinePreMoveLocation();
             $this->storeContainerInLocation();
             $this->createContainerEvent();
         });
 
         ContainerMovementFinished::dispatch();
+    }
+
+    protected function determinePremoveLocation() : void
+    {
+        (new MaterialContainerRepository)
+            ->findLocation(material_container_uuid: $this->data->container->uuid);
     }
 
     protected function storeContainerInLocation() : void
