@@ -38,11 +38,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
 
         post(route('login'), {
             onSuccess: (page : Record<string, any>) => {
-                reset();
-                clearErrors();
-                setUser(page.props.auth.user);
-
-                onLoginSuccess();
+                window.location.reload();
             }
         });
     };

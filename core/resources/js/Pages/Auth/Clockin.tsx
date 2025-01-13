@@ -12,12 +12,12 @@ export default function Clockin(props: any) {
         e.preventDefault();
 
         post(route('clockin'), {
-            onFinish: () => reset('clock_number'),
+            onSuccess: () => window.location.reload(),
         });
     };
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Clock In">
             <Head title="Clock In" />
 
             <div>

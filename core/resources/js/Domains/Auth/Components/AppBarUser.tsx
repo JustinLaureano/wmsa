@@ -21,7 +21,9 @@ export default function AppBarUser(props: any) {
     };
 
     const handleLogoutClick = () => {
-        router.post(route('logout'));
+        router.post(route('logout'), {}, {
+            onSuccess: () => window.location.reload()
+        });
     }
 
     return (

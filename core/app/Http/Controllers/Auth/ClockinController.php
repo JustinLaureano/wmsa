@@ -30,7 +30,7 @@ class ClockinController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('teammates', absolute: false));
+        return redirect()->back();
     }
 
     /**
@@ -44,6 +44,6 @@ class ClockinController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->intended(route('clockin', absolute: false));
+        return redirect()->back();
     }
 }
