@@ -37,8 +37,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
+                'auth_method' => session('auth_method'),
                 'user' => $request->user() ? new UserProfileResource($request->user()) : null,
-                'auth_method' => session('auth_method')
             ],
 
             'lang' => __('frontend'),
