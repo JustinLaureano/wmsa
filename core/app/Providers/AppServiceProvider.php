@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Domain\Auth\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
             'teammate' => 'App\Models\Teammate',
             'user' => 'App\Models\User',
         ]);
+
+        JsonResource::withoutWrapping();
     }
 }
