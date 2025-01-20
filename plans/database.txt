@@ -251,7 +251,7 @@ material_containers:
         - material_container_types: has one type
 
 
-material_routing:
+material_routing (still needed):
     attributes:
         - material_uuid
     relationship:
@@ -275,12 +275,15 @@ material_request_statuses:
 material_requests:
     attributes:
         - material_uuid
-        - machine_id (nullable)
+        - quantity
+        - unit_of_measure (container (pack?), pieces, lbs, kgs, etc)
+        - machine_uuid (nullable)
         - storage_location_uuid (nullable)
         - status_id
         - teammate_id (nullable maybe?)
             reason:
                 not sure if should always require a teammate to
+                maybe should be handled at event level and not material request data point?
         - notes
     relationships:
         - material: has one material
