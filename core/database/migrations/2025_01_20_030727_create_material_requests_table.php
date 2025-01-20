@@ -31,6 +31,10 @@ return new class extends Migration
             $table->foreignUuid('material_request_status_code')
                 ->references('code')
                 ->on('material_request_statuses');
+            $table->foreignUuid('requester_user_uuid')
+                ->nullable()
+                ->references('uuid')
+                ->on('users');
             $table->timestamp('requested_at');
             $table->timestamps();
             $table->softDeletes();

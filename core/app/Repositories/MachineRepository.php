@@ -11,4 +11,9 @@ class MachineRepository
     {
         return Machine::query()->get();
     }
+
+    public function findByUuid(string $uuid) : Machine|null
+    {
+        return Machine::query()->whereUuid($uuid)->first();
+    }
 }

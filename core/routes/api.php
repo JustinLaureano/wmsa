@@ -16,4 +16,5 @@ Route::post('/localization', [LocalizationController::class, 'set'])->name('loca
 
 require __DIR__.'/api/materials.php';
 require __DIR__.'/api/messaging.php';
+require __DIR__.'/api/production.php';
 require __DIR__.'/api/test.php';

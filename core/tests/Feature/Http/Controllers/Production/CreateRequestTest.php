@@ -13,7 +13,7 @@ class CreateRequestTest extends TestCase
 
     public function test_route_requires_authentication(): void
     {
-        $response = $this->get(route('production.requests.create'));
+        $response = $this->get(route('production.material-request.new'));
 
         $response->assertStatus(Response::HTTP_FOUND);
     }
@@ -22,7 +22,7 @@ class CreateRequestTest extends TestCase
     {
         // $teammate = Teammate::factory()->create();
 
-        // $response = $this->actingAs($teammate, 'teammate')->get(route('production.requests.create'));
+        // $response = $this->actingAs($teammate, 'teammate')->get(route('production.material-request.new'));
 
         // $response->assertStatus(Response::HTTP_OK);
     }

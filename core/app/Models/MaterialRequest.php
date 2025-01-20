@@ -32,6 +32,7 @@ class MaterialRequest extends Model
         'machine_uuid',
         'storage_location_uuid',
         'material_request_status_code',
+        'requester_user_uuid',
         'requested_at'
     ];
 
@@ -65,5 +66,13 @@ class MaterialRequest extends Model
     public function storageLocation(): HasOne
     {
         return $this->hasOne(StorageLocation::class, 'storage_location_uuid', 'uuid');
+    }
+
+    /**
+     * Get the requester for this request.
+     */
+    public function requester(): HasOne
+    {
+        return $this->hasOne(User::class, 'requester_user_uuid', 'uuid');
     }
 }

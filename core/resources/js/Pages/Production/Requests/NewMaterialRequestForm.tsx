@@ -3,9 +3,9 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 
-interface CreateRequestProps {}
+interface NewMaterialRequestFormProps {}
 
-export default function CreateRequest({ ...props } : CreateRequestProps) {
+export default function NewMaterialRequestForm({ ...props } : NewMaterialRequestFormProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
