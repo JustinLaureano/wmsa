@@ -46,7 +46,7 @@ class CreateNewMaterialRequest implements ShouldQueue
                 quantity: $this->data->quantity,
                 unit_of_measure: $this->data->unit_of_measure,
                 machine_uuid: $this->data->machine->uuid,
-                location_uuid: $this->data->location->uuid,
+                storage_location_uuid: $this->data->location->uuid,
                 material_request_status_code: $this->data->material_request_status_code,
                 requester_user_uuid: $this->data->requester->uuid,
                 requested_at: $this->data->requested_at,

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Domain\Materials\Enums\RequestStatusEnum;
+use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Models\Machine;
 use App\Models\Material;
 use App\Models\StorageLocation;
@@ -31,10 +33,10 @@ class MaterialRequestFactory extends Factory
         return [
             'material_uuid' => Material::query()->inRandomOrder()->first()->uuid,
             'quantity' => 1,
-            'unit_of_measure' => 'container', // TODO: confirm correct unit of measure
+            'unit_of_measure' => UnitOfMeasureEnum::CONT->value,
             'machine_uuid' => $machineUuid,
             'storage_location_uuid' => $storageLocationUuid,
-            'material_request_status_code' => 'OPEN', // TODO: use ENUM value
+            'material_request_status_code' => RequestStatusEnum::OPEN->value,
             'requested_at' => now(),
         ];
     }
