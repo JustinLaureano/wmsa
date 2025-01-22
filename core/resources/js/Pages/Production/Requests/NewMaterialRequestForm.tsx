@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
-import { Autocomplete, Box, TextField } from '@mui/material';
+import ComboBox from '@/Components/Inputs/ComboBox';
 
 interface MachineOptionResource {
     uuid: string;
@@ -22,31 +22,14 @@ export default function NewMaterialRequestForm({ ...props } : NewMaterialRequest
         <DashboardLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <Autocomplete
-                id="machine-autocomplete"
+            <ComboBox
                 options={machines}
-                getOptionLabel={(option) => option.label}
-                renderOption={(props, option) => {
-                    const { key, ...optionProps } = props;
-                    return (
-                        <Box
-                            key={key}
-                            component="li"
-                            {...optionProps}
-                        >
-                            {option.label}
-                        </Box>
-                    );
-                }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Choose a machine"
-                        autoComplete='off'
-                    />
-                )}
-            />
+                inputLabel="Choose a machine"
+                onChange={(value) => {
 
+                    console.log(value);
+                }}
+            />
         </DashboardLayout>
     );
 }
