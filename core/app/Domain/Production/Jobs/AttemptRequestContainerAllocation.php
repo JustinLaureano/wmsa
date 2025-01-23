@@ -2,6 +2,8 @@
 
 namespace App\Domain\Production\Jobs;
 
+use App\Domain\Materials\Enums\MovementStatusEnum;
+use App\Models\MaterialContainer;
 use App\Models\MaterialRequest;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,6 +40,11 @@ class AttemptRequestContainerAllocation implements ShouldQueue
         else {
             throw new Exception('Request does not have a storage location or machine');
         }
+
+        // TODO: finalize query and move to a service class or a stored procedure
+        $containers = MaterialContainer::has('location')
+            ->where('movement_status_id', MovementStatusEnum::UNRESTRICTED->value)
+            ->get();
 
         /**
          * TODO:
