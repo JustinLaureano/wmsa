@@ -2,10 +2,10 @@
 
 namespace App\Domain\Production\Transformers;
 
+use App\Domain\Production\Enums\RequestStatusEnum;
 use App\Domain\Production\DataTransferObjects\MaterialRequestActionData;
 use App\Domain\Production\DataTransferObjects\InitiateMaterialRequestData;
 use App\Domain\Production\Resolvers\RequesterResolver;
-use App\Domain\Materials\Resolvers\HandlerResolver;
 use App\Repositories\MaterialRepository;
 use App\Repositories\MachineRepository;
 use App\Repositories\StorageLocationRepository;
@@ -18,9 +18,15 @@ class MaterialRequestTransformer
         $material = (new MaterialRepository)->findByPartNumber($data->part_number);
         $quantity = $data->quantity;
         $uom = $data->unit_of_measure;
-        $machine = (new MachineRepository)->findByUuid($data->machine_uuid);
-        $location = (new StorageLocationRepository)->findByUuid($data->storage_location_uuid);
-        $statusCode = 'OPEN'; // TODO: use enum
+        $machine = null;
+        $location = null;
+        if ($data->machine_uuid) {
+            $machine = (new MachineRepository)->findByUuid($data->machine_uuid);
+        }
+        if ($data->storage_location_uuid) {
+            $location = (new StorageLocationRepository)->findByUuid($data->storage_location_uuid);
+        }
+        $statusCode = RequestStatusEnum::OPEN->value;
         $requester = RequesterResolver::getRequester($data->requester_user_uuid);
         $requestedAt = new Carbon($data->requested_at);
 

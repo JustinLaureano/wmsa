@@ -10,8 +10,8 @@ class MaterialRequestData extends Data
         public readonly string $material_uuid,
         public readonly string $quantity,
         public readonly string $unit_of_measure,
-        public readonly string $machine_uuid,
-        public readonly string $storage_location_uuid,
+        public readonly string|null $machine_uuid,
+        public readonly string|null $storage_location_uuid,
         public readonly string $material_request_status_code,
         public readonly string $requester_user_uuid,
         public readonly string $requested_at

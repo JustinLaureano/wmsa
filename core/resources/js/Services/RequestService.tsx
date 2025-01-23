@@ -5,12 +5,12 @@ import { MaterialRequestData, MaterialRequestResource } from '@/types/requests';
 class RequestService {
     public async createMaterialRequest(
         data: MaterialRequestData
-    ): Promise<MaterialRequestResource | null> {
+    ): Promise<AxiosResponse | null> {
         try {
             const response: AxiosResponse = await new ApiService()
                 .post(route('api.production.material-request'), data);
 
-            return response.data.data as MaterialRequestResource;
+            return response;
         }
         catch (error) {
             console.log(error)

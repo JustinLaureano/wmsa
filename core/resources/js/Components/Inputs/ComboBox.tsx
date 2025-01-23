@@ -13,6 +13,7 @@ interface ComboBoxProps {
     onChange?: (value: Option | null) => void;
     onInputChange?: (value: string) => void;
     value?: Option | null;
+    width?: string;
     sx?: SxProps<Theme>;
 }
 
@@ -22,6 +23,7 @@ export default function ComboBox({
     onChange,
     onInputChange,
     value,
+    width = '100%',
     sx 
 }: ComboBoxProps) {
     return (
@@ -54,7 +56,7 @@ export default function ComboBox({
                     autoComplete='off'
                     size="small"
                     sx={{
-                        width: '440px',
+                        width: width,
                         '& .MuiOutlinedInput-root': {
                             '&:focus': {
                                 borderColor: 'transparent',

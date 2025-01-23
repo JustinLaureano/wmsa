@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Materials\Enums;
+namespace App\Domain\Production\Enums;
 
 enum RequestStatusEnum: string
 {

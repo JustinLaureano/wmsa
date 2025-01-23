@@ -10,8 +10,8 @@ class InitiateMaterialRequestData extends Data
         public readonly string $part_number,
         public readonly int $quantity,
         public readonly string $unit_of_measure,
-        public readonly string $machine_uuid,
-        public readonly string $storage_location_uuid,
+        public readonly string|null $machine_uuid,
+        public readonly string|null $storage_location_uuid,
         public readonly string $requester_user_uuid,
         public readonly string $requested_at,
     )
@@ -44,12 +44,12 @@ class InitiateMaterialRequestData extends Data
                 'exists:storage_locations,uuid'
             ],
             'requester_user_uuid' => [
-                'nullable',
+                'required',
                 'exists:users,uuid'
             ],
             'requested_at' => [
                 'required',
-                'date_format:Y-m-d H:i:s'
+                'date'
             ],
         ];
     }

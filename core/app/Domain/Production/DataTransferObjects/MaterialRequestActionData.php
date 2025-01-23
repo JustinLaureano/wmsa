@@ -15,8 +15,8 @@ class MaterialRequestActionData extends Data
         public readonly Material $material,
         public readonly int $quantity,
         public readonly string $unit_of_measure,
-        public readonly Machine $machine,
-        public readonly StorageLocation $location,
+        public readonly Machine|null $machine,
+        public readonly StorageLocation|null $location,
         public readonly string $material_request_status_code,
         public readonly User $requester,
         public readonly Carbon $requested_at

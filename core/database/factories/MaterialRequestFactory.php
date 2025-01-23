@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Domain\Materials\Enums\RequestStatusEnum;
+use App\Domain\Production\Enums\RequestStatusEnum;
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Models\Machine;
 use App\Models\Material;

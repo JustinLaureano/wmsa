@@ -17,7 +17,7 @@ export default function TextInput({
     onChange,
     required = false,
     size = 'small',
-    width = '400px',
+    width = '100%',
     sx,
     ...rest
 }: TextInputProps) {
