@@ -41,7 +41,7 @@ class MaterialRequest extends Model
      */
     public function machine(): HasOne
     {
-        return $this->hasOne(Machine::class, 'machine_uuid', 'uuid');
+        return $this->hasOne(Machine::class, 'uuid', 'machine_uuid');
     }
 
     /**
@@ -49,7 +49,7 @@ class MaterialRequest extends Model
      */
     public function material(): HasOne
     {
-        return $this->hasOne(Material::class, 'material_uuid', 'uuid');
+        return $this->hasOne(Material::class, 'uuid', 'material_uuid');
     }
 
     /**
@@ -65,7 +65,7 @@ class MaterialRequest extends Model
      */
     public function storageLocation(): HasOne
     {
-        return $this->hasOne(StorageLocation::class, 'storage_location_uuid', 'uuid');
+        return $this->hasOne(StorageLocation::class, 'uuid', 'storage_location_uuid');
     }
 
     /**

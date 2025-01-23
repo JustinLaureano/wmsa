@@ -32,6 +32,7 @@ class StorageLocation extends Model
         'storage_location_type_id',
         'barcode',
         'max_containers',
+        'restrict_request_allocations',
         'disabled',
         'reservable',
     ];

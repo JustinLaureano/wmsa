@@ -22,6 +22,7 @@ class Machine extends Model
         'barcode',
         'building_id',
         'machine_type_id',
+        'restrict_request_allocations',
         'disabled'
     ];
 

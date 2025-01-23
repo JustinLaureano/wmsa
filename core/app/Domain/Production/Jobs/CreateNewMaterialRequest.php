@@ -5,8 +5,9 @@ namespace App\Domain\Production\Jobs;
 use App\Domain\Production\DataTransferObjects\MaterialRequestActionData;
 use App\Domain\Production\DataTransferObjects\MaterialRequestData;
 use App\Domain\Production\Events\MaterialRequestCreated;
+use App\Domain\Production\Jobs\AttemptRequestContainerAllocation;
+use App\Models\MaterialRequest;
 use App\Repositories\MaterialRequestRepository;
-use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 class CreateNewMaterialRequest implements ShouldQueue
 {
     use Queueable;
+
+    protected MaterialRequest $materialRequest;
 
     /**
      * Create a new job instance.
@@ -36,11 +39,13 @@ class CreateNewMaterialRequest implements ShouldQueue
         });
 
         MaterialRequestCreated::dispatch();
+
+        AttemptRequestContainerAllocation::dispatch($this->materialRequest);
     }
 
     protected function storeMaterialRequest() : void
     {
-        (new MaterialRequestRepository)
+        $this->materialRequest = (new MaterialRequestRepository)
             ->store(new MaterialRequestData(
                 material_uuid: $this->data->material->uuid,
                 quantity: $this->data->quantity,

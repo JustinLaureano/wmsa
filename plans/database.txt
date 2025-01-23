@@ -262,8 +262,6 @@ material_routing (still needed):
 
 ##### Requests #####
 
-(production_requests?)
-
 material_request_statuses:
     attributes:
         - name

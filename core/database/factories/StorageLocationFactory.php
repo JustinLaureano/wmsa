@@ -26,6 +26,7 @@ class StorageLocationFactory extends Factory
             'storage_location_type_id' => $type->id,
             'barcode' => fake()->sha1(),
             'max_containers' => $type->default_max_containers,
+            'restrict_request_allocations' => 0,
             'disabled' => 0,
             'reservable' => 1,
         ];
