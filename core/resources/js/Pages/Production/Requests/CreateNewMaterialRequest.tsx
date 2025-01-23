@@ -14,11 +14,11 @@ interface MachineOptionResource {
     value: string;
 }
 
-interface NewMaterialRequestFormProps {
+interface CreateNewMaterialRequestProps {
     machines: MachineOptionResource[];
 }
 
-export default function NewMaterialRequestForm({ ...props }: NewMaterialRequestFormProps) {
+export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterialRequestProps) {
     const { lang } = useContext(LanguageContext);
     const { machines } = props;
     const [selectedMachine, setSelectedMachine] = useState<MachineOptionResource | null>(null);
