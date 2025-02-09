@@ -62,10 +62,34 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
                 primary: {
                     main: '#01579b',
-                  },
-                  secondary: {
+                },
+                secondary: {
                     main: '#26c6da',
-                  },
+                    contrastText: '#fff',
+                },
+
+                error: {
+                    main: '#f5222d',
+                    light: '#ff7875',
+                    dark: '#a8071a',
+                    contrastText: '#fff',
+                },
+                success: {
+                    main: '#52c41a',
+                    light: '#95de64',
+                    dark: '#237804',
+                    contrastText: '#fff',
+                },
+                warning: {
+                    main: '#faad14',
+                    light: '#ffd666',
+                    dark: '#ad6800',
+                    contrastText: '#fff',
+                },
+                info: {
+                    main: '#13c2c2',
+                    contrastText: '#fff',
+                },
 
                 background: {
                     default: mode === 'dark' ? darkMode.background : lightMode.background,
@@ -141,7 +165,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     // })
                 },
                 button: {
-                    fontSize: '.875rem',
+                    fontWeight: 400,
                 },
                 caption: {
                     fontSize: '.875rem',
@@ -166,6 +190,15 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                         backgroundColor: mode === 'dark' ? darkMode.background : lightMode.background,
                     },
                   },
+                },
+
+                MuiButton: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 16,
+                            // padding: '.375rem 1rem',
+                        }
+                    }
                 },
 
                 MuiListItemIcon: {
