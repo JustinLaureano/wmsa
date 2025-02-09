@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { router } from '@inertiajs/react';
+import { useTheme } from '@mui/material';
 import {
     ListItem,
     ListItemButton,
@@ -16,6 +17,15 @@ interface NavigationDrawerLinkProps {
 }
 
 export default function NavigationDrawerLink({ link, index } : NavigationDrawerLinkProps) {
+    const theme = useTheme();
+    let selected = window.location.href == link.route;
+
+    // Handles home route
+    if (window.location.origin == link.route && window.location.pathname == '/') {
+        selected = true;
+    }
+
+    const color = selected ? theme.palette.primary.main : theme.palette.text.primary;
 
 	return (
         <DrawerItemWrapper
@@ -24,10 +34,12 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
         >
             <ListItem disablePadding >
                 <ListItemButton
-                    selected={window.location.href == link.route}
+                    selected={selected}
                     onClick={() => router.get(link.route)}
                 >
-                    <ListItemIcon >
+                    <ListItemIcon
+                        sx={{ color }}
+                    >
                         <link.icon />
                     </ListItemIcon>
 
@@ -36,6 +48,7 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
                             <React.Fragment>
                                 <Typography
                                     variant="body2"
+                                    sx={{ color }}
                                 >
                                     {link.label}
                                 </Typography>

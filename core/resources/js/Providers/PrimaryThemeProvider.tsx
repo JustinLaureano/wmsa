@@ -204,13 +204,13 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
             },
             spacing: 6,
 
-
             components: {
                 MuiAppBar: {
                   styleOverrides: {
                     root: {
                         backgroundImage: 'none',
                         backgroundColor: mode === 'dark' ? darkMode.background : lightMode.background,
+                        color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
                     },
                   },
                 },
@@ -224,6 +224,12 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                             },
                         }
                     }
+                },
+
+                MuiIconButton: {
+                    defaultProps: {
+                        color: 'primaryText',
+                    },
                 },
 
                 MuiListItemIcon: {
@@ -247,6 +253,12 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                             },
                         }
                     },
+                    defaultProps: {
+                        size: 'small',
+                    },
+                },
+
+                MuiTable: {
                     defaultProps: {
                         size: 'small',
                     },

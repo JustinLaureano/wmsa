@@ -22,16 +22,8 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
             position="fixed"
             elevation={0}
             sx={{
-                /** Transparent Background */
-                // borderBottom: 'none',
-                // borderColor: 'none',
-                // backgroundColor: 'transparent',
-                // boxShadow: 'none',
-
-                /** With background Color */
                 borderBottom: 1,
                 borderColor: theme.palette.mode == 'light' ? '#0000001f' : '#ffffff2e',
-
                 '& .MuiToolbar-root': {
                     paddingLeft: '.5rem',
                   },
@@ -49,7 +41,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                     >
                         <NavigationToggle />
 
-                        <Typography variant="h6" noWrap component="div">
+                        <Typography variant="h6">
                             Prospira America Co
                         </Typography>
                     </Stack>
@@ -62,7 +54,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
 
                         }}
                     >
-                        <Typography variant="h6" noWrap component="div">
+                        <Typography variant="h6">
                             WMS {title && `- ${title}`}
                         </Typography>
                     </Stack>

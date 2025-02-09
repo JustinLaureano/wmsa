@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings } from '@mui/icons-material';
+import { SettingsOutlined } from '@mui/icons-material';
 import { IconButton, useScrollTrigger } from '@mui/material';
 import SettingsDrawer from './SettingsDrawer';
 
@@ -21,7 +21,7 @@ export default function SettingsButton(props : Record<string, any>) {
                 aria-label="toggle-navigation"
                 onClick={handleButtonClick}
             >
-                <Settings />
+                <SettingsOutlined />
             </IconButton>
 
             <SettingsDrawer
