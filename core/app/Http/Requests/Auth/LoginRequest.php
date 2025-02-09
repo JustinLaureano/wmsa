@@ -62,6 +62,11 @@ class LoginRequest extends FormRequest
     public function authenticateLocal() : void
     {
         $domainAccount = (new DomainAccountRepository)->findBy('username', $this->input('username'));
+
+        if ( !$domainAccount ) {
+            $this->loginFailed();
+        }
+
         $user = (new UserRepository)->findBy('domain_account_guid', $domainAccount->guid);
 
         if ( !$user ) {

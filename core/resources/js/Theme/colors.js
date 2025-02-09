@@ -26,6 +26,20 @@ export const avatarBadgeColors = [
   cyan[600],
 ];
 
+export const lightMode = {
+  background: 'rgb(251, 251, 251)',
+  textPrimary: 'rgb(38, 38, 38)',
+  textSecondary: 'rgb(140, 140, 140)',
+};
+
+export const darkMode = {
+  textPrimary: 'rgba(255, 255, 255, 0.87)',
+  textSecondary: 'rgba(255, 255, 255, 0.75)',
+  background: 'rgb(18, 18, 18)',
+  backgroundPaper: 'rgb(30, 30, 30)',
+  backgroundPaperHover: 'rgba(255, 255, 255, .08)',
+};
+
 export const getRandomAvatarBadgeColor = () => {
     const randomIndex = Math.floor(Math.random() * avatarBadgeColors.length);
 

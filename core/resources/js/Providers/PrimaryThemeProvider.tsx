@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { alpha, createTheme, getContrastRatio, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import { blue } from '@/Theme/colors';
+import { darkMode, lightMode } from '@/Theme/colors';
 import dimensions from '@/Theme/dimensions';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import { PaletteMode } from '@mui/material';
@@ -61,75 +61,22 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 mode,
 
                 primary: {
-                    main: blue[700]
-                },
-
-                gray: {
-                    main: 'rgb(52, 71, 103)',
-                    light: alpha('rgb(52, 71, 103)', 0.5),
-                    dark: alpha('rgb(52, 71, 103)', 0.9),
-                    contrastText: getContrastRatio('rgb(52, 71, 103)', '#fff') > 4.5 ? '#fff' : '#111',
-                    ...(mode == 'dark' && {
-                        main: 'rgba(255, 255, 255, 0.8)',
-                        light: 'rgba(255, 255, 255, 0.8)',
-                        dark: 'rgba(255, 255, 255, 0.8)',
-                        contrastText: getContrastRatio('rgb(52, 71, 103)', '#fff') > 4.5 ? '#fff' : '#111',
-                    }),
-                },
+                    main: '#01579b',
+                  },
+                  secondary: {
+                    main: '#26c6da',
+                  },
 
                 background: {
-                    default: '#10131c',
-                    paper: '#10131c'
+                    default: mode === 'dark' ? darkMode.background : lightMode.background,
+                    paper: mode === 'dark' ? darkMode.backgroundPaper : baseTheme.palette.background.paper,
                 },
-                ...(mode == 'light' && {
-                    background: {
-                        default: '#f0f2f5',
-                    }
-                }),
+
+                text: {
+                    primary: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                    secondary: mode === 'dark' ? darkMode.textSecondary : lightMode.textSecondary
+                }
             },
-
-            components: {
-
-                // TODO: make apply only to filled button
-                // MuiButton: {
-                //     styleOverrides: {
-                //         root: {
-                //             '&:hover': {
-                //                 backgroundColor: blue[600],
-                //             },
-                //         }
-                //     }
-                // },
-
-                MuiCard: {
-                    styleOverrides: {
-                        root: {
-                            borderRadius: 12,
-                            borderColor: 'rgba(0, 0, 0, 0.125)'
-                        }
-                    }
-                },
-
-                MuiPaper: {
-                    styleOverrides: {
-                        root: {
-                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px'
-                        }
-                    }
-                },
-
-                ...(mode == 'light' && {
-                    MuiAppBar: {
-                        styleOverrides: {
-                            colorPrimary: {
-                                backgroundColor: baseTheme.palette.common.white,
-                                color: grey[900],
-                            },
-                        }
-                    }
-                }),
-            },
-
 
             layouts: {
                 dashboard: {
@@ -145,107 +92,92 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
             },
 
             typography: {
-
-                button: {
-                    color: 'rgb(52, 71, 103)',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.02857rem',
-                    lineHeight: 1.5,
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
-                },
-
-                body1: {
-                    color: 'rgb(52, 71, 103)',
-                    fontSize: '1rem',
-                    fontWeight: 400,
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: baseTheme.palette.common.white
-                    })
-                },
-
-                body2: {
-                    color: 'rgb(123, 128, 154)',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.02857rem',
-                    lineHeight: 1.5,
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
-                },
-
+                fontFamily: 'Roboto',
+                fontSize: 12,
                 h1: {
                     fontSize: '2.25rem',
-                    fontWeight: 700,
-                    color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.3,
-                    letterSpacing: '0em',
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
+                    fontWeight: 800,
+                    lineHeight: 1,
                 },
-
                 h2: {
                     fontSize: '1.875rem',
-                    fontWeight: 700,
-                    color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.375,
-                    letterSpacing: '0em',
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
-                },
-
-                h3: {
-                    fontSize: '1.375rem',
                     fontWeight: 600,
-                    color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.375,
-                    letterSpacing: '0.00735em',
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
+                    lineHeight: '2.25rem',
                 },
-
+                h3: {
+                    fontSize: '1.5rem',
+                    fontWeight: 500,
+                    lineHeight: '2rem',
+                },
                 h4: {
                     fontSize: '1.25rem',
-                    fontWeight: 400,
-                    color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.375,
-                    letterSpacing: '0em',
-                    margin: 0,
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
+                    fontWeight: 600,
+                    lineHeight: 1.75,
                 },
-
                 h5: {
+                    fontSize: '1.125rem',
+                    fontWeight: 300,
+                    lineHeight: 1.5,
+                },
+                h6: {
                     fontSize: '1rem',
                     fontWeight: 500,
-                    color: 'rgb(52, 71, 103)',
-                    lineHeight: 1.625,
-                    letterSpacing: '0.0075em',
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
+                    lineHeight: 1.25,
+                },
+                subtitle1: {
+                    fontSize: '1rem',
+                },
+                subtitle2: {
+                  fontSize: '.875rem',
+                },
+                body1: {
+                    fontSize: '1rem',
+                },
+                body2: {
+                    fontSize: '.875rem',
+                    // color: baseTheme.palette.text.secondary,
+                    // ...(mode == 'dark' && {
+                    //     color: darkMode.textPrimary
+                    // })
+                },
+                button: {
+                    fontSize: '.875rem',
+                },
+                caption: {
+                    fontSize: '.875rem',
+                },
+                overline: {
+                    fontSize: '.875rem',
+                },
+            },
+
+
+            shape: {
+                borderRadius: 8,
+            },
+            spacing: 6,
+
+
+            components: {
+                MuiAppBar: {
+                  styleOverrides: {
+                    root: {
+                        backgroundImage: 'none',
+                        backgroundColor: mode === 'dark' ? darkMode.background : lightMode.background,
+                    },
+                  },
                 },
 
-                h6: {
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    color: 'rgb(52, 71, 103)',
-                    ...(mode == 'dark' && {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    })
-                },
-              },
+                MuiListItemIcon: {
+                    styleOverrides: {
+                        root: {
+                            // color: baseTheme.palette.text.primary,
+                            color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                        }
+                    }
+                }
+            },
+
         }),
         [mode],
     );

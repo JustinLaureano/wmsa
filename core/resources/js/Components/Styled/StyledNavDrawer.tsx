@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
+import { darkMode } from '@/Theme/colors';
 
 interface StyledNavDrawerProps {
     children: React.ReactNode;
@@ -46,12 +47,13 @@ export default function StyledNavDrawer({ children, ...props } : StyledNavDrawer
 					duration: theme.transitions.duration.standard,
 				}),
 				[`& .MuiDrawer-paper`]: {
-					backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
-					borderRadius: 4,
-					height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - ${theme.spacing(2)})`,
-					marginLeft: theme.spacing(2),
-					marginTop: `calc(${dimensions.topAppBarHeight} + ${theme.spacing(1)})`,
-					borderRight: 'none',
+					borderRight: `1px solid ${theme.palette.divider}`,
+					...(theme.palette.mode === 'dark' && {
+						backgroundColor: darkMode.background,
+						borderRight: `1px solid ${theme.palette.divider}`,
+					}),
+					height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - 1px)`,
+					marginTop: `calc(${dimensions.topAppBarHeight} + 1px)`,
 					boxSizing: 'border-box',
 					width: drawerWidth,
 					transition: theme.transitions.create('width', {

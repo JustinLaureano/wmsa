@@ -38,42 +38,11 @@ export default function Home({ recentRequests, ...props } : any) {
                 <HomeTabs />
             </Stack>
 
-
-            <Stack direction="row" spacing={4} sx={{ mb: 4 }}>
-                <Card sx={{ flexGrow: 1 }}>
+            <Stack spacing={2}>
+                <Card variant="outlined" sx={{ flexGrow: 1 }}>
                     <CardHeader
-                        title={'New Request'}
+                        title={'Company Profile'}
                     />
-                    <CardContent>
-                        <RequestForm />
-                    </CardContent>
-                </Card>
-
-                <Card sx={{ flexGrow: 1 }}>
-                    <CardHeader
-                        title={"Recent"}
-                        subheader="past 15 minutes"
-                    />
-                    <CardContent>
-                    {
-                        recentRequests.data.slice(0, 5).map((request : Record<string, any>) => (
-                            <Box key={request.id}>
-                                <Typography>
-                                    {request.id} - Part: {request.part_id} - Location: {request.location_id}
-                                </Typography>
-                            </Box>
-                        ))
-                    }
-                    </CardContent>
-                </Card>
-            </Stack>
-
-            <Stack direction="row" spacing={2}>
-                {['Shipping', 'Sort'].map((title, index) => (
-                    <Card key={index} sx={{ flexGrow: 1 }}>
-                        <CardHeader
-                            title={title}
-                        />
                         <CardContent>
                             <Typography variant="h1">H1: Company Profile</Typography>
                             <Divider sx={{ my: 2 }} />
@@ -87,15 +56,22 @@ export default function Home({ recentRequests, ...props } : any) {
                             <Divider sx={{ my: 2 }} />
                             <Typography variant="h6">H6: The Future of Renewable Energy: Innovations and Challenges Ahead</Typography>
                             <Divider sx={{ my: 2 }} />
+                            <Typography variant="subtitle1">Subtitle 1: The Future of Renewable Energy: Innovations and Challenges Ahead</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="subtitle2">Subtitle 2: The Future of Renewable Energy: Innovations and Challenges Ahead</Typography>
+                            <Divider sx={{ my: 2 }} />
                             <Typography variant="body1">body1: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
                             <Divider sx={{ my: 2 }} />
-                            <Typography variant="body2">body2: blah blah blah</Typography>
+                            <Typography variant="body2">body2: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
                             <Divider sx={{ my: 2 }} />
-                            <Typography variant="button">button: blah blah blah</Typography>
+                            <Typography variant="button">button: Create</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="caption">caption: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Typography variant="overline">overline: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
                             <Divider sx={{ my: 2 }} />
                         </CardContent>
                     </Card>
-                ))}
             </Stack>
         </DashboardLayout>
     );

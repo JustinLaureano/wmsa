@@ -27,7 +27,7 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
                     selected={window.location.href == link.route}
                     onClick={() => router.get(link.route)}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon >
                         <link.icon />
                     </ListItemIcon>
 
@@ -35,7 +35,6 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
                         primary={
                             <React.Fragment>
                                 <Typography
-                                    component="span"
                                     variant="body2"
                                 >
                                     {link.label}
