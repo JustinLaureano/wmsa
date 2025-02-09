@@ -35,6 +35,7 @@ export interface MaterialRequestResource {
 interface MaterialRequestAttributes extends JsonObject {}
 
 interface MaterialRequestComputed extends JsonObject {
+    title: string;
     material_part_number: string;
     material_description: string;
     machine_name: string;

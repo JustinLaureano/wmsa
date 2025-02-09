@@ -29,6 +29,7 @@ class MaterialRequestResource extends JsonResource
                 'container_allocation' => $this->containerAllocation,
             ],
             'computed' => [
+                'title' => $this->getTitle(),
                 'material_part_number' => $this->material->part_number,
                 'material_description' => $this->material->description,
                 'machine_name' => $this->machine?->name,
@@ -56,5 +57,15 @@ class MaterialRequestResource extends JsonResource
     protected function getRequesterName() : string
     {
         return $this->requester?->teammate?->first_name . ' ' . $this->requester?->teammate?->last_name;
+    }
+
+    /**
+     * Return the title of the request.
+     */
+    protected function getTitle() : string
+    {
+        $locationName = $this->machine ? $this->machine->name : $this->storageLocation?->name;
+
+        return $this->material->part_number .' to '. $locationName;
     }
 }
