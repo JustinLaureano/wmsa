@@ -8,6 +8,8 @@ interface MaterialRequestsProps {}
 export default function MaterialRequests({ ...props } : MaterialRequestsProps) {
     const { lang } = useContext(LanguageContext);
 
+    console.log(props.requests);
+
     return (
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />

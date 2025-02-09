@@ -18,6 +18,13 @@ class MovementStatus extends Model
     protected $table = 'movement_statuses';
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Scope a query to filter on the part_number column.
      */
     public function scopeWhereCode(Builder $query, string $code): void

@@ -69,8 +69,8 @@ class MaterialContainer extends Model
     {
         return $this->hasOne(
                 MaterialContainerType::class,
-                'material_container_type_id',
-                'id'
+                'id',
+                'material_container_type_id'
             );
     }
 

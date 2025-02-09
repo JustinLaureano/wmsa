@@ -13,19 +13,19 @@ class MaterialRequestStatusSeeder extends Seeder
     public function run(): void
     {
         MaterialRequestStatus::factory()->create([
-            'code' => 'OPEN',
+            'code' => 'open',
             'name' => 'Open',
             'description' => 'Request unfulfilled'
         ]);
 
         MaterialRequestStatus::factory()->create([
-            'code' => 'COMPLETED',
+            'code' => 'completed',
             'name' => 'Completed',
             'description' => 'Request fulfilled'
         ]);
 
         MaterialRequestStatus::factory()->create([
-            'code' => 'CANCELLED',
+            'code' => 'cancelled',
             'name' => 'Cancelled',
             'description' => 'Request cancelled'
         ]);

@@ -10,6 +10,9 @@ use App\Repositories\MaterialRepository;
 use App\Repositories\MachineRepository;
 use App\Repositories\StorageLocationRepository;
 use Carbon\Carbon;
+use App\Domain\Production\DataTransferObjects\InitiateUpdateMaterialRequestStatusData;
+use App\Domain\Production\DataTransferObjects\UpdateMaterialRequestStatusData;
+use App\Repositories\MaterialRequestRepository;
 
 class MaterialRequestTransformer
 {
@@ -39,6 +42,17 @@ class MaterialRequestTransformer
             material_request_status_code: $statusCode,
             requester: $requester,
             requested_at: $requestedAt
+        );
+    }
+
+    public static function initiateUpdateStatusToActionData(InitiateUpdateMaterialRequestStatusData $data) : UpdateMaterialRequestStatusData
+    {
+        $materialRequest = (new MaterialRequestRepository)->findByUuid($data->uuid);
+        $statusCode = RequestStatusEnum::from($data->status_code)->value;
+
+        return new UpdateMaterialRequestStatusData(
+            uuid: $materialRequest->uuid,
+            material_request_status_code: $statusCode
         );
     }
 }

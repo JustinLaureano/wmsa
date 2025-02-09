@@ -17,7 +17,7 @@ class MaterialRequestStatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => 'OPEN',
+            'code' => 'open',
             'description' => 'Open',
         ];
     }

@@ -15,4 +15,11 @@ class MaterialRequestStatus extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = ['id'];
 }
