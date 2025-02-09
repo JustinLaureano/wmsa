@@ -25,7 +25,11 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
         selected = true;
     }
 
-    const color = selected ? theme.palette.primary.main : theme.palette.text.primary;
+    const iconColor = selected ? theme.palette.primary.light : theme.palette.text.primary;
+
+    const textColor = selected ?
+        theme.palette.mode == 'light' ? theme.palette.primary.main : theme.palette.text.primary
+        : theme.palette.text.primary;
 
 	return (
         <DrawerItemWrapper
@@ -38,7 +42,7 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
                     onClick={() => router.get(link.route)}
                 >
                     <ListItemIcon
-                        sx={{ color }}
+                        sx={{ color: iconColor }}
                     >
                         <link.icon />
                     </ListItemIcon>
@@ -48,7 +52,7 @@ export default function NavigationDrawerLink({ link, index } : NavigationDrawerL
                             <React.Fragment>
                                 <Typography
                                     variant="body2"
-                                    sx={{ color }}
+                                    sx={{ color: textColor }}
                                 >
                                     {link.label}
                                 </Typography>

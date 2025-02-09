@@ -232,6 +232,19 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     },
                 },
 
+                MuiListItem: {
+                    styleOverrides: {
+                        root: {
+                            '& .Mui-selected': {
+                                backgroundColor: 'rgba(255, 255, 255, 0.07)',
+                            },
+                            ...(mode == 'dark' && {
+                                fontWeight: 500,
+                            })
+                        },
+                    }
+                },
+
                 MuiListItemIcon: {
                     styleOverrides: {
                         root: {

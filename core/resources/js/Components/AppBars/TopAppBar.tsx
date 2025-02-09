@@ -37,7 +37,7 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         direction="row"
                         alignItems="center"
                         spacing={theme.spacing(1)}
-                        sx={{ flexGrow: 1, ml: theme.spacing(2) }}
+                        sx={{ flexGrow: 1 }}
                     >
                         <NavigationToggle />
 
