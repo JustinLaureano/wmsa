@@ -116,7 +116,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
                 background: {
                     default: mode === 'dark' ? darkMode.background : lightMode.background,
-                    paper: mode === 'dark' ? darkMode.backgroundPaper : baseTheme.palette.background.paper,
+                    paper: mode === 'dark' ? darkMode.backgroundPaper : lightMode.backgroundPaper,
                 },
 
                 text: {
@@ -259,7 +259,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                         root: {
                             fontSize: '.875rem',
                             textTransform: 'none',
-                            color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                            color: mode === 'dark' ? darkMode.textPrimary.main : lightMode.textPrimary.main,
                             letterSpacing: '0.022em',
                             '&.Mui-selected': {
                                 fontWeight: 500,

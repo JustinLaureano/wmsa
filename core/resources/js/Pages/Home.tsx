@@ -28,7 +28,6 @@ export default function Home({ recentRequests, ...props } : any) {
 
             <Stack
                 sx={{
-
                     mb: theme.spacing(4)
                 }}
             >

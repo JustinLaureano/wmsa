@@ -16,28 +16,29 @@ export const blue = {
 
 
 export const avatarBadgeColors = [
-  deepOrange[500],
-  blue[600],
-  green[500],
-  purple[500],
-  teal[600],
-  amber[500],
-  pink[500],
-  cyan[600],
+	deepOrange[500],
+	blue[600],
+	green[500],
+	purple[500],
+	teal[600],
+	amber[500],
+	pink[500],
+	cyan[600],
 ];
 
 export const lightMode = {
-  background: 'rgb(251, 251, 251)',
-  textPrimary: 'rgb(38, 38, 38)',
-  textSecondary: 'rgb(140, 140, 140)',
+    background: 'rgb(251, 251, 251)',
+    backgroundPaper: 'rgb(255, 255, 255)',
+    textPrimary: 'rgb(38, 38, 38)',
+    textSecondary: 'rgb(140, 140, 140)',
 };
 
 export const darkMode = {
-  textPrimary: 'rgba(255, 255, 255, 0.87)',
-  textSecondary: 'rgba(255, 255, 255, 0.75)',
-  background: 'rgb(18, 18, 18)',
-  backgroundPaper: 'rgb(30, 30, 30)',
-  backgroundPaperHover: 'rgba(255, 255, 255, .08)',
+    textPrimary: 'rgba(255, 255, 255, 0.87)',
+    textSecondary: 'rgba(255, 255, 255, 0.75)',
+    background: 'rgb(18, 18, 18)',
+    backgroundPaper: 'rgb(30, 30, 30)',
+    backgroundPaperHover: 'rgba(255, 255, 255, .08)',
 };
 
 export const getRandomAvatarBadgeColor = () => {
