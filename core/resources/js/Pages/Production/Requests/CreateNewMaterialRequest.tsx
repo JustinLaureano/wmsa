@@ -38,7 +38,7 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
             storage_location_uuid: null,
             part_number: partNumber,
             quantity: quantity,
-            unit_of_measure: 'CONT',
+            unit_of_measure: 'cont',
             requester_user_uuid: user.uuid,
             requested_at: new Date()
         };
@@ -61,7 +61,7 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <Card 
+            <Card
                 sx={{ 
                     maxWidth: '600px',
                     margin: '0 auto'
