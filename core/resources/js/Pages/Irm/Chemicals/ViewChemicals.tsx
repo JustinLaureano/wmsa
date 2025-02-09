@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import IrmPageHeader from '@/Domains/Irm/Layout/Header/IrmPageHeader';
 
@@ -9,8 +9,8 @@ export default function ViewChemicals({ ...props } : ViewChemicalsProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.inventory}>
+        <SidebarLayout title={lang.inventory}>
             <IrmPageHeader />
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

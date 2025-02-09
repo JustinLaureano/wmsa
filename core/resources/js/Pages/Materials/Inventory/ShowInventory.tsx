@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 
@@ -9,8 +9,8 @@ export default function ShowInventory({ ...props } : ShowInventoryProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.inventory}>
+        <SidebarLayout title={lang.inventory}>
             <MaterialsPageHeader />
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

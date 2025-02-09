@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme, Button, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 import HomeTabs from '@/Components/HomeTabs';
@@ -24,7 +24,7 @@ export default function Home({ recentRequests, ...props } : any) {
     }, [])
 
     return (
-        <DashboardLayout title={lang.home}>
+        <SidebarLayout title={lang.home}>
 
             <Stack
                 sx={{
@@ -118,6 +118,6 @@ export default function Home({ recentRequests, ...props } : any) {
                     </CardContent>
                 </Card>
             </Stack>
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

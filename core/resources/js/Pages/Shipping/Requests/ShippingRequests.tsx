@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ShippingPageHeader from '@/Domains/Shipping/Layout/Header/ShippingPageHeader';
 
@@ -9,9 +9,9 @@ export default function ShippingRequests({ ...props } : ShippingRequestsProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.requests}>
+        <SidebarLayout title={lang.requests}>
             <ShippingPageHeader />
 
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

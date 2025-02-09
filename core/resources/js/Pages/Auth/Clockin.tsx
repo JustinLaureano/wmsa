@@ -1,5 +1,5 @@
 import { FormEventHandler, useState } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import { Head, useForm } from '@inertiajs/react';
 import PrimaryLogo from '@/Components/PrimaryLogo';
 
@@ -17,7 +17,7 @@ export default function Clockin(props: any) {
     };
 
     return (
-        <DashboardLayout title="Clock In">
+        <SidebarLayout title="Clock In">
             <Head title="Clock In" />
 
             <div>
@@ -34,6 +34,6 @@ export default function Clockin(props: any) {
                 <button type="submit">Submit</button>
 
             </form>
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

@@ -6,12 +6,12 @@ import BottomNavigationBar from '@/Components/Navigation/BottomNavigationBar';
 import BottomAppBar from '@/Components/AppBars/BottomAppBar';
 import { Head } from '@inertiajs/react';
 
-interface DashboardLayoutProps {
+interface SidebarLayoutProps {
     title: string;
     children: React.ReactNode;
 }
 
-export default function DashboardLayout({ title, children, ...props } : DashboardLayoutProps) {
+export default function SidebarLayout({ title, children, ...props } : SidebarLayoutProps) {
     const theme = useTheme();
 
     return (

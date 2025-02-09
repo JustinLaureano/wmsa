@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Card, CardHeader, CardContent, CardActions, Button, Stack } from '@mui/material';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import RequestService from '@/Services/RequestService';
@@ -58,7 +58,7 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
     };
 
     return (
-        <DashboardLayout title={lang.requests}>
+        <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
             <Card 
@@ -118,6 +118,6 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
                     </CardActions>
                 </form>
             </Card>
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

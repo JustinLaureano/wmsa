@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import LocationsPageHeader from '@/Domains/Locations/Layout/Header/LocationsPageHeader';
 
@@ -9,8 +9,8 @@ export default function ViewWarehouseKpi({ ...props } : ViewWarehouseKpiProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.inventory}>
+        <SidebarLayout title={lang.inventory}>
             <LocationsPageHeader />
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 
@@ -9,9 +9,9 @@ export default function MaterialRequests({ ...props } : MaterialRequestsProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.requests}>
+        <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

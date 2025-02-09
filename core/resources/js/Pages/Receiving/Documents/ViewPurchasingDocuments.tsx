@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ReceivingPageHeaderHeader from '@/Domains/Receiving/Layout/Header/ReceivingHeader';
 
@@ -9,9 +9,9 @@ export default function ViewPurchasingDocuments({ ...props } : ViewPurchasingDoc
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.requests}>
+        <SidebarLayout title={lang.requests}>
             <ReceivingPageHeaderHeader />
 
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 import { ViewMaterialsProps } from '@/Domains/Materials/types';
@@ -13,12 +13,12 @@ export default function ViewMaterials({
     const { lang } = useContext(LanguageContext);
 
     return (
-        <DashboardLayout title={lang.materials}>
+        <SidebarLayout title={lang.materials}>
             <MaterialsPageHeader />
 
             <MaterialDataTable
                 materials={materials}
             />
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

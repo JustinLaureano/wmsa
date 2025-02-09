@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import HomeTabs from '@/Components/HomeTabs';
@@ -32,7 +32,7 @@ export default function ViewTables({ containers, ...props } : ViewTablesProps) {
     }
 
     return (
-        <DashboardLayout title={lang.inventory}>
+        <SidebarLayout title={lang.inventory}>
             <Stack sx={{ mb: theme.spacing(4) }}>
                 <Typography variant="h3">Test - Tables</Typography>
                 <HomeTabs />
@@ -60,6 +60,6 @@ export default function ViewTables({ containers, ...props } : ViewTablesProps) {
                     </CardContent>
                 </Card>
             </Stack>
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }

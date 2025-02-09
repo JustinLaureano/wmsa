@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import DashboardLayout from '@/Layouts/DashboardLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Button, Card,CardActions, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import HomeTabs from '@/Components/HomeTabs';
@@ -21,7 +21,7 @@ export default function ContainersTest({ ...props } : ContainersTestProps) {
     }
 
     return (
-        <DashboardLayout title={lang.inventory}>
+        <SidebarLayout title={lang.inventory}>
             <Stack sx={{ mb: theme.spacing(4) }}>
                 <Typography variant="h3">Test - Containers</Typography>
                 <HomeTabs />
@@ -47,6 +47,6 @@ export default function ContainersTest({ ...props } : ContainersTestProps) {
                     </CardActions>
                 </Card>
             </Stack>
-        </DashboardLayout>
+        </SidebarLayout>
     );
 }
