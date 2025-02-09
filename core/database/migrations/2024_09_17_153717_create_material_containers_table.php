@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(MaterialContainerType::class)->nullable();
             $table->foreignIdFor(MovementStatus::class, 'movement_status_id');
             $table->string('barcode', 100)->index();
+            $table->string('lot_number', 12);
             $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes();

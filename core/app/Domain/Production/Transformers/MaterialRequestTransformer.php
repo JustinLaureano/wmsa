@@ -51,7 +51,7 @@ class MaterialRequestTransformer
         $statusCode = RequestStatusEnum::from($data->status_code)->value;
 
         return new UpdateMaterialRequestStatusData(
-            uuid: $materialRequest->uuid,
+            materialRequest: $materialRequest,
             material_request_status_code: $statusCode
         );
     }

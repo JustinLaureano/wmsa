@@ -4,12 +4,11 @@ namespace Database\Factories;
 
 use App\Domain\Materials\DataTransferObjects\MaterialContainerData;
 use App\Domain\Materials\Enums\MovementStatusEnum;
-use App\Domain\Materials\Support\Barcode\BarcodeFactory;
+use App\Domain\Materials\Support\Barcode\MaterialBarcodeFactory;
 use App\Domain\Materials\Support\Fakers\BarcodeFaker;
 use App\Models\Material;
 use App\Models\MaterialContainerType;
 use App\Models\MovementStatus;
-use App\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +23,7 @@ class MaterialContainerFactory extends Factory
      */
     public function definition(): array
     {
-        $barcode = BarcodeFactory::make( BarcodeFaker::make()->getBarcode() );
+        $barcode = MaterialBarcodeFactory::make( BarcodeFaker::make()->getBarcode() );
         $material = Material::where('part_number', $barcode->getPartNumber())->first();
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
         $movementStatus = MovementStatus::where('code', MovementStatusEnum::UNRESTRICTED)->first();
@@ -34,6 +33,7 @@ class MaterialContainerFactory extends Factory
             material_container_type_id: $materialContainerType->id,
             movement_status_id: $movementStatus->id,
             barcode: $barcode->getBarcode(),
+            lot_number: $barcode->getLotNumber(),
             quantity: $barcode->getQuantity(),
         );
 

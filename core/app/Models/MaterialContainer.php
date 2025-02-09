@@ -34,6 +34,7 @@ class MaterialContainer extends Model
         'material_container_type_id',
         'movement_status_id',
         'barcode',
+        'lot_number',
         'quantity',
     ];
 

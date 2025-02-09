@@ -21,8 +21,7 @@ class CompleteMaterialRequest implements ShouldQueue
      */
     public function __construct(
         public UpdateMaterialRequestStatusData $data,
-    )
-    {
+    ) {
         //
     }
 

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\MaterialRequest;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domain\Production\Actions\CreateMaterialRequestAction;
+use Database\Factories\MaterialRequestFactory;
 use Illuminate\Database\Seeder;
 
 class MaterialRequestSeeder extends Seeder
@@ -13,7 +13,10 @@ class MaterialRequestSeeder extends Seeder
      */
     public function run(): void
     {
-        // TODO: implement this seeder
-        MaterialRequest::factory()->count(10)->create();
+        foreach (range(1, 10) as $index) {
+            $actionData = MaterialRequestFactory::makeActionData();
+
+            (new CreateMaterialRequestAction())->handle($actionData);
+        }
     }
 }

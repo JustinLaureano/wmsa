@@ -6,6 +6,9 @@ use App\Domain\Materials\Contracts\BarcodeContract;
 
 class BarcodeFactory
 {
+    /**
+     * Make a new barcode contract object based on the barcode type provided.
+     */
     public static function make(string $barcode): BarcodeContract
     {
         if (strrpos($barcode, '/') === strlen($barcode) - 5) {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Domain\Requests\Jobs\GenerateRecurringRequest;
+use App\Domain\Production\Jobs\Scheduled\AttemptRequestListAllocations;
 use Illuminate\Support\Facades\Schedule;
 
 
@@ -17,4 +18,9 @@ use Illuminate\Support\Facades\Schedule;
 //     ->emailOutputOnFailure(env('ADMIN_EMAIL_ADDRESS'));
 
 
+/** Production */
+Schedule::job(new AttemptRequestListAllocations)->everyMinute();
+
+
+// TODO: remove test route when not needed
 Schedule::job(new GenerateRecurringRequest)->everyThreeMinutes();

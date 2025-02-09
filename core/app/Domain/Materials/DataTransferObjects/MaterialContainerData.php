@@ -11,6 +11,7 @@ class MaterialContainerData extends Data
         public readonly ?int $material_container_type_id,
         public readonly int $movement_status_id,
         public readonly string $barcode,
+        public readonly string $lot_number,
         public readonly int $quantity
     ) {
 
