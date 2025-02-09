@@ -105,7 +105,6 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
                         <Button 
                             onClick={handleClear}
                             variant="outlined"
-                            color="inherit"
                         >
                             Clear
                         </Button>

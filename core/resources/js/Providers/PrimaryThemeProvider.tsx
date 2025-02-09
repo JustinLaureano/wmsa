@@ -18,23 +18,28 @@ declare module '@mui/material' {
 
 declare module '@mui/material/styles' {
     interface Palette {
-        gray: Palette['primary'];
+        primaryText: Palette['primary'];
+        secondaryText: Palette['primary'];
     }
   
     interface PaletteOptions {
-        gray?: PaletteOptions['primary'];
+        primaryText?: PaletteOptions['primary'];
+        secondaryText?: PaletteOptions['primary'];
     }
 }
 
 declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
-        gray: true;
+        primaryText: true;
+        secondaryText: true;
     }
+
 }
 
 declare module '@mui/material/IconButton' {
     interface IconButtonPropsColorOverrides {
-        gray: true;
+        primaryText: true;
+        secondaryText: true;
     }
 }
 
@@ -63,9 +68,24 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 primary: {
                     main: '#01579b',
                 },
+
                 secondary: {
                     main: '#26c6da',
                     contrastText: '#fff',
+                },
+
+                primaryText: {
+                    main: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                    light: alpha(mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary, 0.5),
+                    dark: alpha(mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary, 0.9),
+                    contrastText: getContrastRatio(mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary, '#fff') > 4.5 ? '#fff' : '#111',
+                },
+
+                secondaryText: {
+                    main: mode === 'dark' ? darkMode.textSecondary : lightMode.textSecondary,
+                    light: alpha(mode === 'dark' ? darkMode.textSecondary : lightMode.textSecondary, 0.5),
+                    dark: alpha(mode === 'dark' ? darkMode.textSecondary : lightMode.textSecondary, 0.9),
+                    contrastText: mode === 'dark' ? '#111' : '#fff',
                 },
 
                 error: {
@@ -74,18 +94,21 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     dark: '#a8071a',
                     contrastText: '#fff',
                 },
+
                 success: {
                     main: '#52c41a',
                     light: '#95de64',
                     dark: '#237804',
                     contrastText: '#fff',
                 },
+
                 warning: {
                     main: '#faad14',
                     light: '#ffd666',
                     dark: '#ad6800',
                     contrastText: '#fff',
                 },
+
                 info: {
                     main: '#13c2c2',
                     contrastText: '#fff',
@@ -196,7 +219,9 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     styleOverrides: {
                         root: {
                             borderRadius: 16,
-                            // padding: '.375rem 1rem',
+                            '&:hover': {
+                                backgroundColor: 'unset'
+                            },
                         }
                     }
                 },

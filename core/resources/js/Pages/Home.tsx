@@ -78,12 +78,25 @@ export default function Home({ recentRequests, ...props } : any) {
                     />
                     <CardContent>
                         <Stack direction="row" spacing={2}>
+                            <Button variant="contained" color="primaryText">Default T</Button>
+                            <Button variant="contained" color="secondaryText">Secondary T</Button>
                             <Button variant="contained" color="primary">Primary</Button>
                             <Button variant="contained" color="secondary">Secondary</Button>
                             <Button variant="contained" color="success">Success</Button>
                             <Button variant="contained" color="error">Error</Button>
                             <Button variant="contained" color="info">Info</Button>
                             <Button variant="contained" color="warning">Warning</Button>
+                        </Stack>
+
+                        <Stack direction="row" spacing={2} mt={2}>
+                            <Button variant="outlined" color="primaryText">Default T</Button>
+                            <Button variant="outlined" color="secondaryText">Secondary T</Button>
+                            <Button variant="outlined" color="primary">Primary</Button>
+                            <Button variant="outlined" color="secondary">Secondary</Button>
+                            <Button variant="outlined" color="success">Success</Button>
+                            <Button variant="outlined" color="error">Error</Button>
+                            <Button variant="outlined" color="info">Info</Button>
+                            <Button variant="outlined" color="warning" size="small">Warning</Button>
                         </Stack>
                     </CardContent>
                 </Card>
