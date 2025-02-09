@@ -235,11 +235,11 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 MuiListItem: {
                     styleOverrides: {
                         root: {
-                            '& .Mui-selected': {
-                                backgroundColor: 'rgba(255, 255, 255, 0.07)',
-                            },
                             ...(mode == 'dark' && {
                                 fontWeight: 500,
+                                '& .Mui-selected': {
+                                    backgroundColor: 'rgba(255, 255, 255, 0.07) !important',
+                                },
                             })
                         },
                     }
@@ -250,6 +250,20 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                         root: {
                             // color: baseTheme.palette.text.primary,
                             color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                        }
+                    }
+                },
+
+                MuiTab: {
+                    styleOverrides: {
+                        root: {
+                            fontSize: '.875rem',
+                            textTransform: 'none',
+                            color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
+                            letterSpacing: '0.022em',
+                            '&.Mui-selected': {
+                                fontWeight: 500,
+                            }
                         }
                     }
                 },

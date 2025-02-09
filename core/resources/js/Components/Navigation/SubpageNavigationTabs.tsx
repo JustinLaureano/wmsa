@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { router } from '@inertiajs/react';
 import StyledTabs from '@/Components/Styled/StyledTabs';
 import StyledTab from '@/Components/Styled/StyledTab';
 import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
-import { router } from '@inertiajs/react';
+import { Tabs, Tab } from '@mui/material';
 
 interface TabInterface {
     label: string;
@@ -33,15 +34,15 @@ export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsPr
 
     return (
         <StyledTabsContainer>
-            <StyledTabs value={value} onChange={handleChange}>
+            <Tabs value={value} onChange={handleChange}>
                 { tabs.map((tab : TabInterface, index) => (
-                    <StyledTab
+                    <Tab
                         key={index}
                         label={tab.label}
                         onClick={() => router.get(tab.route)}
                     />
                 )) }
-            </StyledTabs>
+            </Tabs>
         </StyledTabsContainer>
     )
 }

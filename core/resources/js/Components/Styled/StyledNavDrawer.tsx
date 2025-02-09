@@ -40,7 +40,9 @@ export default function StyledNavDrawer({ children, ...props } : StyledNavDrawer
 			onClose={handleDrawerToggle}
 			elevation={0}
 			sx={{
-				width: `calc(${drawerWidth} + ${theme.spacing(2)})`,
+				[theme.breakpoints.up('md')]: {
+					width: `calc(${drawerWidth} + ${theme.spacing(2)})`,
+				},
 				flexShrink: 0,
 				transition: theme.transitions.create('width', {
 					easing: theme.transitions.easing.easeOut,
@@ -52,14 +54,16 @@ export default function StyledNavDrawer({ children, ...props } : StyledNavDrawer
 						backgroundColor: darkMode.background,
 						borderRight: `1px solid ${theme.palette.divider}`,
 					}),
-					height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - 1px)`,
-					marginTop: `calc(${dimensions.topAppBarHeight} + 1px)`,
 					boxSizing: 'border-box',
-					width: drawerWidth,
 					transition: theme.transitions.create('width', {
 						easing: theme.transitions.easing.easeOut,
 						duration: theme.transitions.duration.standard,
-					})
+					}),
+					width: drawerWidth,
+					[theme.breakpoints.up('md')]: {
+						height: `calc(100vh - ${dimensions.topAppBarHeight} - ${dimensions.bottomAppBarHeight} - 1px)`,
+						marginTop: `calc(${dimensions.topAppBarHeight} + 1px)`,
+					}
 				},
 			}}
             {...props}
