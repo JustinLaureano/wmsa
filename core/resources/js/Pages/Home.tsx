@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
-import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme, Button } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme, Button, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 import HomeTabs from '@/Components/HomeTabs';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -67,7 +67,7 @@ export default function Home({ recentRequests, ...props } : any) {
                         <Divider sx={{ my: 2 }} />
                         <Typography variant="caption">caption: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
                         <Divider sx={{ my: 2 }} />
-                        <Typography variant="overline">overline: The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.</Typography>
+                        <Typography variant="overline">overline: The place is close to Metro Station.</Typography>
                         <Divider sx={{ my: 2 }} />
                     </CardContent>
                 </Card>
@@ -97,6 +97,24 @@ export default function Home({ recentRequests, ...props } : any) {
                             <Button variant="outlined" color="error">Error</Button>
                             <Button variant="outlined" color="info">Info</Button>
                             <Button variant="outlined" color="warning" size="small">Warning</Button>
+                        </Stack>
+
+                        <Stack direction="row" spacing={2} mt={2}>
+                            <TextField
+                                label="Default"
+                            />
+
+                            <TextField
+                                label="Default"
+                            />
+                        </Stack>
+                        <Stack spacing={2} mt={2}>
+                            <TextField
+                                label="Default"
+                            />
+                            <TextField
+                                label="Default"
+                            />
                         </Stack>
                     </CardContent>
                 </Card>

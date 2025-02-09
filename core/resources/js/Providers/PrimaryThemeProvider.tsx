@@ -233,7 +233,24 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                             color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
                         }
                     }
-                }
+                },
+
+                MuiTextField: {
+                    styleOverrides: {
+                        root: {
+                            '& .MuiOutlinedInput-input': {
+                                '&:focus': {
+                                    boxShadow: 'none',
+                                    borderColor: 'transparent',
+                                    outline: 'none',
+                                },
+                            },
+                        }
+                    },
+                    defaultProps: {
+                        size: 'small',
+                    },
+                },
             },
 
         }),
