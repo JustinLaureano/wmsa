@@ -56,6 +56,7 @@ class MachineSeeder extends Seeder
                     barcode: $row['id'],
                     building_id: $row['building'],
                     machine_type_id: $this->types[$row['machine_type']],
+                    restrict_request_allocations: 0,
                     disabled: $row['disabled']
                 );
 

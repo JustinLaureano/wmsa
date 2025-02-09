@@ -80,6 +80,7 @@ class StorageLocationSeeder extends Seeder
                     shelf: $row['shelf'],
                     position: $row['position'],
                     max_containers: 1,
+                    restrict_request_allocations: $row['restrict_request_allocations'],
                     disabled: $row['disabled'],
                     reservable: $row['exclude_allocations'] ? 0 : 1
                 );
@@ -131,6 +132,7 @@ class StorageLocationSeeder extends Seeder
                     shelf: $row['shelf'],
                     position: $row['position'],
                     max_containers: null,
+                    restrict_request_allocations: $row['restrict_request_allocations'],
                     disabled: $row['disabled'],
                     reservable: $row['exclude_allocations'] ? 0 : 1
                 );

@@ -26,7 +26,9 @@ class MachineFactory extends Factory
             'name' => $name,
             'barcode' => $name,
             'building_id' => Building::inRandomOrder()->first()->id,
-            'machine_type_id' => MachineType::inRandomOrder()->first()->id
+            'machine_type_id' => MachineType::inRandomOrder()->first()->id,
+            'restrict_request_allocations' => 0,
+            'disabled' => 0,
         ];
     }
 }

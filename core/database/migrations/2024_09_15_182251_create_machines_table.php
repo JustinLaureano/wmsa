@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('barcode', 40);
             $table->foreignIdFor(Building::class);
             $table->foreignIdFor(MachineType::class);
-
+            $table->tinyInteger('restrict_request_allocations')->default(0);
             // TODO: add/change active status for machine - whether retired or not, in user or not, etc
             $table->tinyInteger('disabled')->default(0);
 

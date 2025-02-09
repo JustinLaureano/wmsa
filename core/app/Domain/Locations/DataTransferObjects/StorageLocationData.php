@@ -16,6 +16,7 @@ class StorageLocationData extends Data
         public int $shelf,
         public int $position,
         public int|null $max_containers,
+        public int $restrict_request_allocations = 0,
         public int $disabled,
         public int $reservable
     ) {
