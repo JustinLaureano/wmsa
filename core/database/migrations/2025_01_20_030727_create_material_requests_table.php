@@ -15,9 +15,12 @@ return new class extends Migration
         Schema::create('material_requests', function (Blueprint $table) {
             $table->id();
             $table->uuid()->index();
-            $table->foreignUuid('material_request_status_code')
+            $table->string('material_request_status_code', 12)
                 ->references('code')
                 ->on('material_request_statuses');
+            $table->string('material_request_type_code', 12)
+                ->references('code')
+                ->on('material_request_types');
             $table->foreignUuid('requester_user_uuid')
                 ->nullable()
                 ->references('uuid')

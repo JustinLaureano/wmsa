@@ -11,6 +11,7 @@ class CreateMaterialRequestPayload extends Data
      */
     public function __construct(
         public readonly array $items,
+        public readonly string $material_request_type_code,
         public readonly string $requester_user_uuid,
         public readonly string $requested_at,
     )
@@ -25,6 +26,10 @@ class CreateMaterialRequestPayload extends Data
                 'required',
                 'array',
                 'min:1'
+            ],
+            'material_request_type_code' => [
+                'required',
+                'exists:material_request_types,code'
             ],
             'requester_user_uuid' => [
                 'required',

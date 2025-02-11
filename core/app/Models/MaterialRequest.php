@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -28,16 +28,42 @@ class MaterialRequest extends Model
      */
     protected $fillable = [
         'material_request_status_code',
+        'material_request_type_code',
         'requester_user_uuid',
         'requested_at'
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'requested_at' => 'datetime',
+    ];
+
+    /**
+     * Get the items for this request.
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(MaterialRequestItem::class, 'uuid', 'material_request_uuid');
+    }
+
+    /**
      * Get the status for this request.
      */
-    public function status(): HasOne
+    public function materialRequestStatus()
     {
         return $this->hasOne(MaterialRequestStatus::class, 'code', 'material_request_status_code');
+    }
+
+    /**
+     * Get the type for this request.
+     */
+    public function materialRequestType()
+    {
+        return $this->hasOne(MaterialRequestType::class, 'code', 'material_request_type_code');
     }
 
     /**
@@ -49,10 +75,10 @@ class MaterialRequest extends Model
     }
 
     /**
-     * Get the items for this request.
+     * Get the status for this request.
      */
-    public function items(): HasMany
+    public function status(): HasOne
     {
-        return $this->hasMany(MaterialRequestItem::class, 'uuid', 'material_request_uuid');
+        return $this->hasOne(MaterialRequestStatus::class, 'code', 'material_request_status_code');
     }
 }

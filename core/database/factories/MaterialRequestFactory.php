@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
 use Illuminate\Support\Lottery;
+use App\Models\MaterialRequestStatus;
+use App\Models\MaterialRequestType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialRequest>
@@ -25,7 +27,9 @@ class MaterialRequestFactory extends Factory
     public function definition(): array
     {
         return [
-            'material_request_status_code' => RequestStatusEnum::OPEN->value,
+            'uuid' => $this->faker->uuid(),
+            'material_request_status_code' => MaterialRequestStatus::query()->inRandomOrder()->first()->code,
+            'material_request_type_code' => MaterialRequestType::query()->inRandomOrder()->first()->code,
             'requester_user_uuid' => User::query()->inRandomOrder()->first()->uuid,
             'requested_at' => now(),
         ];
@@ -69,6 +73,7 @@ class MaterialRequestFactory extends Factory
         return new MaterialRequestActionData(
             items: $items,
             material_request_status_code: $requestStatus,
+            material_request_type_code: MaterialRequestType::query()->inRandomOrder()->first()->code,
             requester: User::query()->inRandomOrder()->first(),
             requested_at: $requestedAt
         );
