@@ -6,13 +6,15 @@ use App\Domain\Production\DataTransferObjects\Actions\MaterialRequestActionData;
 use App\Domain\Production\DataTransferObjects\Actions\MaterialRequestItemActionData;
 use App\Domain\Production\Enums\RequestStatusEnum;
 use App\Domain\Production\Enums\RequestItemStatusEnum;
+use App\Domain\Production\Enums\RequestTypeEnum;
 use App\Models\MaterialRequestItem;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Carbon\Carbon;
-use Illuminate\Support\Lottery;
 use App\Models\MaterialRequestStatus;
 use App\Models\MaterialRequestType;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Lottery;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialRequest>
@@ -39,6 +41,17 @@ class MaterialRequestFactory extends Factory
      * Define the state for a closed material request.
      */
     public static function makeActionData(Carbon $requestedAt, string $requestStatus): MaterialRequestActionData
+    {
+        return new MaterialRequestActionData(
+            items: static::getMaterialRequestItems($requestStatus),
+            material_request_status_code: $requestStatus,
+            material_request_type_code: static::getMaterialRequestTypeCode(),
+            requester: User::query()->inRandomOrder()->first(),
+            requested_at: $requestedAt
+        );
+    }
+
+    private static function getMaterialRequestItems(string $requestStatus): Collection
     {
         $multipleItems = Lottery::odds(1, 10)->choose();
 
@@ -70,12 +83,29 @@ class MaterialRequestFactory extends Factory
             ));
         }
 
-        return new MaterialRequestActionData(
-            items: $items,
-            material_request_status_code: $requestStatus,
-            material_request_type_code: MaterialRequestType::query()->inRandomOrder()->first()->code,
-            requester: User::query()->inRandomOrder()->first(),
-            requested_at: $requestedAt
-        );
+        return $items;
+    }
+
+    private static function getMaterialRequestTypeCode(): string
+    {
+        $num = rand(1, 12);
+
+        if ($num == 1) {
+            return RequestTypeEnum::IRM->value;
+        }
+        else if ($num == 2) {
+            return RequestTypeEnum::PHOSPHATE->value;
+        }
+        else if ($num == 3) {
+            return RequestTypeEnum::CARDBOARD->value;
+        }
+        else if ($num == 4) {
+            return RequestTypeEnum::MISC->value;
+        }
+        else if ($num == 5 || $num == 6) {
+            return RequestTypeEnum::SHIPPING->value;
+        }
+
+        return RequestTypeEnum::TRANSFER->value;
     }
 }

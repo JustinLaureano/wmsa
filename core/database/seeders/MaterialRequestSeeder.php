@@ -19,7 +19,7 @@ class MaterialRequestSeeder extends Seeder
         $now = now();
 
         while ($requestedAt->lt($now)) {
-            logger()->info('Requested at: ' . $requestedAt);
+
             $requestStatus = RequestStatusEnum::OPEN->value;
 
             if ($requestedAt->copy()->diffInMinutes($now) > 90) {

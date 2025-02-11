@@ -51,6 +51,7 @@ class CreateNewMaterialRequest implements ShouldQueue
         $this->materialRequest = (new MaterialRequestRepository)
             ->store(new MaterialRequestData(
                 material_request_status_code: $this->data->material_request_status_code,
+                material_request_type_code: $this->data->material_request_type_code,
                 requester_user_uuid: $this->data->requester->uuid,
                 requested_at: $this->data->requested_at,
             ));
