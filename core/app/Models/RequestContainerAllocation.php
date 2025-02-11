@@ -36,6 +36,14 @@ class RequestContainerAllocation extends Model
         'material_request_item_uuid',
         'material_container_uuid',
         'occurred_at',
+        'in_transit',
+        'transit_user_uuid',
+        'is_reserved',
+    ];
+
+    protected $casts = [
+        'in_transit' => 'boolean',
+        'is_reserved' => 'boolean',
     ];
 
     /**
@@ -52,5 +60,13 @@ class RequestContainerAllocation extends Model
     public function requestItem(): BelongsTo
     {
         return $this->belongsTo(MaterialRequestItem::class, 'material_request_item_uuid', 'uuid');
+    }
+
+    /**
+     * Get the user who is transporting the container.
+     */
+    public function transitUser()
+    {
+        return $this->belongsTo(User::class, 'transit_user_uuid', 'uuid');
     }
 }

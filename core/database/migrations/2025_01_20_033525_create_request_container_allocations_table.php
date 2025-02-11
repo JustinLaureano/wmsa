@@ -20,6 +20,12 @@ return new class extends Migration
             $table->foreignUuid('material_container_uuid')
                 ->references('uuid')
                 ->on('material_containers');
+            $table->boolean('in_transit')->default(false);
+            $table->foreignUuid('transit_user_uuid')
+                ->references('uuid')
+                ->on('users')
+                ->nullable();
+            $table->boolean('is_reserved')->default(false); 
             $table->timestamp('occurred_at');
         });
     }

@@ -68,6 +68,9 @@ class AttemptRequestContainerAllocation implements ShouldQueue
                             ->store(new RequestContainerAllocationData(
                                 material_request_item_uuid: $this->item->uuid,
                                 material_container_uuid: $container->uuid,
+                                in_transit: false,
+                                transit_user_uuid: null,
+                                is_reserved: false
                             ));
                     });
 
