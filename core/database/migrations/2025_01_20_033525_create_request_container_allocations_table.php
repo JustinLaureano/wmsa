@@ -22,9 +22,9 @@ return new class extends Migration
                 ->on('material_containers');
             $table->boolean('in_transit')->default(false);
             $table->foreignUuid('transit_user_uuid')
+                ->nullable()
                 ->references('uuid')
-                ->on('users')
-                ->nullable();
+                ->on('users');
             $table->boolean('is_reserved')->default(false); 
             $table->timestamp('occurred_at');
         });

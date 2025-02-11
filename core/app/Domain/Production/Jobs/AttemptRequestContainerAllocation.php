@@ -78,6 +78,7 @@ class AttemptRequestContainerAllocation implements ShouldQueue
 
                 }
                 catch (Exception $e) {
+                    logger()->error('Error allocating container: ' . $e->getMessage());
                     $containers->prepend($container);
                     $cycles = 25;
                     continue;
