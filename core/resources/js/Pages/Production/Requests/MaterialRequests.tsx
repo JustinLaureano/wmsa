@@ -15,6 +15,9 @@ import {
     TableRow,
     TableCell,
     TableHead,
+    Paper,
+    Tabs,
+    Tab,
 } from '@mui/material';
 
 interface MaterialRequestsProps {
@@ -25,65 +28,82 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const { lang } = useContext(LanguageContext);
     const list = requests.data;
 
-    console.log(list);
-
     return (
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <Stack spacing={2} sx={{
-                maxWidth: '1000px',
-                margin: '0 auto',
-            }}>
-                {list.map((request) => {
-                    return (
-                        <Card key={request.uuid}>
-                            <CardHeader title={request.title} />
-                            <CardContent>
-                                <Stack justifyContent="space-between">
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="body2">Requester: {request.requester_name}</Typography>
-                                        <Typography variant="body2">Requested: {request.requested_at}</Typography>
-                                        <Typography variant="body2">Status: {request.status}</Typography>
-                                    </Stack>
-                                    <Box sx={{ width: '100%', mt: 2 }}>
-                                        <Typography variant="h6">Items</Typography>
-                                        {request.items.map((item) => {
-                                            return (
-                                                <Box key={item.uuid}>
-                                                    <Table size="small">
-                                                        <TableHead>
-                                                            <TableRow>
-                                                                <TableCell>Part Number</TableCell>
-                                                                <TableCell>Location</TableCell>
-                                                                <TableCell>Quantity</TableCell>
-                                                                <TableCell>Container</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>{item.material_part_number}</TableCell>
-                                                                <TableCell>{item.machine_name || item.storage_location_name}</TableCell>
-                                                                <TableCell>
-                                                                    {item.quantity_delivered} / {item.quantity_requested} {item.unit_of_measure}
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    {item.container_allocation?.location || '-na'}
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </Box>
-                                            );
-                                        })}
-                                    </Box>
-                                </Stack>
+            <Paper variant="outlined" sx={{ width: '70vw', margin: '0 auto', py: 5 }}>
 
-                            </CardContent>
-                        </Card>
-                    );
-                })}
-            </Stack>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
+                    <Tabs
+                        value={0}
+                        sx={{
+                            '& .MuiTabs-flexContainer': {
+                                justifyContent: 'center',
+                            }
+                        }}
+                    >
+                        <Tab label="Open" />
+                        <Tab label="Completed" />
+                        <Tab label="Canceled" />
+                        <Tab label="All" />
+                    </Tabs>
+                </Box>
+
+
+                <Stack spacing={2} sx={{
+                    maxWidth: '1000px',
+                    margin: '0 auto',
+                }}>
+                    {list.map((request) => {
+                        return (
+                            <Card key={request.uuid}>
+                                <CardHeader title={request.title} />
+                                <CardContent>
+                                    <Stack justifyContent="space-between">
+                                        <Stack direction="row" justifyContent="space-between">
+                                            <Typography variant="body2">Requester: {request.requester_name}</Typography>
+                                            <Typography variant="body2">Requested: {request.requested_at}</Typography>
+                                            <Typography variant="body2">Status: {request.status}</Typography>
+                                        </Stack>
+                                        <Box sx={{ width: '100%', mt: 2 }}>
+                                            <Typography variant="h6">Items</Typography>
+                                            {request.items.map((item) => {
+                                                return (
+                                                    <Box key={item.uuid}>
+                                                        <Table size="small">
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell>Part Number</TableCell>
+                                                                    <TableCell>Location</TableCell>
+                                                                    <TableCell>Quantity</TableCell>
+                                                                    <TableCell>Container</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                            <TableBody>
+                                                                <TableRow>
+                                                                    <TableCell>{item.material_part_number}</TableCell>
+                                                                    <TableCell>{item.machine_name || item.storage_location_name}</TableCell>
+                                                                    <TableCell>
+                                                                        {item.quantity_delivered} / {item.quantity_requested} {item.unit_of_measure}
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        {item.container_allocation?.location || '-na'}
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            </TableBody>
+                                                        </Table>
+                                                    </Box>
+                                                );
+                                            })}
+                                        </Box>
+                                    </Stack>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
+                </Stack>
+            </Paper>
 
         </SidebarLayout>
     );
