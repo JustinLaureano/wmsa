@@ -4,7 +4,6 @@ namespace App\Http\Resources\Production;
 
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Domain\Production\Enums\RequestItemStatusEnum;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +18,7 @@ class MaterialRequestItemListResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
+            'description' => $this->getDescription(),
             'material_part_number' => $this->material->part_number,
             'material_description' => $this->material->description,
             'quantity_requested' => $this->quantity_requested,
@@ -31,27 +31,12 @@ class MaterialRequestItemListResource extends JsonResource
     }
 
     /**
-     * Return a formatted date string of the date the message was sent.
+     * Return the description of the request item.
      */
-    protected function getRequestedAtDate() : string
+    protected function getDescription() : string
     {
-        return (new Carbon( $this->requested_at ))->format('n/j g:i A');
-    }
+        $locationName = $this->machine->name ?? $this->storageLocation->name;
 
-    /**
-     * Return the name of the requester.
-     */
-    protected function getRequesterName() : string
-    {
-        return $this->requester?->teammate?->first_name . ' ' . $this->requester?->teammate?->last_name;
-    }
-
-    /**
-     * Return the title of the request.
-     */
-    protected function getTitle() : string
-    {
-        // TODO: get title from items
-        return 'Material Request Title for List';
+        return $this->material->part_number .' for '. $locationName;
     }
 }

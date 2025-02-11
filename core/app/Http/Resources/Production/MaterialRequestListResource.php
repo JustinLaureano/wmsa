@@ -49,7 +49,13 @@ class MaterialRequestListResource extends JsonResource
      */
     protected function getTitle() : string
     {
-        // TODO: get title from items
-        return 'Material Request Title for List';
+        if (!count($this->items)) {
+            return '';
+        }
+
+        $item = $this->items->first();
+        $locationName = $item->machine->name ?? $item->storageLocation->name;
+
+        return $item->material->part_number .' for '. $locationName;
     }
 }

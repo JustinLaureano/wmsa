@@ -31,7 +31,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                         {
                                             request.items.map((item) => {
                                                 return (
-                                                    <Typography key={item.uuid} variant="body1">{item.material_part_number}</Typography>
+                                                    <Typography key={item.uuid} variant="body1">{item.description}</Typography>
                                                 );
                                             })
                                         }
