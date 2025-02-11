@@ -15,7 +15,7 @@ class RequestContainerAllocation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->ulid = Str::ulid();
+            $model->uuid = Str::uuid();
             $model->occurred_at = now();
         });
     }
@@ -33,7 +33,7 @@ class RequestContainerAllocation extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'material_request_uuid',
+        'material_request_item_uuid',
         'material_container_uuid',
         'occurred_at',
     ];
@@ -47,10 +47,10 @@ class RequestContainerAllocation extends Model
     }
 
     /**
-     * Get the request for this allocation.
+     * Get the request item for this allocation.
      */
-    public function materialRequest(): BelongsTo
+    public function requestItem(): BelongsTo
     {
-        return $this->belongsTo(MaterialRequest::class, 'material_request_uuid', 'uuid');
+        return $this->belongsTo(MaterialRequestItem::class, 'material_request_item_uuid', 'uuid');
     }
 }

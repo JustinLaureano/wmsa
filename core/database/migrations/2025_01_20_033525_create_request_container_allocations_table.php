@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('request_container_allocations', function (Blueprint $table) {
             $table->id();
             $table->ulid()->index();
-            $table->foreignUuid('material_request_uuid')
+            $table->foreignUuid('material_request_item_uuid')
                 ->references('uuid')
-                ->on('material_requests');
+                ->on('material_request_items');
             $table->foreignUuid('material_container_uuid')
                 ->references('uuid')
                 ->on('material_containers');

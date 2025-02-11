@@ -38,7 +38,7 @@ class MaterialContainerRepository
         $data = new MaterialContainerData(
             material_uuid: $material->uuid,
             material_container_type_id: null,
-            movement_status_id: $movementStatus->id,
+            movement_status_code: $movementStatus->id,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),
         );

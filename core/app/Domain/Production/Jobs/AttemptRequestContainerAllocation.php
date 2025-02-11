@@ -4,7 +4,7 @@ namespace App\Domain\Production\Jobs;
 
 use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Models\MaterialContainer;
-use App\Models\MaterialRequest;
+use App\Models\MaterialRequestItem;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -17,10 +17,10 @@ class AttemptRequestContainerAllocation implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public MaterialRequest $request,
+        public MaterialRequestItem $requestItem,
     )
     {
-        $this->request->load(['material', 'machine', 'storageLocation']);
+        $this->requestItem->load(['material', 'machine', 'storageLocation']);
     }
 
     /**
@@ -28,24 +28,27 @@ class AttemptRequestContainerAllocation implements ShouldQueue
      */
     public function handle(): void
     {
-        logger()->info('Attempting to allocate container for request: ' . $this->request->uuid);
-        logger()->info($this->request->toArray());
+        logger()->info('Attempting to allocate container for request item: ' . $this->requestItem->uuid);
+        logger()->info($this->requestItem->toArray());
 
-        if ($this->request->storageLocation) {
-            $building = $this->request->storageLocation->building;
+        if ($this->requestItem->storageLocation) {
+            $building = $this->requestItem->storageLocation->building;
         }
-        else if ($this->request->machine) {
-            $building = $this->request->machine->building;
+        else if ($this->requestItem->machine) {
+            $building = $this->requestItem->machine->building;
         }
         else {
-            throw new Exception('Request does not have a storage location or machine');
+            throw new Exception('Request item does not have a storage location or machine');
         }
 
         // TODO: finalize query and move to a service class or a stored procedure
         $containers = MaterialContainer::has('location')
-            ->where('movement_status_id', MovementStatusEnum::UNRESTRICTED->value)
+            ->where('movement_status_code', MovementStatusEnum::UNRESTRICTED->value)
             ->get();
 
+        logger()->info('Containers: ' . $containers->count());
+        logger()->info($containers->toArray());
+        logger()->info('************************************************');
         /**
          * TODO:
          *  find the most appropriate container for the request based on FIFO rules

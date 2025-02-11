@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -71,18 +72,18 @@ class MaterialRequestItem extends Model
         return $this->hasOne(RequestItemStatus::class, 'code', 'request_item_status_code');
     }
 
-    // /**
-    //  * Get the container allocation for this request.
-    //  */
-    // public function containerAllocation(): HasOneThrough
-    // {
-    //     return $this->hasOneThrough(
-    //         MaterialContainer::class,
-    //         RequestContainerAllocation::class,
-    //         'material_request_uuid',
-    //         'uuid',
-    //         'uuid',
-    //         'material_container_uuid'
-    //     );
-    // }
+    /**
+     * Get the container allocation for this request.
+     */
+    public function containerAllocation(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            MaterialContainer::class,
+            RequestContainerAllocation::class,
+            'material_request_item_uuid',
+            'uuid',
+            'uuid',
+            'material_container_uuid'
+        );
+    }
 }

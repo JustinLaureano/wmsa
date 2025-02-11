@@ -47,23 +47,7 @@ class MaterialRequest extends Model
      */
     public function items(): HasMany
     {
-        return $this->hasMany(MaterialRequestItem::class, 'uuid', 'material_request_uuid');
-    }
-
-    /**
-     * Get the status for this request.
-     */
-    public function materialRequestStatus()
-    {
-        return $this->hasOne(MaterialRequestStatus::class, 'code', 'material_request_status_code');
-    }
-
-    /**
-     * Get the type for this request.
-     */
-    public function materialRequestType()
-    {
-        return $this->hasOne(MaterialRequestType::class, 'code', 'material_request_type_code');
+        return $this->hasMany(MaterialRequestItem::class, 'material_request_uuid', 'uuid');
     }
 
     /**
@@ -73,12 +57,20 @@ class MaterialRequest extends Model
     {
         return $this->hasOne(User::class, 'uuid', 'requester_user_uuid');
     }
-
+    
     /**
      * Get the status for this request.
      */
     public function status(): HasOne
     {
         return $this->hasOne(MaterialRequestStatus::class, 'code', 'material_request_status_code');
+    }
+
+    /**
+     * Get the type for this request.
+     */
+    public function type()
+    {
+        return $this->hasOne(MaterialRequestType::class, 'code', 'material_request_type_code');
     }
 }

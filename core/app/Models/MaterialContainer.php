@@ -32,7 +32,7 @@ class MaterialContainer extends Model
     protected $fillable = [
         'material_uuid',
         'material_container_type_id',
-        'movement_status_id',
+        'movement_status_code',
         'barcode',
         'lot_number',
         'quantity',
@@ -97,7 +97,7 @@ class MaterialContainer extends Model
     {
         return $this->hasOne(
                 MovementStatus::class,
-                'movement_status_id',
+                'movement_status_code',
                 'id'
             );
     }
