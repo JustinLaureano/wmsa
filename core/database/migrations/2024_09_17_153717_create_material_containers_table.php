@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('barcode', 100)->index();
             $table->string('lot_number', 12);
             $table->integer('quantity');
+            $table->date('expiration_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

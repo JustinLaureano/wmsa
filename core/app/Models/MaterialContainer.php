@@ -36,6 +36,11 @@ class MaterialContainer extends Model
         'barcode',
         'lot_number',
         'quantity',
+        'expiration_date',
+    ];
+
+    protected $casts = [
+        'expiration_date' => 'datetime',
     ];
 
     /**
@@ -60,7 +65,7 @@ class MaterialContainer extends Model
      */
     public function material(): HasOne
     {
-        return $this->hasOne(Material::class, 'material_uuid', 'uuid');
+        return $this->hasOne(Material::class, 'uuid', 'material_uuid');
     }
 
     /**

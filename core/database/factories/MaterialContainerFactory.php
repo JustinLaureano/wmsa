@@ -37,6 +37,7 @@ class MaterialContainerFactory extends Factory
             barcode: $barcode->getBarcode(),
             lot_number: $barcode->getLotNumber(),
             quantity: $barcode->getQuantity(),
+            expiration_date: $barcode->getExpirationDate()
         );
 
         return $data->toArray();
