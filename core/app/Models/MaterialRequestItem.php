@@ -6,13 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class MaterialRequestItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
+    }
+
     protected $fillable = [
-        'uuid',
         'material_request_uuid',
         'material_uuid',
         'quantity_requested',
@@ -62,4 +70,19 @@ class MaterialRequestItem extends Model
     {
         return $this->hasOne(RequestItemStatus::class, 'code', 'request_item_status_code');
     }
+
+    // /**
+    //  * Get the container allocation for this request.
+    //  */
+    // public function containerAllocation(): HasOneThrough
+    // {
+    //     return $this->hasOneThrough(
+    //         MaterialContainer::class,
+    //         RequestContainerAllocation::class,
+    //         'material_request_uuid',
+    //         'uuid',
+    //         'uuid',
+    //         'material_container_uuid'
+    //     );
+    // }
 }

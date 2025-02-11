@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MaterialRequestResource extends JsonResource
+class MaterialRequestItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,32 +21,25 @@ class MaterialRequestResource extends JsonResource
             'uuid' => $this->uuid,
             'attributes' => $this->resource->getAttributes(),
             'relations' => [
+                'material' => $this->material,
+                'machine' => $this->machine,
                 'status' => $this->status,
+                'storage_location' => $this->storageLocation,
                 'requester' => $this->requester,
+                'container_allocation' => $this->containerAllocation,
             ],
             'computed' => [
                 'title' => $this->getTitle(),
-                'requester_name' => $this->getRequesterName(),
-                'requested_at' => $this->getRequestedAtDate(),
+                'material_part_number' => $this->material->part_number,
+                'material_description' => $this->material->description,
+                'machine_name' => $this->machine?->name,
+                'storage_location_name' => $this->storageLocation?->name,
                 'status' => RequestStatusEnum::from($this->status?->code)->label(),
+                'quantity_requested' => $this->quantity_requested,
+                'quantity_delivered' => $this->quantity_delivered,
+                'unit_of_measure' => UnitOfMeasureEnum::from($this->unit_of_measure)->label(),
             ]
         ];
-    }
-
-    /**
-     * Return a formatted date string of the date the message was sent.
-     */
-    protected function getRequestedAtDate() : string
-    {
-        return (new Carbon( $this->requested_at ))->format('n/j g:i A');
-    }
-
-    /**
-     * Return the name of the requester.
-     */
-    protected function getRequesterName() : string
-    {
-        return $this->requester?->teammate?->first_name . ' ' . $this->requester?->teammate?->last_name;
     }
 
     /**
@@ -54,7 +47,8 @@ class MaterialRequestResource extends JsonResource
      */
     protected function getTitle() : string
     {
-        // TODO: get title from items
-        return 'Material Request Title';
+        $locationName = $this->machine ? $this->machine->name : $this->storageLocation?->name;
+
+        return $this->material->part_number .' to '. $locationName;
     }
 }

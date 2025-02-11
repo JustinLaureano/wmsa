@@ -11,6 +11,8 @@ class CreateMaterialRequest extends Controller
 {
     /**
      * Handle the incoming request.
+     * 
+     * TODO: simplify all of this dto stuff
      */
     public function __invoke(InitiateMaterialRequestData $data, CreateMaterialRequestAction $action)
     {

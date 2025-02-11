@@ -40,15 +40,6 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                     </Box>
                                 </Stack>
 
-
-                                {/* <Typography variant="h6">{request.computed.title}</Typography>
-                                <p>{request.computed.material_part_number}</p>
-                                <p>{request.computed.material_description}</p>
-                                <p>{request.computed.machine_name}</p>
-                                <p>{request.computed.storage_location_name}</p>
-                                <p>{request.computed.requester_name}</p>
-                                <p>{request.computed.requested_at}</p>
-                                <p>{request.computed.status}</p> */}
                             </CardContent>
                         </Card>
                     );

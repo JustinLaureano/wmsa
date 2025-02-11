@@ -3,14 +3,12 @@
 namespace Database\Factories;
 
 use App\Domain\Production\Enums\RequestItemStatusEnum;
-use App\Models\MaterialRequestItem;
 use App\Models\MaterialRequest;
 use App\Models\Material;
 use App\Models\Machine;
 use App\Models\StorageLocation;
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialRequestItem>
@@ -34,7 +32,6 @@ class MaterialRequestItemFactory extends Factory
         }
 
         return [
-            'uuid' => Str::uuid(),
             'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()->uuid,
             'material_uuid' => Material::query()->inRandomOrder()->first()->uuid,
             'quantity_requested' => 1,

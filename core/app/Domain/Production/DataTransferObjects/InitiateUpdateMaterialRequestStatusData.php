@@ -25,4 +25,4 @@ class InitiateUpdateMaterialRequestStatusData extends Data
             ]
         ];
     }
-} 
+}

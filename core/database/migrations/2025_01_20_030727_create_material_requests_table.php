@@ -15,19 +15,6 @@ return new class extends Migration
         Schema::create('material_requests', function (Blueprint $table) {
             $table->id();
             $table->uuid()->index();
-            $table->foreignUuid('material_uuid')
-                ->references('uuid')
-                ->on('materials');
-            $table->integer('quantity');
-            $table->string('unit_of_measure', 12);
-            $table->foreignUuid('machine_uuid')
-                ->nullable()
-                ->references('uuid')
-                ->on('machines');
-            $table->foreignUuid('storage_location_uuid')
-                ->nullable()
-                ->references('uuid')
-                ->on('storage_locations');
             $table->foreignUuid('material_request_status_code')
                 ->references('code')
                 ->on('material_request_statuses');
