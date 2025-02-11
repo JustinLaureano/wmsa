@@ -41,7 +41,7 @@ class CreateNewMaterialRequest implements ShouldQueue
 
         MaterialRequestCreated::dispatch();
 
-        AttemptRequestContainerAllocation::dispatch($this->materialRequest);
+        // AttemptRequestContainerAllocation::dispatch($this->materialRequest);
     }
 
     protected function storeMaterialRequest() : void
@@ -70,5 +70,14 @@ class CreateNewMaterialRequest implements ShouldQueue
         //         event_data: [],
         //         occurred_at: Carbon::now(),
         //     ));
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(\Throwable $exception): void
+    {
+        // Send user notification of failure, etc...
+        logger()->error('Failed to create material request: ' . $exception->getMessage());
     }
 }

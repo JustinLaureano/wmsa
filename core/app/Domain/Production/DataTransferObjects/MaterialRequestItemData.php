@@ -7,6 +7,7 @@ use Spatie\LaravelData\Data;
 class MaterialRequestItemData extends Data
 {
     public function __construct(
+        public readonly string $uuid,
         public readonly string $material_request_uuid,
         public readonly string $material_uuid,
         public readonly int $quantity_requested,

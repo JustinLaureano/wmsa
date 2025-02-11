@@ -6,6 +6,7 @@ use App\Domain\Production\DataTransferObjects\MaterialRequestItemData;
 use App\Models\MaterialRequestItem;
 use App\Models\MaterialRequest;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class MaterialRequestItemRepository
 {
@@ -44,6 +45,7 @@ class MaterialRequestItemRepository
     {
         $data = $items->reduce(function ($carry, $item) use ($materialRequest) {
             $item = new MaterialRequestItemData(
+                uuid: Str::uuid(),
                 material_request_uuid: $materialRequest->uuid,
                 material_uuid: $item->material_uuid,
                 quantity_requested: $item->quantity_requested,
@@ -54,7 +56,10 @@ class MaterialRequestItemRepository
                 request_item_status_code: $item->request_item_status_code,
             );
 
-            $carry[] = $item->toArray();
+            $carry[] = array_merge($item->toArray(), [
+                'created_at' => $materialRequest->created_at,
+                'updated_at' => $materialRequest->updated_at,
+            ]);
 
             return $carry;
         }, []);

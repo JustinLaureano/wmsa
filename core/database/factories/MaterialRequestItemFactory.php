@@ -32,7 +32,7 @@ class MaterialRequestItemFactory extends Factory
         }
 
         return [
-            'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()->uuid,
+            'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()?->uuid || null,
             'material_uuid' => Material::query()->inRandomOrder()->first()->uuid,
             'quantity_requested' => 1,
             'quantity_delivered' => 0,
