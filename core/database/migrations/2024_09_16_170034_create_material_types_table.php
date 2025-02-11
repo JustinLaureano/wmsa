@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('material_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 30);
-            $table->string('abbreviation', 8);
+            $table->string('code', 8)->index();
             $table->timestamps();
             $table->softDeletes();
         });

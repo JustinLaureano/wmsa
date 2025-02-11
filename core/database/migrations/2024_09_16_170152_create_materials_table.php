@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('material_number', 25)->nullable();
             $table->string('part_number', 25)->nullable();
             $table->string('description', 40)->nullable();
+            $table->foreignUuid('material_type_code')
+                ->nullable()
+                ->references('code')
+                ->on('material_types');
             $table->decimal('base_quantity')->nullable();
             $table->string('base_unit_of_measure', 4)->default('EA');
             $table->timestamps();

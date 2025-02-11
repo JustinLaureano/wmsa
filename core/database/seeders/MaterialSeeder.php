@@ -36,6 +36,7 @@ class MaterialSeeder extends Seeder
                     material_number: $row['material_number'],
                     part_number: $row['part_number'],
                     description: $row['material_description'],
+                    material_type_code: null,
                     base_quantity: (float) $row['base_quantity'],
                     base_unit_of_measure: $row['base_unit_of_measure']
                 );

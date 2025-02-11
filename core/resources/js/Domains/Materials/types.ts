@@ -5,6 +5,7 @@ export interface Material {
     uuid: string;
     part_number: string;
     description: string;
+    material_type_code: string|null;
     base_quantity: number;
     base_unit_of_measure: string;
 }

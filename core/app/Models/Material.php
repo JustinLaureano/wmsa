@@ -6,7 +6,7 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
@@ -27,9 +27,9 @@ class Material extends Model
         'material_number',
         'part_number',
         'description',
-        'base_qty',
+        'material_type_code',
+        'base_quantity',
         'base_unit_of_measure',
-        'material_type_id'
     ];
 
     /**
@@ -65,9 +65,9 @@ class Material extends Model
     /**
      * Get the material type for the material.
      */
-    public function type(): BelongsTo
+    public function materialType(): HasOne
     {
-        return $this->belongsTo(MaterialType::class, 'material_type_id', 'id');
+        return $this->hasOne(MaterialType::class, 'code', 'material_type_code');
     }
 
     /**

@@ -183,7 +183,7 @@ movement_statuses:
 material_types:
     attributes:
         - name
-        - abbreviation
+        - code
     relationships:
         - materials: has many materials
 

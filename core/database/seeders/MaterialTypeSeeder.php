@@ -29,7 +29,7 @@ class MaterialTypeSeeder extends Seeder
 
             $types[] = array_merge([
                 'name' => $data[0],
-                'abbreviation' => $data[1]
+                'code' => $data[1]
             ], $this->getTimestamps());
         }
 
