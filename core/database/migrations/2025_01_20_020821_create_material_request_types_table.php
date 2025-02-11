@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('material_request_types', function (Blueprint $table) {
             $table->id();
             $table->string('code', 12)->unique();
-            $table->string('name', 12);
-            $table->text('description', 30);
+            $table->string('name', 20);
+            $table->text('description', 40);
         });
 
         Artisan::call('db:seed --class=MaterialRequestTypeSeeder');
