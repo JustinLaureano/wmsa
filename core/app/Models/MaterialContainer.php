@@ -122,4 +122,12 @@ class MaterialContainer extends Model
     {
         $query->where('uuid', $uuid);
     }
+
+    /**
+     * Scope a query to order by expiration date.
+     */
+    public function scopeOrderByExpiration(Builder $query): void
+    {
+        $query->orderBy('expiration_date', 'asc');
+    }
 }

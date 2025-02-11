@@ -3,11 +3,15 @@
 namespace App\Domain\Production\Jobs;
 
 use App\Domain\Materials\Enums\MovementStatusEnum;
+use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Models\MaterialContainer;
 use App\Models\MaterialRequestItem;
+use App\Repositories\RequestContainerAllocationRepository;
+use App\Domain\Production\DataTransferObjects\RequestContainerAllocationData;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
 
 class AttemptRequestContainerAllocation implements ShouldQueue
 {
@@ -17,10 +21,10 @@ class AttemptRequestContainerAllocation implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public MaterialRequestItem $requestItem,
+        public MaterialRequestItem $item,
     )
     {
-        $this->requestItem->load(['material', 'machine', 'storageLocation']);
+        $this->item->load(['material', 'machine', 'storageLocation']);
     }
 
     /**
@@ -28,27 +32,62 @@ class AttemptRequestContainerAllocation implements ShouldQueue
      */
     public function handle(): void
     {
-        logger()->info('Attempting to allocate container for request item: ' . $this->requestItem->uuid);
-        logger()->info($this->requestItem->toArray());
+        logger()->info('Attempting to allocate container for request item: ' . $this->item->uuid);
+        logger()->info($this->item->toArray());
 
-        if ($this->requestItem->storageLocation) {
-            $building = $this->requestItem->storageLocation->building;
+        if ($this->item->storageLocation) {
+            $building = $this->item->storageLocation->building;
         }
-        else if ($this->requestItem->machine) {
-            $building = $this->requestItem->machine->building;
+        else if ($this->item->machine) {
+            $building = $this->item->machine->building;
         }
         else {
             throw new Exception('Request item does not have a storage location or machine');
         }
 
-        // TODO: finalize query and move to a service class or a stored procedure
         $containers = MaterialContainer::has('location')
-            ->where('movement_status_code', MovementStatusEnum::UNRESTRICTED->value)
+            ->where([
+                ['material_uuid', $this->item->material_uuid],
+                ['movement_status_code', MovementStatusEnum::UNRESTRICTED->value],
+            ])
+            ->orderByExpiration()
             ->get();
+
+        $quantityNeeded = $this->item->quantity_requested - $this->item->quantity_delivered;
+        $cycles = 0;
+
+        while ($quantityNeeded > 0 && $containers->count() > 0 && $cycles < 25) {
+            $cycles++;
+
+            if ($this->item->unit_of_measure === UnitOfMeasureEnum::CONT->value) {
+                $container = $containers->shift();
+
+                try {
+                    DB::transaction(function () use ($container) {
+                        (new RequestContainerAllocationRepository)
+                            ->store(new RequestContainerAllocationData(
+                                material_request_item_uuid: $this->item->uuid,
+                                material_container_uuid: $container->uuid,
+                            ));
+                    });
+
+                    $quantityNeeded--;
+
+                }
+                catch (Exception $e) {
+                    $containers->prepend($container);
+                    $cycles = 25;
+                    continue;
+                }
+            }
+        }
 
         logger()->info('Containers: ' . $containers->count());
         logger()->info($containers->toArray());
         logger()->info('************************************************');
+
+
+
         /**
          * TODO:
          *  find the most appropriate container for the request based on FIFO rules
