@@ -10,6 +10,7 @@ use App\Models\Material;
 use App\Models\StorageLocation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MaterialRequest>
@@ -33,6 +34,7 @@ class MaterialRequestFactory extends Factory
         }
 
         return [
+            'uuid' => Str::uuid(),
             'material_uuid' => Material::query()->inRandomOrder()->first()->uuid,
             'quantity' => 1,
             'unit_of_measure' => UnitOfMeasureEnum::CONT->value,
