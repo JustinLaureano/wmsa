@@ -60,6 +60,9 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
     const baseTheme = createTheme();
 
+    const shadows = baseTheme.shadows;
+    shadows[1] = '0px 1px 3px rgba(183 183 183 / 40%)';
+
     const theme = useMemo(
         () => createTheme({
             palette: {
@@ -198,6 +201,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                 },
             },
 
+            shadows,
 
             shape: {
                 borderRadius: 8,
