@@ -3,12 +3,12 @@
 namespace App\Http\Resources\Production;
 
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
-use App\Domain\Production\Enums\RequestStatusEnum;
+use App\Domain\Production\Enums\RequestItemStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MaterialRequestResource extends JsonResource
+class MaterialRequestItemListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,18 +19,14 @@ class MaterialRequestResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'attributes' => $this->resource->getAttributes(),
-            'relations' => [
-                'status' => $this->status,
-                'requester' => $this->requester,
-                'items' => $this->items,
-            ],
-            'computed' => [
-                'title' => $this->getTitle(),
-                'requester_name' => $this->getRequesterName(),
-                'requested_at' => $this->getRequestedAtDate(),
-                'status' => RequestStatusEnum::from($this->status?->code)->label(),
-            ]
+            'material_part_number' => $this->material->part_number,
+            'material_description' => $this->material->description,
+            'quantity_requested' => $this->quantity_requested,
+            'quantity_delivered' => $this->quantity_delivered,
+            'unit_of_measure' => UnitOfMeasureEnum::from($this->unit_of_measure)->label(),
+            'machine_name' => $this->machine?->name,
+            'storage_location_name' => $this->storage_location?->name,
+            'status' => RequestItemStatusEnum::from($this->status?->code)->label(),
         ];
     }
 
@@ -56,6 +52,6 @@ class MaterialRequestResource extends JsonResource
     protected function getTitle() : string
     {
         // TODO: get title from items
-        return 'Material Request Title';
+        return 'Material Request Title for List';
     }
 }

@@ -12,7 +12,7 @@ class MaterialRequestListCollection extends ResourceCollection
      *
      * @var string
      */
-    public $collects = MaterialRequestResource::class;
+    public $collects = MaterialRequestListResource::class;
 
     public function setCollection($collection) {
         $this->collects = $collection;

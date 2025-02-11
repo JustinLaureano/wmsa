@@ -23,19 +23,17 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                 {list.map((request) => {
                     return (
                         <Card key={request.uuid}>
-                            <CardHeader title={request.computed.title} />
+                            <CardHeader title={request.title} />
                             <CardContent>
                                 <Stack direction="row" justifyContent="space-between">
                                     <Box>
-                                        <Typography variant="h6">Preferred Material</Typography>
+                                        <Typography variant="h6">Items</Typography>
                                         {
-                                            request.relations.container_allocation && (
-                                                <Stack>
-                                                    <Typography variant="body1">Qty: {request.relations.container_allocation.quantity}</Typography>
-                                                    <Typography variant="body1">Lot: {request.relations.container_allocation.lot_number}</Typography>
-                                                    <Typography variant="body1">Container: {request.relations.container_allocation.container_type.name}</Typography>
-                                                </Stack>
-                                            )
+                                            request.items.map((item) => {
+                                                return (
+                                                    <Typography key={item.uuid} variant="body1">{item.material_part_number}</Typography>
+                                                );
+                                            })
                                         }
                                     </Box>
                                 </Stack>

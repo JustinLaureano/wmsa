@@ -20,7 +20,7 @@ export interface MaterialRequestResource {
 }
 
 export interface MaterialRequestListCollection {
-    data: MaterialRequestResource[];
+    data: MaterialRequestListResource[];
     computed: JsonObject;
     meta: JsonObject;
 }
@@ -30,6 +30,28 @@ export interface MaterialRequestResource {
     attributes: MaterialRequestAttributes;
     computed: MaterialRequestComputed;
     relations: MaterialRequestRelations;
+}
+
+export interface MaterialRequestListResource extends JsonObject {
+    uuid: string;
+    title: string;
+    requester_name: string;
+    requested_at: string;
+    status: string;
+    type: string;
+    items: MaterialRequestItemListResource[];
+}
+
+export interface MaterialRequestItemListResource extends JsonObject {
+    uuid: string;
+    material_part_number: string;
+    material_description: string;
+    quantity_requested: number;
+    quantity_delivered: number;
+    unit_of_measure: string;
+    machine_name: string | null;
+    storage_location_name: string | null;
+    status: string;
 }
 
 interface MaterialRequestAttributes extends JsonObject {}

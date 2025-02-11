@@ -43,12 +43,16 @@ class MaterialRequestRepository
             ->latest()
             ->limit($limit)
             ->with([
-                'material',
-                'machine',
                 'status',
-                'storageLocation',
-                'requester',
-                'containerAllocation.containerType',
+                'type',
+                'requester.teammate',
+                'items' => [
+                    'material',
+                    'machine',
+                    'storageLocation',
+                    'containerAllocation',
+                    'status'
+                ]
             ])
             ->get();
     }

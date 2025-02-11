@@ -33,6 +33,17 @@ class MaterialRequestItem extends Model
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
      * Get the material request for this item.
      */
     public function materialRequest()
