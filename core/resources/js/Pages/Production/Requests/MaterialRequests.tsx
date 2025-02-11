@@ -41,11 +41,11 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                             <CardHeader title={request.title} />
                             <CardContent>
                                 <Stack justifyContent="space-between">
-                                    <Box>
+                                    <Stack direction="row" justifyContent="space-between">
                                         <Typography variant="body2">Requester: {request.requester_name}</Typography>
                                         <Typography variant="body2">Requested: {request.requested_at}</Typography>
                                         <Typography variant="body2">Status: {request.status}</Typography>
-                                    </Box>
+                                    </Stack>
                                     <Box sx={{ width: '100%', mt: 2 }}>
                                         <Typography variant="h6">Items</Typography>
                                         {request.items.map((item) => {

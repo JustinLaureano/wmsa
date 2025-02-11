@@ -61,7 +61,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
     const baseTheme = createTheme();
 
     const shadows = baseTheme.shadows;
-    shadows[1] = '0px 1px 3px rgba(183 183 183 / 40%)';
+    shadows[1] = '0px 1px 3px rgba(155 155 155 / 40%)';
 
     const theme = useMemo(
         () => createTheme({
