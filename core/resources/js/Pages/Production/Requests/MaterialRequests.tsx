@@ -32,7 +32,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <Paper variant="outlined" sx={{ width: '70vw', margin: '0 auto', py: 5 }}>
+            <Paper variant="outlined" sx={{ maxWidth: '1100px', width: '90vw', margin: '0 auto', p: 5 }}>
 
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
                     <Tabs
