@@ -8,6 +8,7 @@ enum MaterialTypeEnum: string
     case SEMI_FINISHED_GOODS = 'semi-finished-goods';
     case FINISHED_GOODS = 'finished-goods';
     case PACKAGING_MATERIALS = 'packaging-materials';
+    case MISCELLANEOUS = 'miscellaneous';
 
     public function label(): string
     {
@@ -16,6 +17,7 @@ enum MaterialTypeEnum: string
             self::SEMI_FINISHED_GOODS => 'Semi-Finished Goods',
             self::FINISHED_GOODS => 'Finished Goods',
             self::PACKAGING_MATERIALS => 'Packaging Materials',
+            self::MISCELLANEOUS => 'Miscellaneous',
         };
     }
 }

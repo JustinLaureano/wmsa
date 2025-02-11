@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         Part::factory(5)->create();
 
         Location::factory(10)->create();
+
+        $this->call([
+            MaterialRequestSeeder::class,
+            DeliveryDocumentSeeder::class,
+        ]);
     }
 }
