@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Production\DataTransferObjects;
+namespace App\Domain\Production\DataTransferObjects\Actions;
 
 use App\Models\MaterialRequest;
 use Spatie\LaravelData\Data;
 
-class UpdateMaterialRequestStatusData extends Data
+class UpdateMaterialRequestStatusActionData extends Data
 {
     public function __construct(
         public readonly MaterialRequest $materialRequest,

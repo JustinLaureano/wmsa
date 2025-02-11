@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Domain\Production\DataTransferObjects;
+namespace App\Domain\Production\DataTransferObjects\Requests;
 
 use Spatie\LaravelData\Data;
-use App\Domain\Production\Enums\RequestItemStatusEnum;
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 
-class MaterialRequestItemActionData extends Data
+class CreateMaterialRequestItemPayload extends Data
 {
     public function __construct(
         public readonly string $material_uuid,
         public readonly int $quantity_requested,
-        public readonly int $quantity_delivered,
         public readonly string $unit_of_measure,
         public readonly string|null $machine_uuid,
-        public readonly string|null $storage_location_uuid,
-        public readonly string $request_item_status_code,
+        public readonly string|null $storage_location_uuid
     )
     {
 
@@ -33,11 +30,6 @@ class MaterialRequestItemActionData extends Data
                 'integer',
                 'min:0'
             ],
-            'quantity_delivered' => [
-                'required',
-                'integer',
-                'min:0'
-            ],
             'unit_of_measure' => [
                 'required',
                 'string',
@@ -50,11 +42,6 @@ class MaterialRequestItemActionData extends Data
             'storage_location_uuid' => [
                 'nullable',
                 'exists:storage_locations,uuid'
-            ],
-            'request_item_status_code' => [
-                'required',
-                'string',
-                'in:' . implode(',', RequestItemStatusEnum::cases())
             ]
         ];
     }

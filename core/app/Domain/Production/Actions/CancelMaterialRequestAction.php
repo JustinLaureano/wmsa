@@ -2,13 +2,13 @@
 
 namespace App\Domain\Production\Actions;
 
-use App\Domain\Production\DataTransferObjects\UpdateMaterialRequestStatusData;
+use App\Domain\Production\DataTransferObjects\Actions\UpdateMaterialRequestStatusActionData;
 use App\Domain\Production\Jobs\CancelMaterialRequest;
 
 class CancelMaterialRequestAction
 {
-    public function handle(UpdateMaterialRequestStatusData $data): void
+    public function handle(UpdateMaterialRequestStatusActionData $data): void
     {
-        CancelMaterialRequest::dispatch($data->uuid);
+        CancelMaterialRequest::dispatch($data->materialRequest->uuid);
     }
 } 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Production\DataTransferObjects;
+namespace App\Domain\Production\DataTransferObjects\Requests;
 
 use Spatie\LaravelData\Data;
 
-class InitiateUpdateMaterialRequestStatusData extends Data
+class UpdateMaterialRequestStatusPayload extends Data
 {
     public function __construct(
         public readonly string $uuid,

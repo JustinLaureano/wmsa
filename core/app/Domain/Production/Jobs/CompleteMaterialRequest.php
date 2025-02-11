@@ -4,7 +4,7 @@ namespace App\Domain\Production\Jobs;
 
 use App\Domain\Production\Events\MaterialRequestCompleted;
 use App\Domain\Production\Enums\RequestStatusEnum;
-use App\Domain\Production\DataTransferObjects\UpdateMaterialRequestStatusData;
+use App\Domain\Production\DataTransferObjects\Actions\UpdateMaterialRequestStatusActionData;
 use App\Repositories\MaterialRequestRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +20,7 @@ class CompleteMaterialRequest implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public UpdateMaterialRequestStatusData $data,
+        public UpdateMaterialRequestStatusActionData $data,
     ) {
         //
     }

@@ -3,44 +3,42 @@
 namespace App\Domain\Production\Transformers;
 
 use App\Domain\Production\Enums\RequestStatusEnum;
-use App\Domain\Production\DataTransferObjects\MaterialRequestActionData;
-use App\Domain\Production\DataTransferObjects\InitiateMaterialRequestData;
+use App\Domain\Production\DataTransferObjects\Actions\MaterialRequestActionData;
+use App\Domain\Production\DataTransferObjects\Requests\CreateMaterialRequestPayload;
+use App\Domain\Production\DataTransferObjects\Requests\UpdateMaterialRequestStatusPayload;
+use App\Domain\Production\DataTransferObjects\Actions\UpdateMaterialRequestStatusActionData;
 use App\Domain\Production\Resolvers\RequesterResolver;
 use App\Domain\Production\Transformers\MaterialRequestItemTransformer;
-use Carbon\Carbon;
-use App\Domain\Production\DataTransferObjects\InitiateUpdateMaterialRequestStatusData;
-use App\Domain\Production\DataTransferObjects\UpdateMaterialRequestStatusData;
 use App\Repositories\MaterialRequestRepository;
+use Carbon\Carbon;
 
 class MaterialRequestTransformer
 {
-    public static function initiateToActionData(InitiateMaterialRequestData $data) : MaterialRequestActionData
+    /**
+     * Return an action data object from a create material request payload.
+     */
+    public static function createPayloadToActionData(CreateMaterialRequestPayload $data) : MaterialRequestActionData
     {
-        $statusCode = RequestStatusEnum::OPEN->value;
-        $requester = RequesterResolver::getRequester($data->requester_user_uuid);
-        $requestedAt = new Carbon($data->requested_at);
-
-        $items = [];
-        foreach ($data->items as $item) {
-            $items[] = MaterialRequestItemTransformer::payloadToActionData($item);
-        }
+        $items = collect($data->items)->map(function ($item) {
+            return MaterialRequestItemTransformer::payloadToActionData($item);
+        });
 
         return new MaterialRequestActionData(
             items: $items,
-            material_request_status_code: $statusCode,
-            requester: $requester,
-            requested_at: $requestedAt
+            material_request_status_code: RequestStatusEnum::OPEN->value,
+            requester: RequesterResolver::getRequester($data->requester_user_uuid),
+            requested_at: new Carbon($data->requested_at)
         );
     }
 
-    public static function initiateUpdateStatusToActionData(InitiateUpdateMaterialRequestStatusData $data) : UpdateMaterialRequestStatusData
+    /**
+     * Return an action data object from an update material request status payload.
+     */
+    public static function updateStatusPayloadToActionData(UpdateMaterialRequestStatusPayload $data) : UpdateMaterialRequestStatusActionData
     {
-        $materialRequest = (new MaterialRequestRepository)->findByUuid($data->uuid);
-        $statusCode = RequestStatusEnum::from($data->status_code)->value;
-
-        return new UpdateMaterialRequestStatusData(
-            materialRequest: $materialRequest,
-            material_request_status_code: $statusCode
+        return new UpdateMaterialRequestStatusActionData(
+            materialRequest: (new MaterialRequestRepository)->findByUuid($data->uuid),
+            material_request_status_code: RequestStatusEnum::from($data->status_code)->value
         );
     }
 }

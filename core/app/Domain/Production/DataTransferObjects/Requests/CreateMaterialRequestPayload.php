@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Domain\Production\DataTransferObjects;
+namespace App\Domain\Production\DataTransferObjects\Requests;
 
 use Spatie\LaravelData\Data;
 
-/**
- * TODO: rename and restructure all of these into payload classes and directories
- * TODO: along with action data classes and normal data classes
- */
-class InitiateMaterialRequestData extends Data
+class CreateMaterialRequestPayload extends Data
 {
     /**
-     * @param array<InitiateMaterialRequestActionData> $items
+     * @param array<CreateMaterialRequestItemPayload> $items
      */
     public function __construct(
         public readonly array $items,

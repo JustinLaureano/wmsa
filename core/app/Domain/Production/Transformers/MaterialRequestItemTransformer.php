@@ -3,7 +3,7 @@
 namespace App\Domain\Production\Transformers;
 
 use App\Domain\Production\Enums\RequestItemStatusEnum;
-use App\Domain\Production\DataTransferObjects\MaterialRequestItemActionData;
+use App\Domain\Production\DataTransferObjects\Actions\MaterialRequestItemActionData;
 use App\Repositories\MachineRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\StorageLocationRepository;

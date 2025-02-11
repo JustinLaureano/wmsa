@@ -2,9 +2,8 @@
 
 namespace App\Domain\Production\Jobs;
 
-use App\Domain\Production\DataTransferObjects\MaterialRequestActionData;
+use App\Domain\Production\DataTransferObjects\Actions\MaterialRequestActionData;
 use App\Domain\Production\DataTransferObjects\MaterialRequestData;
-use App\Domain\Production\DataTransferObjects\MaterialRequestItemData;
 use App\Domain\Production\Events\MaterialRequestCreated;
 use App\Domain\Production\Jobs\AttemptRequestContainerAllocation;
 use App\Models\MaterialRequest;
@@ -56,24 +55,8 @@ class CreateNewMaterialRequest implements ShouldQueue
                 requested_at: $this->data->requested_at,
             ));
 
-        $items = collect($this->data->items)->reduce(function ($carry, $item) {
-            $item = new MaterialRequestItemData(
-                material_request_uuid: $this->materialRequest->uuid,
-                material_uuid: $item->material_uuid,
-                quantity_requested: $item->quantity_requested,
-                quantity_delivered: $item->quantity_delivered,
-                unit_of_measure: $item->unit_of_measure,
-                machine_uuid: $item->machine_uuid,
-                storage_location_uuid: $item->storage_location_uuid,
-                request_item_status_code: $item->request_item_status_code,
-            );
-
-            $carry[] = $item->toArray();
-
-            return $carry;
-        }, []);
-
-        (new MaterialRequestItemRepository)->insert($items);
+        (new MaterialRequestItemRepository)
+            ->collectionInsert($this->materialRequest, $this->data->items);
 
         DB::commit();
     }
