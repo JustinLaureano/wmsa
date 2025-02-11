@@ -4,6 +4,10 @@ namespace App\Domain\Production\DataTransferObjects;
 
 use Spatie\LaravelData\Data;
 
+/**
+ * TODO: rename and restructure all of these into payload classes and directories
+ * TODO: along with action data classes and normal data classes
+ */
 class InitiateMaterialRequestData extends Data
 {
     /**
