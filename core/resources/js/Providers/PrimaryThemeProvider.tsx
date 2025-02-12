@@ -43,6 +43,13 @@ declare module '@mui/material/IconButton' {
     }
 }
 
+declare module '@mui/material/SvgIcon' {
+    interface SvgIconPropsColorOverrides {
+        primaryText: true;
+        secondaryText: true;
+    }
+}
+
 interface PrimaryThemeProps {
     children: React.ReactNode;
 }
