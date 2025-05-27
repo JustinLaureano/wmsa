@@ -18,10 +18,6 @@ class ViewMaterialInventory extends Model
      */
     protected $table = 'view_material_inventory';
 
-    protected $casts = [
-        'expiration_date' => 'datetime',
-    ];
-
     /**
      * The attributes that are filterable.
      */
