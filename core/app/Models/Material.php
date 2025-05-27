@@ -77,4 +77,12 @@ class Material extends Model
     {
         $query->where('part_number', $partNumber);
     }
+
+    /**
+     * Scope a query to filter on the uuid column.
+     */
+    public function scopeWhereUuid(Builder $query, string $uuid): void
+    {
+        $query->where('uuid', $uuid);
+    }
 }

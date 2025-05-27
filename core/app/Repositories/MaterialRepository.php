@@ -29,4 +29,9 @@ class MaterialRepository
     {
         return Material::query()->wherePartNumber($partNumber)->first();
     }
+
+    public function findByUuid(string $uuid) : Material|null
+    {
+        return Material::query()->whereUuid($uuid)->first();
+    }
 }

@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react';
+import { Link } from '@inertiajs/react';
 import axios from 'axios';
 import { InventoryDataTableProps } from '../types';
 import { JsonObject } from '@/types';
+import { RenderCellParams } from '@/Components/Tables/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
@@ -10,8 +12,16 @@ import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
 import LotNumberFilter from '../Filters/LotNumberFilter';
 
+const MaterialNumberCell = (params : RenderCellParams) => {
+    return (
+        <Link href={route('materials.show', { material: params.row.material_uuid })}>
+            {params.value}
+        </Link>
+    )
+}
+
 const columns = [
-    { field: 'material_number', headerName: 'Material' },
+    { field: 'material_number', headerName: 'Material', renderCell: MaterialNumberCell },
     { field: 'part_number', headerName: 'Part' },
     { field: 'lot_number', headerName: 'Lot' },
     { field: 'quantity', headerName: 'Quantity' },

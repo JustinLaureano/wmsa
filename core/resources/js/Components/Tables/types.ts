@@ -27,6 +27,14 @@ export interface TablePaginationProps {
 export interface ColumnInterface {
     field: string;
     headerName: string;
+    renderCell?: (params: RenderCellParams) => React.ReactNode;
+}
+
+export interface RenderCellParams {
+    row: RowInterface;
+    field: string;
+    index: number;
+    value: any;
 }
 
 export interface RowInterface {

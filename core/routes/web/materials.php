@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Materials\ViewMaterials;
 use App\Http\Controllers\Materials\GetMaterialInventory;
+use App\Http\Controllers\Materials\ShowMaterial;
 use Illuminate\Support\Facades\Route;
 
 Route::get('materials/inventory', GetMaterialInventory::class)
@@ -10,4 +11,7 @@ Route::get('materials/inventory', GetMaterialInventory::class)
 Route::middleware('auth')->group(function () {
     Route::get('materials', ViewMaterials::class)
         ->name('materials');
+
+    Route::get('materials/{material}', ShowMaterial::class)
+        ->name('materials.show');
 });

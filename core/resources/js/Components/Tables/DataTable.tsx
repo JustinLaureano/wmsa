@@ -127,16 +127,31 @@ export default function DataTable({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { rows.map( (row, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                { columns.map( (column, index) => (
-                                    <TableCell key={index}>{row[column.field]}</TableCell>
-                                )) }
-                            </TableRow>
-                        )) }
+                        {rows.map( (row, index) => {
+                            return (
+                                <TableRow
+                                    key={index}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    { columns.map( (column, index) => {
+                                        if (column.hasOwnProperty('renderCell') && column.renderCell) {
+                                            return (
+                                                <TableCell key={index}>
+                                                    {column.renderCell({
+                                                        row,
+                                                        field: column.field,
+                                                        index,
+                                                        value: row[column.field]
+                                                    })}
+                                                </TableCell>
+                                            )
+                                        }
+
+                                        return <TableCell key={index}>{row[column.field]}</TableCell>
+                                    }) }
+                                </TableRow>
+                            )
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>
