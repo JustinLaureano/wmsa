@@ -62,3 +62,7 @@ export interface MaterialNumberSearchFilterProps {
 export interface PartNumberSearchFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }
+
+export interface LotNumberFilterProps {
+    onFilterChange: (field: string, value: string) => void;
+}

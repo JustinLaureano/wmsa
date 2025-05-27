@@ -8,6 +8,7 @@ import DataTable from '@/Components/Tables/DataTable';
 import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
+import LotNumberFilter from '../Filters/LotNumberFilter';
 
 const columns = [
     { field: 'material_number', headerName: 'Material' },
@@ -25,6 +26,7 @@ const filters = [
     { component: MaterialSearchFilter },
     { component: MaterialNumberSearchFilter },
     { component: PartNumberSearchFilter },
+    { component: LotNumberFilter },
 ];
 
 export default function InventoryDataTable({ inventory } : InventoryDataTableProps) {
