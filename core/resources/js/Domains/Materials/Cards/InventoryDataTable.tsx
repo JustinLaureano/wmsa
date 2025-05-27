@@ -39,7 +39,7 @@ export default function InventoryDataTable({ inventory } : InventoryDataTablePro
 
     return (
         <Card sx={{ flexGrow: 1 }}>
-            <CardHeader title={lang.materials} />
+            <CardHeader title={lang.inventory} />
             <CardContent>
                 <DataTable
                     columns={columns}
