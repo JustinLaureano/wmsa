@@ -1,0 +1,54 @@
+import { useContext, useState } from 'react';
+import axios from 'axios';
+import { InventoryDataTableProps } from '../types';
+import { JsonObject } from '@/types';
+import LanguageContext from '@/Contexts/LanguageContext';
+import { Card, CardContent, CardHeader } from '@mui/material';
+import DataTable from '@/Components/Tables/DataTable';
+import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
+import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
+import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
+
+const columns = [
+    { field: 'material_number', headerName: 'Material' },
+    { field: 'part_number', headerName: 'Part' },
+    { field: 'lot_number', headerName: 'Lot' },
+    { field: 'quantity', headerName: 'Quantity' },
+    { field: 'base_unit_of_measure', headerName: 'UOM' },
+    { field: 'expiration_date', headerName: 'Expiration Date' },
+    { field: 'container_type_name', headerName: 'Container Type' },
+    { field: 'storage_location_name', headerName: 'Storage Location' },
+    { field: 'movement_status_name', headerName: 'Movement Status' },
+];
+
+const filters = [
+    { component: MaterialSearchFilter },
+    { component: MaterialNumberSearchFilter },
+    { component: PartNumberSearchFilter },
+];
+
+export default function InventoryDataTable({ inventory } : InventoryDataTableProps) {
+    const { lang } = useContext(LanguageContext);
+
+    const [data, setData] = useState(inventory);
+
+    const handleFilterEvent = (filterParams: JsonObject) => {
+        axios.get(route('materials.inventory'), { params: filterParams })
+            .then(res => setData(res.data))
+    }
+
+    return (
+        <Card sx={{ flexGrow: 1 }}>
+            <CardHeader title={lang.materials} />
+            <CardContent>
+                <DataTable
+                    columns={columns}
+                    rows={data.data}
+                    pagination={data}
+                    filters={filters}
+                    onFilterEvent={handleFilterEvent}
+                />
+            </CardContent>
+        </Card>
+    )
+}

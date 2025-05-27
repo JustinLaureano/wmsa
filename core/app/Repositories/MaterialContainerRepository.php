@@ -41,6 +41,8 @@ class MaterialContainerRepository
             movement_status_code: $movementStatus->id,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),
+            expiration_date: '', // TODO: Add expiration date
+            lot_number: '', // TODO: Add lot number
         );
 
         return $this->create($data);
