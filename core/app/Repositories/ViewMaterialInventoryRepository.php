@@ -16,6 +16,7 @@ class ViewMaterialInventoryRepository
 
         return ViewMaterialInventory::search($search)
             ->query(fn (Builder $query) => $query->filter())
+            ->orderBy('part_number', 'asc')
             ->paginate();
     }
 }
