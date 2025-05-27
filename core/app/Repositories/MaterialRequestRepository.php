@@ -37,10 +37,10 @@ class MaterialRequestRepository
     /**
      * Get the current requests.
      */
-    public function getCurrentRequests(int $limit = 10): Collection
+    public function getCurrentRequests(int $limit = 20): Collection
     {
         return MaterialRequest::query()
-            ->latest()
+            ->latest('requested_at')
             ->limit($limit)
             ->with([
                 'status',

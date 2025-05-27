@@ -29,7 +29,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const theme = useTheme();
     const { lang } = useContext(LanguageContext);
     const list = requests.data;
-    console.log(list[0]);
+    console.log(list);
     return (
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
@@ -58,8 +58,8 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                     margin: '0 auto',
                 }}>
                     {list.map((request) => {
-                        let backgroundColor = blue[300];
-                        let color = theme.palette.success.contrastText;
+                        let backgroundColor:string = blue[300];
+                        let color:string = theme.palette.success.contrastText;
 
                         if (request.status === 'Cancelled') {   
                             backgroundColor = red[600];
@@ -72,7 +72,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                         }
 
                         return (
-                            <Paper key={request.uuid} sx={{ p: 2, mb: `${theme.spacing(2)} !important`, borderLeft: `3px solid ${theme.palette.primary.main}` }}>
+                            <Paper key={request.uuid} sx={{ p: 2, mb: `${theme.spacing(2)} !important`, borderLeft: `3px solid ${backgroundColor}` }}>
                                 <Stack direction="row" justifyContent="space-between" sx={{ px: 2, pb: 2, mb: 2, borderBottom: 1, borderColor: grey[500] }}>
                                     <Box>
                                         <Typography variant="h6" color="textPrimary">{request.title}</Typography>
@@ -116,7 +116,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                         <TableBody>
                                                             <TableRow>
                                                                 <TableCell>{item.material_part_number}</TableCell>
-                                                                <TableCell>{item.machine_name || item.storage_location_name}</TableCell>
+                                                                <TableCell>{item.machine_name || item.storage_location_name || 'None'}</TableCell>
                                                                 <TableCell>
                                                                     {item.quantity_delivered} / {item.quantity_requested} {item.unit_of_measure}
                                                                 </TableCell>

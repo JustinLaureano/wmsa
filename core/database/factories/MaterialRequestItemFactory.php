@@ -31,9 +31,14 @@ class MaterialRequestItemFactory extends Factory
             $machineUuid = Machine::query()->inRandomOrder()->first()->uuid;
         }
 
+        $material = Material::query()
+            ->where('part_number', 'REGEXP', '^[0-9]{6}$')
+            ->inRandomOrder()
+            ->first();
+
         return [
             'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()?->uuid || null,
-            'material_uuid' => Material::query()->inRandomOrder()->first()->uuid,
+            'material_uuid' => $material->uuid,
             'quantity_requested' => 1,
             'quantity_delivered' => 0,
             'unit_of_measure' => UnitOfMeasureEnum::CONT->value,
