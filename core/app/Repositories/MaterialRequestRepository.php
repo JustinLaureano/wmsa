@@ -38,7 +38,9 @@ class MaterialRequestRepository
     }
 
     /**
-     * Get the current requests.
+     * Get the current requests by building and type.
+     * 
+     * This list is populated by combining open requests and recently closed requests.
      */
     public function getCurrentRequests(int $building_id = 1, string $type = 'transfer'): Collection
     {
@@ -48,6 +50,9 @@ class MaterialRequestRepository
         return $open->merge($closed);
     }
 
+    /**
+     * Get the open requests by building and type.
+     */
     public function getOpenRequests(int $building_id = 1, string $type = 'transfer'): Collection
     {
         return MaterialRequest::query()
@@ -73,6 +78,7 @@ class MaterialRequestRepository
             )
             // Order by requested at descending
             ->latest('requested_at')
+            // Load all appropriate relationships
             ->with([
                 'status',
                 'type',
@@ -88,6 +94,9 @@ class MaterialRequestRepository
             ->get();
     }
 
+    /**
+     * Get the recently closed requests by building and type.
+     */
     public function getRecentlyClosedRequests(int $building_id = 1, string $type = 'transfer'): Collection
     {
         return MaterialRequest::query()
@@ -113,6 +122,7 @@ class MaterialRequestRepository
             )
             // Only get recently updated requests
             ->lastTenMinutes('updated_at')
+            // Load all appropriate relationships
             ->with([
                 'status',
                 'type',
