@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Domain\Production\DataTransferObjects\MaterialRequestData;
 use App\Domain\Production\Enums\RequestStatusEnum;
+use App\Domain\Production\Enums\RequestTypeEnum;
 use App\Models\MaterialRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -39,8 +40,10 @@ class MaterialRequestRepository
     /**
      * Get the current requests.
      */
-    public function getCurrentRequests(int $building_id = 1): Collection
+    public function getCurrentRequests(int $building_id = 1, string $type = 'transfer'): Collection
     {
+        $validTypes = RequestTypeEnum::toRequestValidTypesArray($building_id, $type);
+
         return MaterialRequest::query()
             // Only get open requests
             ->where('material_request_status_code', '=', RequestStatusEnum::OPEN->value)
@@ -57,6 +60,8 @@ class MaterialRequestRepository
                         });
                     });
             })
+            // Make sure that the request type is in the valid types
+            ->whereIn('material_request_type_code', $validTypes)
             // Order by requested at descending
             ->latest('requested_at')
             ->with([

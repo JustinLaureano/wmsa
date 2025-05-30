@@ -34,4 +34,33 @@ enum RequestTypeEnum: string
             self::MISC => 'Miscellaneous Request',
         };
     }
+
+    /**
+     * Get the valid types for material requests for a building and type.
+     * Return a default array of transfer and miscellaneous
+     * if the building and type are not found.
+     */
+    public static function toRequestValidTypesArray(string $building_id, string $type): array
+    {
+        if ($building_id == 1) {
+            return match($type) {
+                self::TRANSFER => [self::TRANSFER->value, self::MISC->value],
+                self::IRM => [self::IRM->value],
+                self::PHOSPHATE => [self::PHOSPHATE->value],
+                self::CARDBOARD => [self::CARDBOARD->value],
+                default => [self::TRANSFER->value, self::MISC->value],
+            };
+        }
+
+        if ($building_id == 2) {
+            return match($type) {
+                self::TRANSFER => [self::TRANSFER->value, self::MISC->value],
+                self::SHIPPING => [self::SHIPPING->value],
+                self::CARDBOARD => [self::CARDBOARD->value],
+                default => [self::TRANSFER->value, self::MISC->value],
+            };
+        }
+
+        return [self::TRANSFER->value, self::MISC->value];
+    }
 }

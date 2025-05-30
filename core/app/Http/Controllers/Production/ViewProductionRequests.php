@@ -14,9 +14,15 @@ class ViewProductionRequests extends Controller
      */
     public function __invoke(MaterialRequestRepository $materialRequestRepository)
     {
+        $building_id = request()->input('building_id');
+        $type = request()->input('type');
+
         return Inertia::render('Production/Requests/MaterialRequests', [
             'requests' => new MaterialRequestListCollection(
-                $materialRequestRepository->getCurrentRequests()
+                $materialRequestRepository->getCurrentRequests(
+                    building_id: $building_id,
+                    type: $type
+                )
             )
         ]);
     }

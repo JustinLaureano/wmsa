@@ -6,6 +6,7 @@ import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionP
 import { MaterialRequestListCollection } from '@/types/requests';
 import { green, red, blue, grey } from '@mui/material/colors';
 import { PersonOutlined, ScheduleOutlined } from '@mui/icons-material';
+import RequestNavTabs from '@/Domains/Production/Layout/Navigation/RequestNavTabs';
 import {
     Avatar,
     Chip,
@@ -36,23 +37,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
 
             <Paper variant="outlined" sx={{ maxWidth: '1100px', width: '90vw', margin: '0 auto', p: 5 }}>
 
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
-                    <Tabs
-                        value={0}
-                        sx={{
-                            '& .MuiTabs-flexContainer': {
-                                justifyContent: 'center',
-                            }
-                        }}
-                    >
-                        <Tab label="Plant 2" />
-                        <Tab label="Blackhawk" />
-                        <Tab label="Defiance" />
-                        <Tab label="Phosphate" />
-                        <Tab label="Shipping" />
-
-                    </Tabs>
-                </Box>
+                <RequestNavTabs />
 
 
                 <Stack spacing={2} sx={{
