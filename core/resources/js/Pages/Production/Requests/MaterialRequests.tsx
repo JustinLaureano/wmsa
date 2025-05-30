@@ -45,10 +45,12 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                             }
                         }}
                     >
-                        <Tab label="Open" />
-                        <Tab label="Completed" />
-                        <Tab label="Canceled" />
-                        <Tab label="All" />
+                        <Tab label="Plant 2" />
+                        <Tab label="Blackhawk" />
+                        <Tab label="Defiance" />
+                        <Tab label="Phosphate" />
+                        <Tab label="Shipping" />
+
                     </Tabs>
                 </Box>
 

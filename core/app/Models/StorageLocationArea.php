@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,10 +25,19 @@ class StorageLocationArea extends Model
     ];
 
     /**
+     * Get the building for the storage location area.
+     */
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class, 'building_id', 'id');
+    }
+
+    /**
      * Get the storage locations for the storage location area.
      */
     public function storageLocations(): HasMany
     {
         return $this->hasMany(StorageLocation::class);
     }
+
 }
