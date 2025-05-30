@@ -18,7 +18,8 @@ interface NavigationDrawerLinkProps {
 
 export default function NavigationDrawerLink({ link, index } : NavigationDrawerLinkProps) {
     const theme = useTheme();
-    let selected = window.location.href == link.route;
+
+    let selected = link.selected.some(route => window.location.href == route);
 
     // Handles home route
     if (window.location.origin == link.route && window.location.pathname == '/') {
