@@ -92,10 +92,7 @@ class MaterialRequestRepository
     {
         return MaterialRequest::query()
             // Only get closed requests
-            ->whereIn('material_request_status_code', [
-                RequestStatusEnum::CANCELLED->value,
-                RequestStatusEnum::COMPLETED->value,
-            ])
+            ->whereIn('material_request_status_code', RequestStatusEnum::toClosedArray())
             // Make sure that the request location is in the building
             ->where(function (Builder $query) use ($building_id) {
                 return $query->whereHas('items.machine', function (Builder $query) use ($building_id) {

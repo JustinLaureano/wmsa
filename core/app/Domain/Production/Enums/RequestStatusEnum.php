@@ -16,4 +16,15 @@ enum RequestStatusEnum: string
             self::CANCELLED => 'Cancelled',
         };
     }
+
+    /**
+     * Get the valid closed statuses.
+     */
+    public static function toClosedArray(): array
+    {
+        return [
+            self::CANCELLED->value,
+            self::COMPLETED->value,
+        ];
+    }
 }
