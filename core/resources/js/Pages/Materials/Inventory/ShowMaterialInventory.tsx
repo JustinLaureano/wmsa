@@ -2,17 +2,18 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
-import { ShowContainerInventoryProps } from '@/Domains/Materials/types';
-import ContainerInventoryDataTable from '@/Domains/Materials/Cards/ContainerInventoryDataTable';
+import { ShowMaterialInventoryProps } from '@/Domains/Materials/types';
 
-export default function ShowContainerInventory({ inventory, ...props } : ShowContainerInventoryProps) {
+export default function ShowMaterialInventory({ inventory, ...props } : ShowMaterialInventoryProps) {
     const { lang } = useContext(LanguageContext);
+
+    console.log(inventory);
 
     return (
         <SidebarLayout title={lang.inventory}>
             <MaterialsPageHeader />
 
-            <ContainerInventoryDataTable inventory={inventory} />
+            <h1>Material Inventory</h1>
         </SidebarLayout>
     );
 }

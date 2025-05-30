@@ -11,7 +11,7 @@ export interface Material {
     base_unit_of_measure: string;
 }
 
-export interface Inventory {
+export interface ContainerInventory {
     id: number;
     uuid: string;
     material_uuid: string;
@@ -28,20 +28,34 @@ export interface Inventory {
     storage_location_name: string;
 }
 
+// TODO: Add material inventory type
+export interface MaterialInventory {
+    material_number: string;
+    part_number: string;
+}
+
 export interface MaterialPagination extends Pagination {
     data: Material[];
 }
 
 export interface ContainerInventoryPagination extends Pagination {
-    data: Inventory[];
+    data: ContainerInventory[];
+}
+
+export interface MaterialInventoryPagination extends Pagination {
+    data: MaterialInventory[];
 }
 
 export interface ViewMaterialsProps {
     materials: MaterialPagination;
 }
 
-export interface ShowInventoryProps {
+export interface ShowContainerInventoryProps {
     inventory: ContainerInventoryPagination;
+}
+
+export interface ShowMaterialInventoryProps {
+    inventory: MaterialInventoryPagination;
 }
 
 export interface ShowMaterialProps {

@@ -27,7 +27,7 @@ class GetMaterialInventory extends Controller
             return $this->materialRepository->get();
         }
 
-        return Inertia::render('Materials/Inventory/ShowInventory', [
+        return Inertia::render('Materials/Inventory/ShowMaterialInventory', [
             'inventory' => $this->materialRepository->get()
         ]);
     }
