@@ -6,6 +6,7 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -60,6 +61,14 @@ class Material extends Model
             'part_number' => $this->part_number,
             'description' => $this->description,
         ];
+    }
+
+    /**
+     * Get the container inventories for the material.
+     */
+    public function containers(): HasMany
+    {
+        return $this->hasMany(MaterialContainer::class, 'material_uuid', 'uuid');
     }
 
     /**

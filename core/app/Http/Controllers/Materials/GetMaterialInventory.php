@@ -24,11 +24,11 @@ class GetMaterialInventory extends Controller
     public function __invoke(Request $request)
     {
         if ($request->expectsJson()) {
-            return $this->materialRepository->get();
+            return $this->materialRepository->filterInventoryPaginate();
         }
 
         return Inertia::render('Materials/Inventory/ShowMaterialInventory', [
-            'inventory' => $this->materialRepository->get()
+            'inventory' => $this->materialRepository->filterInventoryPaginate()
         ]);
     }
 }

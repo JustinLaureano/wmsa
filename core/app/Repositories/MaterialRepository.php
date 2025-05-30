@@ -25,6 +25,19 @@ class MaterialRepository
             ->paginate();
     }
 
+    /**
+     * Filter the inventory paginate.
+     */
+    public function filterInventoryPaginate() : LengthAwarePaginator
+    {
+        return Material::query()
+            ->has('containers')
+            ->with('containers')
+            ->filter()
+            ->orderBy('part_number', 'asc')
+            ->paginate();
+    }
+
     public function findByPartNumber(string $partNumber) : Material|null
     {
         return Material::query()->wherePartNumber($partNumber)->first();
