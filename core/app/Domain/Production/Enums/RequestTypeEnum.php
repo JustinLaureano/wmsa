@@ -42,21 +42,24 @@ enum RequestTypeEnum: string
      */
     public static function toRequestValidTypesArray(string $building_id, string $type): array
     {
+        logger()->info('Building ID: ' . $building_id);
+        logger()->info('Type: ' . $type);
+
         if ($building_id == 1) {
             return match($type) {
-                self::TRANSFER => [self::TRANSFER->value, self::MISC->value],
-                self::IRM => [self::IRM->value],
-                self::PHOSPHATE => [self::PHOSPHATE->value],
-                self::CARDBOARD => [self::CARDBOARD->value],
+                self::TRANSFER->value => [self::TRANSFER->value, self::MISC->value],
+                self::IRM->value => [self::IRM->value],
+                self::PHOSPHATE->value => [self::PHOSPHATE->value],
+                self::CARDBOARD->value => [self::CARDBOARD->value],
                 default => [self::TRANSFER->value, self::MISC->value],
             };
         }
 
         if ($building_id == 2) {
             return match($type) {
-                self::TRANSFER => [self::TRANSFER->value, self::MISC->value],
-                self::SHIPPING => [self::SHIPPING->value],
-                self::CARDBOARD => [self::CARDBOARD->value],
+                self::TRANSFER->value => [self::TRANSFER->value, self::MISC->value],
+                self::SHIPPING->value => [self::SHIPPING->value],
+                self::CARDBOARD->value => [self::CARDBOARD->value],
                 default => [self::TRANSFER->value, self::MISC->value],
             };
         }
