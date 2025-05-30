@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Materials;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Production\MaterialInventoryCollection;
 use App\Repositories\MaterialRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -28,7 +29,9 @@ class GetMaterialInventory extends Controller
         }
 
         return Inertia::render('Materials/Inventory/ShowMaterialInventory', [
-            'inventory' => $this->materialRepository->filterInventoryPaginate()
+            'inventory' => new MaterialInventoryCollection(
+                $this->materialRepository->filterInventoryPaginate()
+            )
         ]);
     }
 }
