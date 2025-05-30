@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import axios from 'axios';
-import { InventoryDataTableProps } from '../types';
+import { ContainerInventoryDataTableProps } from '../types';
 import { JsonObject } from '@/types';
 import { RenderCellParams } from '@/Components/Tables/types';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -39,13 +39,13 @@ const filters = [
     { component: LotNumberFilter },
 ];
 
-export default function InventoryDataTable({ inventory } : InventoryDataTableProps) {
+export default function ContainerInventoryDataTable({ inventory } : ContainerInventoryDataTableProps) {
     const { lang } = useContext(LanguageContext);
 
     const [data, setData] = useState(inventory);
 
     const handleFilterEvent = (filterParams: JsonObject) => {
-        axios.get(route('materials.inventory'), { params: filterParams })
+        axios.get(route('containers.inventory'), { params: filterParams })
             .then(res => setData(res.data))
     }
 

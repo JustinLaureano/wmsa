@@ -18,7 +18,7 @@ export const navigationDrawerLinks = [
     { label: 'Receiving', icon: AssignmentTurnedInOutlined, route: route('receiving.documents') },
     { label: 'Shipping', icon: LocalShippingOutlined, route: route('shipping.requests') },
     { label: 'Quality', icon: VerifiedOutlined, route: route('quality.sort') },
-    { label: 'Materials', icon: InventoryOutlined, route: route('materials.inventory') },
+    { label: 'Materials', icon: InventoryOutlined, route: route('containers.inventory') },
     { label: 'Locations', icon: WarehouseOutlined, route: route('locations.buildings.kpi') },
 ];
 

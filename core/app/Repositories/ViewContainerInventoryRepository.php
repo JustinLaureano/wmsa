@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\Views\ViewMaterialInventory;
+use App\Models\Views\ViewContainerInventory;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 
-class ViewMaterialInventoryRepository
+class ViewContainerInventoryRepository
 {
     public function filterPaginate($search = null) : LengthAwarePaginator
     {
@@ -14,7 +14,7 @@ class ViewMaterialInventoryRepository
             $search = request()->query('search');
         }
 
-        return ViewMaterialInventory::search($search)
+        return ViewContainerInventory::search($search)
             ->query(fn (Builder $query) => $query->filter())
             ->orderBy('part_number', 'asc')
             ->paginate();

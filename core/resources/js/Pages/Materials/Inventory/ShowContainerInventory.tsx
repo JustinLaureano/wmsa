@@ -3,16 +3,16 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 import { ShowInventoryProps } from '@/Domains/Materials/types';
-import InventoryDataTable from '@/Domains/Materials/Cards/InventoryDataTable';
+import ContainerInventoryDataTable from '@/Domains/Materials/Cards/ContainerInventoryDataTable';
 
-export default function ShowInventory({ inventory, ...props } : ShowInventoryProps) {
+export default function ShowContainerInventory({ inventory, ...props } : ShowInventoryProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
         <SidebarLayout title={lang.inventory}>
             <MaterialsPageHeader />
 
-            <InventoryDataTable inventory={inventory} />
+            <ContainerInventoryDataTable inventory={inventory} />
         </SidebarLayout>
     );
 }

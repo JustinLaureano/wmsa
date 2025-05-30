@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Materials;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\MaterialRepository;
+use App\Repositories\ViewContainerInventoryRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class GetMaterialInventory extends Controller
+class GetContainerInventory extends Controller
 {
     /**
      * Create a new controller instance.
      */
     public function __construct(
-        protected MaterialRepository $materialRepository,
+        protected ViewContainerInventoryRepository $viewContainerInventoryRepository,
     ) {
         //
     }
@@ -24,11 +24,11 @@ class GetMaterialInventory extends Controller
     public function __invoke(Request $request)
     {
         if ($request->expectsJson()) {
-            return $this->materialRepository->get();
+            return $this->viewContainerInventoryRepository->filterPaginate();
         }
 
-        return Inertia::render('Materials/Inventory/ShowInventory', [
-            'inventory' => $this->materialRepository->get()
+        return Inertia::render('Materials/Inventory/ShowContainerInventory', [
+            'inventory' => $this->viewContainerInventoryRepository->filterPaginate()
         ]);
     }
 }

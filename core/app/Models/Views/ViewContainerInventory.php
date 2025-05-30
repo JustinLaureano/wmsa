@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 
-class ViewMaterialInventory extends Model
+class ViewContainerInventory extends Model
 {
     use Filterable,
         Searchable;
@@ -16,7 +16,7 @@ class ViewMaterialInventory extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'view_material_inventory';
+    protected $table = 'view_container_inventory';
 
     /**
      * The attributes that are filterable.

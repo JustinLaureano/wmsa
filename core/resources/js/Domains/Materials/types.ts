@@ -32,7 +32,7 @@ export interface MaterialPagination extends Pagination {
     data: Material[];
 }
 
-export interface InventoryPagination extends Pagination {
+export interface ContainerInventoryPagination extends Pagination {
     data: Inventory[];
 }
 
@@ -41,7 +41,7 @@ export interface ViewMaterialsProps {
 }
 
 export interface ShowInventoryProps {
-    inventory: InventoryPagination;
+    inventory: ContainerInventoryPagination;
 }
 
 export interface ShowMaterialProps {
@@ -52,8 +52,8 @@ export interface MaterialDataTableProps {
     materials: MaterialPagination;
 }
 
-export interface InventoryDataTableProps {
-    inventory: InventoryPagination;
+export interface ContainerInventoryDataTableProps {
+    inventory: ContainerInventoryPagination;
 }
 
 export interface MaterialSearchFilterProps {
