@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -72,5 +73,14 @@ class MaterialRequest extends Model
     public function type()
     {
         return $this->hasOne(MaterialRequestType::class, 'code', 'material_request_type_code');
+    }
+
+    /**
+     * Scope to get requests that have a select timestamp column
+     * that is within the last 10 minutes.
+     */
+    public function scopeLastTenMinutes(Builder $query, string $timestampColumn)
+    {
+        return $query->where($timestampColumn, '>=', now()->subMinutes(10));
     }
 }

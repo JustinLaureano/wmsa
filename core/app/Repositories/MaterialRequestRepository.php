@@ -42,8 +42,14 @@ class MaterialRequestRepository
      */
     public function getCurrentRequests(int $building_id = 1, string $type = 'transfer'): Collection
     {
-        $validTypes = RequestTypeEnum::toRequestValidTypesArray($building_id, $type);
+        $open = $this->getOpenRequests($building_id, $type);
+        $closed = $this->getRecentlyClosedRequests($building_id, $type);
 
+        return $open->merge($closed);
+    }
+
+    public function getOpenRequests(int $building_id = 1, string $type = 'transfer'): Collection
+    {
         return MaterialRequest::query()
             // Only get open requests
             ->where('material_request_status_code', '=', RequestStatusEnum::OPEN->value)
@@ -61,9 +67,55 @@ class MaterialRequestRepository
                     });
             })
             // Make sure that the request type is in the valid types
-            ->whereIn('material_request_type_code', $validTypes)
+            ->whereIn(
+                'material_request_type_code',
+                RequestTypeEnum::toRequestValidTypesArray($building_id, $type)
+            )
             // Order by requested at descending
             ->latest('requested_at')
+            ->with([
+                'status',
+                'type',
+                'requester.teammate',
+                'items' => [
+                    'material',
+                    'machine',
+                    'storageLocation',
+                    'containerAllocation',
+                    'status'
+                    ]
+            ])
+            ->get();
+    }
+
+    public function getRecentlyClosedRequests(int $building_id = 1, string $type = 'transfer'): Collection
+    {
+        return MaterialRequest::query()
+            // Only get closed requests
+            ->whereIn('material_request_status_code', [
+                RequestStatusEnum::CANCELLED->value,
+                RequestStatusEnum::COMPLETED->value,
+            ])
+            // Make sure that the request location is in the building
+            ->where(function (Builder $query) use ($building_id) {
+                return $query->whereHas('items.machine', function (Builder $query) use ($building_id) {
+                        $query->whereHas('building', function (Builder $query) use ($building_id) {
+                            $query->where('id', '=', $building_id);
+                        });
+                    })
+                    ->orWhereHas('items.storageLocation', function (Builder $query) use ($building_id) {
+                        $query->whereHas('area.building', function (Builder $query) use ($building_id) {
+                            $query->where('id', '=', $building_id);
+                        });
+                    });
+            })
+            // Make sure that the request type is in the valid types
+            ->whereIn(
+                'material_request_type_code',
+                RequestTypeEnum::toRequestValidTypesArray($building_id, $type)
+            )
+            // Only get recently updated requests
+            ->lastTenMinutes('updated_at')
             ->with([
                 'status',
                 'type',
