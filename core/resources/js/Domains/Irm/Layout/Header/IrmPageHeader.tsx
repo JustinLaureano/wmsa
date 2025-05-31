@@ -1,7 +1,6 @@
+import { IrmPageHeaderProps } from '@/types';
 import { Stack, Typography, useTheme } from '@mui/material';
 import IrmNavTabs from '../Navigation/IrmNavTabs';
-
-interface IrmPageHeaderProps {}
 
 export default function IrmPageHeader(props : IrmPageHeaderProps) {
     const theme = useTheme();
