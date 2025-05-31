@@ -1,6 +1,6 @@
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
 
-export default function ShippingNavTabs(props : Record<string, any>) {
+export default function ShippingNavTabs() {
     const tabs = [
         { label: 'Shipping Requests', route: route('shipping.requests') },
     ]

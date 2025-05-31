@@ -1,9 +1,7 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import ShippingNavTabs from '../Navigation/ShippingNavTabs';
 
-interface ShippingPageHeaderProps {}
-
-export default function ShippingPageHeader(props : ShippingPageHeaderProps) {
+export default function ShippingPageHeader() {
     const theme = useTheme();
 
     return (
