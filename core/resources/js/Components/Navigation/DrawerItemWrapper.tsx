@@ -1,7 +1,7 @@
 import { ReactElement, useContext } from "react";
 import { Tooltip } from "@mui/material"
 import UIContext from "@/Contexts/UIContext";
-import { Link } from "./links";
+import { Link } from "@/types";
 
 interface DrawerItemWrapperProps {
     link: Link;

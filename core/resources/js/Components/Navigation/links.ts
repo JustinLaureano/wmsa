@@ -1,4 +1,3 @@
-import { OverridableComponent } from "@mui/material/OverridableComponent";
 import {
     HomeOutlined,
     FactoryOutlined,
@@ -9,7 +8,6 @@ import {
     WarehouseOutlined,
     AssignmentTurnedInOutlined
 } from '@mui/icons-material';
-import { SvgIconTypeMap } from "@mui/material";
 
 export const navigationDrawerLinks = [
     {
@@ -86,9 +84,3 @@ export const navigationDrawerLinks = [
     },
 ];
 
-export interface Link {
-    label: string;
-    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-    route: string;
-    selected: string[];
-}

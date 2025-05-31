@@ -6,9 +6,7 @@ import MessagesList from './MessagesList';
 import MessagesActions from './MessagesActions';
 import MessagesPlaceholder from './MessagesPlaceholder';
 
-interface MessagingContentProps {}
-
-export default function MessagingContent({ ...props }: MessagingContentProps) {
+export default function MessagingContent() {
     const theme = useTheme();
     const { activeConversation, activeMessages } = useContext(MessagingContext);
 

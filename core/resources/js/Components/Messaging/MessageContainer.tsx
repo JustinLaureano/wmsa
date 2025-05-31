@@ -1,9 +1,5 @@
 import { Box, Stack} from '@mui/material';
-
-interface MessageContainerProps {
-    justify: string;
-    children: React.ReactNode;
-}
+import { MessageContainerProps } from '@/types';
 
 export default function MessageContainer({ justify, children, ...props }: MessageContainerProps) {
     return (

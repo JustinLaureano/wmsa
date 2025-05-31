@@ -4,9 +4,7 @@ import OverflowScrollBox from '../Shared/OverflowScrollBox';
 import MessagingContext from '@/Contexts/MessagingContext';
 import ConversationsListItem from './ConversationListItem';
 
-interface ConversationsListProps {}
-
-export default function ConversationsList({ ...props }: ConversationsListProps ) {
+export default function ConversationsList() {
     const { conversations } = useContext(MessagingContext);
 
     return (
