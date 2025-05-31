@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
-import { ShowContainerInventoryProps } from '@/Domains/Materials/types';
+import { ShowContainerInventoryProps } from '@/types';
 import ContainerInventoryDataTable from '@/Domains/Materials/Cards/ContainerInventoryDataTable';
 
 export default function ShowContainerInventory({ inventory, ...props } : ShowContainerInventoryProps) {

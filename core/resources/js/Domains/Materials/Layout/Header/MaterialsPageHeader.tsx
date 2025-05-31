@@ -1,9 +1,7 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import MaterialsNavTabs from '../Navigation/MaterialsNavTabs';
 
-interface MaterialsPageHeaderProps {}
-
-export default function MaterialsPageHeader(props : MaterialsPageHeaderProps) {
+export default function MaterialsPageHeader() {
     const theme = useTheme();
 
     return (

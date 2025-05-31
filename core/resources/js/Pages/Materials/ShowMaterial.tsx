@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
-import { ShowMaterialProps } from '@/Domains/Materials/types';
+import { ShowMaterialProps } from '@/types';
 
 export default function ShowMaterial({
     material,

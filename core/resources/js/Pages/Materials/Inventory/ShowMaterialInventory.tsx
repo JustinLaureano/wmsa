@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
-import { ShowMaterialInventoryProps } from '@/Domains/Materials/types';
+import { ShowMaterialInventoryProps } from '@/types';
 
 export default function ShowMaterialInventory({ inventory, ...props } : ShowMaterialInventoryProps) {
     const { lang } = useContext(LanguageContext);

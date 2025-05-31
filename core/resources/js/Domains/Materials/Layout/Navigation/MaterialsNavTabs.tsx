@@ -1,6 +1,6 @@
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
 
-export default function MaterialsNavTabs(props : Record<string, any>) {
+export default function MaterialsNavTabs() {
     const tabs = [
         { label: 'Material Inventory', route: route('materials.inventory') },
         { label: 'Full Inventory', route: route('containers.inventory') },
