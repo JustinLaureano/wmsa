@@ -1,11 +1,8 @@
+import { useContext } from 'react';
+import { SettingsHeaderProps } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Close } from '@mui/icons-material';
 import { IconButton, Stack, Typography, useTheme } from '@mui/material';
-import { useContext } from 'react';
-
-interface SettingsHeaderProps {
-    onCloseClick: () => void;
-}
 
 export default function SettingsHeader({ onCloseClick, ...props } : SettingsHeaderProps) {
     const theme = useTheme();
