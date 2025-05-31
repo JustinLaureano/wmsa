@@ -28,10 +28,55 @@ export interface ContainerInventory {
     storage_location_name: string;
 }
 
-// TODO: Add material inventory type
-export interface MaterialInventory {
-    material_number: string;
-    part_number: string;
+export interface MaterialInventoryCollection {
+    data: MaterialInventoryResource[];
+    computed: {
+        count: number;
+    };
+    meta: {
+        timestamp: string;
+    };
+}
+
+export interface MaterialInventoryResource {
+    uuid: string;
+    attributes: {
+        material_number: string;
+        part_number: string;
+        description: string;
+        base_unit_of_measure: string;
+        base_quantity: number;
+    };
+    relations: {
+        containers: MaterialContainerInventoryResource[];
+    };
+    computed: {
+        material_uuid: string;  
+        total_quantity: number;
+        container_count: number;
+        title: string;
+    };
+}
+
+export interface MaterialContainerInventoryResource {
+    uuid: string;
+    attributes: {
+        barcode: string;
+        lot_number: string;
+        quantity: number;
+        expiration_date: string;
+        movement_status_code: string;
+    };
+    computed: {
+        barcode_label: {
+            barcode: string;
+            lot_number: string;
+            quantity: number;
+            expires_at: string;
+        };
+        movement_status: string;
+        expires_at: string;
+    };
 }
 
 export interface MaterialPagination extends Pagination {
@@ -43,7 +88,7 @@ export interface ContainerInventoryPagination extends Pagination {
 }
 
 export interface MaterialInventoryPagination extends Pagination {
-    data: MaterialInventory[];
+    data: MaterialInventoryCollection[];
 }
 
 export interface ViewMaterialsProps {
