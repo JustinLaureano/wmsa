@@ -1,9 +1,7 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import ReceivingNavTabs from '../Navigation/ReceivingNavTabs';
 
-interface ReceivingPageHeaderHeaderProps {}
-
-export default function ReceivingPageHeaderHeader(props : ReceivingPageHeaderHeaderProps) {
+export default function ReceivingPageHeaderHeader() {
     const theme = useTheme();
 
     return (

@@ -1,6 +1,6 @@
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
 
-export default function ReceivingNavTabs(props : Record<string, any>) {
+export default function ReceivingNavTabs() {
     const tabs = [
         { label: 'View Documents', route: route('receiving.documents') },
     ]

@@ -1,9 +1,7 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import QualityNavTabs from '../Navigation/QualityNavTabs';
 
-interface QualityPageHeaderProps {}
-
-export default function QualityPageHeader(props : QualityPageHeaderProps) {
+export default function QualityPageHeader() {
     const theme = useTheme();
 
     return (
