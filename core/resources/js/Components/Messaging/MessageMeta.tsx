@@ -1,12 +1,9 @@
-import { MessageResource } from '@/types/messaging';
+import { MessageMetaProps } from '@/types';
 import { Box, Typography } from '@mui/material';
 
-interface MessageMetaProps {
-    justify: string;
-    message: MessageResource;
-}
-
 export default function MessageMeta({ justify, message, ...props }: MessageMetaProps) {
+    if ( !message.computed ) return null;
+
     const { sender_name, sent_at_date } = message.computed;
 
     return (
