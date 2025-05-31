@@ -1,11 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 
-interface ApiResponse<T> {
-    data: T;
-    status: number;
-    message: string;
-}
-
 class ApiService {
     public async get<T>(endpoint: string): Promise<AxiosResponse<T>> {
         try {

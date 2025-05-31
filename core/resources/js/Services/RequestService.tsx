@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios';
 import ApiService from './ApiService';
-import { MaterialRequestData, MaterialRequestResource } from '@/types/requests';
+import { MaterialRequestFormData } from '@/types';
 
 class RequestService {
     public async createMaterialRequest(
-        data: MaterialRequestData
+        data: MaterialRequestFormData
     ): Promise<AxiosResponse | null> {
         try {
             const response: AxiosResponse = await new ApiService()
