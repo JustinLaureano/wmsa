@@ -1,9 +1,7 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import ProductionNavTabs from '../Navigation/ProductionNavTabs';
 
-interface ProductionPageHeaderProps {}
-
-export default function ProductionPageHeader(props : ProductionPageHeaderProps) {
+export default function ProductionPageHeader() {
     const theme = useTheme();
 
     return (

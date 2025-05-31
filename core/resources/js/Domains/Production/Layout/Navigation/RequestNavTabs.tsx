@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavigationTab } from '@/types';
 import { router } from '@inertiajs/react';
 import {
     Box,
@@ -6,12 +7,7 @@ import {
     Tab,
 } from '@mui/material';
 
-interface TabInterface {
-    label: string;
-    route: string;
-}
-
-const tabs : TabInterface[] = [
+const tabs : NavigationTab[] = [
     { label: 'Plant 2', route: route('production.requests', { building_id: 1, type: 'transfer' }) },
     { label: 'Blackhawk', route: route('production.requests', { building_id: 2, type: 'transfer' }) },
     { label: 'Defiance', route: route('production.requests', { building_id: 3, type: 'transfer' }) },
@@ -48,7 +44,7 @@ export default function RequestNavTabs() {
                 value={value}
                 onChange={handleChange}
             >
-                { tabs.map((tab : TabInterface, index) => (
+                { tabs.map((tab : NavigationTab, index) => (
                     <Tab
                         key={index}
                         label={tab.label}

@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
-import StyledTabs from '@/Components/Styled/StyledTabs';
-import StyledTab from '@/Components/Styled/StyledTab';
+import { NavigationTab } from '@/types';
 import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
 import { Tabs, Tab } from '@mui/material';
 
-interface TabInterface {
-    label: string;
-    route: string;
-}
-
 interface SubpageNavigationTabsProps {
-    tabs: TabInterface[];
+    tabs: NavigationTab[];
 }
 
 export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsProps) {
@@ -35,7 +29,7 @@ export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsPr
     return (
         <StyledTabsContainer>
             <Tabs value={value} onChange={handleChange}>
-                { tabs.map((tab : TabInterface, index) => (
+                { tabs.map((tab : NavigationTab, index) => (
                     <Tab
                         key={index}
                         label={tab.label}
