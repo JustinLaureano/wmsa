@@ -1,10 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Tab } from '@mui/material';
-
-interface StyledTabProps {
-    label: string;
-    onClick: () => void;
-}
+import { StyledTabProps } from '@/types';
 
 const StyledTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
     ({ theme }) => ({
