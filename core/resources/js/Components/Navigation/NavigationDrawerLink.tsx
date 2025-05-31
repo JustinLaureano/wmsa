@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { router } from '@inertiajs/react';
 import { useTheme } from '@mui/material';
+import { NavigationDrawerLinkProps } from '@/types';
 import {
     ListItem,
     ListItemButton,
@@ -8,13 +9,7 @@ import {
     ListItemText,
     Typography
 } from '@mui/material';
-import { Link } from './links';
 import DrawerItemWrapper from './DrawerItemWrapper';
-
-interface NavigationDrawerLinkProps {
-    link: Link;
-    index: number;
-}
 
 export default function NavigationDrawerLink({ link, index } : NavigationDrawerLinkProps) {
     const theme = useTheme();
