@@ -109,7 +109,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                                     {item.quantity_delivered} / {item.quantity_requested} {item.unit_of_measure}
                                                                 </TableCell>
                                                                 <TableCell>
-                                                                    {item.container_allocation?.location || '-na'}
+                                                                    Container Type
                                                                 </TableCell>
                                                             </TableRow>
                                                         </TableBody>

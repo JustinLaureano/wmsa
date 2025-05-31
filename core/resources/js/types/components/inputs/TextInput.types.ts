@@ -3,7 +3,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 export interface TextInputProps extends Omit<TextFieldProps, 'onChange'> {
     label: string;
-    value: string;
+    value: string | number;
     onChange: (value: string) => void;
     required?: boolean;
     size?: TextFieldProps['size'];
