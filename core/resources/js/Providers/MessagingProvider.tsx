@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import {
+    MessagingProviderProps,
+    ConversationResource,
+    MessageResource,
+    MessageFormData
+} from '@/types';
 import MessagingContext from '@/Contexts/MessagingContext';
 import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
-import { ConversationResource, MessageResource, NewMessageRequestData } from '@/types/messaging';
 import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
-import { JsonObject } from '@/types';
-
-interface MessagingProviderProps {
-    children: React.ReactNode;
-}
 
 export default function MessagingProvider({ children, ...props }: MessagingProviderProps) {
     const { teammate, user } = useContext(AuthContext);
@@ -48,7 +48,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
 
         if ( !sender_id || !activeConversation ) return;
 
-        const data : NewMessageRequestData = {
+        const data : MessageFormData = {
             conversation_uuid: activeConversation.uuid,
             sender_id,
             sender_type,
@@ -68,7 +68,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         return message;
     };
 
-    const handleMessageSent = (e: JsonObject) => {
+    const handleMessageSent = (e: Record<string, any>) => {
         const message = e.message;
 
         fetchConversationMessages();

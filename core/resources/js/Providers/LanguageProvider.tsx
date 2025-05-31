@@ -1,10 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { LanguageProviderProps } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
-
-interface LanguageProviderProps {
-    children: React.ReactNode;
-    initialPage?: Record<string, any>;
-}
 
 const defaultInitialPage = { props: {} }
 

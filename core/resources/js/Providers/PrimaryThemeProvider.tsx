@@ -1,65 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { alpha, createTheme, getContrastRatio, ThemeProvider } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
+import { PaletteMode } from '@mui/material';
 import { darkMode, lightMode } from '@/Theme/colors';
 import dimensions from '@/Theme/dimensions';
 import ColorModeContext from '@/Contexts/ColorModeContext';
-import { PaletteMode } from '@mui/material';
-
-declare module '@mui/material' {
-    interface Theme {
-        layouts?: any;
-    }
-
-    interface ThemeOptions {
-        layouts?: any;
-    }
-}
-
-declare module '@mui/material/styles' {
-    interface Palette {
-        primaryText: Palette['primary'];
-        secondaryText: Palette['primary'];
-    }
-  
-    interface PaletteOptions {
-        primaryText?: PaletteOptions['primary'];
-        secondaryText?: PaletteOptions['primary'];
-    }
-}
-
-declare module '@mui/material/Button' {
-    interface ButtonPropsColorOverrides {
-        primaryText: true;
-        secondaryText: true;
-    }
-
-}
-
-declare module '@mui/material/IconButton' {
-    interface IconButtonPropsColorOverrides {
-        primaryText: true;
-        secondaryText: true;
-    }
-}
-
-declare module '@mui/material/SvgIcon' {
-    interface SvgIconPropsColorOverrides {
-        primaryText: true;
-        secondaryText: true;
-    }
-}
-
-interface PrimaryThemeProps {
-    children: React.ReactNode;
-}
+import { PrimaryThemeProps } from '@/types';
 
 export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
     const [mode, setMode] = useState<PaletteMode>('light');
     const colorMode = useMemo(
         () => ({
             toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+                setMode((prevMode : PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
             },
         }),
         [],
@@ -270,7 +222,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                         root: {
                             fontSize: '.875rem',
                             textTransform: 'none',
-                            color: mode === 'dark' ? darkMode.textPrimary.main : lightMode.textPrimary.main,
+                            color: mode === 'dark' ? darkMode.textPrimary : lightMode.textPrimary,
                             letterSpacing: '0.022em',
                             '&.Mui-selected': {
                                 fontWeight: 500,

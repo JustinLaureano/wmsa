@@ -1,10 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { AuthProviderProps } from '@/types';
 import AuthContext from '@/Contexts/AuthContext';
-
-interface AuthProviderProps {
-    children: React.ReactNode;
-    initialPage?: Record<string, any>;
-}
 
 const defaultInitialPage = { props: {} }
 
