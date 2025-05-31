@@ -11,6 +11,8 @@ import MessagingService from '@/Services/MessagingService';
 import AuthContext from '@/Contexts/AuthContext';
 import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
 
+// TODO: change all logic to only use user.uuid
+
 export default function MessagingProvider({ children, ...props }: MessagingProviderProps) {
     const { teammate, user } = useContext(AuthContext);
     const messagingService = new MessagingService();

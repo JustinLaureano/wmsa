@@ -1,4 +1,4 @@
-import { Teammate, User } from "@/types/auth";
+import { Teammate, User } from "@/types";
 
 export function getPrimaryAuthIdentifiers(teammate: Teammate|null, user: User|null)
 {
