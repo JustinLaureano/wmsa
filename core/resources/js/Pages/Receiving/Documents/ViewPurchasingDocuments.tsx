@@ -3,9 +3,7 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ReceivingPageHeaderHeader from '@/Domains/Receiving/Layout/Header/ReceivingHeader';
 
-interface ViewPurchasingDocumentsProps {}
-
-export default function ViewPurchasingDocuments({ ...props } : ViewPurchasingDocumentsProps) {
+export default function ViewPurchasingDocuments() {
     const { lang } = useContext(LanguageContext);
 
     return (

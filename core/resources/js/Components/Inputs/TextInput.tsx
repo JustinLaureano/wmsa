@@ -1,15 +1,5 @@
-import { TextField, TextFieldProps } from '@mui/material';
-import { SxProps, Theme } from '@mui/material/styles';
-
-interface TextInputProps extends Omit<TextFieldProps, 'onChange'> {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    required?: boolean;
-    size?: TextFieldProps['size'];
-    width?: string;
-    sx?: SxProps<Theme>;
-}
+import { TextField } from '@mui/material';
+import { TextInputProps } from '@/types';
 
 export default function TextInput({ 
     label, 
