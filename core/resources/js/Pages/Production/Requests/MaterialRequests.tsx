@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { MaterialRequestsProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
-import { MaterialRequestListCollection } from '@/types/requests';
 import { green, red, blue, grey } from '@mui/material/colors';
 import { PersonOutlined, ScheduleOutlined } from '@mui/icons-material';
 import RequestNavTabs from '@/Domains/Production/Layout/Navigation/RequestNavTabs';
@@ -19,13 +19,7 @@ import {
     TableCell,
     TableHead,
     Paper,
-    Tabs,
-    Tab,
 } from '@mui/material';
-
-interface MaterialRequestsProps {
-    requests: MaterialRequestListCollection;
-}
 
 export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const theme = useTheme();
