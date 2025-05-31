@@ -1,16 +1,11 @@
-import { MessageResource } from '@/types/messaging';
-import { Box, Card, Paper, useTheme } from '@mui/material';
-import { blue, blueGrey, grey, indigo, lightBlue } from '@mui/material/colors';
-import { useMemo } from 'react';
-import { inflate } from 'zlib';
-
-interface MessageCardProps {
-    justify: string;
-    message: MessageResource;
-}
+import { MessageCardProps } from '@/types';
+import { Paper, useTheme } from '@mui/material';
+import { indigo, lightBlue } from '@mui/material/colors';
 
 export default function MessageCard({ justify, message,...props }: MessageCardProps) {
     const theme = useTheme();
+
+    if ( !message.computed ) return null;
 
     let backgroundColor = theme.palette.background.default;
 
