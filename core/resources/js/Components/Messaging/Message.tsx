@@ -1,5 +1,5 @@
 import MessageContainer from './MessageContainer';
-import { MessageResource } from '@/types/messaging';
+import { MessageResource } from '@/types/domains/messaging';
 import AuthContext from '@/Contexts/AuthContext';
 import { useContext } from 'react';
 import MessageMeta from './MessageMeta';

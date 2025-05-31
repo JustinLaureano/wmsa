@@ -1,13 +1,5 @@
 import { createContext } from "react";
-
-interface Lang {
-    [key: string]: any;
-}
-
-type LanguageContextType = {
-    lang: Lang;
-    setLang: (lang: Lang) => void;
-}
+import { LanguageContextType } from "@/types";
 
 const LanguageContext = createContext<LanguageContextType>({
     lang: {},

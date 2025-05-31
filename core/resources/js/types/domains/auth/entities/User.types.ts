@@ -1,4 +1,3 @@
-// moved
 export interface User {
     uuid: string;
     organization_id: string;
@@ -13,9 +12,4 @@ export interface User {
     email: string;
     hire_date: string;
     created_at: string;
-}
-
-// moved
-export interface Teammate {
-    [key: string]: any;
 }

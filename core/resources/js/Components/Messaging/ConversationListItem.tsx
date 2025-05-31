@@ -3,24 +3,22 @@ import {
     Avatar, Box, Divider, ListItemAvatar,
     ListItemButton, ListItemText, Stack, Typography
 } from '@mui/material';
-import { ConversationResource } from '@/types/messaging';
+import { ConversationListItemProps } from '@/types';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
 import MessagingContext from '@/Contexts/MessagingContext';
 
-interface ConversationsListItemProps {
-    conversation: ConversationResource
-}
-
-export default function ConversationsListItem({ conversation, ...props }: ConversationsListItemProps ) {
+export default function ConversationsListItem({ conversation, ...props }: ConversationListItemProps ) {
     const { activeConversation, setActiveConversation } = useContext(MessagingContext)
+
+    if (!conversation.computed) return;
 
     const {
         avatar_initials,
         title,
         subject,
         latest_message_date,
-        unread_messages
+        unread_messages,
     } = conversation.computed;
 
     const badgeColor = useMemo(() => getRandomAvatarBadgeColor(), [conversation.uuid]);

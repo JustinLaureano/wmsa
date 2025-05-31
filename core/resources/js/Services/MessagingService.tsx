@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios';
 import ApiService from './ApiService';
-import { MessageResource, NewMessageRequestData } from '@/types/messaging';
+import { MessageResource, MessageFormData } from '@/types';
 
 class MessagingService {
     public async createMessage(
-        data: NewMessageRequestData
+        data: MessageFormData
     ) : Promise<MessageResource | null> {
         try {
             const response: AxiosResponse = await new ApiService()
