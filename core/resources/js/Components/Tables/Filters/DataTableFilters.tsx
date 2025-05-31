@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { DataTableFiltersProps } from './types';
+import { DataTableFiltersProps } from '@/types';
 
 export default function DataTableFilters({
     filters,
