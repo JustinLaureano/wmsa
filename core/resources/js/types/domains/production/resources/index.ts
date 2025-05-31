@@ -1,3 +1,4 @@
+export * from './MachineOptionsResource.types';
 export * from './MaterialRequestListCollection.types';
 export * from './MaterialRequestListItemResource.types';
 export * from './MaterialRequestListResource.types';

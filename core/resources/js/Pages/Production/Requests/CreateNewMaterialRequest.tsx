@@ -1,23 +1,13 @@
-import { useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { Card, CardHeader, CardContent, CardActions, Button, Stack } from '@mui/material';
+import { CreateNewMaterialRequestProps, MachineOptionResource, MaterialRequestFormData } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import RequestService from '@/Services/RequestService';
-import { MaterialRequestData } from '@/types/requests';
 import ComboBox from '@/Components/Inputs/ComboBox';
 import TextInput from '@/Components/Inputs/TextInput';
 import AuthContext from '@/Contexts/AuthContext';
-
-interface MachineOptionResource {
-    uuid: string;
-    label: string;
-    value: string;
-}
-
-interface CreateNewMaterialRequestProps {
-    machines: MachineOptionResource[];
-}
 
 export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterialRequestProps) {
     const { lang } = useContext(LanguageContext);
@@ -28,12 +18,12 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
     const [partNumber, setPartNumber] = useState<string>('');
     const [quantity, setQuantity] = useState<number>(1);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         if (!selectedMachine || !user?.uuid) return;
 
-        const requestData: MaterialRequestData = {
+        const requestData: MaterialRequestFormData = {
             machine_uuid: selectedMachine.uuid,
             storage_location_uuid: null,
             part_number: partNumber,
