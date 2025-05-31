@@ -2,9 +2,7 @@ import { Drawer, useTheme } from '@mui/material';
 import SidebarHeader from './SidebarHeader';
 import ConversationsList from './ConversationsList';
 
-interface MessagingSidebarProps {}
-
-export default function MessagingSidebar({ ...props }: MessagingSidebarProps ) {
+export default function MessagingSidebar() {
     const theme = useTheme();
 
     return (

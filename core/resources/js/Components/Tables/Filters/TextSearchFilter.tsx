@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { Search } from "@mui/icons-material";
 import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import { BaseTextSearchFilterProps } from "@/types";
 import StyledInputBase from "@/Components/Styled/StyledInputBase";
-
-interface TextSearchFilterProps {
-    field: string;
-    label?: string;
-    operation?: string;
-    placeholder?: string;
-    onFilterChange: (field: string, operation: string, value: string) => void;
-}
 
 export default function TextSearchFilter({
     field,
@@ -18,7 +11,7 @@ export default function TextSearchFilter({
     placeholder = 'Search...',
     onFilterChange,
     ...props
-} : TextSearchFilterProps) {
+} : BaseTextSearchFilterProps) {
 
     const [filterTimeout, setFilterTimeout] = useState<NodeJS.Timeout | null>(null);
 

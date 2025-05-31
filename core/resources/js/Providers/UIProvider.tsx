@@ -1,9 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import UIContext from '@/Contexts/UIContext';
-
-interface UIProviderProps {
-    children: React.ReactNode;
-}
+import { UIProviderProps } from '@/types';
 
 export default function UIProvider({ children }: UIProviderProps) {
     const [navigationDrawerOpen, setNavigationDrawerOpen] = useState(true);
