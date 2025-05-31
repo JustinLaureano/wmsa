@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Production;
 
-use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Domain\Production\Enums\RequestStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

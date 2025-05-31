@@ -1,16 +1,18 @@
 import { Pagination } from "@/Components/Tables/types";
 
+// moved
 export interface Material {
     id: number;
     uuid: string;
     material_number?: string;
     part_number: string;
     description: string;
-    material_type_code: string|null;
+    material_type_code: string | null;
     base_quantity: number;
     base_unit_of_measure: string;
 }
 
+// moved
 export interface ContainerInventory {
     id: number;
     uuid: string;
@@ -28,6 +30,7 @@ export interface ContainerInventory {
     storage_location_name: string;
 }
 
+// moved
 export interface MaterialInventoryCollection {
     data: MaterialInventoryResource[];
     computed: {
@@ -38,6 +41,7 @@ export interface MaterialInventoryCollection {
     };
 }
 
+// moved
 export interface MaterialInventoryResource {
     uuid: string;
     attributes: {
@@ -51,13 +55,14 @@ export interface MaterialInventoryResource {
         containers: MaterialContainerInventoryResource[];
     };
     computed: {
-        material_uuid: string;  
+        material_uuid: string;
         total_quantity: number;
         container_count: number;
         title: string;
     };
 }
 
+// moved
 export interface MaterialContainerInventoryResource {
     uuid: string;
     attributes: {
@@ -79,54 +84,67 @@ export interface MaterialContainerInventoryResource {
     };
 }
 
+// moved
 export interface MaterialPagination extends Pagination {
     data: Material[];
 }
 
+// moved
 export interface ContainerInventoryPagination extends Pagination {
     data: ContainerInventory[];
 }
 
+// moved
 export interface MaterialInventoryPagination extends Pagination {
     data: MaterialInventoryCollection[];
 }
 
+// moved
 export interface ViewMaterialsProps {
     materials: MaterialPagination;
 }
 
+// moved
 export interface ShowContainerInventoryProps {
     inventory: ContainerInventoryPagination;
 }
 
+// moved
 export interface ShowMaterialInventoryProps {
     inventory: MaterialInventoryPagination;
 }
 
+// moved
 export interface ShowMaterialProps {
     material: Material;
 }
 
+// moved
 export interface MaterialDataTableProps {
     materials: MaterialPagination;
 }
 
+// moved
 export interface ContainerInventoryDataTableProps {
     inventory: ContainerInventoryPagination;
 }
 
+// moved
 export interface MaterialSearchFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }
 
+// moved to SearchFilter.types.ts
 export interface MaterialNumberSearchFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }
 
+// moved to SearchFilter.types.ts
 export interface PartNumberSearchFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }
 
+// moved to SearchFilter.types.ts
 export interface LotNumberFilterProps {
     onFilterChange: (field: string, value: string) => void;
 }

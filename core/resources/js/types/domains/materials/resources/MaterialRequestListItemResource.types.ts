@@ -1,0 +1,12 @@
+export interface MaterialRequestItemListResource {
+    uuid: string;
+    description: string;
+    material_part_number: string;
+    material_description: string;
+    quantity_requested: number;
+    quantity_delivered: number;
+    unit_of_measure: string;
+    machine_name: string | null;
+    storage_location_name: string | null;
+    status: string;
+}

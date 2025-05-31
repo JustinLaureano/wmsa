@@ -1,11 +1,13 @@
 import { JsonObject } from "@/types";
 
+// moved
 export interface LinkInterface {
     url?: string;
     label: string;
     active: boolean;
 }
 
+// moved
 export interface Pagination {
     current_page: number;
     data: JsonObject[];
@@ -19,17 +21,20 @@ export interface Pagination {
     total: number;
 }
 
+// moved
 export interface TablePaginationProps {
     pagination: Pagination;
     onChange: (page: number) => void;
 }
 
+// moved
 export interface ColumnInterface {
     field: string;
     headerName: string;
     renderCell?: (params: RenderCellParams) => React.ReactNode;
 }
 
+// moved
 export interface RenderCellParams {
     row: RowInterface;
     field: string;
@@ -37,10 +42,12 @@ export interface RenderCellParams {
     value: any;
 }
 
+// moved
 export interface RowInterface {
     [key: string]: any
 }
 
+// moved
 export interface DataTableProps {
     columns: ColumnInterface[];
     rows: RowInterface[];
@@ -50,6 +57,7 @@ export interface DataTableProps {
     onFilterEvent: (filterParams: JsonObject) => void;
 }
 
+// moved
 export interface DataTableHeaderCellProps {
     column: ColumnInterface;
     active: boolean;

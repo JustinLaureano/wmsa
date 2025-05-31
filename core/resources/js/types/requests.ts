@@ -1,5 +1,6 @@
 import { JsonObject } from ".";
 
+// moved
 export interface MaterialRequestData {
     machine_uuid: string | null;
     storage_location_uuid: string | null;
@@ -10,6 +11,7 @@ export interface MaterialRequestData {
     requested_at: Date;
 }
 
+// moved, probably not needed
 export interface MaterialRequestResource {
     uuid: string;
     machine_uuid: string;
@@ -19,12 +21,14 @@ export interface MaterialRequestResource {
     // Add other fields as needed
 }
 
+// moved
 export interface MaterialRequestListCollection {
     data: MaterialRequestListResource[];
     computed: JsonObject;
     meta: JsonObject;
 }
 
+// moved
 export interface MaterialRequestResource {
     uuid: string;
     attributes: MaterialRequestAttributes;
@@ -32,6 +36,7 @@ export interface MaterialRequestResource {
     relations: MaterialRequestRelations;
 }
 
+// moved
 export interface MaterialRequestListResource extends JsonObject {
     uuid: string;
     title: string;
@@ -42,6 +47,7 @@ export interface MaterialRequestListResource extends JsonObject {
     items: MaterialRequestItemListResource[];
 }
 
+// moved
 export interface MaterialRequestItemListResource extends JsonObject {
     uuid: string;
     material_part_number: string;
@@ -54,8 +60,11 @@ export interface MaterialRequestItemListResource extends JsonObject {
     status: string;
 }
 
+// moved, not needed
 interface MaterialRequestAttributes extends JsonObject {}
 
+
+// moved, not needed
 interface MaterialRequestComputed extends JsonObject {
     title: string;
     material_part_number: string;
@@ -69,4 +78,5 @@ interface MaterialRequestComputed extends JsonObject {
     unit_of_measure: string;
 }
 
+// moved, not needed
 interface MaterialRequestRelations extends JsonObject {}

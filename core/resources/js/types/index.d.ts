@@ -6,6 +6,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     };
 };
 
+// moved
 export interface JsonObject {
     [key: string]: any;
 }

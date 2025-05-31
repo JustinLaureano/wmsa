@@ -8,6 +8,7 @@ import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
 import { darkMode } from '@/Theme/colors';
 
+// moved
 interface StyledNavDrawerProps {
     children: React.ReactNode;
 }
