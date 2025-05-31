@@ -1,14 +1,9 @@
 import { Divider, Stack, SwipeableDrawer, useTheme } from '@mui/material';
+import { SettingsDrawerProps } from '@/types';
 import SettingsHeader from './SettingsHeader';
 import LanguageSettings from './LanguageSettings';
 import ThemeSettings from './ThemeSettings';
 import dimensions from '@/Theme/dimensions';
-
-interface SettingsDrawerProps {
-    open: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-}
 
 export default function SettingsDrawer({ open, onOpen, onClose, ...props } : SettingsDrawerProps) {
     const theme = useTheme();

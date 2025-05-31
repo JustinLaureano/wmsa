@@ -1,11 +1,8 @@
+import { useContext } from 'react';
+import { NotificationsDrawerHeaderProps } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Close } from '@mui/icons-material';
 import { IconButton, Stack, Typography, useTheme } from '@mui/material';
-import { useContext } from 'react';
-
-interface NotificationsDrawerHeaderProps {
-    onCloseClick: () => void;
-}
 
 export default function NotificationsDrawerHeader({ onCloseClick, ...props } : NotificationsDrawerHeaderProps) {
     const theme = useTheme();
