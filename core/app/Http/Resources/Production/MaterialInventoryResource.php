@@ -29,6 +29,7 @@ class MaterialInventoryResource extends JsonResource
             'computed' => [
                 'material_uuid' => $this->uuid,
                 'total_quantity' => $this->containers->sum('quantity'),
+                'total_quantity_formatted' => number_format($this->containers->sum('quantity')) . ' ' . $this->base_unit_of_measure,
                 'container_count' => $this->containers->count(),
                 'title' => $this->getTitle(),
             ]
