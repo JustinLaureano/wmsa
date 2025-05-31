@@ -1,11 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemText, Typography, useTheme } from '@mui/material';
 
-interface ParticipantSearchResultItemProps {
-
-}
-
-export default function ParticipantSearchResultItem({ ...props }: ParticipantSearchResultItemProps ) {
+export default function ParticipantSearchResultItem() {
     const theme = useTheme();
 
     return (

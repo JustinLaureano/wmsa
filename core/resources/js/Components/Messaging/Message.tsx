@@ -1,13 +1,9 @@
-import MessageContainer from './MessageContainer';
-import { MessageResource } from '@/types/domains/messaging';
-import AuthContext from '@/Contexts/AuthContext';
 import { useContext } from 'react';
+import { MessageProps } from '@/types';
+import AuthContext from '@/Contexts/AuthContext';
+import MessageContainer from './MessageContainer';
 import MessageMeta from './MessageMeta';
 import MessageCard from './MessageCard';
-
-interface MessageProps {
-    message: MessageResource;
-}
 
 export default function Message({ message, ...props }: MessageProps) {
     const { teammate, user } = useContext(AuthContext);
