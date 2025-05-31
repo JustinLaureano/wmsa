@@ -120,31 +120,6 @@ export interface ShowMaterialProps {
 }
 
 // moved
-export interface MaterialDataTableProps {
-    materials: MaterialPagination;
-}
-
-// moved
 export interface ContainerInventoryDataTableProps {
     inventory: ContainerInventoryPagination;
-}
-
-// moved
-export interface MaterialSearchFilterProps {
-    onFilterChange: (field: string, value: string) => void;
-}
-
-// moved to SearchFilter.types.ts
-export interface MaterialNumberSearchFilterProps {
-    onFilterChange: (field: string, value: string) => void;
-}
-
-// moved to SearchFilter.types.ts
-export interface PartNumberSearchFilterProps {
-    onFilterChange: (field: string, value: string) => void;
-}
-
-// moved to SearchFilter.types.ts
-export interface LotNumberFilterProps {
-    onFilterChange: (field: string, value: string) => void;
 }

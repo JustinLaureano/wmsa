@@ -1,10 +1,10 @@
 import TextSearchFilter from "@/Components/Tables/Filters/TextSearchFilter";
-import { MaterialNumberSearchFilterProps } from "../types";
+import { TextSearchFilterProps } from "@/types";
 
 export default function MaterialNumberSearchFilter({
     onFilterChange,
     ...props
-} : MaterialNumberSearchFilterProps) {
+} : TextSearchFilterProps) {
 
     return (
         <TextSearchFilter

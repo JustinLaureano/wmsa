@@ -1,10 +1,10 @@
 import TextSearchFilter from "@/Components/Tables/Filters/TextSearchFilter";
-import { PartNumberSearchFilterProps } from "../types";
+import { TextSearchFilterProps } from "@/types";
 
 export default function PartNumberSearchFilter({
     onFilterChange,
     ...props
-} : PartNumberSearchFilterProps) {
+} : TextSearchFilterProps) {
 
     return (
         <TextSearchFilter

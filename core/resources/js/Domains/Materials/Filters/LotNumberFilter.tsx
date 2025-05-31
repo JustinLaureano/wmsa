@@ -1,10 +1,10 @@
 import TextSearchFilter from "@/Components/Tables/Filters/TextSearchFilter";
-import { LotNumberFilterProps } from "../types";
+import { TextSearchFilterProps } from "@/types";
 
 export default function LotNumberFilter({
     onFilterChange,
     ...props
-} : LotNumberFilterProps) {
+} : TextSearchFilterProps) {
 
     return (
         <TextSearchFilter

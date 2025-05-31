@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import axios from 'axios';
 import { ContainerInventoryDataTableProps } from '../types';
-import { JsonObject } from '@/types';
 import { RenderCellParams } from '@/Components/Tables/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
@@ -44,7 +43,7 @@ export default function ContainerInventoryDataTable({ inventory } : ContainerInv
 
     const [data, setData] = useState(inventory);
 
-    const handleFilterEvent = (filterParams: JsonObject) => {
+    const handleFilterEvent = (filterParams: Record<string, any>) => {
         axios.get(route('containers.inventory'), { params: filterParams })
             .then(res => setData(res.data))
     }
