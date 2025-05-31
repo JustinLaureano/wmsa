@@ -1,6 +1,7 @@
 export * from './app-bars';
 export * from './inputs';
 export * from './navigation';
+export * from './notifications';
 export * from './shared';
 export * from './styled';
 export * from './tables';

@@ -1,14 +1,9 @@
+import { NotificationDrawerProps } from '@/types';
 import { Divider, Stack, SwipeableDrawer, useTheme } from '@mui/material';
 import NotificationsDrawerHeader from './NotificationsDrawerHeader';
 import dimensions from '@/Theme/dimensions';
 
-interface NotificationsDrawerProps {
-    open: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-}
-
-export default function NotificationsDrawer({ open, onOpen, onClose, ...props } : NotificationsDrawerProps) {
+export default function NotificationsDrawer({ open, onOpen, onClose, ...props } : NotificationDrawerProps) {
     const theme = useTheme();
 
     return (
