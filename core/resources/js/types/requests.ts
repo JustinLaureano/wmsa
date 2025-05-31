@@ -1,5 +1,3 @@
-import { JsonObject } from ".";
-
 // moved
 export interface MaterialRequestData {
     machine_uuid: string | null;
@@ -24,8 +22,8 @@ export interface MaterialRequestResource {
 // moved
 export interface MaterialRequestListCollection {
     data: MaterialRequestListResource[];
-    computed: JsonObject;
-    meta: JsonObject;
+    computed: Record<string, any>;
+    meta: Record<string, any>;
 }
 
 // moved
@@ -37,7 +35,7 @@ export interface MaterialRequestResource {
 }
 
 // moved
-export interface MaterialRequestListResource extends JsonObject {
+export interface MaterialRequestListResource {
     uuid: string;
     title: string;
     requester_name: string;
@@ -48,7 +46,7 @@ export interface MaterialRequestListResource extends JsonObject {
 }
 
 // moved
-export interface MaterialRequestItemListResource extends JsonObject {
+export interface MaterialRequestItemListResource {
     uuid: string;
     material_part_number: string;
     material_description: string;
@@ -61,11 +59,11 @@ export interface MaterialRequestItemListResource extends JsonObject {
 }
 
 // moved, not needed
-interface MaterialRequestAttributes extends JsonObject {}
+interface MaterialRequestAttributes {}
 
 
 // moved, not needed
-interface MaterialRequestComputed extends JsonObject {
+interface MaterialRequestComputed {
     title: string;
     material_part_number: string;
     material_description: string;
@@ -79,4 +77,4 @@ interface MaterialRequestComputed extends JsonObject {
 }
 
 // moved, not needed
-interface MaterialRequestRelations extends JsonObject {}
+interface MaterialRequestRelations {}

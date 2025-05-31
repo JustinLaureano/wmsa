@@ -1,5 +1,3 @@
-import { JsonObject } from "@/types";
-
 // moved
 export interface LinkInterface {
     url?: string;
@@ -10,7 +8,7 @@ export interface LinkInterface {
 // moved
 export interface Pagination {
     current_page: number;
-    data: JsonObject[];
+    data: Record<string, any>[];
     from: number;
     last_page: number;
     prev_page_url: string;
@@ -54,7 +52,7 @@ export interface DataTableProps {
     dense?: boolean;
     pagination: Pagination;
     filters: any[];
-    onFilterEvent: (filterParams: JsonObject) => void;
+    onFilterEvent: (filterParams: Record<string, any>) => void;
 }
 
 // moved
