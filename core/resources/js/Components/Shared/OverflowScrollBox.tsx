@@ -1,9 +1,6 @@
+import { forwardRef } from 'react';
 import { Box } from '@mui/material';
-import React, { forwardRef } from 'react';
-
-interface OverflowScrollBoxProps extends React.ComponentProps<any> {
-    children: React.ReactNode;
-}
+import { OverflowScrollBoxProps } from '@/types';
 
 export default function OverflowScrollBox({ children, ...props }: OverflowScrollBoxProps) {
     const { sx, ...rest } = props;
