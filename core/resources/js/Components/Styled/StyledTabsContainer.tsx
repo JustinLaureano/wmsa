@@ -1,11 +1,7 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box } from '@mui/material';
 
-interface StyledTabsContainerProps {
-    children: React.ReactNode;
-}
-
-export default function StyledTabsContainer({ children, ...props } : StyledTabsContainerProps) {
+export default function StyledTabsContainer({ children, ...props } : { children: ReactNode }) {
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             {children}
