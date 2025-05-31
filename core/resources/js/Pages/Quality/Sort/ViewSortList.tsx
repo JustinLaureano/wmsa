@@ -3,9 +3,7 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import QualityPageHeader from '@/Domains/Quality/Layout/Header/QualityPageHeader';
 
-interface ViewSortListProps {}
-
-export default function ViewSortList({ ...props } : ViewSortListProps) {
+export default function ViewSortList() {
     const { lang } = useContext(LanguageContext);
 
     return (

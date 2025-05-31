@@ -1,9 +1,10 @@
 import React from 'react';
+import { JsonObject } from '@/types';
 import { Search } from '@mui/icons-material';
 import { Chip, Button, Box, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-export default function SearchButton(props : Record<string, any>) {
+export default function SearchButton(props : JsonObject) {
     const theme = useTheme();
 
     const handleButtonClick= (e: React.MouseEvent<HTMLElement>) => {

@@ -1,3 +1,5 @@
+import { JsonObject } from "./shared";
+
 // moved
 export interface MaterialRequestData {
     machine_uuid: string | null;
@@ -22,8 +24,8 @@ export interface MaterialRequestResource {
 // moved
 export interface MaterialRequestListCollection {
     data: MaterialRequestListResource[];
-    computed: Record<string, any>;
-    meta: Record<string, any>;
+    computed: JsonObject;
+    meta: JsonObject;
 }
 
 // moved

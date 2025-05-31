@@ -5,9 +5,7 @@ import LanguageContext from '@/Contexts/LanguageContext';
 import { Button, Card,CardActions, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import HomeTabs from '@/Components/HomeTabs';
 
-interface ContainersTestProps {}
-
-export default function ContainersTest({ ...props } : ContainersTestProps) {
+export default function ContainersTest() {
     const theme = useTheme();
     const { lang } = useContext(LanguageContext);
 

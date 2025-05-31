@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { JsonObject } from '@/types';
 import { NotificationsOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import NotificationsDrawer from './NotificationsDrawer';
 
-export default function NotificationsButton(props : Record<string, any>) {
+export default function NotificationsButton(props : JsonObject) {
 
     const [open, setOpen] = useState(false);
 

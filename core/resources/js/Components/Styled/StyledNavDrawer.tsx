@@ -4,14 +4,10 @@ import {
     useMediaQuery,
     useTheme
 } from '@mui/material';
+import { StyledNavDrawerProps } from '@/types';
 import UIContext from '@/Contexts/UIContext';
 import dimensions from '@/Theme/dimensions';
 import { darkMode } from '@/Theme/colors';
-
-// moved
-interface StyledNavDrawerProps {
-    children: React.ReactNode;
-}
 
 export default function StyledNavDrawer({ children, ...props } : StyledNavDrawerProps) {
 	const theme = useTheme();

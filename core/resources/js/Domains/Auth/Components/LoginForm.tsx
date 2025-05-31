@@ -18,7 +18,8 @@ const FormStack = ({ children, ...props } : any) => {
 }
 
 export default function LoginForm({ onLoginSuccess = () => {} }: any) {
-    const lang : Record<string, any> = useContext(LanguageContext);
+    // TODO: make sure lang has expected properties
+    const lang = useContext(LanguageContext);
     const { setUser } = useContext(AuthContext);
 
     // For future use
@@ -37,7 +38,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
         e.preventDefault();
 
         post(route('login'), {
-            onSuccess: (page : Record<string, any>) => {
+            onSuccess: (page) => {
                 window.location.reload();
             }
         });

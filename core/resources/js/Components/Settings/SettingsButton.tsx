@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { JsonObject } from '@/types';
 import { SettingsOutlined } from '@mui/icons-material';
 import { IconButton, useScrollTrigger } from '@mui/material';
 import SettingsDrawer from './SettingsDrawer';
 
-export default function SettingsButton(props : Record<string, any>) {
+export default function SettingsButton(props : JsonObject) {
 
     const [open, setOpen] = useState(false);
 

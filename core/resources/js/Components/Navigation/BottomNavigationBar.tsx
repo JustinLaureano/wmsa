@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import { useTheme } from '@mui/material/styles';
+import { JsonObject } from '@/types';
 import Paper from '@mui/material/Paper';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
-export default function BottomNavigationBar(props: Record<string, any>) {
+export default function BottomNavigationBar(props: JsonObject) {
     const theme = useTheme();
 
     let value = 0;

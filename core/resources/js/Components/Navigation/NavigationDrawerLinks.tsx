@@ -2,9 +2,7 @@ import StyledNavList from '@/Components/Styled/StyledNavList';
 import NavigationDrawerLink from './NavigationDrawerLink';
 import { navigationDrawerLinks } from './links';
 
-interface NavigationDrawerLinksProps {}
-
-export default function NavigationDrawerLinks(props: NavigationDrawerLinksProps) {
+export default function NavigationDrawerLinks() {
 	return (
         <StyledNavList>
             {navigationDrawerLinks.map((link, index) => (

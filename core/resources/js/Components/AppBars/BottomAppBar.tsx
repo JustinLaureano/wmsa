@@ -1,12 +1,6 @@
 import { Box, Paper, Stack, Typography, useTheme } from '@mui/material';
 
-declare module '@mui/material' {
-    interface Theme {
-        layouts?: any;
-    }
-}
-
-export default function BottomAppBar(props : Record<string, any>) {
+export default function BottomAppBar() {
     const theme = useTheme();
 
     return (

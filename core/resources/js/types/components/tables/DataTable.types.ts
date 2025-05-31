@@ -1,5 +1,5 @@
 import { ReactNode, MouseEvent } from 'react';
-import { Pagination } from '@/types/shared';
+import { JsonObject, Pagination } from '@/types/shared';
 
 export interface RowInterface {
     [key: string]: any;
@@ -24,7 +24,7 @@ export interface DataTableProps {
     dense?: boolean;
     pagination: Pagination;
     filters: any[];
-    onFilterEvent: (filterParams: Record<string, any>) => void;
+    onFilterEvent: (filterParams: JsonObject) => void;
 }
 
 export interface DataTableHeaderCellProps {

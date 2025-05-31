@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DataTableProps } from "./types";
+import { DataTableProps, JsonObject } from "@/types";
 import {
     Box,
     Table,
@@ -48,7 +48,7 @@ export default function DataTable({
     }
 
     const handleFilterRequest = (field: string, operation: string, value: string) => {
-        setFilterParams((prevFilterParams : Record<string, any>) => {
+        setFilterParams((prevFilterParams : JsonObject) => {
             // Any filter modification should start on a clean page
             delete prevFilterParams['page'];
 
@@ -65,7 +65,7 @@ export default function DataTable({
     }
 
     const handlePageChange = (page: number) => {
-        setFilterParams((prevFilterParams : Record<string, any>) => {
+        setFilterParams((prevFilterParams : JsonObject) => {
             return {
                 ...prevFilterParams,
                 'page': page
@@ -83,7 +83,7 @@ export default function DataTable({
     useEffect(() => {
         if (!loaded) return;
 
-        setFilterParams((prevFilterParams : Record<string, any>) => {
+        setFilterParams((prevFilterParams : JsonObject) => {
             return {
                 ...prevFilterParams,
                 'sortBy': `${sortParams.direction}${sortParams.field}`

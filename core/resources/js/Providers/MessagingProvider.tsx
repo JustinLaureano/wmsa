@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import {
     MessagingProviderProps,
     ConversationResource,
+    JsonObject,
     MessageResource,
     MessageFormData
 } from '@/types';
@@ -68,7 +69,7 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         return message;
     };
 
-    const handleMessageSent = (e: Record<string, any>) => {
+    const handleMessageSent = (e: JsonObject) => {
         const message = e.message;
 
         fetchConversationMessages();

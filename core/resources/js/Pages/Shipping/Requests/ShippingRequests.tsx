@@ -3,9 +3,7 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ShippingPageHeader from '@/Domains/Shipping/Layout/Header/ShippingPageHeader';
 
-interface ShippingRequestsProps {}
-
-export default function ShippingRequests({ ...props } : ShippingRequestsProps) {
+export default function ShippingRequests() {
     const { lang } = useContext(LanguageContext);
 
     return (

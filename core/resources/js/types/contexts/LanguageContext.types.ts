@@ -1,3 +1,5 @@
+import { JsonObject } from "../shared";
+
 export interface Lang {
     [key: string]: any;
 }

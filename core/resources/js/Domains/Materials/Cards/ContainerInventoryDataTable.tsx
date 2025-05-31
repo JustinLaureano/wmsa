@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import axios from 'axios';
-import { ContainerInventoryDataTableProps, RenderCellParams } from '@/types';
+import { ContainerInventoryDataTableProps, JsonObject, RenderCellParams } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
@@ -42,7 +42,7 @@ export default function ContainerInventoryDataTable({ inventory } : ContainerInv
 
     const [data, setData] = useState(inventory);
 
-    const handleFilterEvent = (filterParams: Record<string, any>) => {
+    const handleFilterEvent = (filterParams: JsonObject) => {
         axios.get(route('containers.inventory'), { params: filterParams })
             .then(res => setData(res.data))
     }

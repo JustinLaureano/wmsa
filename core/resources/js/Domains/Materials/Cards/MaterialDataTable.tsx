@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { MaterialDataTableProps } from '@/types';
+import { MaterialDataTableProps, JsonObject } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
@@ -26,7 +26,7 @@ export default function MaterialDataTable({ materials } : MaterialDataTableProps
 
     const [data, setData] = useState(materials);
 
-    const handleFilterEvent = (filterParams: Record<string, any>) => {
+    const handleFilterEvent = (filterParams: JsonObject) => {
         axios.get(route('materials'), { params: filterParams })
             .then(res => setData(res.data))
     }

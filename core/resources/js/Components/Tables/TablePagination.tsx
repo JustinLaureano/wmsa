@@ -1,5 +1,5 @@
 import { Pagination, Stack, Typography, useTheme } from '@mui/material';
-import { TablePaginationProps } from './types';
+import { TablePaginationProps } from '@/types';
 
 export default function TablePagination({ pagination, onChange } : TablePaginationProps) {
     const theme = useTheme();
