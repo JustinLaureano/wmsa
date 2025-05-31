@@ -1,21 +1,6 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
-
-interface Option {
-    uuid?: string;
-    label: string;
-    value?: string;
-}
-
-interface ComboBoxProps {
-    options: Option[];
-    inputLabel: string;
-    onChange?: (value: Option | null) => void;
-    onInputChange?: (value: string) => void;
-    value?: Option | null;
-    width?: string;
-    sx?: SxProps<Theme>;
-}
+import { ComboBoxProps } from '@/types';
 
 export default function ComboBox({ 
     options,
