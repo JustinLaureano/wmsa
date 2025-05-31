@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
-import { NavigationTab } from '@/types';
+import { NavigationTab, SubpageNavigationTabsProps } from '@/types';
 import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
 import { Tabs, Tab } from '@mui/material';
 
-interface SubpageNavigationTabsProps {
-    tabs: NavigationTab[];
-}
-
 export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsProps) {
-
     const href = window.location.href;
 
     let initialValue = 0;
