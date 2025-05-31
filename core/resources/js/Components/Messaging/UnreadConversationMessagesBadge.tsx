@@ -1,11 +1,6 @@
 import { Avatar, Badge } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-interface UnreadConversationMessagesBadgeProps {
-    badgeColor: string;
-    avatarInitials: string;
-}
-
+import { UnreadConversationMessagesBadgeProps } from '@/types';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -35,9 +30,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
         },
     },
 }));
-
-
-
 
 export default function UnreadConversationMessagesBadge({
     badgeColor,
