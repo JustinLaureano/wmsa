@@ -1,10 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 
-interface ParticipantSearchProps {
-
-}
-
-export default function ParticipantSearch({ ...props }: ParticipantSearchProps) {
+export default function ParticipantSearch() {
     const theme = useTheme();
 
     return (

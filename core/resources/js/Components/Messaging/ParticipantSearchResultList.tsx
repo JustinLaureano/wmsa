@@ -2,11 +2,7 @@ import React from 'react';
 import { List, ListItem, ListItemText, Typography, useTheme } from '@mui/material';
 import OverflowScrollBox from '../Shared/OverflowScrollBox';
 
-interface ParticipantSearchResultListProps {
-
-}
-
-export default function ParticipantSearchResultList({ ...props }: ParticipantSearchResultListProps ) {
+export default function ParticipantSearchResultList() {
     const theme = useTheme();
 
     return (

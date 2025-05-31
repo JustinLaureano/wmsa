@@ -4,11 +4,7 @@ import LanguageContext from '@/Contexts/LanguageContext';
 import { Brightness6, LightMode } from '@mui/icons-material';
 import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
 
-interface ThemeSettingsProps {
-
-}
-
-export default function ThemeSettings({ ...props } : ThemeSettingsProps) {
+export default function ThemeSettings() {
     const theme = useTheme();
     const { lang } = useContext(LanguageContext);
     const colorMode = useContext(ColorModeContext);

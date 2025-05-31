@@ -1,10 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 
-interface MessageDateDividerProps {
-
-}
-
-export default function MessageDateDivider({ ...props }: MessageDateDividerProps) {
+export default function MessageDateDivider() {
     const theme = useTheme();
 
     return (

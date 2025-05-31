@@ -3,11 +3,7 @@ import axios from 'axios';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
 
-interface LanguageSettingsProps {
-
-}
-
-export default function LanguageSettings({ ...props } : LanguageSettingsProps) {
+export default function LanguageSettings() {
     const theme = useTheme();
     const [initialLoad, setInitialLoad] = useState(true);
     const { lang, setLang } = useContext(LanguageContext);
