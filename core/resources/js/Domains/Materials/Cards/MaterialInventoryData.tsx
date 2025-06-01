@@ -89,16 +89,22 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
                                             </Box>
                                         </Grid>
                                         <Grid size={3}>
-                                            <Typography variant="subtitle2" color="text.secondary">Material Number</Typography>
-                                            <Typography variant="body1">{material_number}</Typography>
+                                            <Box>
+                                                <Typography variant="subtitle2" color="text.secondary">Material Number</Typography>
+                                                <Typography variant="body1">{material_number}</Typography>
+                                            </Box>
                                         </Grid>
                                         <Grid size={3}>
-                                            <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
-                                            <Typography variant="body1">{container_count}</Typography>
+                                            <Box>
+                                                <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
+                                                <Typography variant="body1">{container_count}</Typography>
+                                            </Box>
                                         </Grid>
                                         <Grid size={3}>
-                                            <Typography variant="subtitle2" color="text.secondary">Total Quantity</Typography>
-                                            <Typography variant="body1">{total_quantity_formatted}</Typography>
+                                            <Box>
+                                                <Typography variant="subtitle2" color="text.secondary">Total Quantity</Typography>
+                                                <Typography variant="body1">{total_quantity_formatted}</Typography>
+                                            </Box>
                                         </Grid>
                                     </Grid>
                                 </Box>
