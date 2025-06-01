@@ -29,7 +29,7 @@ docker-compose up -d
 
 # Copy package dependencies to local file system
 chmod +x ./docker/bin/copy-deps.sh ./docker/bin/core-vendor.sh ./docker/bin/copy-core-node_modules.sh
-
+docker-compose up -d
 ./docker/bin/copy-deps.sh
 ```
 
@@ -132,6 +132,15 @@ docker-compose up --build <container_name>
 To view running containers, run:
 ```bash
 docker ps
+```
+
+## Updating npm packages
+
+Rebuild the core application and then copy over the new node_modules directory to local development project
+
+```bash
+docker-compose build core
+./docker/bin/copy-core-node_modules.sh
 ```
 
 

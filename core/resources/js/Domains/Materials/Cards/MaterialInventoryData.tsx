@@ -16,7 +16,7 @@ import {
     Typography,
     AccordionSummary,
     Box,
-    Grid,
+    Grid
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
