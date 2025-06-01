@@ -131,12 +131,13 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
                                         <TableBody>
                                             {containers.map((container) => {
                                                 const { quantity, lot_number } = container.attributes;
+                                                const { storage_location_name } = container.computed;
 
                                                 return (
                                                     <TableRow key={container.uuid}>
                                                         <TableCell>{quantity}</TableCell>
                                                         <TableCell>{lot_number}</TableCell>
-                                                        <TableCell>Storage Location</TableCell>
+                                                        <TableCell>{storage_location_name}</TableCell>
                                                     </TableRow>
                                                 )
                                             })}

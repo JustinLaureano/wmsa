@@ -102,8 +102,8 @@ class MaterialContainer extends Model
     {
         return $this->hasOne(
                 MovementStatus::class,
-                'movement_status_code',
-                'id'
+                'code',
+                'movement_status_code'
             );
     }
 

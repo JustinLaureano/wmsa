@@ -32,7 +32,12 @@ class MaterialRepository
     {
         return Material::query()
             ->has('containers')
-            ->with('containers')
+            ->with([
+                'containers' => [
+                    'location',
+                    'containerType'
+                ]
+            ])
             ->filter()
             ->orderBy('part_number', 'asc')
             ->paginate();
