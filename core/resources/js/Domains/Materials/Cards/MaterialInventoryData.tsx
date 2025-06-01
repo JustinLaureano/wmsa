@@ -15,6 +15,8 @@ import {
     CardHeader,
     Typography,
     AccordionSummary,
+    Box,
+    Grid,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
@@ -61,7 +63,6 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
         setLoaded(true);
     }, [])
 
-
     return (
         <Card sx={{ flexGrow: 1 }}>
             <CardHeader title={lang.material_inventory} />
@@ -70,6 +71,8 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
                 {data.map((material) => {
                     console.log(material);
 
+                    const { material_number, part_number } = material.attributes;
+                    const { title, total_quantity_formatted, container_count } = material.computed;
                     const containers = material.relations.containers;
 
                     return (
@@ -77,7 +80,28 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                             >
-                                <Typography>{material.computed.title}</Typography>
+                                <Box sx={{ flexGrow: 1 }}>
+                                    <Grid container>
+                                        <Grid size={3}>
+                                            <Box>
+                                                <Typography variant="subtitle2" color="text.secondary">Part Number</Typography>
+                                                <Typography variant="body1">{part_number}</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid size={3}>
+                                            <Typography variant="subtitle2" color="text.secondary">Material Number</Typography>
+                                            <Typography variant="body1">{material_number}</Typography>
+                                        </Grid>
+                                        <Grid size={3}>
+                                            <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
+                                            <Typography variant="body1">{container_count}</Typography>
+                                        </Grid>
+                                        <Grid size={3}>
+                                            <Typography variant="subtitle2" color="text.secondary">Total Quantity</Typography>
+                                            <Typography variant="body1">{total_quantity_formatted}</Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
                             </AccordionSummary>
                             <AccordionDetails>
                                 {containers.map((container) => (
