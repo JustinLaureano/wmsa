@@ -1,7 +1,8 @@
 import { JsonApiResource} from "@/types";
 
 export interface ConversationAttributes {
-    [key: string]: any;
+    uuid: string;
+    group_conversation: boolean;
 }
 
 export interface ConversationRelations {

@@ -1,7 +1,11 @@
 import { JsonApiResource} from "@/types";
 
 export interface MessageAttributes {
-    [key: string]: any;
+    uuid: string;
+    conversation_uuid: string;
+    sender_id: string;
+    sender_type: string;
+    content: string;
 }
 
 export interface MessageRelations {

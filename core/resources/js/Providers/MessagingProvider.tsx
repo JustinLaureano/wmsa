@@ -2,122 +2,106 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import {
     MessagingProviderProps,
     ConversationResource,
-    JsonObject,
     MessageResource,
-    MessageFormData
+    MessageFormData,
+    MessagingContextValue,
 } from '@/types';
 import MessagingContext from '@/Contexts/MessagingContext';
-import MessagingService from '@/Services/MessagingService';
+import { MessageCreationService, ConversationService } from '@/Services/Messaging';
 import AuthContext from '@/Contexts/AuthContext';
 import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
 
-// TODO: change all logic to only use user.uuid
-
-export default function MessagingProvider({ children, ...props }: MessagingProviderProps) {
+export default function MessagingProvider({ children }: MessagingProviderProps) {
     const { teammate, user } = useContext(AuthContext);
-    const messagingService = new MessagingService();
+    const messageService = new MessageCreationService();
+    const conversationService = new ConversationService();
 
     const [conversations, setConversations] = useState<ConversationResource[]>([]);
     const [unreadMessages, setUnreadMessages] = useState(0);
-
     const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
     const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
 
     const fetchConversations = async () => {
-        const { id: participant_id, type: participant_type} = getPrimaryAuthIdentifiers(teammate, user);
+        const { id: participant_id, type: participant_type } = getPrimaryAuthIdentifiers(teammate, user);
 
-        if ( !participant_id ) return;
+        if (!participant_id) {
+            setConversations([]);
+            setUnreadMessages(0);
+            return;
+        }
 
-        const response = await messagingService.getConversations(participant_id, participant_type);
-
-        setConversations(response.data);
-        setUnreadMessages(response.computed.unread_messages);
+        const response = await conversationService.getConversations(participant_id, participant_type);
+        setConversations(response.data.data);
+        setUnreadMessages(response.data.computed.unread_messages);
     };
 
     const fetchConversationMessages = async () => {
-        // TODO: start loading
-        if ( !activeConversation ) {
+        if (!activeConversation) {
             setActiveMessages(null);
             return;
         }
 
-        const response = await messagingService.getConversationMessages(activeConversation.uuid);
-
-        setActiveMessages(response.data);
+        // TODO: Implement loading state
+        const messages = await conversationService.getConversationMessages(activeConversation.uuid);
+        setActiveMessages(messages);
     };
 
     const handleNewMessageRequest = async (content: string) => {
-        const { id: sender_id, type: sender_type} = getPrimaryAuthIdentifiers(teammate, user);
+        const { id: sender_id, type: sender_type } = getPrimaryAuthIdentifiers(teammate, user);
 
-        if ( !sender_id || !activeConversation ) return;
+        if (!sender_id || !activeConversation) return null;
 
-        const data : MessageFormData = {
+        const data: MessageFormData = {
             conversation_uuid: activeConversation.uuid,
             sender_id,
             sender_type,
-            content
+            content,
         };
 
-        const message : MessageResource | null = await messagingService.createMessage(data);
+        const message = await messageService.createMessage(data);
 
         if (message) {
-            setActiveMessages((prevMessages) => {
-                if (!prevMessages) return [message];
-    
-                return [...prevMessages, message];
-            })
+            setActiveMessages((prevMessages) => [...(prevMessages || []), message]);
         }
 
         return message;
     };
 
-    const handleMessageSent = (e: JsonObject) => {
-        const message = e.message;
-
+    const handleMessageSent = (e: { message: MessageResource }) => {
+        // Simplify: Always refresh both, as message affects conversations and messages
         fetchConversationMessages();
         fetchConversations();
-
-        // if (
-        //     (message.sender_type == 'teammate' && teammate && message.sender_id == teammate.clock_number) ||
-        //     (message.sender_type == 'user' && user && message.sender_id == user.guid)
-        // ) {
-        //     fetchConversationMessages();
-        //     fetchConversations();
-        //     return;
-        // }
-        // else {
-        //     fetchConversations();
-        // }
-    }
+    };
 
     useEffect(() => {
         fetchConversations();
-    }, []);
+    }, [teammate?.clock_number, user?.guid]); // Depend on identifiers
 
     useEffect(() => {
         fetchConversationMessages();
     }, [activeConversation]);
 
     useEffect(() => {
-        window.Echo.private(`conversation.user.${user?.guid}`)
-            .listen('.message.sent', (e: any) => {
-                handleMessageSent(e);
-                console.log('message for user', e)
-            });
-
-        window.Echo.private(`conversation.teammate.${teammate?.clock_number}`)
-            .listen('.message.sent', (e: any) => {
-                handleMessageSent(e);
-                console.log('message for clock number', e)
-            });
+        if (user?.guid) {
+            window.Echo.private(`conversation.user.${user.guid}`).listen(
+                '.message.sent',
+                handleMessageSent
+            );
+        }
+        if (teammate?.clock_number) {
+            window.Echo.private(`conversation.teammate.${teammate.clock_number}`).listen(
+                '.message.sent',
+                handleMessageSent
+            );
+        }
 
         return () => {
-            window.Echo.leave(`conversation.user.${user?.guid}`)
-            window.Echo.leave(`conversation.teammate.${teammate?.clock_number}`)
-        }
-    }, [teammate, user]);
+            if (user?.guid) window.Echo.leave(`conversation.user.${user.guid}`);
+            if (teammate?.clock_number) window.Echo.leave(`conversation.teammate.${teammate.clock_number}`);
+        };
+    }, [teammate?.clock_number, user?.guid]);
 
-    const defaultValue = {
+    const defaultValue: MessagingContextValue = {
         conversations,
         setConversations,
         unreadMessages,
@@ -126,23 +110,15 @@ export default function MessagingProvider({ children, ...props }: MessagingProvi
         setActiveConversation,
         activeMessages,
         setActiveMessages,
-        handleNewMessageRequest
+        handleNewMessageRequest,
     };
 
-    const dependencies = [
-        teammate,
-        user,
+    const value = useMemo(() => defaultValue, [
         conversations,
         unreadMessages,
         activeConversation,
-        activeMessages
-    ];
+        activeMessages,
+    ]);
 
-    const value = useMemo(() => defaultValue, dependencies);
-
-    return (
-        <MessagingContext.Provider value={value}>
-            {children}
-        </MessagingContext.Provider>
-    );
+    return <MessagingContext.Provider value={value}>{children}</MessagingContext.Provider>;
 }
