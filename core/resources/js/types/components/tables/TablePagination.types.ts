@@ -1,4 +1,4 @@
-import { Pagination } from '@/types/shared';
+import { Pagination } from '../../shared/Pagination.types';
 
 export interface TablePaginationProps {
     pagination: Pagination;

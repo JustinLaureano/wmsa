@@ -1,10 +1,10 @@
-import { JsonPaginateCollectionLinks, JsonPaginateCollectionMeta } from '@/types';
+import { CollectionPagination, JsonPaginateCollectionLinks, JsonPaginateCollectionMeta } from '@/types';
 
 export const getCollectionPagination = (
     links: JsonPaginateCollectionLinks,
     meta: JsonPaginateCollectionMeta
 ) => {
-    return {
+    const pagination: CollectionPagination = {
         current_page: meta.current_page,
         from: meta.from,
         last_page: meta.last_page,
@@ -17,4 +17,6 @@ export const getCollectionPagination = (
         to: meta.to,
         total: meta.total,
     }
+
+    return pagination;
 }

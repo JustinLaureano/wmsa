@@ -1,3 +1,4 @@
+export * from './CollectionPagination.types';
 export * from './JsonApiCollection.types';
 export * from './JsonApiResource.types';
 export * from './JsonPaginateCollection.types';

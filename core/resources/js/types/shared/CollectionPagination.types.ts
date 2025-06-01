@@ -1,3 +1,5 @@
+import { JsonPaginateCollectionLinks } from "./JsonPaginateCollection.types";
+
 export interface CollectionPagination {
     current_page: number;
     from: number;

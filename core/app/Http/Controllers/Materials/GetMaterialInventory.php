@@ -25,7 +25,9 @@ class GetMaterialInventory extends Controller
     public function __invoke(Request $request)
     {
         if ($request->expectsJson()) {
-            return $this->materialRepository->filterInventoryPaginate();
+            return new MaterialInventoryCollection(
+                $this->materialRepository->filterInventoryPaginate()
+            );
         }
 
         return Inertia::render('Materials/Inventory/ShowMaterialInventory', [
