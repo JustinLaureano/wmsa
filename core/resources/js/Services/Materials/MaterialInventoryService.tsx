@@ -4,9 +4,9 @@ import {
     JsonPaginateCollection,
     MaterialInventoryResource,
 } from '@/types';
-import ApiService from './ApiService';
+import ApiService from '../ApiService';
 
-class MaterialService {
+export class MaterialInventoryService {
     private apiService: ApiService;
 
     constructor() {
@@ -40,5 +40,3 @@ class MaterialService {
         }
     }
 }
-
-export default MaterialService;

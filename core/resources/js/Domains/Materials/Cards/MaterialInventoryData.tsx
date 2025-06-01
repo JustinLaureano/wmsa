@@ -18,11 +18,11 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
-import MaterialService from '@/Services/MaterialService';
+import { MaterialInventoryService } from '@/Services/Materials';
 
 export default function MaterialInventoryData({ inventory } : MaterialInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
-    const materialService = new MaterialService();
+    const materialInventoryService = new MaterialInventoryService();
 
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState(inventory.data.data);
@@ -30,7 +30,7 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
     const [filterParams, setFilterParams] = useState({});
 
     const handleFilterEvent = async (filterParams: JsonObject) => {
-        const response = await materialService.getMaterialInventory(filterParams);
+        const response = await materialInventoryService.getMaterialInventory(filterParams);
 
         if ( !response ) return;
 
