@@ -16,7 +16,14 @@ import {
     Typography,
     AccordionSummary,
     Box,
-    Grid
+    Grid,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    Divider
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
@@ -110,9 +117,32 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
                                 </Box>
                             </AccordionSummary>
                             <AccordionDetails>
-                                {containers.map((container) => (
-                                    <Typography key={container.uuid}>{container.attributes.barcode}</Typography>
-                                ))}
+                                <Typography variant="overline">Containers</Typography>
+                                <Divider />
+                                <TableContainer>
+                                    <Table stickyHeader>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Quantity</TableCell>
+                                                <TableCell>Lot Number</TableCell>
+                                                <TableCell>Location</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {containers.map((container) => {
+                                                const { quantity, lot_number } = container.attributes;
+
+                                                return (
+                                                    <TableRow key={container.uuid}>
+                                                        <TableCell>{quantity}</TableCell>
+                                                        <TableCell>{lot_number}</TableCell>
+                                                        <TableCell>Storage Location</TableCell>
+                                                    </TableRow>
+                                                )
+                                            })}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
                             </AccordionDetails>
                         </Accordion>
                     )
