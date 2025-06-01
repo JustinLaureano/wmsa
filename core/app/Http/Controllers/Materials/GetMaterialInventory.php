@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Materials;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Production\MaterialInventoryCollection;
+use App\Http\Resources\Materials\MaterialInventoryCollection;
 use App\Repositories\MaterialRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

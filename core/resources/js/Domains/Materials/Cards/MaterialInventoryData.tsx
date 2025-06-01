@@ -61,12 +61,14 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
         setLoaded(true);
     }, [])
 
+
     return (
         <Card sx={{ flexGrow: 1 }}>
             <CardHeader title={lang.material_inventory} />
             <CardContent>
 
                 {data.map((material) => {
+                    console.log(material);
 
                     const containers = material.relations.containers;
 

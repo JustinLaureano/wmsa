@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Production;
+namespace App\Http\Resources\Materials;
 
 use App\Domain\Materials\Enums\MovementStatusEnum;
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
