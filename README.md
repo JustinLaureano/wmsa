@@ -140,6 +140,7 @@ Rebuild the core application and then copy over the new node_modules directory t
 
 ```bash
 docker-compose build core
+docker-compose up -d
 ./docker/bin/copy-core-node_modules.sh
 ```
 
