@@ -16,6 +16,7 @@ export interface MessageRelations {
 }
 
 export interface MessageComputed {
+    sender_uuid: string;
     sender_name: string;
     sent_at_date: string;
     filtered_content: string;

@@ -6,23 +6,14 @@ import MessageMeta from './MessageMeta';
 import MessageCard from './MessageCard';
 
 export default function Message({ message, ...props }: MessageProps) {
-    const { teammate, user } = useContext(AuthContext);
-
-    // const {} = message.computed;
+    const { user } = useContext(AuthContext);
+    const { sender_uuid } = message.computed;
 
     let justify = 'left';
 
     if (
-        (
-            teammate && 
-            teammate.clock_number == message.attributes.sender_id &&
-            message.attributes.sender_type == 'teammate'
-        ) ||
-        (
-            user &&
-            user.guid == message.attributes.sender_id &&
-            message.attributes.sender_type == 'user'
-        )
+        user &&
+        user.uuid == sender_uuid
     ) {
         justify = 'right';
     }

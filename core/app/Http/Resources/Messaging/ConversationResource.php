@@ -47,7 +47,6 @@ class ConversationResource extends JsonResource
     protected function getTitle(): string
     {
         $participants = $this->participants->filter(function ($participant) {
-            logger()->info('Participant', ['participant' => $participant]);
             return $participant->user->uuid !== $this->participantData->user_uuid;
         });
 

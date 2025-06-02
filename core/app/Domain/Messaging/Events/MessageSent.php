@@ -2,7 +2,7 @@
 
 namespace App\Domain\Messaging\Events;
 
-use App\Models\ConversationParticipant;
+use App\Models\User;
 use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -32,8 +32,8 @@ class MessageSent implements ShouldBroadcast
         $this->message->load('conversation.participants');
 
         return $this->message->conversation->participants
-            ->map(function (ConversationParticipant $participant) {
-                return new PrivateChannel('conversation.user.' . $participant->user_uuid);
+            ->map(function (User $user) {
+                return new PrivateChannel('conversation.user.' . $user->uuid);
             })
             ->all();
     }
