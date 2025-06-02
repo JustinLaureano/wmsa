@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Messaging;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,15 +18,21 @@ class MessageResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'attributes' => $this->resource->getAttributes(),
+            'attributes' => [
+                'uuid' => $this->uuid,
+                'content' => $this->content,
+                'conversation_uuid' => $this->conversation_uuid,
+                'user_uuid' => $this->user_uuid,
+            ],
             'relations' => [
-                'status' => $this->whenLoaded('status'),
+                'status' => $this->status,
                 'sender' => $this->whenLoaded('user'),
             ],
             'computed' => [
                 'sender_name' => $this->getSenderName(),
                 'sent_at_date' => $this->getSentAtDate(),
                 'filtered_content' => $this->getFilteredContent(),
+                'user_has_read' => $this->userHasRead($request->user()),
             ],
         ];
     }
@@ -67,5 +74,27 @@ class MessageResource extends JsonResource
     protected function getSentAtDate(): string
     {
         return (new Carbon($this->created_at))->format('n/j g:i A');
+    }
+
+    /**
+     * Get the is read for the message.
+     */
+    protected function userHasRead(User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if ($this->user_uuid === $user->uuid) {
+            return true;
+        }
+
+        $status = $this->status->filter(function ($status) use ($user) {
+                return $status->user_uuid === $user->uuid;
+            })->first();
+
+        return $status
+            ? (bool) $status->is_read
+            : false;
     }
 }

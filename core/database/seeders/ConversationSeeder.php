@@ -116,8 +116,8 @@ class ConversationSeeder extends Seeder
                             default => Lottery::odds(19, 20)->choose(),
                         };
 
+                        $readerUuid = $senderIsUser1 ? $user2['uuid'] : $user1['uuid'];
                         if ($isRead) {
-                            $readerUuid = $senderIsUser1 ? $user2['uuid'] : $user1['uuid'];
                             $readAt = $messageTime->copy()
                                 ->addHours($this->getFakeHours())
                                 ->addMinutes($this->getFakeMinutes())
@@ -129,6 +129,15 @@ class ConversationSeeder extends Seeder
                                 'user_uuid' => $readerUuid,
                                 'is_read' => true,
                                 'read_at' => $readAt
+                            ];
+                        }
+                        else {
+                            $this->statuses[] = [
+                                'uuid' => Str::uuid(),
+                                'message_uuid' => $message['uuid'],
+                                'user_uuid' => $readerUuid,
+                                'is_read' => false,
+                                'read_at' => null
                             ];
                         }
 

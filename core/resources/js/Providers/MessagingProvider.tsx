@@ -1,18 +1,16 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from "react";
 import {
     MessagingProviderProps,
     ConversationResource,
     MessageResource,
-    MessageFormData,
     MessagingContextValue,
-} from '@/types';
-import MessagingContext from '@/Contexts/MessagingContext';
-import { MessageCreationService, ConversationService } from '@/Services/Messaging';
-import AuthContext from '@/Contexts/AuthContext';
-import { getPrimaryAuthIdentifiers } from '@/Utils/auth';
+} from "@/types";
+import MessagingContext from "@/Contexts/MessagingContext";
+import { MessageCreationService, ConversationService } from "@/Services/Messaging";
+import AuthContext from "@/Contexts/AuthContext";
 
 export default function MessagingProvider({ children }: MessagingProviderProps) {
-    const { teammate, user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const messageService = new MessageCreationService();
     const conversationService = new ConversationService();
 
@@ -20,19 +18,18 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
     const [unreadMessages, setUnreadMessages] = useState(0);
     const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
     const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
+    const [isLoadingMessages, setIsLoadingMessages] = useState(false);
 
     const fetchConversations = async () => {
-        const { id: participant_id, type: participant_type } = getPrimaryAuthIdentifiers(teammate, user);
-
-        if (!participant_id) {
+        if (!user?.uuid) {
             setConversations([]);
             setUnreadMessages(0);
             return;
         }
 
-        const response = await conversationService.getConversations(participant_id, participant_type);
-        setConversations(response.data.data);
-        setUnreadMessages(response.data.computed.unread_messages);
+        const response = await conversationService.getConversations();
+        setConversations(response.data);
+        setUnreadMessages(response.computed.unread_messages);
     };
 
     const fetchConversationMessages = async () => {
@@ -41,20 +38,21 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
             return;
         }
 
-        // TODO: Implement loading state
-        const messages = await conversationService.getConversationMessages(activeConversation.uuid);
-        setActiveMessages(messages);
+        setIsLoadingMessages(true);
+        try {
+            const messages = await conversationService.getConversationMessages(activeConversation.uuid);
+            setActiveMessages(messages);
+        } finally {
+            setIsLoadingMessages(false);
+        }
     };
 
     const handleNewMessageRequest = async (content: string) => {
-        const { id: sender_id, type: sender_type } = getPrimaryAuthIdentifiers(teammate, user);
+        if (!user?.uuid || !activeConversation) return null;
 
-        if (!sender_id || !activeConversation) return null;
-
-        const data: MessageFormData = {
+        const data = {
             conversation_uuid: activeConversation.uuid,
-            sender_id,
-            sender_type,
+            user_uuid: user.uuid,
             content,
         };
 
@@ -68,31 +66,33 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
     };
 
     const handleMessageSent = (e: { message: MessageResource }) => {
-        // Simplify: Always refresh both, as message affects conversations and messages
-        fetchConversationMessages();
+        // Refresh conversations and messages
         fetchConversations();
+        fetchConversationMessages();
     };
 
     useEffect(() => {
         fetchConversations();
-    }, [user?.guid]);
+    }, [user?.uuid]);
 
     useEffect(() => {
         fetchConversationMessages();
-    }, [activeConversation]);
+    }, [activeConversation?.uuid]);
 
     useEffect(() => {
-        if (user?.guid) {
-            window.Echo.private(`conversation.user.${user.guid}`).listen(
-                '.message.sent',
+        if (user?.uuid) {
+            window.Echo.private(`conversation.user.${user.uuid}`).listen(
+                ".message.sent",
                 handleMessageSent
             );
         }
 
         return () => {
-            if (user?.guid) window.Echo.leave(`conversation.user.${user.guid}`);
+            if (user?.uuid) {
+                window.Echo.leave(`conversation.user.${user.uuid}`);
+            }
         };
-    }, [user?.guid]);
+    }, [user?.uuid]);
 
     const defaultValue: MessagingContextValue = {
         conversations,
@@ -104,6 +104,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         activeMessages,
         setActiveMessages,
         handleNewMessageRequest,
+        isLoadingMessages,
     };
 
     const value = useMemo(() => defaultValue, [
@@ -111,6 +112,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         unreadMessages,
         activeConversation,
         activeMessages,
+        isLoadingMessages,
     ]);
 
     return <MessagingContext.Provider value={value}>{children}</MessagingContext.Provider>;

@@ -37,12 +37,9 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                     {unread_messages ? (
                         <UnreadConversationMessagesBadge
                             badgeColor={badgeColor}
-                            avatarInitials={avatar_initials}
                         />
                     ) : (
-                        <Avatar sx={{ bgcolor: badgeColor }}>
-                            {avatar_initials}
-                        </Avatar>
+                        <Avatar sx={{ bgcolor: badgeColor }} />
                     )}
                 </ListItemAvatar>
 

@@ -24,26 +24,55 @@ class MessageRepository
     }
 
     /**
-     * Get the number of unread messages for a user.
+     * Get the total number of unread messages for a user across all their conversations.
+     *
+     * @param string $userUuid
+     * @return int
      */
-    public function getUnreadMessagesCount(string $userUuid): int
+    public function getTotalUnreadMessagesCount(string $userUuid): int
     {
-        $result = DB::select('CALL get_unread_messages_count(?)', [$userUuid]);
-
-        return $result[0]->unread_messages ?? 0;
+        return Message::query()
+            ->whereIn('conversation_uuid', function ($query) use ($userUuid) {
+                $query->select('conversation_uuid')
+                      ->from('conversation_participants')
+                      ->where('user_uuid', $userUuid);
+            })
+            ->where('user_uuid', '!=', $userUuid) // Exclude messages sent by the user
+            ->whereNotExists(function ($query) use ($userUuid) {
+                $query->select(DB::raw(1))
+                      ->from('message_status')
+                      ->whereColumn('message_status.message_uuid', 'messages.uuid')
+                      ->where('message_status.user_uuid', $userUuid)
+                      ->where('is_read', true);
+            })
+            ->count();
     }
 
     /**
-     * Get the number of unread messages in a conversation.
+     * Get the number of unread messages for a specific conversation for a user.
+     *
+     * @param string $conversationUuid
+     * @param string $userUuid
+     * @return int
      */
-    public function getUnreadConversationMessagesCount(string $conversationUuid, string $userUuid): int
+    public function getConversationUnreadMessagesCount(string $conversationUuid, string $userUuid): int
     {
-        $result = DB::select('CALL get_unread_conversation_messages_count(?, ?)', [
-            $conversationUuid,
-            $userUuid
-        ]);
-
-        return $result[0]->unread_messages ?? 0;
+        return Message::query()
+            ->where('conversation_uuid', $conversationUuid)
+            ->whereIn('conversation_uuid', function ($query) use ($userUuid) {
+                $query->select('conversation_uuid')
+                      ->from('conversation_participants')
+                      ->where('user_uuid', $userUuid);
+            })
+            ->where('user_uuid', '!=', $userUuid) // Exclude messages sent by the user
+            ->whereNotExists(function ($query) use ($userUuid) {
+                $query->select(DB::raw(1))
+                      ->from('message_status')
+                      ->whereColumn('message_status.message_uuid', 'messages.uuid')
+                      ->where('message_status.user_uuid', $userUuid)
+                      ->where('is_read', true);
+            })
+            ->count();
     }
 
     /**

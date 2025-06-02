@@ -1,17 +1,14 @@
 import { ConversationResource, MessageResource } from "@/types/domains/messaging";
 
-export type MessagingContextType = {
+export interface MessagingContextValue {
     conversations: ConversationResource[];
     setConversations: (conversations: ConversationResource[]) => void;
-
     unreadMessages: number;
-    setUnreadMessages: (unreadMessages: number) => void;
-
+    setUnreadMessages: (unread: number) => void;
     activeConversation: ConversationResource | null;
-    setActiveConversation: (activeConversation: ConversationResource | null) => void;
-
+    setActiveConversation: (conversation: ConversationResource | null) => void;
     activeMessages: MessageResource[] | null;
-    setActiveMessages: (activeMessages: MessageResource[] | null) => void;
-
-    handleNewMessageRequest: (content: string) => Promise<MessageResource|null|undefined>;
+    setActiveMessages: (messages: MessageResource[] | null) => void;
+    handleNewMessageRequest: (content: string) => Promise<MessageResource | null>;
+    isLoadingMessages: boolean;
 }

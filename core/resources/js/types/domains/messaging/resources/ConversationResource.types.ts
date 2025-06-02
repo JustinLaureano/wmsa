@@ -1,4 +1,4 @@
-import { JsonApiResource} from "@/types";
+import { JsonApiResource, MessageResource } from "@/types";
 
 export interface ConversationAttributes {
     uuid: string;
@@ -6,11 +6,22 @@ export interface ConversationAttributes {
 }
 
 export interface ConversationRelations {
-    [key: string]: any;
+    latest_message?: MessageResource;
+    participants: Array<{
+        data: {
+            uuid: string;
+            type: string;
+        };
+        computed: {
+            count: number;
+        };
+        meta: {
+            timestamp: string;
+        };
+    }>;
 }
 
 export interface ConversationComputed {
-    avatar_initials: string;
     title: string;
     subject: string;
     latest_message_date: string;

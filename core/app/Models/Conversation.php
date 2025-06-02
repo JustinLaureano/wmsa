@@ -24,6 +24,13 @@ class Conversation extends Model
         'group_conversation'
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * Get the latest message for the conversation.
      */
@@ -54,6 +61,8 @@ class Conversation extends Model
             'uuid',
             'uuid'
         )
+        ->as('user')
+        ->with('teammate')
         ->withTimestamps();
     }
 

@@ -49,6 +49,17 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
      * The attributes that are filterable.
      */
     protected array $filterable = [

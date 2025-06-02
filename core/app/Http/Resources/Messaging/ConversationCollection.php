@@ -46,20 +46,8 @@ class ConversationCollection extends ResourceCollection
     protected function getUnreadMessages(): int
     {
         return (new MessageRepository)
-            ->getUnreadMessagesCount(
+            ->getTotalUnreadMessagesCount(
                 userUuid: $this->participantData->user_uuid
             );
-    }
-    }    }
-
-    protected function participantIsUser() : bool
-    {
-        return $this->participantData->participant_type === ParticipantTypeEnum::USER->value;
-    }
-}
-}
-    protected function participantIsUser() : bool
-    {
-        return $this->participantData->participant_type === ParticipantTypeEnum::USER->value;
     }
 }

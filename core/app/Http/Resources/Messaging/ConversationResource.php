@@ -27,7 +27,10 @@ class ConversationResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'attributes' => $this->resource->getAttributes(),
+            'attributes' => [
+                'uuid' => $this->uuid,
+                'group_conversation' => $this->group_conversation,
+            ],
             'relations' => [
                 'latest_message' => new MessageResource($this->whenLoaded('latestMessage')),
                 'participants' => ParticipantCollection::make($this->whenLoaded('participants')),
@@ -44,7 +47,8 @@ class ConversationResource extends JsonResource
     protected function getTitle(): string
     {
         $participants = $this->participants->filter(function ($participant) {
-            return $participant->user_uuid !== $this->participantData->user_uuid;
+            logger()->info('Participant', ['participant' => $participant]);
+            return $participant->user->uuid !== $this->participantData->user_uuid;
         });
 
         if ($participants->count() === 1) {
@@ -73,7 +77,7 @@ class ConversationResource extends JsonResource
         }
 
         $isUnread = !$this->latestMessage->status
-            ->where('user_uuid', $this->participantDataVISION)
+            ->where('user_uuid', $this->participantData->user_uuid)
             ->first()
             ?->is_read;
 
@@ -100,7 +104,7 @@ class ConversationResource extends JsonResource
     protected function getUnreadMessages(): int
     {
         return (new MessageRepository)
-            ->getUnreadConversationMessagesCount(
+            ->getConversationUnreadMessagesCount(
                 conversationUuid: $this->uuid,
                 userUuid: $this->participantData->user_uuid
             );

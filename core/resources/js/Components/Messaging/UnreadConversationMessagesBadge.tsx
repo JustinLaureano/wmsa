@@ -32,8 +32,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function UnreadConversationMessagesBadge({
-    badgeColor,
-    avatarInitials
+    badgeColor
 }: UnreadConversationMessagesBadgeProps ) {
 
     return (
@@ -42,9 +41,7 @@ export default function UnreadConversationMessagesBadge({
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             variant="dot"
         >
-            <Avatar sx={{ bgcolor: badgeColor }}>
-                {avatarInitials}
-            </Avatar>
+            <Avatar sx={{ bgcolor: badgeColor }} />
         </StyledBadge>
     );
 }

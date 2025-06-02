@@ -1,36 +1,20 @@
-import { isAxiosError } from 'axios';
-import { MessageFormData, MessageResource } from '@/types';
-import ApiService from '../ApiService';
+import axios from "axios";
+import { MessageResource } from "@/types";
+
+interface MessageFormData {
+    conversation_uuid: string;
+    user_uuid: string;
+    content: string;
+}
 
 export class MessageCreationService {
-    private apiService: ApiService;
-
-    constructor(apiService: ApiService = new ApiService()) {
-        this.apiService = apiService;
-    }
-
-    /**
-     * Creates a new message in a conversation
-     * @param data - The message form data
-     * @returns The created message resource or null on error
-     */
-    public async createMessage(data: MessageFormData): Promise<MessageResource | null> {
+    async createMessage(data: MessageFormData): Promise<MessageResource | null> {
         try {
-            const response = await this.apiService.post<{ data: MessageResource }>(
-                route('api.messaging.message'),
-                data
-            );
-
-            return response.data.data;
+            const response = await axios.post("/api/messaging/message", data);
+            return response.data as MessageResource;
         }
         catch (error) {
-            if (isAxiosError(error)) {
-                console.error('Failed to create message:', error.response?.data || error.message);
-            }
-            else {
-                console.error('Unexpected error:', error);
-            }
-            // TODO: Log error
+            console.error("Failed to create message:", error);
             return null;
         }
     }

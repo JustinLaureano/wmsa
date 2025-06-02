@@ -13,8 +13,11 @@ class ConversationRepository
         return Conversation::query()
             ->whereParticipant($user_uuid)
             ->with([
-                'latestMessage.user.teammate',
-                'participants.user.teammate',
+                'latestMessage' => [
+                    'user.teammate',
+                    'status'
+                ],
+                'participants',
             ])
             ->get();
     }

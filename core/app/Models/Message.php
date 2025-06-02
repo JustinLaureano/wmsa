@@ -23,6 +23,22 @@ class Message extends Model
         'content'
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'status'
+    ];
+
     /**
      * Get the conversation for the message.
      */

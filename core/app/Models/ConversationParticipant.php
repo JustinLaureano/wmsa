@@ -22,6 +22,12 @@ class ConversationParticipant extends Model
         'user_uuid',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * Get the conversation for the participant.
      */

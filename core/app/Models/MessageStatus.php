@@ -37,6 +37,10 @@ class MessageStatus extends Model
         'read_at',
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
     /**
      * Get the message for the status.
      */

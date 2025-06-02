@@ -23,7 +23,7 @@ return new class extends Migration
                 ->on('users')
                 ->cascadeOnDelete();
             $table->boolean('is_read')->default(false);
-            $table->timestamp('read_at');
+            $table->timestamp('read_at')->nullable();
         });
     }
 

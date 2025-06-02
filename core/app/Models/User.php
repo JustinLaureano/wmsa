@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Domain\Messaging\Contracts\MessengerContract;
 use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,6 +67,14 @@ class User extends Authenticatable
         'teammate_clock_number',
     ];
 
+    protected $hidden = [
+        'organization_id',
+        'remember_token',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * The attributes that are filterable.
      */
@@ -102,6 +110,20 @@ class User extends Authenticatable
     public function domainAccount(): HasOne
     {
         return $this->hasOne(DomainAccount::class, 'guid', 'domain_account_guid');
+    }
+
+    /**
+     * Get the conversations for the user.
+     */
+    public function conversations(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Conversation::class,
+            'conversation_participants',
+            'user_uuid',
+            'conversation_uuid'
+        )
+        ->withTimestamps();
     }
 
     /**
