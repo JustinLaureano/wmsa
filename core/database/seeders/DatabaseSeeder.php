@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
         Location::factory(10)->create();
 
         $this->call([
+            TeammateSeeder::class,
+            UserSeeder::class,
+            ConversationSeeder::class,
+            MaterialContainerSeeder::class,
+            ContainerLocationSeeder::class,
             MaterialRequestSeeder::class,
             DeliveryDocumentSeeder::class,
         ]);

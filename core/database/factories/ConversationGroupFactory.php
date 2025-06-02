@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ConversationGroup>
@@ -17,7 +18,10 @@ class ConversationGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->words()
+            'uuid' => Str::uuid(),
+            'name' => fake()->words(3, true),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

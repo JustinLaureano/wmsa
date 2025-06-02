@@ -16,7 +16,7 @@ use Laravel\Scout\Searchable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MessengerContract
+class User extends Authenticatable
 {
     use AuthenticatesWithLdap,
         Filterable,

@@ -19,13 +19,12 @@ class GroupConversationFactory extends Factory
      */
     public function definition(): array
     {
-        $conversationGroupUuid = ConversationGroup::query()->inRandomOrder()->first()->uuid;
-        $conversationUuid = Conversation::query()->inRandomOrder()->first()->uuid;
-
         return [
             'uuid' => Str::uuid(),
-            'conversation_group_uuid' => $conversationGroupUuid,
-            'conversation_uuid' => $conversationUuid,
+            'conversation_group_uuid' => ConversationGroup::factory(),
+            'conversation_uuid' => Conversation::factory(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

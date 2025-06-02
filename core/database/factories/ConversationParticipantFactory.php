@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Conversation;
-use App\Models\Teammate;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -19,15 +19,12 @@ class ConversationParticipantFactory extends Factory
      */
     public function definition(): array
     {
-        $conversationUuid = Conversation::query()->inRandomOrder()->first()->uuid;
-        $participantId = Teammate::query()->inRandomOrder()->first()->clock_number;
-        $participantType = 'teammate';
-
         return [
             'uuid' => Str::uuid(),
-            'conversation_uuid' => $conversationUuid,
-            'participant_id' => $participantId,
-            'participant_type' => $participantType,
+            'conversation_uuid' => Conversation::factory(),
+            'user_uuid' => User::factory(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
