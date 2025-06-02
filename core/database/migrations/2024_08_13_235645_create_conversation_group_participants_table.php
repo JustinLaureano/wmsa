@@ -16,9 +16,12 @@ return new class extends Migration
             $table->uuid()->index();
             $table->foreignUuid('conversation_group_uuid')
                 ->references('uuid')
-                ->on('conversation_groups');
-            $table->string('participant_id', 40); // TODO: index?
-            $table->enum('participant_type', ['user', 'teammate']);
+                ->on('conversation_groups')
+                ->cascadeOnDelete();
+            $table->foreignUuid('user_uuid')
+                ->references('uuid')
+                ->on('users')
+                ->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,6 +1,5 @@
 <?php
 
-use App\Domain\Messaging\Enums\SenderTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,9 +16,12 @@ return new class extends Migration
             $table->uuid()->index();
             $table->foreignUuid('conversation_uuid')
                 ->references('uuid')
-                ->on('conversations');
-            $table->string('sender_id', 40); // TODO: index?
-            $table->enum('sender_type', SenderTypeEnum::toArray());
+                ->on('conversations')
+                ->cascadeOnDelete();
+            $table->foreignUuid('user_uuid')
+                ->references('uuid')
+                ->on('users')
+                ->cascadeOnDelete();
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();

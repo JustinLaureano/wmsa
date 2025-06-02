@@ -19,8 +19,7 @@ class ConversationGroupParticipant extends Model
     protected $fillable = [
         'uuid',
         'conversation_group_uuid',
-        'participant_id',
-        'participant_type',
+        'user_uuid',
     ];
 
     /**
@@ -29,5 +28,13 @@ class ConversationGroupParticipant extends Model
     public function group(): BelongsTo
     {
         return $this->belongsTo(ConversationGroup::class, 'conversation_group_uuid', 'uuid');
+    }
+
+    /**
+     * Get the user for the participant.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_uuid', 'uuid');
     }
 }

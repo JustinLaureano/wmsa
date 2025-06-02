@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,14 +16,15 @@ return new class extends Migration
             $table->uuid()->index();
             $table->foreignUuid('conversation_uuid')
                 ->references('uuid')
-                ->on('conversations');
-            $table->string('participant_id', 40); // TODO: index?
-            $table->enum('participant_type', ['user', 'teammate']);
+                ->on('conversations')
+                ->cascadeOnDelete();
+            $table->foreignUuid('user_uuid')
+                ->references('uuid')
+                ->on('users')
+                ->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
-
-        // Artisan::call('db:seed --class=ConversationSeeder');
     }
 
     /**

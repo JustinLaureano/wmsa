@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ConversationParticipant extends Model
@@ -20,8 +19,7 @@ class ConversationParticipant extends Model
     protected $fillable = [
         'uuid',
         'conversation_uuid',
-        'participant_id',
-        'participant_type'
+        'user_uuid',
     ];
 
     /**
@@ -35,8 +33,8 @@ class ConversationParticipant extends Model
     /**
      * Get the participant for the conversation.
      */
-    public function participant(): MorphTo
+    public function user(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'user_uuid', 'uuid');
     }
 }

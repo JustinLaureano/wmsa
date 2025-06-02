@@ -25,8 +25,7 @@ class MessageStatus extends Model
     protected $fillable = [
         'uuid',
         'message_uuid',
-        'participant_id',
-        'participant_type',
+        'user_uuid',
         'is_read',
         'read_at',
     ];
@@ -37,5 +36,13 @@ class MessageStatus extends Model
     public function message(): BelongsTo
     {
         return $this->belongsTo(Message::class, 'message_uuid', 'uuid');
+    }
+
+    /**
+     * Get the user for the status.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_uuid', 'uuid');
     }
 }

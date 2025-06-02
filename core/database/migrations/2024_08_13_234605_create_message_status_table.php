@@ -16,9 +16,12 @@ return new class extends Migration
             $table->uuid()->index();
             $table->foreignUuid('message_uuid')
                 ->references('uuid')
-                ->on('messages');
-            $table->string('participant_id', 40); // TODO: index?
-            $table->enum('participant_type', ['user', 'teammate']);
+                ->on('messages')
+                ->cascadeOnDelete();
+            $table->foreignUuid('user_uuid')
+                ->references('uuid')
+                ->on('users')
+                ->cascadeOnDelete();
             $table->boolean('is_read')->default(false);
             $table->timestamp('read_at');
         });

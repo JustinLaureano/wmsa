@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Domain\Materials\Contracts\HandlerContract;
-use App\Domain\Messaging\Contracts\MessengerContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Teammate extends Model implements AuthenticatableContract, HandlerContract, MessengerContract
+class Teammate extends Model implements AuthenticatableContract, HandlerContract
 {
     use Authenticatable,
         HasFactory,
@@ -71,11 +70,6 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
         return $this->clock_number;
     }
 
-    public function getMessengerId(): string
-    {
-        return $this->clock_number;
-    }
-
     /**
      * Returns the default guard for the model.
      *
@@ -104,30 +98,6 @@ class Teammate extends Model implements AuthenticatableContract, HandlerContract
     public function domainAccount(): HasOne
     {
         return $this->hasOne(DomainAccount::class, 'guid', 'domain_account_guid');
-    }
-
-    /**
-     * Get the teammate's conversation message.
-     */
-    public function message(): MorphOne
-    {
-        return $this->morphOne(Message::class, 'sender');
-    }
-
-    /**
-     * Get the message status for a teammate's message.
-     */
-    public function messageStatus(): MorphOne
-    {
-        return $this->morphOne(MessageStatus::class, 'participant');
-    }
-
-    /**
-     * Get the user as a participant of a conversation.
-     */
-    public function participant(): MorphOne
-    {
-        return $this->morphOne(Message::class, 'participant');
     }
 
     /**

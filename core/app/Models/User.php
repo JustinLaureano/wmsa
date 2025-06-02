@@ -7,8 +7,8 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -79,11 +79,6 @@ class User extends Authenticatable implements MessengerContract
         'email',
     ];
 
-    public function getMessengerId(): string
-    {
-        return $this->uuid;
-    }
-
     /**
      * Get the indexable data array for the model.
      *
@@ -110,19 +105,35 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
-     * Get the user's conversation message.
+     * Get the messages for the user.
      */
-    public function message(): MorphOne
+    public function messages(): HasMany
     {
-        return $this->morphOne(Message::class, 'sender');
+        return $this->hasMany(Message::class, 'user_uuid', 'uuid');
     }
 
     /**
-     * Get the message status for a user's message.
+     * Get the message statuses for the user.
      */
-    public function messageStatus(): MorphOne
+    public function messageStatuses(): HasMany
     {
-        return $this->morphOne(MessageStatus::class, 'participant');
+        return $this->hasMany(MessageStatus::class, 'user_uuid', 'uuid');
+    }
+
+    /**
+     * Get the conversation participants for the user.
+     */
+    public function conversationParticipants(): HasMany
+    {
+        return $this->hasMany(ConversationParticipant::class, 'user_uuid', 'uuid');
+    }
+
+    /**
+     * Get the conversation group participants for the user.
+     */
+    public function conversationGroupParticipants(): HasMany
+    {
+        return $this->hasMany(ConversationGroupParticipant::class, 'user_uuid', 'uuid');
     }
 
     /**
@@ -134,15 +145,7 @@ class User extends Authenticatable implements MessengerContract
     }
 
     /**
-     * Get the user as a participant of a conversation.
-     */
-    public function participant(): MorphOne
-    {
-        return $this->morphOne(Message::class, 'participant');
-    }
-
-    /**
-     * Get the teammate account for the user.
+     * Get the teammate for the user.
      */
     public function teammate(): HasOne
     {

@@ -51,13 +51,10 @@ class Conversation extends Model
     /**
      * Scope a query to filter on the barcode column.
      */
-    public function scopeWhereParticipant(Builder $query, string $id, string $type): void
+    public function scopeWhereParticipant(Builder $query, string $user_uuid): void
     {
-        $query->whereHas('participants', function (Builder $builder) use ($id, $type) {
-            $builder->where([
-                ['participant_id', $id],
-                ['participant_type', $type]
-            ]);
+        $query->whereHas('participants', function (Builder $builder) use ($user_uuid) {
+            $builder->where('user_uuid', $user_uuid);
         });
     }
 }

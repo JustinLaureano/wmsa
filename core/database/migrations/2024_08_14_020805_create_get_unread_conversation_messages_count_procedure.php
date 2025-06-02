@@ -14,10 +14,7 @@ return new class extends Migration
             DROP PROCEDURE IF EXISTS get_unread_conversation_messages_count;
             CREATE PROCEDURE get_unread_conversation_messages_count(
                 IN conversationUuid VARCHAR(36),
-                IN primaryId VARCHAR(40),
-                IN primaryType ENUM('user','teammate'),
-                IN secondaryId VARCHAR(40),
-                IN secondaryType ENUM('user','teammate')
+                IN userUuid VARCHAR(40)
             )
             BEGIN
                 WITH conversations AS (
@@ -27,11 +24,7 @@ return new class extends Migration
                     INNER JOIN conversation_participants p
                         ON p.conversation_uuid = c.uuid
                     WHERE c.uuid = conversationUuid COLLATE utf8mb4_unicode_ci
-                        AND (
-                            (p.participant_id = primaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = primaryType COLLATE utf8mb4_unicode_ci)
-                            OR
-                            (p.participant_id = secondaryId COLLATE utf8mb4_unicode_ci AND p.participant_type = secondaryType COLLATE utf8mb4_unicode_ci)
-                        )
+                        AND p.user_uuid = userUuid
                 )
                 SELECT
                     COUNT(m.uuid) AS unread_messages
@@ -40,11 +33,7 @@ return new class extends Migration
                     ON ms.message_uuid = m.uuid
                 WHERE m.conversation_uuid IN (SELECT uuid FROM conversations)
                     AND ms.uuid IS NULL
-                    AND ( 
-                        (m.sender_id <> primaryId COLLATE utf8mb4_unicode_ci AND m.sender_type = primaryType COLLATE utf8mb4_unicode_ci)
-                        OR
-                        (m.sender_id <> secondaryId COLLATE utf8mb4_unicode_ci AND m.sender_type = secondaryType COLLATE utf8mb4_unicode_ci)
-                    );
+                    AND m.user_uuid = userUuid;
             END
         ");
     }

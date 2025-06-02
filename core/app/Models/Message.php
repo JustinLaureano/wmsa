@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Message extends Model
 {
@@ -20,8 +19,7 @@ class Message extends Model
     protected $fillable = [
         'uuid',
         'conversation_uuid',
-        'sender_id',
-        'sender_type',
+        'user_uuid',
         'content'
     ];
 
@@ -34,11 +32,11 @@ class Message extends Model
     }
 
     /**
-     * Get the sender of the message.
+     * Get the user for the message.
      */
-    public function sender(): MorphTo
+    public function user(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'user_uuid', 'uuid');
     }
 
     /**
