@@ -17,7 +17,7 @@ class StartConversation extends Controller
     {
         $conversation = $action->handle($data);
 
-        return new ConversationResource($conversation)->setParticipantData(
+        return (new ConversationResource($conversation))->setParticipantData(
             new ParticipantConversationsData(
                 user_uuid: $data->user_uuid
             )

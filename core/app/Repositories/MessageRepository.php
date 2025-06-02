@@ -9,10 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class MessageRepository
 {
-    public function getForConversation(string $conversationUuid) : Collection
+    /**
+     * Get messages for a conversation.
+     */
+    public function getForConversation(string $conversationUuid): Collection
     {
         return Message::query()
             ->where('conversation_uuid', $conversationUuid)
+            ->with(['user.teammate', 'status'])
             ->orderBy('created_at', 'desc')
             ->limit(100)
             ->get()
@@ -20,45 +24,23 @@ class MessageRepository
     }
 
     /**
-     * Get the number of combined unread messages
-     * for a user across joint accounts.
+     * Get the number of unread messages for a user.
      */
-    public function getUnreadMessagesCount(
-        string $primaryId,
-        string $primaryType,
-        string $secondaryId,
-        string $secondaryType
-    ) : int
+    public function getUnreadMessagesCount(string $userUuid): int
     {
-        $result = DB::select('CALL get_unread_messages_count(?, ?, ?, ?)', [
-            $primaryId, 
-            $primaryType, 
-            $secondaryId, 
-            $secondaryType
-        ]);
+        $result = DB::select('CALL get_unread_messages_count(?)', [$userUuid]);
 
         return $result[0]->unread_messages ?? 0;
     }
 
     /**
-     * Get the number of combined unread messages
-     * for a user across joint accounts for a 
-     * single conversation.
+     * Get the number of unread messages in a conversation.
      */
-    public function getUnreadConversationMessagesCount(
-        string $conversationUuid,
-        string $primaryId,
-        string $primaryType,
-        string $secondaryId,
-        string $secondaryType
-    ) : int
+    public function getUnreadConversationMessagesCount(string $conversationUuid, string $userUuid): int
     {
-        $result = DB::select('CALL get_unread_conversation_messages_count(?, ?, ?, ?, ?)', [
+        $result = DB::select('CALL get_unread_conversation_messages_count(?, ?)', [
             $conversationUuid,
-            $primaryId,
-            $primaryType,
-            $secondaryId,
-            $secondaryType
+            $userUuid
         ]);
 
         return $result[0]->unread_messages ?? 0;
@@ -67,7 +49,7 @@ class MessageRepository
     /**
      * Store a message record.
      */
-    public function store(MessageData $data) : Message
+    public function store(MessageData $data): Message
     {
         return Message::query()->create($data->toArray());
     }

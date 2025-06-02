@@ -75,7 +75,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
 
     useEffect(() => {
         fetchConversations();
-    }, [teammate?.clock_number, user?.guid]); // Depend on identifiers
+    }, [user?.guid]);
 
     useEffect(() => {
         fetchConversationMessages();
@@ -88,18 +88,11 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
                 handleMessageSent
             );
         }
-        if (teammate?.clock_number) {
-            window.Echo.private(`conversation.teammate.${teammate.clock_number}`).listen(
-                '.message.sent',
-                handleMessageSent
-            );
-        }
 
         return () => {
             if (user?.guid) window.Echo.leave(`conversation.user.${user.guid}`);
-            if (teammate?.clock_number) window.Echo.leave(`conversation.teammate.${teammate.clock_number}`);
         };
-    }, [teammate?.clock_number, user?.guid]);
+    }, [user?.guid]);
 
     const defaultValue: MessagingContextValue = {
         conversations,

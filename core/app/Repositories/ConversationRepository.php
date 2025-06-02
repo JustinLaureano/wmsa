@@ -8,27 +8,28 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConversationRepository
 {
-    /**
-     * Store a conversation record.
-     */
-    public function getForParticipant(string $participant_id, string $participant_type) : Collection
+    public function getForParticipant(string $user_uuid): Collection
     {
         return Conversation::query()
-            ->whereParticipant($participant_id, $participant_type)
+            ->whereParticipant($user_uuid)
             ->with([
-                'latestMessage' => [
-                    'sender',
-                    'status'
-                ],
-                'participants.participant'
+                'latestMessage.user.teammate',
+                'participants.user.teammate',
             ])
             ->get();
     }
 
     /**
-     * Store a conversation record.
+     * Ensure the given user is a participant in the given conversation.
      */
-    public function store(ConversationData $data) : Conversation
+    public function ensureParticipant(string $conversationUuid, string $userUuid): void
+    {
+        Conversation::where('uuid', $conversationUuid)
+            ->whereParticipant($userUuid)
+            ->firstOrFail();
+    }
+
+    public function store(ConversationData $data): Conversation
     {
         return Conversation::query()->create($data->toArray());
     }
