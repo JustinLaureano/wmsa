@@ -1,20 +1,21 @@
 import { useContext, useMemo } from 'react';
 import {
-    Avatar, Box, Divider, ListItemAvatar,
+    Avatar, Badge, Box, Divider, ListItemAvatar,
     ListItemButton, ListItemText, Stack, Typography
 } from '@mui/material';
 import { ConversationListItemProps } from '@/types';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
 import MessagingContext from '@/Contexts/MessagingContext';
+import { useTheme } from '@emotion/react';
 
 export default function ConversationsListItem({ conversation, ...props }: ConversationListItemProps ) {
+    const theme = useTheme();
     const { activeConversation, setActiveConversation } = useContext(MessagingContext)
 
     if (!conversation.computed) return;
 
     const {
-        avatar_initials,
         title,
         subject,
         latest_message_date,
@@ -100,6 +101,24 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                     >
                         {latest_message_date}
                     </Typography>
+
+                    <Stack
+                        alignItems="center"
+                        justifyContent="center"
+                        sx={{
+                            height: 20,
+                            width: 20,
+                            borderRadius: '50%',
+                            bgcolor: theme.palette.primary.light,
+                            color: theme.palette.primary.contrastText,
+                            fontSize: '0.75rem',
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            lineHeight: 1,
+                        }}
+                    >
+                        {unread_messages}
+                    </Stack>
                 </Stack>
 
             </ListItemButton>
