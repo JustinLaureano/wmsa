@@ -73,20 +73,11 @@ class ConversationResource extends JsonResource
             return 'No Messages';
         }
 
-        $isUnread = !$this->latestMessage->status
-            ->where('user_uuid', $this->participantData->user_uuid)
-            ->first()
-            ?->is_read;
-
-        if ($isUnread) {
-            return 'New Message';
-        }
-
         $sender = $this->latestMessage->user;
         $teammate = $sender->teammate;
         $senderName = $sender->uuid === $this->participantData->user_uuid
             ? 'You'
-            : ($teammate ? "{$teammate->first_name} {$teammate->last_name}" : $sender->first_name . ' ' . $sender->last_name);
+            : "{$teammate->first_name} {$teammate->last_name}";
 
         return "{$senderName}: {$this->latestMessage->content}";
     }
