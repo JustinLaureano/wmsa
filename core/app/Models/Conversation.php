@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Conversation extends Model
@@ -43,9 +44,17 @@ class Conversation extends Model
     /**
      * Get the participants for the conversation.
      */
-    public function participants(): HasMany
+    public function participants(): BelongsToMany
     {
-        return $this->hasMany(ConversationParticipant::class, 'conversation_uuid', 'uuid');
+        return $this->belongsToMany(
+            User::class,
+            'conversation_participants',
+            'conversation_uuid',
+            'user_uuid',
+            'uuid',
+            'uuid'
+        )
+        ->withTimestamps();
     }
 
     /**
