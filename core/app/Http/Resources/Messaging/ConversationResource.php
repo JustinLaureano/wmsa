@@ -47,21 +47,19 @@ class ConversationResource extends JsonResource
     protected function getTitle(): string
     {
         $participants = $this->participants->filter(function ($participant) {
-            return $participant->user->uuid !== $this->participantData->user_uuid;
+            return $participant->user->user_uuid !== $this->participantData->user_uuid;
         });
 
         if ($participants->count() === 1) {
-            $user = $participants->first()->user;
-            $teammate = $user->teammate;
+            $teammate = $participants->first()->teammate;
 
-            return $teammate ? "{$teammate->last_name}, {$teammate->first_name}" : $user->teammate_clock_number;
+            return $teammate ? "{$teammate->last_name}, {$teammate->first_name}" : $teammate->clock_number;
         }
 
         $names = $participants->map(function ($participant) {
-                $user = $participant->user;
-                $teammate = $user->teammate;
+                $teammate = $participant->teammate;
 
-                return $teammate ? $teammate->first_name : $user->first_name;
+                return $teammate->first_name .' '. $teammate->last_name[0];
             })
             ->filter()
             ->implode(', ');

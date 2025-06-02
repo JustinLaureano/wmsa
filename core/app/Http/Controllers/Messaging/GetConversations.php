@@ -22,9 +22,6 @@ class GetConversations extends Controller
 
         $conversations = $action->handle($data);
 
-
-        logger()->info('Conversations', ['conversations' => $conversations]);
-
         return new ConversationCollection($conversations, $data);
     }
 }
