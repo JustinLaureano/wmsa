@@ -15,12 +15,24 @@ class ParticipantCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'data' => $this->collection->toArray(),
+            'data' => $this->collection->map(function ($participant) {
+                    $user = $participant->user;
+                    $teammate = $user->teammate;
+
+                    return [
+                        'uuid' => $participant->uuid,
+                        'user_uuid' => $user->uuid,
+                        'name' => $teammate
+                            ? "{$teammate->last_name}, {$teammate->first_name}"
+                            : $user->teammate_clock_number,
+                    ];
+                })
+                ->all(),
             'computed' => [
-                'count' => $this->collection->count()
+                'count' => $this->collection->count(),
             ],
             'meta' => [
-                'timestamp' => now()
+                'timestamp' => now(),
             ],
         ];
     }

@@ -15,12 +15,12 @@ class MessageCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'data' => $this->collection->toArray(),
+            'data' => MessageResource::collection($this->collection),
             'computed' => [
-                'count' => $this->collection->count()
+                'count' => $this->collection->count(),
             ],
             'meta' => [
-                'timestamp' => now()
+                'timestamp' => now(),
             ],
         ];
     }

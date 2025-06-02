@@ -12,11 +12,10 @@ class GetConversations extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(string $participant_id, string $participant_type, GetConversationsAction $action)
+    public function __invoke(string $user_uuid, GetConversationsAction $action)
     {
         $data = new ParticipantConversationsData(
-            participant_id: $participant_id,
-            participant_type: $participant_type
+            user_uuid: $user_uuid
         );
 
         $conversations = $action->handle($data);

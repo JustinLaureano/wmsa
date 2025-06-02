@@ -3,27 +3,20 @@
 namespace App\Http\Resources\Messaging;
 
 use App\Domain\Messaging\DataTransferObjects\ParticipantConversationsData;
-use App\Domain\Messaging\Enums\ParticipantTypeEnum;
-use App\Models\ConversationParticipant;
-use App\Models\Teammate;
-use App\Models\User;
 use App\Repositories\MessageRepository;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ConversationResource extends JsonResource
 {
-    protected string $participant_id;
+    protected ParticipantConversationsData $participantData;
 
-    protected string $participant_type;
-
-    protected Teammate|null $teammate;
-
-    protected User|null $user;
-
-    protected Collection $otherParticipants;
+    public function setParticipantData(ParticipantConversationsData $participantData): self
+    {
+        $this->participantData = $participantData;
+        return $this;
+    }
 
     /**
      * Transform the resource into an array.
@@ -32,234 +25,84 @@ class ConversationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'uuid' => $this->uuid,
             'attributes' => $this->resource->getAttributes(),
             'relations' => [
-                'latest_message' => $this->latestMessage,
-                'participants' => $this->participants
+                'latest_message' => new MessageResource($this->whenLoaded('latestMessage')),
+                'participants' => ParticipantCollection::make($this->whenLoaded('participants')),
             ],
             'computed' => [
-                'avatar_initials' => $this->getParticipantInitials(),
                 'title' => $this->getTitle(),
                 'subject' => $this->getSubject(),
                 'latest_message_date' => $this->getLatestMessageDate(),
-                'unread_messages' => $this->getUnreadMessages()
-            ]
+                'unread_messages' => $this->getUnreadMessages(),
+            ],
         ];
     }
 
-    /**
-     * Get the avatar initials to use for the conversation list option.
-     */
-    protected function getParticipantInitials() : string
+    protected function getTitle(): string
     {
-        if ( $this->getOtherParticipants()->count() === 1 ) {
-            $op = $this->otherParticipants->first();
+        $participants = $this->participants->filter(function ($participant) {
+            return $participant->user_uuid !== $this->participantData->user_uuid;
+        });
 
-            if (
-                $op->participant_type == ParticipantTypeEnum::TEAMMATE->value ||
-                $op->participant_type == ParticipantTypeEnum::USER->value
-            ) {
-                $firstInitial = $op->participant->first_name
-                    ? substr($op->participant->first_name, 0, 1)
-                    : '';
-                $lastInitial = $op->participant->last_name
-                    ? substr($op->participant->last_name, 0, 1)
-                    : '';
+        if ($participants->count() === 1) {
+            $user = $participants->first()->user;
+            $teammate = $user->teammate;
 
-                return $firstInitial . $lastInitial;
-            }
+            return $teammate ? "{$teammate->last_name}, {$teammate->first_name}" : $user->teammate_clock_number;
         }
 
-        return '';
+        $names = $participants->map(function ($participant) {
+                $user = $participant->user;
+                $teammate = $user->teammate;
+
+                return $teammate ? $teammate->first_name : $user->first_name;
+            })
+            ->filter()
+            ->implode(', ');
+
+        return $names ?: 'Group Conversation';
     }
 
-    /**
-     * Get the title text for the conversation list option.
-     */
-    protected function getTitle() : string
+    protected function getSubject(): string
     {
-        if ( $this->getOtherParticipants()->count() === 1 ) {
-            $op = $this->otherParticipants->first();
-
-            if (
-                $op->participant_type == ParticipantTypeEnum::TEAMMATE->value ||
-                $op->participant_type == ParticipantTypeEnum::USER->value
-            ) {
-                $firstName = $op->participant->first_name
-                    ? $op->participant->first_name
-                    : '';
-                $lastName = $op->participant->last_name
-                    ? $op->participant->last_name
-                    : '';
-
-                if ($firstName && $lastName) {
-                    return $lastName .', '. $firstName;
-                }
-                else if ($firstName) {
-                    return $firstName;
-                }
-                else if ($lastName) {
-                    return $lastName;
-                }
-
-                return '';
-            }
-        }
-        else {
-            return $this->getOtherParticipants()
-                ->reduce(function (string $carry, ConversationParticipant $participant) {
-                    if (
-                        $participant->participant_type == ParticipantTypeEnum::TEAMMATE->value ||
-                        $participant->participant_type == ParticipantTypeEnum::USER->value
-                    ) {
-                        $name = $participant->participant->first_name
-                            ? $participant->participant->first_name
-                            : $participant->participant->last_name;
-                    }
-                    else {
-                        $name = 'Uknown';
-                    }
-
-                    return $carry ? "$carry, $name" : $name;
-                }, '');
+        if (!$this->latestMessage) {
+            return 'No Messages';
         }
 
-        return '';
+        $isUnread = !$this->latestMessage->status
+            ->where('user_uuid', $this->participantDataVISION)
+            ->first()
+            ?->is_read;
+
+        if ($isUnread) {
+            return 'New Message';
+        }
+
+        $sender = $this->latestMessage->user;
+        $teammate = $sender->teammate;
+        $senderName = $sender->uuid === $this->participantData->user_uuid
+            ? 'You'
+            : ($teammate ? "{$teammate->first_name} {$teammate->last_name}" : $sender->first_name . ' ' . $sender->last_name);
+
+        return "{$senderName}: {$this->latestMessage->content}";
     }
 
-    /**
-     * Get the subject line text for the conversation list option.
-     */
-    protected function getSubject() : string
+    protected function getLatestMessageDate(): ?string
     {
-
-        // TODO: if new message from another participant, display "New Message"
-        // if () {
-
-        // }
-        if ( $this->participantSentLatestMessage() ) {
-            return ucfirst(__('you')) .': '. substr($this->latestMessage->content, 0, 35);
-        }
-        else {
-            return substr($this->latestMessage->content, 0, 40);
-        }
-
-        return 'New Message';
+        return $this->latestMessage
+            ? (new Carbon($this->latestMessage->created_at))->format('n/j')
+            : null;
     }
 
-    /**
-     * Return a formatted date string of the date of the latest message.
-     */
-    protected function getLatestMessageDate() : string
+    protected function getUnreadMessages(): int
     {
-        return (new Carbon( $this->latestMessage->created_at ))->format('n/j');
-    }
-
-    protected function getOtherParticipants()
-    {
-        if ( !isset($this->otherParticipants) ) {
-            $this-> otherParticipants = $this->participants
-                ->reject(function (ConversationParticipant $participant) {
-                    if (
-                        $participant->participant_type == ParticipantTypeEnum::TEAMMATE->value &&
-                        $participant->participant_id == $this->teammate?->clock_number
-                    ) {
-                        return true;
-                    }
-
-                    if (
-                        $participant->participant_type == ParticipantTypeEnum::USER->value &&
-                        $participant->participant_id == $this->user?->guid
-                    ) {
-                        return true;
-                    }
-
-                    return false;
-                });
-        }
-
-        return $this->otherParticipants;
-    }
-
-    /**
-     * Returns the total number of unread messages for the participant
-     * for a single conversations. This also includes any related
-     * account conversations in the total as well.
-     */
-    protected function getUnreadMessages() : int
-    {
-        $conversationUuid = $this->uuid;
-        $primaryId = $this->participant_id;
-        $primaryType = $this->participant_type;
-        $secondaryId = $this->participant_type;
-        $secondaryType = $this->participant_type;
-
-        if (
-            $this->participantIsTeammate() &&
-            $this->user
-        ) {
-            $secondaryId = $this->user->guid;
-            $secondaryType = ParticipantTypeEnum::USER->value;
-        }
-
-        else if (
-            $this->participantIsUser() &&
-            $this->teammate
-        ) {
-            $secondaryId = $this->teammate->clock_number;
-            $secondaryType = ParticipantTypeEnum::TEAMMATE->value;
-        }
-
         return (new MessageRepository)
             ->getUnreadConversationMessagesCount(
-                conversationUuid: $conversationUuid,
-                primaryId: $primaryId,
-                primaryType: $primaryType,
-                secondaryId: $secondaryId,
-                secondaryType: $secondaryType
+                conversationUuid: $this->uuid,
+                userUuid: $this->participantData->user_uuid
             );
-    }
-
-    protected function participantSentLatestMessage() : bool
-    {
-        return (
-                $this->latestMessage->sender_type == ParticipantTypeEnum::TEAMMATE->value &&
-                $this->latestMessage->sender_id == $this->teammate?->clock_number
-            ) ||
-            (
-                $this->latestMessage->sender_type == ParticipantTypeEnum::USER->value &&
-                $this->latestMessage->sender_id == $this->user?->guid
-            );
-    }
-
-    /**
-     * Set the data of the active participant requesting
-     * the conversation resource. This will be used to
-     * detemermine which participant records are other
-     * people and which ones are the current user.
-     */
-    public function setRequestParticipant(
-        ParticipantConversationsData $participantData,
-        Teammate|null $teammate,
-        User|null $user
-    ) : void
-    {
-        $this->participant_id = $participantData->participant_id;
-        $this->participant_type = $participantData->participant_type;
-        $this->teammate = $teammate;
-        $this->user = $user;
-    }
-
-    protected function participantIsTeammate() : bool
-    {
-        return $this->participant_type === ParticipantTypeEnum::TEAMMATE->value;
-    }
-
-    protected function participantIsUser() : bool
-    {
-        return $this->participant_type === ParticipantTypeEnum::USER->value;
     }
 }
