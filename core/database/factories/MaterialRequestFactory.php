@@ -40,24 +40,53 @@ class MaterialRequestFactory extends Factory
     /**
      * Define the state for a closed material request.
      */
-    public static function makeActionData(Carbon $requestedAt, string $requestStatus): MaterialRequestActionData
+    public static function makeActionData(
+        Carbon $requestedAt,
+        string $requestStatus,
+        string|null $machineUuid,
+        string|null $storageLocationUuid,
+        int $items,
+        string $type
+    ): MaterialRequestActionData
     {
         return new MaterialRequestActionData(
-            items: static::getMaterialRequestItems($requestStatus),
+            items: static::getMaterialRequestItems(
+                $requestStatus,
+                $machineUuid,
+                $storageLocationUuid,
+                $items
+            ),
             material_request_status_code: $requestStatus,
-            material_request_type_code: static::getMaterialRequestTypeCode(),
+            material_request_type_code: $type,
             requester: User::query()->inRandomOrder()->first(),
             requested_at: $requestedAt
         );
     }
 
-    private static function getMaterialRequestItems(string $requestStatus): Collection
+    private static function getMaterialRequestItems(
+        string $requestStatus,
+        string|null $machineUuid,
+        string|null $storageLocationUuid,
+        int $items
+    ): Collection
     {
         $multipleItems = Lottery::odds(1, 10)->choose();
 
         $factoryItems = $multipleItems
-            ? MaterialRequestItem::factory()->count(rand(2, 4))->make(['material_request_uuid' => null])
-            : collect([MaterialRequestItem::factory()->make(['material_request_uuid' => null])]);
+            ? MaterialRequestItem::factory()
+                ->count(rand(2, 4))
+                ->make([
+                    'material_request_uuid' => null,
+                    'machine_uuid' => $machineUuid,
+                    'storage_location_uuid' => $storageLocationUuid,
+                ])
+            : collect([MaterialRequestItem::factory()
+                ->make([
+                    'material_request_uuid' => null,
+                    'machine_uuid' => $machineUuid,
+                    'storage_location_uuid' => $storageLocationUuid,
+                ])
+            ]);
 
         $items = collect();
 
@@ -84,28 +113,5 @@ class MaterialRequestFactory extends Factory
         }
 
         return $items;
-    }
-
-    private static function getMaterialRequestTypeCode(): string
-    {
-        $num = rand(1, 12);
-
-        if ($num == 1) {
-            return RequestTypeEnum::IRM->value;
-        }
-        else if ($num == 2) {
-            return RequestTypeEnum::PHOSPHATE->value;
-        }
-        else if ($num == 3) {
-            return RequestTypeEnum::CARDBOARD->value;
-        }
-        else if ($num == 4) {
-            return RequestTypeEnum::MISC->value;
-        }
-        else if ($num == 5 || $num == 6) {
-            return RequestTypeEnum::SHIPPING->value;
-        }
-
-        return RequestTypeEnum::TRANSFER->value;
     }
 }

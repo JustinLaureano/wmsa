@@ -135,6 +135,7 @@ class MaterialRequestRepository
                     'status'
                     ]
             ])
+            ->limit(15)
             ->get();
     }
 }
