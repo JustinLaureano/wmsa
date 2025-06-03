@@ -34,12 +34,11 @@ class MaterialContainerInventoryResource extends JsonResource
                 'barcode_label' => BarcodeFactory::make($this->barcode)->toArray(),
                 'movement_status' => MovementStatusEnum::from($this->movement_status_code)->label(),
                 'expires_at' => $this->getExpiresAt(),
-                'storage_location_uuid' => $this->location->uuid,
-                'storage_location_name' => $this->location->name,
-                'storage_location_barcode' => $this->location->code,
-                'container_type' => $this->containerType->code,
-                'container_type_name' => $this->containerType->name,
-                'container_type_name' => $this->containerType->name,
+                'storage_location_uuid' => $this->location?->uuid || '',
+                'storage_location_name' => $this->location?->name || '',
+                'storage_location_barcode' => $this->location?->code || '',
+                'container_type' => $this->containerType?->code || '',
+                'container_type_name' => $this->containerType?->name || '',
             ]
         ];
     }

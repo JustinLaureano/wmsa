@@ -25,9 +25,9 @@ class ContainerLocationSeeder extends Seeder
         $containers = MaterialContainer::doesntHave('location')->inRandomOrder()->get();
 
         foreach ($containers as $container) {
-            $noLocation = Lottery::odds(1, 100)->choose();
+            // $noLocation = Lottery::odds(1, 100)->choose();
 
-            if ($noLocation) continue;
+            // if ($noLocation) continue;
 
             $palletRack = Lottery::odds(9, 10)->choose();
             // $palletRack = Lottery::odds(10, 10)->choose();
