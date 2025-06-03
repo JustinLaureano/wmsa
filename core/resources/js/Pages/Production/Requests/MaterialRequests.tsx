@@ -5,7 +5,7 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import { green, red, blue, grey } from '@mui/material/colors';
-import { PersonOutlined, ScheduleOutlined } from '@mui/icons-material';
+import { PersonOutlined, ScheduleOutlined, ViewList } from '@mui/icons-material';
 import RequestNavTabs from '@/Domains/Production/Layout/Navigation/RequestNavTabs';
 import {
     Avatar,
@@ -90,21 +90,21 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                         <TableHead>
                                                             <TableRow>
                                                                 <TableCell>Part Number</TableCell>
-                                                                <TableCell>Location</TableCell>
-                                                                <TableCell>Quantity</TableCell>
-                                                                <TableCell>Container</TableCell>
+                                                                <TableCell>Order Qty</TableCell>
+                                                                <TableCell>Delivered Qty</TableCell>
+                                                                <TableCell>Container Type</TableCell>
+                                                                <TableCell>Status</TableCell>
+                                                                <TableCell>Skids Available</TableCell>
                                                             </TableRow>
                                                         </TableHead>
                                                         <TableBody>
                                                             <TableRow>
                                                                 <TableCell>{item.material_part_number}</TableCell>
-                                                                <TableCell>{item.machine_name || item.storage_location_name || 'None'}</TableCell>
-                                                                <TableCell>
-                                                                    {item.quantity_delivered} / {item.quantity_requested} {item.unit_of_measure}
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    Container Type
-                                                                </TableCell>
+                                                                <TableCell>{item.quantity_requested} {item.unit_of_measure}</TableCell>
+                                                                <TableCell>{item.quantity_delivered} {item.unit_of_measure}</TableCell>
+                                                                <TableCell>Container Type</TableCell>
+                                                                <TableCell>{item.status}</TableCell>
+                                                                <TableCell>2</TableCell>
                                                             </TableRow>
                                                         </TableBody>
                                                     </Table>
@@ -116,9 +116,19 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                         );
                     })}
 
+                    {list.length === 0 && (
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            <ViewList sx={{ fontSize: 200 }} color="disabled" />
+                            <Typography variant="body1" color="textSecondary">
+                                No requests at this time
+                            </Typography>
+                        </Stack>
+                    )}
                 </Stack>
             </Paper>
-
         </SidebarLayout>
     );
 }
