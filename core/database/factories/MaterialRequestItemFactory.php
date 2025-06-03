@@ -42,7 +42,7 @@ class MaterialRequestItemFactory extends Factory
             ->inRandomOrder()
             ->first();
 
-        $materialToteTypeUuid = $materialToteType?->uuid || null;
+        $materialToteTypeUuid = $materialToteType ? $materialToteType->uuid : null;
 
         return [
             'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()?->uuid || null,

@@ -109,6 +109,7 @@ class MaterialRequestFactory extends Factory
                 machine_uuid: $item->machine_uuid,
                 storage_location_uuid: $item->storage_location_uuid,
                 request_item_status_code: $item->request_item_status_code,
+                material_tote_type_uuid: $item->material_tote_type_uuid,
             ));
         }
 
