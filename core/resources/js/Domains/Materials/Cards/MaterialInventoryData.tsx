@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import {
     MaterialInventoryDataProps,
-    JsonObject
+    JsonObject,
+    MaterialAutocompleteResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -23,13 +24,16 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Divider
+    Divider,
+    Stack,
+    TextField,
+    Autocomplete
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { MaterialInventoryService } from '@/Services/Materials';
 
-export default function MaterialInventoryData({ inventory } : MaterialInventoryDataProps) {
+export default function MaterialInventoryData({ inventory, materialOptions } : MaterialInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
     const materialInventoryService = new MaterialInventoryService();
 
@@ -61,7 +65,7 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
 
     useEffect(() => {
         if (!loaded) return;
-
+        console.log('params', filterParams);
         handleFilterEvent(filterParams);
     }, [filterParams])
 
@@ -74,6 +78,29 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
         <Card sx={{ flexGrow: 1 }}>
             <CardHeader title={lang.material_inventory} />
             <CardContent>
+
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    sx={{ p: 1, mb: 2 }}
+                    gap={2}
+                >
+                    <Autocomplete
+                        multiple
+                        filterSelectedOptions
+                        options={materialOptions}
+                        onChange={(event, value) => {
+                            setFilterParams((prevFilterParams : JsonObject) => {
+                                return {
+                                    ...prevFilterParams,
+                                    'uuid': value.map((option : MaterialAutocompleteResource) => option.id)
+                                };
+                            });
+                        }}
+                        sx={{ width: 400 }}
+                        renderInput={(params) => <TextField {...params} label="Part Number" />}
+                    />
+                </Stack>
 
                 {data.map((material) => {
                     const { material_number, part_number } = material.attributes;

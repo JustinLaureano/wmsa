@@ -37,6 +37,7 @@ class Material extends Model
      * The attributes that are filterable.
      */
     protected array $filterable = [
+        'uuid',
         'material_number',
         'part_number',
         'description',

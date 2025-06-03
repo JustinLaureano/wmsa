@@ -8,13 +8,14 @@ import { ShowMaterialInventoryProps } from '@/types';
 export default function ShowMaterialInventory({ inventory, materialOptions, ...props } : ShowMaterialInventoryProps) {
     const { lang } = useContext(LanguageContext);
 
-    console.log(materialOptions);
-
     return (
         <SidebarLayout title={lang.inventory}>
             <MaterialsPageHeader />
 
-            <MaterialInventoryData inventory={inventory} />
+            <MaterialInventoryData
+                inventory={inventory}
+                materialOptions={materialOptions}
+            />
         </SidebarLayout>
     );
 }

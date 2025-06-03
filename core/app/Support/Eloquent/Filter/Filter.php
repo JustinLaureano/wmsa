@@ -79,8 +79,13 @@ class Filter
     /**
      * Parse the filter rule from the string if there is one.
      */
-    protected function getFilterRule(string $filter) : QueryFilter
+    protected function getFilterRule(string|array $filter) : QueryFilter
     {
+        if (is_array($filter)) {
+            $rule = new Rules\In;
+            return $rule;
+        }
+
         if ( !str_contains($filter, static::OPERATOR_SEPARATOR) ) {
             $rule = $this->rules[$this->defaultRule];
             return new $rule;
@@ -96,8 +101,12 @@ class Filter
     /**
      * Parse the filter value from the filter string.
      */
-    protected function getFilterValue(string $filter) : string
+    protected function getFilterValue(string|array $filter) : string|array
     {
+        if (is_array($filter)) {
+            return $filter;
+        }
+
         if ( !str_contains($filter, static::OPERATOR_SEPARATOR) ) {
             return $filter;
         }
