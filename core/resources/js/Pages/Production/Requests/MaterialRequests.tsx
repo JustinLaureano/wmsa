@@ -19,6 +19,8 @@ import {
     TableCell,
     TableHead,
     Paper,
+    Grid,
+    Divider,
 } from '@mui/material';
 import LocalDateDisplay from '@/Components/Shared/LocalDateDisplay';
 
@@ -85,34 +87,55 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                     </Stack>
                                 </Stack>
 
-                                <Stack sx={{ mt: 1 }}>
+                                <Stack sx={{ mt: 1 }} spacing={1}>
+                                    <Grid container>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Part Number</Typography>
+                                        </Grid>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Order Qty</Typography>
+                                        </Grid>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Delivered Qty</Typography>
+                                        </Grid>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Container Type</Typography>
+                                        </Grid>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Status</Typography>
+                                        </Grid>
+                                        <Grid size={2}>
+                                            <Typography variant="subtitle2">Skids Available</Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <Divider sx={{ color: 'divider' }}/>
                                     {request.items.map((item) => {
-                                            return (
-                                                <Box key={item.uuid}>
-                                                    <Table size="small">
-                                                        <TableHead>
-                                                            <TableRow>
-                                                                <TableCell>Part Number</TableCell>
-                                                                <TableCell>Order Qty</TableCell>
-                                                                <TableCell>Delivered Qty</TableCell>
-                                                                <TableCell>Container Type</TableCell>
-                                                                <TableCell>Status</TableCell>
-                                                                <TableCell>Skids Available</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>{item.material_part_number}</TableCell>
-                                                                <TableCell>{item.quantity_requested} {item.unit_of_measure}</TableCell>
-                                                                <TableCell>{item.quantity_delivered} {item.unit_of_measure}</TableCell>
-                                                                <TableCell>Container Type</TableCell>
-                                                                <TableCell>{item.status}</TableCell>
-                                                                <TableCell>2</TableCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </Box>
-                                            );
+                                        return (
+                                            <>
+                                                <Grid container>
+                                                    <Grid size={2}>
+                                                        <Typography>{item.material_part_number}</Typography>
+                                                    </Grid>
+                                                    <Grid size={2}>
+                                                        <Typography>{item.quantity_requested} {item.unit_of_measure}</Typography>
+                                                    </Grid>
+                                                    <Grid size={2}>
+                                                        <Typography>{item.quantity_delivered} {item.unit_of_measure}</Typography>
+                                                    </Grid>
+                                                    <Grid size={2}>
+                                                        <Typography>{item.material_tote_type_name || 'Any'}</Typography>
+                                                    </Grid>
+                                                    <Grid size={2}>
+                                                        <Typography>{item.status}</Typography>
+                                                    </Grid>
+                                                    <Grid size={2}>
+                                                        <Typography>2</Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Divider sx={{ color: 'divider' }}/>
+                                            </>
+                                        );
                                         })}
                                 </Stack>
                             </Paper>
