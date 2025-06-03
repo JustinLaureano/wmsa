@@ -14,6 +14,14 @@ class MaterialRepository
         return Material::query()->get();
     }
 
+    public function getMaterialInventoryOptions() : Collection
+    {
+        return Material::query()
+            ->has('containers')
+            ->orderBy('part_number', 'asc')
+            ->get();
+    }
+
     public function filterPaginate($search = null) : LengthAwarePaginator
     {
         if ($search === null) {

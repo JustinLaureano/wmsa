@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react';
 import {
-    Avatar, Badge, Box, Divider, ListItemAvatar,
+    Avatar, Box, Divider, ListItemAvatar,
     ListItemButton, ListItemText, Stack, Typography
 } from '@mui/material';
 import { ConversationListItemProps } from '@/types';

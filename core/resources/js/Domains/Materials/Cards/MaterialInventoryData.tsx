@@ -76,8 +76,6 @@ export default function MaterialInventoryData({ inventory } : MaterialInventoryD
             <CardContent>
 
                 {data.map((material) => {
-                    console.log(material);
-
                     const { material_number, part_number } = material.attributes;
                     const { title, total_quantity_formatted, container_count } = material.computed;
                     const containers = material.relations.containers;
