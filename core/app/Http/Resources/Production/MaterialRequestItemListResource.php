@@ -27,6 +27,7 @@ class MaterialRequestItemListResource extends JsonResource
             'machine_name' => $this->machine?->name,
             'storage_location_name' => $this->storage_location?->name,
             'status' => RequestItemStatusEnum::from($this->status?->code)->label(),
+            'material_tote_type_name' => $this->materialToteType?->tote,
         ];
     }
 

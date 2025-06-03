@@ -9,4 +9,5 @@ export interface MaterialRequestItemListResource {
     machine_name: string | null;
     storage_location_name: string | null;
     status: string;
+    material_tote_type_name: string | null;
 }

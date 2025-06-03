@@ -29,7 +29,8 @@ class MaterialRequestItem extends Model
         'unit_of_measure',
         'machine_uuid',
         'storage_location_uuid',
-        'request_item_status_code'
+        'request_item_status_code',
+        'material_tote_type_uuid'
     ];
 
     /**
@@ -97,4 +98,13 @@ class MaterialRequestItem extends Model
             'material_container_uuid'
         );
     }
+
+    /**
+     * Get the material tote type for this item.
+     */
+    public function materialToteType(): HasOne
+    {
+        return $this->hasOne(MaterialToteType::class, 'uuid', 'material_tote_type_uuid');
+    }
+    
 }

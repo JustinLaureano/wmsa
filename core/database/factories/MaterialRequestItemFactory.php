@@ -8,6 +8,7 @@ use App\Models\Material;
 use App\Models\Machine;
 use App\Models\StorageLocation;
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
+use App\Models\MaterialToteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,6 +37,13 @@ class MaterialRequestItemFactory extends Factory
             ->inRandomOrder()
             ->first();
 
+        $materialToteType = MaterialToteType::query()
+            ->where('material_uuid', $material->uuid)
+            ->inRandomOrder()
+            ->first();
+
+        $materialToteTypeUuid = $materialToteType?->uuid || null;
+
         return [
             'material_request_uuid' => MaterialRequest::query()->inRandomOrder()->first()?->uuid || null,
             'material_uuid' => $material->uuid,
@@ -45,6 +53,7 @@ class MaterialRequestItemFactory extends Factory
             'machine_uuid' => $machineUuid,
             'storage_location_uuid' => $storageLocationUuid,
             'request_item_status_code' => RequestItemStatusEnum::OPEN->value,
+            'material_tote_type_uuid' => $materialToteTypeUuid,
         ];
     }
 }

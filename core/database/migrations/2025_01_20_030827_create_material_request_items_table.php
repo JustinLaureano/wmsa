@@ -32,6 +32,10 @@ return new class extends Migration
                 ->references('code')
                 ->on('request_item_statuses')
                 ->default('open');
+            $table->foreignUuid('material_tote_type_uuid')
+                ->nullable()
+                ->references('uuid')
+                ->on('material_tote_types');
             $table->timestamps();
             $table->softDeletes();
         });

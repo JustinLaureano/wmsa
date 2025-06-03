@@ -29,7 +29,8 @@ class MaterialRequestItemTransformer
             unit_of_measure: $data->unit_of_measure,
             machine_uuid: $machine->uuid,
             storage_location_uuid: $location->uuid,
-            request_item_status_code: RequestItemStatusEnum::OPEN->value
+            request_item_status_code: RequestItemStatusEnum::OPEN->value,
+            material_tote_type_uuid: $data->material_tote_type_uuid,
         );
     }
 }

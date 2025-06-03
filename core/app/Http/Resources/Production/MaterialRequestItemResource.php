@@ -38,6 +38,7 @@ class MaterialRequestItemResource extends JsonResource
                 'quantity_requested' => $this->quantity_requested,
                 'quantity_delivered' => $this->quantity_delivered,
                 'unit_of_measure' => UnitOfMeasureEnum::from($this->unit_of_measure)->label(),
+                'material_tote_type_name' => $this->materialToteType?->tote,
             ]
         ];
     }

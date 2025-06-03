@@ -24,7 +24,12 @@ class AttemptRequestContainerAllocation implements ShouldQueue
         public MaterialRequestItem $item,
     )
     {
-        $this->item->load(['material', 'machine', 'storageLocation']);
+        $this->item->load([
+            'material',
+            'machine',
+            'storageLocation',
+            'materialToteType'
+        ]);
     }
 
     /**

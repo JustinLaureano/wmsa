@@ -12,7 +12,8 @@ class CreateMaterialRequestItemPayload extends Data
         public readonly int $quantity_requested,
         public readonly string $unit_of_measure,
         public readonly string|null $machine_uuid,
-        public readonly string|null $storage_location_uuid
+        public readonly string|null $storage_location_uuid,
+        public readonly string|null $material_tote_type_uuid
     )
     {
 
@@ -42,6 +43,10 @@ class CreateMaterialRequestItemPayload extends Data
             'storage_location_uuid' => [
                 'nullable',
                 'exists:storage_locations,uuid'
+            ],
+            'material_tote_type_uuid' => [
+                'nullable',
+                'exists:material_tote_types,uuid'
             ]
         ];
     }

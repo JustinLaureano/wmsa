@@ -16,6 +16,7 @@ class MaterialRequestItemActionData extends Data
         public readonly string|null $machine_uuid,
         public readonly string|null $storage_location_uuid,
         public readonly string $request_item_status_code,
+        public readonly string|null $material_tote_type_uuid = null,
     )
     {
 
@@ -55,6 +56,10 @@ class MaterialRequestItemActionData extends Data
                 'required',
                 'string',
                 'in:' . implode(',', RequestItemStatusEnum::cases())
+            ],
+            'material_tote_type_uuid' => [
+                'nullable',
+                'exists:material_tote_types,uuid'
             ]
         ];
     }
