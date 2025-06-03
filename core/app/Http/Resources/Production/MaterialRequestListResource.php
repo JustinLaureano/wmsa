@@ -21,19 +21,11 @@ class MaterialRequestListResource extends JsonResource
             'uuid' => $this->uuid,
             'title' => $this->getTitle(),
             'requester_name' => $this->getRequesterName(),
-            'requested_at' => $this->getRequestedAtDate(),
+            'requested_at' => $this->requested_at,
             'status' => RequestStatusEnum::from($this->status?->code)->label(),
             'type' => RequestTypeEnum::from($this->type?->code)->label(),
             'items' => MaterialRequestItemListResource::collection($this->items)
         ];
-    }
-
-    /**
-     * Return a formatted date string of the date the message was sent.
-     */
-    protected function getRequestedAtDate() : string
-    {
-        return (new Carbon( $this->requested_at ))->format('n/j g:i A');
     }
 
     /**

@@ -38,7 +38,7 @@ class ConversationResource extends JsonResource
             'computed' => [
                 'title' => $this->getTitle(),
                 'subject' => $this->getSubject(),
-                'latest_message_date' => $this->getLatestMessageDate(),
+                'latest_message_date' => $this->latestMessage->created_at,
                 'unread_messages' => $this->getUnreadMessages(),
             ],
         ];

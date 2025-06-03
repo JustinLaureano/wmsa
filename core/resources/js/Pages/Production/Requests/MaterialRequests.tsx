@@ -20,6 +20,7 @@ import {
     TableHead,
     Paper,
 } from '@mui/material';
+import LocalDateDisplay from '@/Components/Shared/LocalDateDisplay';
 
 export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const theme = useTheme();
@@ -75,7 +76,9 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                     <ScheduleOutlined color="primary" />
                                                 </Avatar>
                                                 <Typography variant="body2" fontWeight={400} color="textPrimary">
-                                                    {request.requested_at}
+                                                    <LocalDateDisplay
+                                                        utcTime={request.requested_at}
+                                                    />
                                                 </Typography>
                                             </Stack>
                                         </Box>
