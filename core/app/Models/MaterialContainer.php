@@ -95,6 +95,11 @@ class MaterialContainer extends Model
         );
     }
 
+    public function requestContainerAllocation(): HasOne
+    {
+        return $this->hasOne(RequestContainerAllocation::class, 'material_container_uuid', 'uuid');
+    }
+
     /**
      * Get the movement status for this container.
      */

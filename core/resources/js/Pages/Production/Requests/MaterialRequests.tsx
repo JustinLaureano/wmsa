@@ -13,11 +13,6 @@ import {
     Stack,
     Typography,
     Box,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-    TableHead,
     Paper,
     Grid,
     Divider,
@@ -112,7 +107,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                     {request.items.map((item) => {
                                         return (
                                             <>
-                                                <Grid container>
+                                                <Grid container key={item.uuid}>
                                                     <Grid size={2}>
                                                         <Typography>{item.material_part_number}</Typography>
                                                     </Grid>

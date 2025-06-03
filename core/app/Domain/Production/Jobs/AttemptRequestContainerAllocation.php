@@ -37,8 +37,8 @@ class AttemptRequestContainerAllocation implements ShouldQueue
      */
     public function handle(): void
     {
-        // logger()->info('Attempting to allocate container for request item: ' . $this->item->uuid);
-        // logger()->info($this->item->toArray());
+        logger()->info('Attempting to allocate container for request item: ' . $this->item->uuid);
+        logger()->info($this->item->toArray());
 
         if ($this->item->storageLocation) {
             $building = $this->item->storageLocation->building;
@@ -51,6 +51,7 @@ class AttemptRequestContainerAllocation implements ShouldQueue
         }
 
         $containers = MaterialContainer::has('location')
+            ->doesntHave('requestContainerAllocation')
             ->where([
                 ['material_uuid', $this->item->material_uuid],
                 ['movement_status_code', MovementStatusEnum::UNRESTRICTED->value],
@@ -91,9 +92,9 @@ class AttemptRequestContainerAllocation implements ShouldQueue
             }
         }
 
-        // logger()->info('Containers: ' . $containers->count());
-        // logger()->info($containers->toArray());
-        // logger()->info('************************************************');
+        logger()->info('Containers: ' . $containers->count());
+        logger()->info($containers->toArray());
+        logger()->info('************************************************');
 
 
 
