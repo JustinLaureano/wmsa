@@ -1,3 +1,5 @@
+import { JsonObject } from "@/types";
+
 export interface MaterialRequestItemListResource {
     uuid: string;
     description: string;
@@ -10,4 +12,5 @@ export interface MaterialRequestItemListResource {
     storage_location_name: string | null;
     status: string;
     material_tote_type_name: string | null;
+    container_allocation: JsonObject | null;
 }
