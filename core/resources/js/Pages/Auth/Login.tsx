@@ -22,8 +22,8 @@ export default function Login() {
 
         post(route('login'), {
             onSuccess: (page) => {
-                router.go(-1);
-                // window.location.reload();
+                // console.log(router)
+                window.location.reload();
             }
         });
     };
