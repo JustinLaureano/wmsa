@@ -3,7 +3,7 @@ export interface ContainerInventory {
     uuid: string;
     material_uuid: string;
     barcode: string;
-    lot_number: string;
+    lot_number: string|null;
     quantity: number;
     expiration_date: string;
     material_number: string;

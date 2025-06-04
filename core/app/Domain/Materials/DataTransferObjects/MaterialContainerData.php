@@ -12,7 +12,7 @@ class MaterialContainerData extends Data
         public readonly ?string $material_tote_type_uuid,
         public readonly string $movement_status_code,
         public readonly string $barcode,
-        public readonly string $lot_number,
+        public readonly string|null $lot_number,
         public readonly int $quantity,
         public readonly string $expiration_date
     ) {

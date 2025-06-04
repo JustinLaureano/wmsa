@@ -1,5 +1,7 @@
+export * from './BarcodeInformationResource.types';
 export * from './MaterialAutocompleteResource.types';
 export * from './MaterialBarcodeResource.types';
+export * from './MaterialContainerResource.types';
 export * from './MaterialContainerInventoryResource.types';
 export * from './MaterialOptionResource.types';
 export * from './MaterialInventoryCollection.types';

@@ -40,7 +40,13 @@ class MaterialContainer extends Model
         'expiration_date',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
+        'id',
         'created_at',
         'updated_at',
         'deleted_at',

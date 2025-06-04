@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Materials;
 
-use App\Http\Resources\Materials\MaterialBarcodeResource;
-use App\Domain\Materials\Support\Barcode\BarcodeFactory;
+use App\Domain\Materials\Actions\HandleBarcodeScanAction;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Materials\BarcodeInformationResource;
 
 class GetBarcodeInformation extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(string $barcode)
+    public function __invoke(string $barcode, HandleBarcodeScanAction $action)
     {
-        $barcode = BarcodeFactory::make(base64_decode($barcode));
+        $action->handle(base64_decode($barcode));
 
-        return new MaterialBarcodeResource($barcode);
+        return new BarcodeInformationResource($action);
     }
 }

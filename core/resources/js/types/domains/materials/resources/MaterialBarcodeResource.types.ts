@@ -5,7 +5,7 @@ export interface MaterialBarcodeResource {
     clock_number: string;
     expiration_date: string;
     expires_at: string;
-    lot_number: string;
+    lot_number: string|null;
     manufacture_date: string;
     manufactured_at: string;
     part_number: string;

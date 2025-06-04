@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Domain\Materials\Contracts\BarcodeContract;
 use App\Domain\Materials\DataTransferObjects\MaterialContainerData;
 use App\Domain\Materials\Enums\MovementStatusEnum;
+use App\Domain\Materials\Support\Barcode\CompoundBarcode;
+use App\Domain\Materials\Support\Barcode\MaterialBarcode;
 use App\Models\MaterialContainer;
 use App\Models\StorageLocation;
 
@@ -25,7 +27,7 @@ class MaterialContainerRepository
         return MaterialContainer::query()->whereUuid($uuid)->first();
     }
 
-    public function findOrCreate(BarcodeContract $barcode) : MaterialContainer
+    public function findOrCreate(MaterialBarcode|CompoundBarcode $barcode) : MaterialContainer
     {
         $container = $this->findByBarcode($barcode);
 
@@ -41,8 +43,9 @@ class MaterialContainerRepository
             movement_status_code: $movementStatus->id,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),
-            expiration_date: '', // TODO: Add expiration date
-            lot_number: '', // TODO: Add lot number
+            expiration_date: $barcode->getExpiresAt(),
+            lot_number: $barcode->getLotNumber(),
+            material_tote_type_uuid: null,
         );
 
         return $this->create($data);

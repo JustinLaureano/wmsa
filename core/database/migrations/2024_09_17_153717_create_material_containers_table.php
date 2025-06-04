@@ -27,7 +27,7 @@ return new class extends Migration
                 ->references('code')
                 ->on('movement_statuses');
             $table->string('barcode', 100)->index();
-            $table->string('lot_number', 12);
+            $table->string('lot_number', 12)->nullable();
             $table->integer('quantity');
             $table->date('expiration_date')->nullable();
             $table->timestamps();

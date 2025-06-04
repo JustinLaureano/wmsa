@@ -4,7 +4,7 @@ export interface MaterialContainerInventoryResource {
     uuid: string;
     attributes: {
         barcode: string;
-        lot_number: string;
+        lot_number: string|null;
         quantity: number;
         expiration_date: string;
         movement_status_code: string;

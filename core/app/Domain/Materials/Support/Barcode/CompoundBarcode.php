@@ -82,6 +82,14 @@ class CompoundBarcode extends Barcode
     }
 
     /**
+     * Return the lot number parsed from the barcode.
+     */
+    public function getLotNumber() : null
+    {
+        return null;
+    }
+
+    /**
      * Return serialized instance of object.
      */
     public function toArray() : array
