@@ -35,12 +35,10 @@ class MaterialContainerRepository
 
         $material = (new MaterialRepository)->findByPartNumber($barcode->getPartNumber());
 
-        $movementStatus = (new MovementStatusRepository)->findByCode(MovementStatusEnum::UNRESTRICTED);
-
         $data = new MaterialContainerData(
             material_uuid: $material->uuid,
             material_container_type_id: null,
-            movement_status_code: $movementStatus->id,
+            movement_status_code: MovementStatusEnum::UNRESTRICTED->value,
             barcode: $barcode->getBarcode(),
             quantity: $barcode->getQuantity(),
             expiration_date: $barcode->getExpiresAt(),
