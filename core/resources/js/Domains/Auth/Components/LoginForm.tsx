@@ -83,18 +83,20 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
                 size="small"
                 fullWidth
                 onChange={e => setData('password', e.target.value)}
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                edge="end"
-                                onClick={handleClickShowPassword}
-                            >
-                                {showPassword ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
-                            </IconButton>
-                        </InputAdornment>
-                    )
+                slotProps={{
+                    input: {
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={handleClickShowPassword}
+                                >
+                                    {showPassword ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }
                 }}
             />
 

@@ -18,11 +18,11 @@ export default function ScanContainer() {
     }
 
     const handleBarcodeScan = async () => {
-        const barcodeLabel = await barcodeLabelService.getBarcodeLabel(barcode);
+        const barcodeData = await barcodeLabelService.getBarcodeLabel(barcode);
 
-        if (!barcodeLabel) return;
+        if (!barcodeData) return;
 
-        console.log(barcodeLabel);
+        console.log(barcodeData);
 
         setBarcode('');
         focusInput();
