@@ -22,12 +22,12 @@ class HandleBarcodeScanAction
         if ( $barcodeLabel instanceof MaterialBarcode ) {
             $this->barcode = $barcodeLabel;
             $this->container = (new MaterialContainerRepository)->findOrCreate($this->barcode);
-            $this->type = 'material';
+            $this->type = $barcodeLabel->getBarcodeType();
         }
         else if ( $barcodeLabel instanceof CompoundBarcode ) {
             $this->barcode = $barcodeLabel;
             $this->container = (new MaterialContainerRepository)->findOrCreate($this->barcode);
-            $this->type = 'compound';
+            $this->type = $barcodeLabel->getBarcodeType();
         }
         else {
             $this->barcode = $barcodeLabel;

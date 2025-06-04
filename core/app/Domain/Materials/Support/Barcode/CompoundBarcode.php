@@ -67,8 +67,9 @@ class CompoundBarcode extends Barcode
      */
     public function getExpiresAt() : Carbon
     {
+        // dd($this->getExpirationDate());
         return Carbon::createFromFormat(
-            'm/d/y',
+            'm/d/Y',
             $this->getExpirationDate()
         );
     }
