@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState, useRef } from 'react';
-import { useTheme } from '@mui/material/styles';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import { BarcodeLabelService } from '@/Services/Materials';
 import BarcodeScanInput from '@/Domains/Materials/Inputs/BarcodeScanInput';
+import { Card, CardContent, CardHeader } from '@mui/material';
 
 export default function ScanContainer() {
-    const theme = useTheme();
     const { lang } = useContext(LanguageContext);
     const barcodeLabelService = new BarcodeLabelService();
 
@@ -52,13 +51,25 @@ export default function ScanContainer() {
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <BarcodeScanInput
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                onButtonClick={handleButtonClick}
-                value={barcode}
-                placeholder={'Scan a barcode'}
-            />
+            <Card
+                sx={{
+                    maxWidth: '800px',
+                    margin: '0 auto',
+                    minHeight: '250px',
+                }}
+            >
+                <CardHeader title="Put Away Skid">
+                </CardHeader>
+                <CardContent>
+                    <BarcodeScanInput
+                        inputRef={inputRef}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
+                        onButtonClick={handleButtonClick}
+                        value={barcode}
+                    />
+                </CardContent>
+            </Card>
         </SidebarLayout>
     );
 }
