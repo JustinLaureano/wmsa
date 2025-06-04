@@ -8,6 +8,7 @@ use App\Domain\Materials\Support\Barcode\MaterialBarcodeFactory;
 use App\Domain\Materials\Support\Fakers\BarcodeFaker;
 use App\Models\Material;
 use App\Models\MaterialContainerType;
+use App\Models\MaterialToteType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,6 +26,11 @@ class MaterialContainerFactory extends Factory
         $barcode = MaterialBarcodeFactory::make( BarcodeFaker::make()->getBarcode() );
         $material = Material::where('part_number', $barcode->getPartNumber())->first();
         $materialContainerType = MaterialContainerType::inRandomOrder()->first();
+        $materialToteType = MaterialToteType::query()
+            ->where('material_uuid', $material->uuid)
+            ->inRandomOrder()
+            ->first();
+        $materialToteTypeUuid = $materialToteType ? $materialToteType->uuid : null;
 
         $statusCode = rand(1, 10) < 3
             ? MovementStatusEnum::RESTRICTED->value
@@ -33,6 +39,7 @@ class MaterialContainerFactory extends Factory
         $data = new MaterialContainerData(
             material_uuid: $material->uuid,
             material_container_type_id: $materialContainerType->id,
+            material_tote_type_uuid: $materialToteTypeUuid,
             movement_status_code: $statusCode,
             barcode: $barcode->getBarcode(),
             lot_number: $barcode->getLotNumber(),

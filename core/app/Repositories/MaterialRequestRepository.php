@@ -88,6 +88,7 @@ class MaterialRequestRepository
                     'machine',
                     'storageLocation',
                     'containerAllocation',
+                    'availableMaterialContainers',
                     'status'
                     ]
             ])

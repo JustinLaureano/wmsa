@@ -1,10 +1,8 @@
 <?php
 
 use App\Models\MaterialContainerType;
-use App\Models\MovementStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -21,6 +19,10 @@ return new class extends Migration
                 ->references('uuid')
                 ->on('materials');
             $table->foreignIdFor(MaterialContainerType::class)->nullable();
+            $table->foreignUuid('material_tote_type_uuid')
+                ->references('uuid')
+                ->on('material_tote_types')
+                ->nullable();
             $table->string('movement_status_code')
                 ->references('code')
                 ->on('movement_statuses');

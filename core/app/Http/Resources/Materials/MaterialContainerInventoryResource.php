@@ -28,7 +28,8 @@ class MaterialContainerInventoryResource extends JsonResource
             ],
             'relations' => [
                 'location' => $this->location,
-                'containerType' =>$this->containerType
+                'containerType' =>$this->containerType,
+                'materialToteType' => $this->materialToteType,
             ],
             'computed' => [
                 'barcode_label' => BarcodeFactory::make($this->barcode)->toArray(),
@@ -39,6 +40,8 @@ class MaterialContainerInventoryResource extends JsonResource
                 'storage_location_barcode' => $this->location?->code || '',
                 'container_type' => $this->containerType?->code || '',
                 'container_type_name' => $this->containerType?->name || '',
+                'tote_type_name' => $this->materialToteType?->tote || '',
+                'tote_type_description' => $this->materialToteType?->description || '',
             ]
         ];
     }

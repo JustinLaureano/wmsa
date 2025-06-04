@@ -18,5 +18,7 @@ export interface MaterialContainerInventoryResource {
         storage_location_barcode: string;
         container_type: string;
         container_type_name: string;
+        tote_type_name: string;
+        tote_type_description: string;
     };
 }

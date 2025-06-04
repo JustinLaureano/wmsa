@@ -32,11 +32,18 @@ class MaterialContainer extends Model
     protected $fillable = [
         'material_uuid',
         'material_container_type_id',
+        'material_tote_type_uuid',
         'movement_status_code',
         'barcode',
         'lot_number',
         'quantity',
         'expiration_date',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     protected $casts = [
@@ -78,6 +85,14 @@ class MaterialContainer extends Model
                 'id',
                 'material_container_type_id'
             );
+    }
+
+    /**
+     * Get the tote type for this container.
+     */
+    public function materialToteType(): HasOne
+    {
+        return $this->hasOne(MaterialToteType::class, 'uuid', 'material_tote_type_uuid');
     }
 
     /**

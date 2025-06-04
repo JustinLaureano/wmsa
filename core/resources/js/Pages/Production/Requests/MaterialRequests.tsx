@@ -106,8 +106,8 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                     <Divider sx={{ color: 'divider' }}/>
                                     {request.items.map((item) => {
                                         return (
-                                            <>
-                                                <Grid container key={item.uuid}>
+                                            <Stack key={item.uuid}>
+                                                <Grid container>
                                                     <Grid size={2}>
                                                         <Typography>{item.material_part_number}</Typography>
                                                     </Grid>
@@ -129,7 +129,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                 </Grid>
 
                                                 <Divider sx={{ color: 'divider' }}/>
-                                            </>
+                                            </Stack>
                                         );
                                         })}
                                 </Stack>

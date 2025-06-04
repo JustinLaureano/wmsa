@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Domain\Materials\Enums\MovementStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -97,6 +99,27 @@ class MaterialRequestItem extends Model
             'uuid',
             'material_container_uuid'
         );
+    }
+
+    /**
+     * Get all available material containers for this item
+     * that are allowed to be used for a request.
+     */
+    public function availableMaterialContainers(): HasMany
+    {
+        return $this->hasMany(MaterialContainer::class, 'material_uuid', 'material_uuid')
+            ->whereHas('location')
+            ->whereHas('requestContainerAllocation', function ($query) {
+                $query->where([
+                    'in_transit' => 0,
+                    'is_reserved' => 0,
+                ]);
+            })
+            ->when($this->material_tote_type_uuid, function ($query) {
+                $query->where('material_container_type_id', $this->material_tote_type_uuid);
+            })
+            ->where('movement_status_code', MovementStatusEnum::UNRESTRICTED->value)
+            ->with('location');
     }
 
     /**
