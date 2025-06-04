@@ -1,4 +1,4 @@
-import { MaterialBarcodeLabel } from "./MaterialBarcodeLabel.types";
+import { MaterialBarcodeResource } from "./MaterialBarcodeResource.types";
 
 export interface MaterialContainerInventoryResource {
     uuid: string;
@@ -10,7 +10,7 @@ export interface MaterialContainerInventoryResource {
         movement_status_code: string;
     };
     computed: {
-        barcode_label: MaterialBarcodeLabel;
+        barcode_label: MaterialBarcodeResource;
         movement_status: string;
         expires_at: string;
         storage_location_uuid: string;

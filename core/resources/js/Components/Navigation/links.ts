@@ -29,6 +29,7 @@ export const navigationDrawerLinks = [
             route('production.requests', { building_id: 1, type: 'phosphate' }),
             route('production.requests', { building_id: 2, type: 'shipping' }),
             route('production.material-request.new'),
+            route('production.put-away.scan'),
         ]
     },
     {

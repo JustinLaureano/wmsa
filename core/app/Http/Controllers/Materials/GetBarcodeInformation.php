@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Materials;
 
+use App\Http\Resources\Materials\MaterialBarcodeResource;
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Http\Controllers\Controller;
 
@@ -14,9 +15,6 @@ class GetBarcodeInformation extends Controller
     {
         $barcode = BarcodeFactory::make(base64_decode($barcode));
 
-        return response()
-            ->json([
-                'barcode' => $barcode ? $barcode->toArray() : null
-            ]);
+        return new MaterialBarcodeResource($barcode);
     }
 }

@@ -1,4 +1,4 @@
-export interface MaterialBarcodeLabel {
+export interface MaterialBarcodeResource {
     barcode: string;
     barcode_type: string;
     barcode_hash: string;
