@@ -8,6 +8,7 @@ import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
 import MessagingContext from '@/Contexts/MessagingContext';
 import { useTheme } from '@emotion/react';
+import { toLocalTime } from '@/Utils/date';
 
 export default function ConversationsListItem({ conversation, ...props }: ConversationListItemProps ) {
     const theme = useTheme();
@@ -99,7 +100,7 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                             fontWeight: unread_messages ? '500' : '400'
                         }}
                     >
-                        {latest_message_date}
+                        {toLocalTime(latest_message_date, 'M/d')}
                     </Typography>
 
                     <Stack
