@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ShippingPageHeader from '@/Domains/Shipping/Layout/Header/ShippingPageHeader';
+import SkeletonPage from '@/Components/SkeletonPage';
 
 export default function ShippingRequests() {
     const { lang } = useContext(LanguageContext);
@@ -10,6 +11,7 @@ export default function ShippingRequests() {
         <SidebarLayout title={lang.requests}>
             <ShippingPageHeader />
 
+            <SkeletonPage />
         </SidebarLayout>
     );
 }

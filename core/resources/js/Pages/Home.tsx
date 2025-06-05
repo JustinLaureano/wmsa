@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography, useTheme, Button, TextField, Skeleton } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import HomeTabs from '@/Components/HomeTabs';
 import LanguageContext from '@/Contexts/LanguageContext';
+import SkeletonPage from '@/Components/SkeletonPage';
 
 export default function Home({ recentRequests, ...props } : any) {
     const theme = useTheme();
@@ -35,29 +36,8 @@ export default function Home({ recentRequests, ...props } : any) {
 
                 <HomeTabs />
             </Stack>
-
-            <Box
-                sx={{
-                    width: '90%',
-                    mx: 'auto',
-                    maxWidth: 1200,
-                }}
-            >
-                <Stack direction="row" spacing={2}>
-                    <Skeleton variant="rectangular" width="33%" height={200} />
-                    <Skeleton variant="rectangular" width="33%" height={200} />
-                    <Skeleton variant="rectangular" width="33%" height={200} />
-                </Stack>
-
-                <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
-                    <Skeleton variant="rectangular" width="50%" height={300} />
-                    <Skeleton variant="rectangular" width="50%" height={300} />
-                </Stack>
-
-                <Box sx={{ mt: 4 }}>
-                    <Skeleton variant="rectangular" height={300} />
-                </Box>
-            </Box>
+            
+            <SkeletonPage />
 
         </SidebarLayout>
     );
