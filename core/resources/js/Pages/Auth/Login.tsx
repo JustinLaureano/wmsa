@@ -6,7 +6,7 @@ import TextInput from '@/Components/Inputs/TextInput';
 import { VisibilityOffOutlined } from '@mui/icons-material';
 import { VisibilityOutlined } from '@mui/icons-material';
 
-export default function Login() {
+export default function Login({ referrer }: { referrer: string }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         username: '',
         password: '',
@@ -22,8 +22,12 @@ export default function Login() {
 
         post(route('login'), {
             onSuccess: (page) => {
-                // console.log(router)
-                window.location.reload();
+                if (referrer) {
+                    window.location.href = referrer;
+                }
+                else {
+                    window.location.reload();
+                }
             }
         });
     };

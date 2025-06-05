@@ -17,8 +17,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        // Get the URL that failed authorization and redirected to login
+        $referrer = session('url.intended', '/');
+
         return Inertia::render('Auth/Login', [
             'status' => session('status'),
+            'referrer' => $referrer,
         ]);
     }
 
