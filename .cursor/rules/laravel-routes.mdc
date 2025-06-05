@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Routes defined in laravel should always call single invokable functions as the route action.
+
+Route definitions should be stored in the appropriate core/routes/web and core/routes/api directories for each specific domain.
+
+All routes should be named following the dot syntax.
+
+Auth routes should be grouped if possible, and any public routes should be defined seperately.
+
+Route example:
+
+`core/routes/web/irm.php`
+```php
+<?php
+
+use App\Http\Controllers\Irm\ViewChemicals;
+use App\Http\Controllers\Irm\GetIrmInventory;
+use Illuminate\Support\Facades\Route;
+
+Route::get('irm/chemicals/inventory', GetIrmInventory::class)
+    ->name('irm.chemicals.inventory');
+
+Route::middleware('auth')->group(function () {
+    Route::get('irm/chemicals', ViewChemicals::class)
+        ->name('irm.chemicals');
+});
+
+
+```
