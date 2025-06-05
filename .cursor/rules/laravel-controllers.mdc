@@ -1,0 +1,112 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Laravel controller classes should follow the single method invoke syntax. If a route uses route binding, it should automatically bind the appropriate model in the __invoke() method.
+
+Any business logic that a controller performs should be handled in an action class for the appropriate domain, in the core/app/Domain directories. Controller classes should be only used to handle the incoming request data, and return the response.
+
+Any data being returned from a controller should be returned as a Resource or Collection if possible.
+
+Example Inertia page request Controller:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Production;
+
+use App\Http\Controllers\Controller;
+use App\Models\MaterialContainer;
+use Inertia\Inertia;
+
+class PutAwayMaterialContainerPage extends Controller
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(MaterialContainer $materialContainer)
+    {
+        return Inertia::render('Production/PutAway/StoreContainer', [
+            'materialContainer' => $materialContainer,
+        ]);
+    }
+}
+
+```
+
+Example controller with an action class:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Messaging;
+
+use App\Domain\Messaging\Actions\AddMessageAction;
+use App\Domain\Messaging\DataTransferObjects\AddMessageRequestData;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Messaging\MessageResource;
+
+class AddMessage extends Controller
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(AddMessageRequestData $data, AddMessageAction $action)
+    {
+        $message = $action->handle($data);
+
+        return new MessageResource($message);
+    }
+}
+
+```
+
+Example controller with either an Inertia page response, or a json response, depending on the request:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Materials;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Materials\MaterialInventoryCollection;
+use App\Http\Resources\Materials\MaterialAutocompleteResource;
+use App\Repositories\MaterialRepository;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class GetMaterialInventory extends Controller
+{
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(
+        protected MaterialRepository $materialRepository,
+    ) {
+        //
+    }
+
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
+    {
+        if ($request->expectsJson()) {
+            return new MaterialInventoryCollection(
+                $this->materialRepository->filterInventoryPaginate()
+            );
+        }
+
+        return Inertia::render('Materials/Inventory/ShowMaterialInventory', [
+            'inventory' => new MaterialInventoryCollection(
+                $this->materialRepository->filterInventoryPaginate()
+            ),
+            'materialOptions' => MaterialAutocompleteResource::collection($this->materialRepository->getMaterialInventoryOptions())
+        ]);
+    }
+}
+
+```
+
+

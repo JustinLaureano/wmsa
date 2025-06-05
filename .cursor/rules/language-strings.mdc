@@ -1,0 +1,21 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+All language strings should be placed in the core/lang/en and core/lang/es directories. Any language strings that need to be translated and used in the front end react components should be placed in the respective frontend.php files. This will include any language strings that may be created in a Laravel Resource class.
+
+The language strings should be put in the section of the file that corresponds to the domain it is mostly tied to if possible.
+
+Example of material domain language strings:
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Materials
+    |--------------------------------------------------------------------------
+    |
+    */
+    'material_inventory' => 'Material Inventory',
+    // ... more language strings here
+```

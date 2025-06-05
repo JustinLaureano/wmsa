@@ -5,6 +5,7 @@ import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionP
 import { BarcodeLabelService } from '@/Services/Materials';
 import BarcodeScanInput from '@/Domains/Materials/Inputs/BarcodeScanInput';
 import { Card, CardContent, CardHeader } from '@mui/material';
+import { router } from '@inertiajs/react';
 
 export default function ScanContainer() {
     const { lang } = useContext(LanguageContext);
@@ -14,7 +15,7 @@ export default function ScanContainer() {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleInputChange = (value: string) => {
-        setBarcode(value)
+        setBarcode(value);
     }
 
     const handleBarcodeScan = async () => {
@@ -24,8 +25,13 @@ export default function ScanContainer() {
 
         console.log(barcodeData);
 
-        setBarcode('');
-        focusInput();
+        if (barcodeData.container) {
+            router.get(route('production.put-away.container', { materialContainer: barcodeData.container.uuid }));
+        }
+        else {
+            setBarcode('');
+            focusInput();
+        }
     }
 
     const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {

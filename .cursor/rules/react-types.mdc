@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Typescript type and interface declarations should go in the core/resources/js/types directory. Each type definition for the most part should have its own file per type (unless the types are strongly related and will not be used elsewhere). The types should be organized by domain and what kind of type they are defining (entities, components, resources, pages, etc).
+
+All types should be exported in the corresponding index.ts file for the directory, so they can be referenced and used from the '@/types' namespace.

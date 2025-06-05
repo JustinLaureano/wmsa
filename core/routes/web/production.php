@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Production\PutAwayMaterialContainerPage;
 use App\Http\Controllers\Production\PutAwayScanPage;
 use App\Http\Controllers\Production\ViewProductionRequests;
 use App\Http\Controllers\Production\CreateNewMaterialRequestPage;
@@ -14,4 +15,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('production/put-away/scan', PutAwayScanPage::class)
         ->name('production.put-away.scan');
+
+    Route::get('production/put-away/{materialContainer:uuid}', PutAwayMaterialContainerPage::class)
+        ->name('production.put-away.container');
 });

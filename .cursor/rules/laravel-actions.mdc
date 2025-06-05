@@ -1,0 +1,79 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Any business logic that gets performed should be handled inside an action class, that are organized by the relevant domain. All action classes should have public handle function, which is used to kick off the action.
+
+For any resource intensive task, the action should defer the business logic to a laravel job class.
+
+If the action is to return data immediately, or perform a simple task, then it can be completed inside the action class itself.
+
+
+
+Example action class with handle method:
+
+```php
+<?php
+
+namespace App\Domain\Auth\Actions;
+
+use App\Domain\Auth\DataTransferObjects\AssignUserRoleData;
+use App\Repositories\UserRepository;
+
+class AssignUserRoleAction
+{
+    public function handle(AssignUserRoleData $data) : void
+    {
+        (new UserRepository)->assignRole($data);
+    }
+}
+
+```
+
+
+Example of an action class that calls a job to carry out the business logic:
+
+```php
+<?php
+
+namespace App\Domain\Materials\Actions;
+
+use App\Domain\Materials\DataTransferObjects\ContainerMovementData;
+use App\Domain\Materials\Jobs\PerformContainerMovement;
+
+class PerformContainerMovementAction
+{
+    public function handle(ContainerMovementData $data) : void
+    {
+        PerformContainerMovement::dispatch($data);
+    }
+}
+
+```
+
+
+Example of using an action class from a controller:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Materials;
+
+use App\Domain\Materials\Actions\HandleBarcodeScanAction;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Materials\BarcodeInformationResource;
+
+class GetBarcodeInformation extends Controller
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(string $barcode, HandleBarcodeScanAction $action)
+    {
+        $action->handle(base64_decode($barcode));
+
+        return new BarcodeInformationResource($action);
+    }
+}
+```
