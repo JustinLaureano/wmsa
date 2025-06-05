@@ -1,0 +1,97 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Data Transfer Objects (DTO's) should be used whenever possible to pass data between controllers, actions, and any other classes where necessary.
+
+Use the Spatie/LaravelData/Data package class to extend from to create DTO's for form request validation from controllers.
+
+The DTO's should be stored in the domain specific directory that it is primarly being used for.
+
+Example of a simple DTO class:
+
+```php
+<?php
+
+namespace App\Domain\Materials\DataTransferObjects;
+
+use Spatie\LaravelData\Data;
+
+class ContainerLocationData extends Data
+{
+    public function __construct(
+        public readonly string $material_container_uuid,
+        public readonly string $storage_location_uuid
+    ) {
+
+    }
+}
+
+```
+
+Example of a form request DTO class:
+
+```php
+<?php
+
+namespace App\Domain\Messaging\DataTransferObjects;
+
+use Spatie\LaravelData\Data;
+
+class AddMessageRequestData extends Data
+{
+    public function __construct(
+        public readonly string $conversation_uuid,
+        public readonly string $user_uuid,
+        public readonly string $content,
+    ) {}
+
+    public static function rules(): array
+    {
+        return [
+            'conversation_uuid' => [
+                'required',
+                'exists:conversations,uuid',
+            ],
+            'user_uuid' => [
+                'required',
+                'exists:users,uuid',
+            ],
+            'content' => [
+                'required',
+                'string',
+                'max:1000',
+            ],
+        ];
+    }
+}
+
+```
+
+Example usage from a controller form request:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Messaging;
+
+use App\Domain\Messaging\Actions\AddMessageAction;
+use App\Domain\Messaging\DataTransferObjects\AddMessageRequestData;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Messaging\MessageResource;
+
+class AddMessage extends Controller
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(AddMessageRequestData $data, AddMessageAction $action)
+    {
+        $message = $action->handle($data);
+
+        return new MessageResource($message);
+    }
+}
+
+```
