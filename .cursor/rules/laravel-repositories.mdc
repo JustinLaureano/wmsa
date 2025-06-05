@@ -1,0 +1,103 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Any queries that need defined should be done in appropriate Repository classes in the core/app/Repositories directory.
+
+If the query is for a model, then the repository class should be named for that model, and all queries for that model should go in that class.
+
+If it is a general query not associated directly with a model, than a repository class should be created to handle that query.
+
+In general, if the repository method is making a store or update transaction, use Data Transfer objects as arguments if possible. The DTO's should include a toArray() method to transform the data into the necessary format for the laravel model methods.
+
+Repository class example:
+
+```php
+<?php
+
+namespace App\Repositories;
+
+use App\Domain\Messaging\DataTransferObjects\MessageData;
+use App\Models\Message;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+
+class MessageRepository
+{
+    /**
+     * Get messages for a conversation.
+     */
+    public function getForConversation(string $conversationUuid): Collection
+    {
+        return Message::query()
+            ->where('conversation_uuid', $conversationUuid)
+            ->with(['user.teammate', 'status'])
+            ->orderBy('created_at', 'desc')
+            ->limit(100)
+            ->get()
+            ->reverse();
+    }
+
+    /**
+     * Get the total number of unread messages for a user across all their conversations.
+     *
+     * @param string $userUuid
+     * @return int
+     */
+    public function getTotalUnreadMessagesCount(string $userUuid): int
+    {
+        return Message::query()
+            ->whereIn('conversation_uuid', function ($query) use ($userUuid) {
+                $query->select('conversation_uuid')
+                      ->from('conversation_participants')
+                      ->where('user_uuid', $userUuid);
+            })
+            ->where('user_uuid', '!=', $userUuid) // Exclude messages sent by the user
+            ->whereNotExists(function ($query) use ($userUuid) {
+                $query->select(DB::raw(1))
+                      ->from('message_status')
+                      ->whereColumn('message_status.message_uuid', 'messages.uuid')
+                      ->where('message_status.user_uuid', $userUuid)
+                      ->where('is_read', true);
+            })
+            ->count();
+    }
+
+    /**
+     * Get the number of unread messages for a specific conversation for a user.
+     *
+     * @param string $conversationUuid
+     * @param string $userUuid
+     * @return int
+     */
+    public function getConversationUnreadMessagesCount(string $conversationUuid, string $userUuid): int
+    {
+        return Message::query()
+            ->where('conversation_uuid', $conversationUuid)
+            ->whereIn('conversation_uuid', function ($query) use ($userUuid) {
+                $query->select('conversation_uuid')
+                      ->from('conversation_participants')
+                      ->where('user_uuid', $userUuid);
+            })
+            ->where('user_uuid', '!=', $userUuid) // Exclude messages sent by the user
+            ->whereNotExists(function ($query) use ($userUuid) {
+                $query->select(DB::raw(1))
+                      ->from('message_status')
+                      ->whereColumn('message_status.message_uuid', 'messages.uuid')
+                      ->where('message_status.user_uuid', $userUuid)
+                      ->where('is_read', true);
+            })
+            ->count();
+    }
+
+    /**
+     * Store a message record.
+     */
+    public function store(MessageData $data): Message
+    {
+        return Message::query()->create($data->toArray());
+    }
+}
+
+```
