@@ -4,6 +4,7 @@ namespace App\Http\Resources\Production;
 
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Domain\Production\Enums\RequestItemStatusEnum;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +31,7 @@ class MaterialRequestItemListResource extends JsonResource
             'material_tote_type_name' => $this->materialToteType?->tote,
             'container_allocation' => $this->containerAllocation,
             'available_material_containers' => $this->availableMaterialContainers,
+            'total_available_material_containers' => $this->getAvailableMaterialContainers(),
         ];
     }
 
@@ -41,5 +43,12 @@ class MaterialRequestItemListResource extends JsonResource
         $locationName = $this->machine->name ?? $this->storageLocation->name;
 
         return $this->material->part_number .' for '. $locationName;
+    }
+
+    protected function getAvailableMaterialContainers() : int
+    {
+        return $this->availableMaterialContainers
+            ? $this->availableMaterialContainers->count()
+            : 0;
     }
 }

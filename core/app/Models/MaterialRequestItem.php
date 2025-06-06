@@ -111,10 +111,11 @@ class MaterialRequestItem extends Model
             ->whereHas('location')
             ->whereHas('requestContainerAllocation', function ($query) {
                 $query->where([
-                    'in_transit' => 0,
-                    'is_reserved' => 0,
+                    ['in_transit', 0],
+                    ['is_reserved', 0],
                 ]);
             })
+            ->orWhereDoesntHave('requestContainerAllocation')
             ->when($this->material_tote_type_uuid, function ($query) {
                 $query->where('material_container_type_id', $this->material_tote_type_uuid);
             })

@@ -13,4 +13,6 @@ export interface MaterialRequestItemListResource {
     status: string;
     material_tote_type_name: string | null;
     container_allocation: JsonObject | null;
+    available_material_containers: JsonObject | null;
+    total_available_material_containers: number;
 }
