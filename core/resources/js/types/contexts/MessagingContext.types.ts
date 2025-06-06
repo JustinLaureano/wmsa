@@ -10,5 +10,6 @@ export interface MessagingContextValue {
     activeMessages: MessageResource[] | null;
     setActiveMessages: (messages: MessageResource[] | null) => void;
     handleNewMessageRequest: (content: string) => Promise<MessageResource | null>;
+    handleConversationMessagesRead: (conversationUuid: string) => Promise<void>;
     isLoadingMessages: boolean;
 }

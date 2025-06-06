@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
     Avatar, Box, Divider, ListItemAvatar,
     ListItemButton, ListItemText, Stack, Typography
@@ -7,7 +8,6 @@ import { ConversationListItemProps } from '@/types';
 import { getRandomAvatarBadgeColor } from '@/Theme/colors';
 import UnreadConversationMessagesBadge from './UnreadConversationMessagesBadge';
 import MessagingContext from '@/Contexts/MessagingContext';
-import { useTheme } from '@emotion/react';
 import { toLocalTime } from '@/Utils/date';
 
 export default function ConversationsListItem({ conversation, ...props }: ConversationListItemProps ) {
@@ -92,7 +92,7 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                     }
                 />
 
-                <Stack alignSelf="stretch" sx={{ mt: 1 }}>
+                <Stack alignSelf="stretch" sx={{ mt: 1, minWidth: '30px' }}>
                     <Typography
                         variant="body2"
                         color={unread_messages ? 'textPrimary' : 'gray'}
@@ -103,23 +103,25 @@ export default function ConversationsListItem({ conversation, ...props }: Conver
                         {toLocalTime(latest_message_date, 'M/d')}
                     </Typography>
 
-                    <Stack
-                        alignItems="center"
-                        justifyContent="center"
-                        sx={{
-                            height: 20,
-                            width: 20,
-                            borderRadius: '50%',
-                            bgcolor: theme.palette.primary.light,
-                            color: theme.palette.primary.contrastText,
-                            fontSize: '0.75rem',
-                            fontWeight: 'bold',
-                            textAlign: 'center',
-                            lineHeight: 1,
-                        }}
-                    >
-                        {unread_messages}
-                    </Stack>
+                    {unread_messages > 0 && (
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            sx={{
+                                height: 20,
+                                width: 20,
+                                borderRadius: '50%',
+                                bgcolor: theme.palette.primary.light,
+                                color: theme.palette.primary.contrastText,
+                                fontSize: '0.75rem',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                lineHeight: 1,
+                            }}
+                        >
+                            {unread_messages}
+                        </Stack>
+                    )}
                 </Stack>
 
             </ListItemButton>

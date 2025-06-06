@@ -11,6 +11,8 @@ export interface MessagingContextType {
     activeMessages: MessageResource[] | null;
     setActiveMessages: (messages: MessageResource[] | null) => void;
     handleNewMessageRequest: (content: string) => Promise<MessageResource | null>;
+    handleConversationMessagesRead: (conversationUuid: string, userUuid: string) => Promise<void>;
+    isLoadingMessages: boolean;
 }
 
 const MessagingContext = createContext<MessagingContextType>({
@@ -23,6 +25,8 @@ const MessagingContext = createContext<MessagingContextType>({
     activeMessages: null,
     setActiveMessages: () => {},
     handleNewMessageRequest: async () => null,
+    handleConversationMessagesRead: async () => {},
+    isLoadingMessages: false,
 });
 
 export default MessagingContext;

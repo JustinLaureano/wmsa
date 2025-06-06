@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroller";
 import MessagingContext from '@/Contexts/MessagingContext';
-import { MessageResource } from '@/types/messaging';
+import { MessageResource } from '@/types';
 import Message from './Message';
 import { RefOverflowScrollBox } from '../Shared/OverflowScrollBox';
 
 export default function MessagesList() {
-    const { activeMessages } = useContext(MessagingContext);
+    const { activeMessages, activeConversation } = useContext(MessagingContext);
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
     if (!activeMessages) return '';
@@ -20,7 +20,13 @@ export default function MessagesList() {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
 
-    }, [activeMessages]);
+    }, [activeMessages, activeConversation]);
+
+    useEffect(() => {   
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, []);
 
     return (
         <RefOverflowScrollBox

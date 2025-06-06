@@ -6,12 +6,17 @@ import {
     MessagingContextValue,
 } from "@/types";
 import MessagingContext from "@/Contexts/MessagingContext";
-import { MessageCreationService, ConversationService } from "@/Services/Messaging";
+import {
+    MessageCreationService,
+    ConversationService,
+    MessageStatusService,
+} from "@/Services/Messaging";
 import AuthContext from "@/Contexts/AuthContext";
 
 export default function MessagingProvider({ children }: MessagingProviderProps) {
     const { user } = useContext(AuthContext);
     const messageService = new MessageCreationService();
+    const messageStatusService = new MessageStatusService();
     const conversationService = new ConversationService();
 
     const [conversations, setConversations] = useState<ConversationResource[]>([]);
@@ -68,8 +73,16 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
     const handleMessageSent = (e: { message: MessageResource }) => {
         // Refresh conversations and messages
         fetchConversations();
-        fetchConversationMessages();
+        setTimeout(() => {
+            fetchConversationMessages();
+        }, 150);
     };
+
+    const handleConversationMessagesRead = async (conversationUuid: string, userUuid: string) => {
+        const response = await messageStatusService.markMessagesAsRead(conversationUuid, userUuid);
+
+        fetchConversations();
+    }
 
     useEffect(() => {
         fetchConversations();
@@ -77,7 +90,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
 
     useEffect(() => {
         fetchConversationMessages();
-    }, [activeConversation?.uuid]);
+    }, [activeConversation]);
 
     useEffect(() => {
         if (user?.uuid) {
@@ -104,6 +117,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         activeMessages,
         setActiveMessages,
         handleNewMessageRequest,
+        handleConversationMessagesRead,
         isLoadingMessages,
     };
 
