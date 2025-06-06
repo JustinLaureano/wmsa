@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/localization', [LocalizationController::class, 'set'])->name('localization');
 
 
+require __DIR__.'/api/locations.php';
 require __DIR__.'/api/materials.php';
 require __DIR__.'/api/messaging.php';
 require __DIR__.'/api/production.php';

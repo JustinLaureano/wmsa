@@ -38,6 +38,17 @@ class StorageLocation extends Model
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
      * Get the area for the storage location.
      */
     public function area(): BelongsTo
@@ -74,5 +85,10 @@ class StorageLocation extends Model
     public function scopeWhereUuid(Builder $query, string $uuid): void
     {
         $query->where('uuid', $uuid);
+    }
+
+    public function scopeWhereBarcode(Builder $query, string $barcode): void
+    {
+        $query->where('barcode', $barcode);
     }
 }

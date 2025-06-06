@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState, useRef } from 'react';
+import { router } from '@inertiajs/react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import { BarcodeLabelService } from '@/Services/Materials';
 import BarcodeScanInput from '@/Domains/Materials/Inputs/BarcodeScanInput';
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { router } from '@inertiajs/react';
 
 export default function ScanContainer() {
     const { lang } = useContext(LanguageContext);

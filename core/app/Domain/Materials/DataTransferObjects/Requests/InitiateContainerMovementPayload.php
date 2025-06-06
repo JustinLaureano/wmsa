@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Materials\DataTransferObjects;
+namespace App\Domain\Materials\DataTransferObjects\Requests;
 
 use App\Domain\Materials\Rules\HandlerExists;
 use Spatie\LaravelData\Data;
 
-class InitiateContainerMovementData extends Data
+class InitiateContainerMovementPayload extends Data
 {
     public function __construct(
         public readonly string $material_container_uuid,

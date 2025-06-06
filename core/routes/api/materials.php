@@ -15,5 +15,7 @@ Route::get('/materials/barcode/{barcode}', GetBarcodeInformation::class)
 Route::get('/materials/container/{barcode}', FindOrCreateMaterialContainer::class)
     ->name('api.materials.container');
 
-Route::post('/materials/container-movement', InitiateContainerMovement::class)
-    ->name('api.container.movement');
+Route::middleware('auth')->group(function () {
+    Route::post('/materials/container-movement', InitiateContainerMovement::class)
+        ->name('api.container.movement');
+});
