@@ -124,7 +124,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                                         <Typography>{item.status}</Typography>
                                                     </Grid>
                                                     <Grid size={2}>
-                                                        <Typography>2</Typography>
+                                                        <Typography>{item.total_available_material_containers}</Typography>
                                                     </Grid>
                                                 </Grid>
 
