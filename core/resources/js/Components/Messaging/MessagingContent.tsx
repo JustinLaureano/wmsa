@@ -58,10 +58,6 @@ export default function MessagingContent() {
         }
     }, [activeMessages, activeConversation]);
 
-    useEffect(() => {
-        console.log('isStartingNewConversation', isStartingNewConversation);
-    }, [isStartingNewConversation]);
-
     return (
         <Stack sx={{
             height: '100%',
