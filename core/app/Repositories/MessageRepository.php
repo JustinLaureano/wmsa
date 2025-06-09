@@ -18,7 +18,7 @@ class MessageRepository
             ->where('conversation_uuid', $conversationUuid)
             ->with(['user.teammate', 'status'])
             ->orderBy('created_at', 'desc')
-            ->limit(100)
+            ->limit(200)
             ->get()
             ->reverse();
     }
