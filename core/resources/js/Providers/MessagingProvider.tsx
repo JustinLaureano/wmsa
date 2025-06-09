@@ -57,7 +57,8 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         try {
             const messages = await conversationService.getConversationMessages(activeConversation.uuid);
             setActiveMessages(messages);
-        } finally {
+        }
+        finally {
             setIsLoadingMessages(false);
         }
     };

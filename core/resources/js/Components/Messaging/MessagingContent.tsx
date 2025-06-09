@@ -18,6 +18,7 @@ export default function MessagingContent() {
     } = useContext(MessagingContext);
     const { user } = useContext(AuthContext);
     const [readTimeout, setReadTimeout] = useState<NodeJS.Timeout>();
+    const [showPlaceholder, setShowPlaceholder] = useState(true);
 
     useEffect(() => {
         if (!user) return;
@@ -49,6 +50,15 @@ export default function MessagingContent() {
     }, [activeMessages]);
 
     useEffect(() => {
+        if (activeConversation) {
+            setShowPlaceholder(false);
+        }
+        else {
+            setShowPlaceholder(true);
+        }
+    }, [activeMessages, activeConversation]);
+
+    useEffect(() => {
         console.log('isStartingNewConversation', isStartingNewConversation);
     }, [isStartingNewConversation]);
 
@@ -67,7 +77,7 @@ export default function MessagingContent() {
             { activeConversation && activeMessages && <MessagesList /> }
 
             {
-                (!activeConversation || !activeMessages) && <MessagesPlaceholder />
+                showPlaceholder && <MessagesPlaceholder />
             }
 
             <MessagesActions />
