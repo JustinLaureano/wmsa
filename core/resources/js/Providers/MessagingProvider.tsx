@@ -42,7 +42,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         }
 
         const response = await conversationService.getConversations();
-        console.log(response.data)
+
         setConversations(response.data);
         setUnreadMessages(response.computed.unread_messages);
     };
