@@ -31,16 +31,11 @@ export default function MessagesList() {
     return (
         <RefOverflowScrollBox
             ref={scrollRef}
-            sx={{ px: 2 }}
+            sx={{ px: 2, flexGrow: 1 }}
         >
             <InfiniteScroll
-                hasMore={true}
+                hasMore={false}
                 loadMore={loadMore}
-                loader={
-                    <div className="loader" key={0}>
-                        Loading ...
-                    </div>
-                }
                 isReverse={true}
                 useWindow={false}
             >

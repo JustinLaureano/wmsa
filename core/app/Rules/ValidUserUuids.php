@@ -14,7 +14,8 @@ class ValidUserUuids implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Check if the value is a valid JSON string
-        $uuids = json_decode($value, true);
+        // $uuids = json_decode($value, true);
+        $uuids = array_unique($value);
 
         if (!is_array($uuids)) {
             $fail('The :attribute must be a valid JSON array of user UUIDs.');

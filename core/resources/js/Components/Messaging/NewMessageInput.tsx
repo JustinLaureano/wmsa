@@ -3,9 +3,16 @@ import { Divider, IconButton, Paper, Stack } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
 import MessagingContext from '@/Contexts/MessagingContext';
+import Message from './Message';
 
 export default function NewMessageInput() {
-    const { activeConversation, handleNewMessageRequest } = useContext(MessagingContext);
+    const {
+        activeConversation,
+        handleNewMessageRequest,
+        newConversationParticipants,
+        isStartingNewConversation,
+        handleCreateNewConversation
+    } = useContext(MessagingContext);
     const [content, setContent] = useState('');
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -23,6 +30,14 @@ export default function NewMessageInput() {
     }
 
     const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+        if (isStartingNewConversation && newConversationParticipants.length > 0) {
+            // determine if actually new conversation based on participants
+            // if it is, create new conversation
+            // if it is not, set active conversation and add new message
+            handleCreateNewConversation(content);
+            return;
+        }
+
         handleNewMessage();
     }
 
@@ -43,6 +58,16 @@ export default function NewMessageInput() {
         if (inputRef.current) {
             inputRef.current.focus();
         }
+    }
+
+    const sendButtonIsDisabled = () => {
+        if (content.length === 0) return true;
+
+        if (isStartingNewConversation) {
+            if (newConversationParticipants.length === 0) return true;
+        }
+
+        return false;
     }
 
     useEffect(() => {
@@ -84,7 +109,8 @@ export default function NewMessageInput() {
                 />
 
                 <IconButton
-                    color="gray"
+                    color="primary"
+                    disabled={sendButtonIsDisabled() ? true : false}
                     onClick={handleButtonClick}
                 >
                     <Send />

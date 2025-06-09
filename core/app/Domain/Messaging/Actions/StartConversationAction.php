@@ -4,7 +4,7 @@ namespace App\Domain\Messaging\Actions;
 
 use App\Domain\Messaging\DataTransferObjects\ConversationData;
 use App\Domain\Messaging\DataTransferObjects\MessageData;
-use App\Domain\Messaging\DataTransferObjects\StartConversationRequestData;
+use App\Domain\Messaging\DataTransferObjects\Requests\StartConversationPayload;
 use App\Domain\Messaging\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\ConversationParticipant;
@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class StartConversationAction
 {
-    public function handle(StartConversationRequestData $data): Conversation
+    public function handle(StartConversationPayload $data): Conversation
     {
         // Create conversation
         $conversation = (new ConversationRepository)
@@ -27,7 +27,7 @@ class StartConversationAction
         // Add participants
         $participantUuids = array_unique(array_merge(
             [$data->user_uuid],
-            json_decode($data->participants, true) ?: []
+            $data->participants
         ));
 
         foreach ($participantUuids as $userUuid) {
@@ -44,7 +44,7 @@ class StartConversationAction
                 uuid: Str::uuid(),
                 conversation_uuid: $conversation->uuid,
                 user_uuid: $data->user_uuid,
-                content: $data->message
+                content: $data->content
             ));
 
         // Create message status for all participants except sender
@@ -63,6 +63,6 @@ class StartConversationAction
         // Dispatch event
         MessageSent::dispatch($message);
 
-        return $conversation->load(['latestMessage.user.teammate', 'participants.user.teammate']);
+        return $conversation->load(['latestMessage.user.teammate', 'participants.teammate']);
     }
 }

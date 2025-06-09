@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Domain\Messaging\DataTransferObjects;
+namespace App\Domain\Messaging\DataTransferObjects\Requests;
 
 use App\Rules\ValidUserUuids;
 use Spatie\LaravelData\Data;
 
-class StartConversationRequestData extends Data
+class StartConversationPayload extends Data
 {
     public function __construct(
         public readonly string $user_uuid,
-        public readonly string $participants, // JSON string of user_uuids
-        public readonly string $message,
+        public readonly array $participants,
+        public readonly string $content,
         public readonly bool $group_conversation,
     ) {}
 
@@ -23,10 +23,10 @@ class StartConversationRequestData extends Data
             ],
             'participants' => [
                 'required',
-                'json',
+                'array',
                 new ValidUserUuids,
             ],
-            'message' => [
+            'content' => [
                 'required',
                 'string',
                 'max:1000',

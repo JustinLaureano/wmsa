@@ -109,13 +109,13 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         setNewConversationParticipants((prevParticipants) => prevParticipants.filter(p => p !== participant));
     };
 
-    const handleCreateNewConversation = async () => {
+    const handleCreateNewConversation = async (content: string) => {
         if (!user?.uuid || newConversationParticipants.length === 0) return;
 
         const data: ConversationFormData = {
             user_uuid: user.uuid,
             participants: newConversationParticipants,
-            message: '',
+            content,
             group_conversation: false,
         };
 

@@ -24,7 +24,7 @@ export interface MessagingContextType {
     handleStartNewConversation: (participants: string[]) => void;
     handleAddNewConversationParticipant: (participant: string) => void;
     handleRemoveNewConversationParticipant: (participant: string) => void;
-    handleCreateNewConversation: () => Promise<void>;
+    handleCreateNewConversation: (content: string) => Promise<void>;
     participantOptions: ParticipantAutocompleteResource[];
 }
 

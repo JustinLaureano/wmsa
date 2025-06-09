@@ -11,7 +11,7 @@ export class ConversationCreationService {
     async createConversation(data: ConversationFormData): Promise<ConversationResource | null> {
         try {
             const response = await this.apiService.post(
-                route('api.messaging.conversation.create'),
+                route('api.conversation'),
                 data
             );
             return response.data as ConversationResource;

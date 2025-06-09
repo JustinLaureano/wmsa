@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Messaging;
 
 use App\Domain\Messaging\Actions\StartConversationAction;
 use App\Domain\Messaging\DataTransferObjects\ParticipantConversationsData;
-use App\Domain\Messaging\DataTransferObjects\StartConversationRequestData;
+use App\Domain\Messaging\DataTransferObjects\Requests\StartConversationPayload;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Messaging\ConversationResource;
 
@@ -13,7 +13,7 @@ class StartConversation extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(StartConversationRequestData $data, StartConversationAction $action)
+    public function __invoke(StartConversationPayload $data, StartConversationAction $action)
     {
         $conversation = $action->handle($data);
 
