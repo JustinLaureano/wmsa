@@ -20,7 +20,6 @@ class ParticipantCollection extends ResourceCollection
                     $teammate = $participant->teammate;
 
                     return [
-                        'uuid' => $participant->uuid,
                         'user_uuid' => $user->user_uuid,
                         'name' => $teammate
                             ? "{$teammate->last_name}, {$teammate->first_name}"

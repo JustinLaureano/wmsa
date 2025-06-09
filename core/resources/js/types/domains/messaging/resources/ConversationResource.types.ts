@@ -9,8 +9,8 @@ export interface ConversationRelations {
     latest_message?: MessageResource;
     participants: Array<{
         data: {
-            uuid: string;
-            type: string;
+            user_uuid: string;
+            name: string;
         };
         computed: {
             count: number;

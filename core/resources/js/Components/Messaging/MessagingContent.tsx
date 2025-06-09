@@ -58,7 +58,7 @@ export default function MessagingContent() {
             marginLeft: theme.layouts.dashboard.conversationDrawerWidth
         }}>
             {
-                isStartingNewConversation ?
+                isStartingNewConversation && !activeConversation ?
                     <ParticipantSearch />
                     :
                     <MessagesHeader />
