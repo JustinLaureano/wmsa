@@ -123,7 +123,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         const conversation = await conversationCreationService.createConversation(data);
 
         if (conversation) {
-            setConversations((prevConversations) => [...prevConversations, conversation]);
+            setConversations((prevConversations) => [conversation, ...prevConversations]);
             setActiveConversation(conversation);
             setNewConversationParticipants([]);
             setIsStartingNewConversation(false);
@@ -143,6 +143,10 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         if (!activeConversation) {
             setIsStartingNewConversation(true);
         }
+        else {
+            setIsStartingNewConversation(false);
+        }
+
         fetchConversationMessages();
     }, [activeConversation]);
 
