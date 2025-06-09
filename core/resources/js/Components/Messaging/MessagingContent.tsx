@@ -25,7 +25,7 @@ export default function MessagingContent() {
 
         if (activeConversation) {
             /**
-             * Will use a timeout to mark the messages as read after 2 seconds
+             * Will use a timeout to mark the messages as read after short wait
              * This is to prevent the messages from being marked as read immediately
              */
             if (readTimeout) {
@@ -38,7 +38,7 @@ export default function MessagingContent() {
                         activeConversation.uuid,
                         user.uuid
                     );
-                }, 300)
+                }, 400)
             );
 
             return () => {
