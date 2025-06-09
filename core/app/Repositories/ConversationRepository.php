@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Domain\Messaging\DataTransferObjects\ConversationData;
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class ConversationRepository
@@ -35,5 +36,19 @@ class ConversationRepository
     public function store(ConversationData $data): Conversation
     {
         return Conversation::query()->create($data->toArray());
+    }
+
+    public function getParticipantOptions(): Collection
+    {
+        $userUuid = request()->user()->uuid;
+
+        // TODO: add conversation group names to list
+
+        return User::query()
+            ->with('teammate')
+            ->when($userUuid, function ($query) use ($userUuid) {
+                return $query->where('uuid', '!=', $userUuid);
+            })
+            ->get();
     }
 }

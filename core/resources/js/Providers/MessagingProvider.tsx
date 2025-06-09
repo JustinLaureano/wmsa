@@ -1,15 +1,19 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import {
-    MessagingProviderProps,
+    ConversationFormData,
     ConversationResource,
     MessageResource,
+    MessagingProviderProps,
     MessagingContextValue,
+    ParticipantAutocompleteResource,
 } from "@/types";
 import MessagingContext from "@/Contexts/MessagingContext";
 import {
     MessageCreationService,
     ConversationService,
     MessageStatusService,
+    ConversationCreationService,
+    ParticipantOptionService,
 } from "@/Services/Messaging";
 import AuthContext from "@/Contexts/AuthContext";
 
@@ -18,12 +22,17 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
     const messageService = new MessageCreationService();
     const messageStatusService = new MessageStatusService();
     const conversationService = new ConversationService();
+    const conversationCreationService = new ConversationCreationService();
+    const participantOptionService = new ParticipantOptionService();
 
     const [conversations, setConversations] = useState<ConversationResource[]>([]);
     const [unreadMessages, setUnreadMessages] = useState(0);
     const [activeConversation, setActiveConversation] = useState<ConversationResource | null>(null);
     const [activeMessages, setActiveMessages] = useState<MessageResource[] | null>(null);
     const [isLoadingMessages, setIsLoadingMessages] = useState(false);
+    const [isStartingNewConversation, setIsStartingNewConversation] = useState(false);
+    const [newConversationParticipants, setNewConversationParticipants] = useState<string[]>([]);
+    const [participantOptions, setParticipantOptions] = useState<ParticipantAutocompleteResource[]>([]);
 
     const fetchConversations = async () => {
         if (!user?.uuid) {
@@ -33,6 +42,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         }
 
         const response = await conversationService.getConversations();
+        console.log(response.data)
         setConversations(response.data);
         setUnreadMessages(response.computed.unread_messages);
     };
@@ -84,11 +94,54 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         fetchConversations();
     }
 
+    const handleStartNewConversation = (participants: string[]) => {
+        setNewConversationParticipants(participants);
+        setActiveConversation(null);
+        setActiveMessages(null);
+        setIsStartingNewConversation(true);
+    };
+
+    const handleAddNewConversationParticipant = (participant: string) => {
+        setNewConversationParticipants((prevParticipants) => [...prevParticipants, participant]);
+    };
+
+    const handleRemoveNewConversationParticipant = (participant: string) => {
+        setNewConversationParticipants((prevParticipants) => prevParticipants.filter(p => p !== participant));
+    };
+
+    const handleCreateNewConversation = async () => {
+        if (!user?.uuid || newConversationParticipants.length === 0) return;
+
+        const data: ConversationFormData = {
+            user_uuid: user.uuid,
+            participants: newConversationParticipants,
+            message: '',
+            group_conversation: false,
+        };
+
+        const conversation = await conversationCreationService.createConversation(data);
+
+        if (conversation) {
+            setConversations((prevConversations) => [...prevConversations, conversation]);
+            setActiveConversation(conversation);
+            setNewConversationParticipants([]);
+            setIsStartingNewConversation(false);
+        }
+    };
+
+    const fetchParticipantOptions = async () => {
+        const options = await participantOptionService.getParticipantOptions();
+        setParticipantOptions(options || []);
+    };
+
     useEffect(() => {
         fetchConversations();
     }, [user?.uuid]);
 
     useEffect(() => {
+        if (!activeConversation) {
+            setIsStartingNewConversation(true);
+        }
         fetchConversationMessages();
     }, [activeConversation]);
 
@@ -107,6 +160,10 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         };
     }, [user?.uuid]);
 
+    useEffect(() => {
+        fetchParticipantOptions();
+    }, []);
+
     const defaultValue: MessagingContextValue = {
         conversations,
         setConversations,
@@ -119,6 +176,15 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         handleNewMessageRequest,
         handleConversationMessagesRead,
         isLoadingMessages,
+        isStartingNewConversation,
+        setIsStartingNewConversation,
+        newConversationParticipants,
+        setNewConversationParticipants,
+        handleStartNewConversation,
+        handleAddNewConversationParticipant,
+        handleRemoveNewConversationParticipant,
+        handleCreateNewConversation,
+        participantOptions,
     };
 
     const value = useMemo(() => defaultValue, [
@@ -127,6 +193,9 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         activeConversation,
         activeMessages,
         isLoadingMessages,
+        isStartingNewConversation,
+        newConversationParticipants,
+        participantOptions,
     ]);
 
     return <MessagingContext.Provider value={value}>{children}</MessagingContext.Provider>;

@@ -17,11 +17,11 @@ class ParticipantCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function ($participant) {
                     $user = $participant->user;
-                    $teammate = $user->teammate;
+                    $teammate = $participant->teammate;
 
                     return [
                         'uuid' => $participant->uuid,
-                        'user_uuid' => $user->uuid,
+                        'user_uuid' => $user->user_uuid,
                         'name' => $teammate
                             ? "{$teammate->last_name}, {$teammate->first_name}"
                             : $user->teammate_clock_number,

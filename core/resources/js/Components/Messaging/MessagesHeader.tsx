@@ -11,8 +11,8 @@ export default function MessagesHeader() {
                 direction="row"
                 alignItems="center"
                 sx={{
-                    maxHeight: '80px',
-                    minHeight: '80px',
+                    maxHeight: '68px',
+                    minHeight: '68px',
                     px: 2
                 }}
             >

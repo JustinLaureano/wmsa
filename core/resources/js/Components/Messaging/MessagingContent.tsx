@@ -6,6 +6,7 @@ import MessagesHeader from './MessagesHeader';
 import MessagesList from './MessagesList';
 import MessagesActions from './MessagesActions';
 import MessagesPlaceholder from './MessagesPlaceholder';
+import ParticipantSearch from './ParticipantSearch';
 
 export default function MessagingContent() {
     const theme = useTheme();
@@ -13,6 +14,7 @@ export default function MessagingContent() {
         activeConversation,
         activeMessages,
         handleConversationMessagesRead,
+        isStartingNewConversation,
     } = useContext(MessagingContext);
     const { user } = useContext(AuthContext);
     const [readTimeout, setReadTimeout] = useState<NodeJS.Timeout>();
@@ -46,12 +48,21 @@ export default function MessagingContent() {
         }
     }, [activeMessages]);
 
+    useEffect(() => {
+        console.log('isStartingNewConversation', isStartingNewConversation);
+    }, [isStartingNewConversation]);
+
     return (
         <Stack sx={{
             height: '100%',
             marginLeft: theme.layouts.dashboard.conversationDrawerWidth
         }}>
-            <MessagesHeader />
+            {
+                isStartingNewConversation ?
+                    <ParticipantSearch />
+                    :
+                    <MessagesHeader />
+            }
 
             { activeConversation && activeMessages && <MessagesList /> }
 

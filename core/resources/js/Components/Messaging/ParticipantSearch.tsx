@@ -1,9 +1,22 @@
-import { Box, useTheme } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
+import ParticipantSearchInput from './ParticipantSearchInput';
 
 export default function ParticipantSearch() {
-    const theme = useTheme();
 
     return (
-        <Box>Participant Search</Box>
+        <>
+            <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                    maxHeight: '68px',
+                    minHeight: '68px',
+                    px: 2
+                }}
+            >
+                <ParticipantSearchInput />
+            </Stack>
+            <Divider />
+        </>
     );
 }

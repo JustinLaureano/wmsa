@@ -1,5 +1,9 @@
 import { createContext } from "react";
-import { ConversationResource, MessageResource } from "@/types";
+import {
+    ConversationResource,
+    MessageResource,
+    ParticipantAutocompleteResource,
+} from "@/types";
 
 export interface MessagingContextType {
     conversations: ConversationResource[];
@@ -13,6 +17,15 @@ export interface MessagingContextType {
     handleNewMessageRequest: (content: string) => Promise<MessageResource | null>;
     handleConversationMessagesRead: (conversationUuid: string, userUuid: string) => Promise<void>;
     isLoadingMessages: boolean;
+    isStartingNewConversation: boolean;
+    setIsStartingNewConversation: (isStarting: boolean) => void;
+    newConversationParticipants: string[];
+    setNewConversationParticipants: (participants: string[]) => void;
+    handleStartNewConversation: (participants: string[]) => void;
+    handleAddNewConversationParticipant: (participant: string) => void;
+    handleRemoveNewConversationParticipant: (participant: string) => void;
+    handleCreateNewConversation: () => Promise<void>;
+    participantOptions: ParticipantAutocompleteResource[];
 }
 
 const MessagingContext = createContext<MessagingContextType>({
@@ -27,6 +40,15 @@ const MessagingContext = createContext<MessagingContextType>({
     handleNewMessageRequest: async () => null,
     handleConversationMessagesRead: async () => {},
     isLoadingMessages: false,
+    isStartingNewConversation: false,
+    setIsStartingNewConversation: () => {},
+    newConversationParticipants: [],
+    setNewConversationParticipants: () => {},
+    handleStartNewConversation: async () => {},
+    handleAddNewConversationParticipant: () => {},
+    handleRemoveNewConversationParticipant: () => {},
+    handleCreateNewConversation: async () => {},
+    participantOptions: [],
 });
 
 export default MessagingContext;
