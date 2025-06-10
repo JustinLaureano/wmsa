@@ -20,19 +20,19 @@ return new class extends Migration
             $table->foreignUuid('material_uuid')
                 ->references('uuid')
                 ->on('materials');
-                $table->enum('type', [
-                    'internal',
-                    'customer',
-                    'launch',
-                    ])
-                    ->default('internal');
-                $table->enum('status', [
-                    'open',
-                    'pending',
-                    'in_progress',
-                    'closed',
-                    ])
-                    ->default('open');
+            $table->enum('type', [
+                'internal',
+                'customer',
+                'launch',
+                ])
+                ->default('internal');
+            $table->enum('status', [
+                'open',
+                'pending',
+                'in_progress',
+                'closed',
+                ])
+                ->default('open');
             $table->text('reason')->nullable();
             $table->smallInteger('percent')->nullable();
             $table->string('standard_time', 20)->nullable();

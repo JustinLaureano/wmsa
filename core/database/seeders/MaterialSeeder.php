@@ -26,6 +26,21 @@ class MaterialSeeder extends Seeder
      */
     protected function setMaterials() : void
     {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     p.psam_part_number AS material_number,
+         *     p.bapm_part_number AS part_number,
+         *     m.material_description,
+         *     p.base_quantity,
+         *     p.base_unit_of_measure
+         * FROM prospira_web.parts p
+         * LEFT JOIN sap_materials m
+         *     ON m.bapm_part_number = p.bapm_part_number
+         * ORDER BY p.bapm_part_number ASC;
+         */
+
         $file = database_path('data/materials.csv');
         $csvReader = new CsvReader($file);
 

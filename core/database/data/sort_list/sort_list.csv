@@ -1,0 +1,174 @@
+Customer,Part_Number,Type,Status,Reason,Percent,Standard_Time,Cert,Line_Side_Sort,List_Date,Close_Date
+Nissan,902085,Internal,Open,"100% sort for tears, nicks, knit lines, and all other visual defects on the diaphragm.  Press along top rubber and verify no cuts or fluid leaks. All visuals per the Sort operating standard. Apply blue dot as noted.",100,197,,0,"2014-11-03 00:00:00",NULL
+Nissan,954070,Internal,Open,"Bracket Cracks, Journal Placement, Molding Defects, All visuals per the operating standard. ",100,NULL,,0,"2014-11-03 00:00:00",NULL
+Nissan,904245,Internal,Open,"100% sort for tears, nicks, knit lines, and all other visual defects on the diaphragm.  Press along top rubber and verify no cuts or fluid leaks. - Nissan Requirement. All visuals per the 904245 Sort operating standard. Apply 10mm yellow paint dot on the QR stamp, avoid mounting area.",100,288,,0,"2014-11-03 00:00:00",NULL
+Subaru,803403,Internal,Open,"DAMAGED outer tube - QA Alert 4160
+Sort per op stnd. Unswaged parts, damaged outer tube, and non-fills.  Must be 100% gauged.",100,790,,0,"2023-07-27 00:00:00",NULL
+Subaru,903080,Internal,Open,"service 
+100% per op standard Bearing not rotating. (service part, must stay on list due to being a vital safety part)",100,250,,0,"2014-11-03 00:00:00",NULL
+Subaru,903290,Internal,Open,"service 
+100% per op standard Vital safety part, tears, excess rubber (service part, must stay on list due to being a vital safety part)",100,NULL,,0,"2016-05-25 00:00:00",NULL
+Subaru,902590,Internal,Open,"service 
+No poke-yoke (service).  Verify journal is properly seated in bracket.",100,NULL,,0,"2016-06-23 00:00:00",NULL
+Subaru,903740,Internal,Open,"Damaged Inner Diameter of cup & Missing washer on top side
+Damaged BOLT &Wrong bolts - Verify that A-10.9 is on bolt head - 
+100% inspect per op std, Large blister, Paint blistering, split OT vital safety part 
+One part per tote must be checked with 0.05 mm feeler gauge on head of each bolt. If NG is found, entire skid must be 100% feeler gauged. Notify Eng.",100,364,,0,"2024-01-04 00:00:00",NULL
+Toyota,806395,Internal,Open,"Non-fills.  ALL PARTS TAKEN FROM PARTIAL MUST BE ROLL-THRU GAUGED GA3560. Reference 806395 GA3560 sort instructions.
+Parts have shorter Inner Tube and ONE SPRUE PER SIDE.",100,781,,0,"2021-04-27 00:00:00",NULL
+Toyota,806455,Internal,Open,"SORT 3PCS/Tote - IF ANY DEFECT IS FOUND SKID MUST BE SORTED 100%
+Mixed parts - wrong color code- Verify Yellow color code and Round ID - L2 EMBOSSMENT - unpainted parts - tears in bumpers.  Each bumper must be pushed on to inspect for tears and bond failures.",20,419,,0,"2022-09-08 00:00:00",NULL
+Toyota,806465,Internal,Open,"SORT 3PCS/ Tote - IF ANY DEFECTS ARE FOUND SKID MUST BE SORTED 100%
+Mixed parts - wrong color code- Verify White color code and OVAL/Slotted IT - L3 EMBOSSMENT - unpainted parts - tears in bumpers.  Each bumper must be pushed on to inspect for tears and bond failures.",20,468,,0,"2022-09-08 00:00:00",NULL
+Toyota,806665,Customer,Open,"SORT 3PCS/ Tote - IF ANY DEFECTS ARE FOUND SKID MUST BE SORTED 100%
+Slotted IT - Mixed parts - wrong color code- Verify purple color code and OVAL/Slotted IT - S3 EMBOSSMENT - unpainted parts - tears in bumpers.  
+Each bumper must be pushed on to inspect for tears and bond failures.",20,375,,0,"2024-01-04 00:00:00",NULL
+Toyota,806440,Internal,Open,"Tears
+IF YOU ARE NOT A REGULAR SORTER- PLEASE REVIEW THE SAMPLE DEFECTS LOCATED ON THE SORTER's DESK WITH LL OR SUPERVISOR",100,1447,,0,"2017-06-09 00:00:00",NULL
+Toyota,806640,Internal,Open,"Tears
+IF YOU ARE NOT A REGULAR SORTER- PLEASE REVIEW THE SAMPLE DEFECTS LOCATED ON THE SORTER's DESK WITH LL OR SUPERVISOR",100,1447,,0,"2017-06-09 00:00:00",NULL
+Toyota,803915,Customer,Open,"service 
+Non-fill and rubber in the I.T. GA3206 to plug gauge inner mounting hole. Verify the washer is secure to the base.",100,493,,0,"2020-08-17 00:00:00",NULL
+Subaru,806536,Customer,Open,"Sort is at deflection.  100% ten point paint inspection, bond failures, paint failures.  See 806535 sort instructions.",100,NULL,,1,"2018-04-01 00:00:00",NULL
+Nissan,902670,Customer,Open,"Crimp Hole, All Visuals Per Op Std (Glue Tab, Excess/No Glue, Scratches, Tears) - Multiple issues at customer. 100% gage ",100,342,,0,"2018-04-25 00:00:00",NULL
+Toyota,806885,Customer,Open,"BENCHMARK SORT ONLY as of 6.6.25",100,370,yellow,0,"2022-10-27 00:00:00",NULL
+Toyota,807895,Internal,Open,"GROSS NON-FILL
+Non-fills. SORT PER OP STANDARD.
+ALL PARTS TAKEN FROM PARTIAL TOTE RACK MUST BE GAUGED WITH GA2400.
+Parts have shorter Inner Tube and TWO SPRUES PER SIDE.",100,1264,,0,"2024-04-30 00:00:00",NULL
+Toyota,806385,Customer,Open,"BENCHMARK SORT ONLY as of 6.6.25",100,NULL,yellow,0,"2024-08-23 00:00:00",NULL
+Subaru,902570,Internal,Open,"service 
+No poke-yoke (service).  Verify journal is properly seated in bracket.",100,NULL,,0,"2019-02-26 00:00:00",NULL
+Nissan,954080,Customer,Open,"Missing journal, bracket cracks, journal placement, molding defects, All visuals per the 954080 Sort operating standard. 200% sort with 2 different sorters . Gage 100% with 954080 gage. Reference sort sheet for full instructions.",200,NULL,,0,"2019-09-17 00:00:00",NULL
+Toyota,908760,Internal,Open,"service 
+missing snubber - 100% per 908760 sort instructions on controlled drive",100,213,,0,"2019-10-11 00:00:00",NULL
+Toyota,806815,Internal,Open,"NON-FILLS - Paint / rubber on end of IT - sprue not trimmed - 100% VISUALLY INSPECT PER OP STANDARD   
+IF PARTS ARE NEEDED FROM PARTIAL RACK, THOSE MUST BE ROLL-THRU GAUGED. GA3451",100,885,,0,"2024-03-06 00:00:00",NULL
+Toyota,806825,Internal,Open,"BENCHMARK ONLY SORT!!!
+non-fills
+100% VISUALLY INSPECT PER OP STANDARD.  IF PARTS ARE NEEDED FROM PARTIAL RACK, THOSE MUST BE ROLL-THRU GAUGED. GA3452",100,1010,,0,"2024-03-11 00:00:00",NULL
+Toyota,805023,Internal,Open,"service
+damaged outer metal - 100% SORT PER OP STANDARD - 100% gauging required",100,1073,,0,"2019-11-26 00:00:00",NULL
+Toyota,806655,Internal,Open,"SORT 3PCS/ Tote - IF ANY DEFECTS ARE FOUND SKID MUST BE SORTED 100%
+Mixed parts - wrong color code - unpainted parts - tears in bumpers - ROUND ID - S2 EMBOSSMENT - LIGHT BLUE COLOR CODE DOT",20,321,,0,"2022-09-08 00:00:00",NULL
+Toyota,900770,Internal,Open,"PULL UP 900770 SORT INSTRUCTIONS AND FOLLOW THESE INSTRUCTIONS - NO EXCEPTIONS. 4.4.23=Squeeze cap between finger for verifying glue",100,508,,0,"2022-06-10 00:00:00",NULL
+Toyota,806835,Internal,Open,"VISUALLY INSPECT PER OP STANDARD
+IF PARTS ARE NEEDED FROM PARTIAL RACK, THOSE MUST BE ROLL-THRU GAUGED. GA3453",100,790,,0,"2024-03-06 00:00:00",NULL
+HONDA,902800,Customer,Open,"Non-fills - use light box, molding defects, journal seating in OT",100,144,,0,"2020-06-01 00:00:00",NULL
+HONDA,906496,Customer,Open,"All items per op std - missing emboss, non-fills, splits, and rubber on bar pin",100,337,,0,"2020-06-23 00:00:00",NULL
+Toyota,803535,Internal,Open,"CERT
+Excess sprue - must be trimmed flush
+Rubber in the ID - must plug gauge 100% of metal ID with GA890
+Missing METAL - make sure metal is present and fully adhered to rubber
+Rubber in the ID - must plug gauge 100% of metal ID with GA890 & 100% visually inspect per op standard",100,645,yellow,0,"2023-10-27 00:00:00",NULL
+Nissan,905360,Customer,Open,"Rubber in embossed IT  (1/29/2020)  Missing yellow color code 10/26/2020. All visuals per the operating standard.",100,181,,0,"2020-10-27 00:00:00",NULL
+Toyota,905390,Internal,Open,"SERVICE - missing ID
+line side sort at the assembly - missing weld nut - sort per 905390 sort instructions
+100% gauging of every part required",100,53,,1,"2022-08-17 00:00:00",NULL
+YAA,806333,Customer,Open,"SORT PARTS FOR EXCESS FLASH AROUND TOP OF IT - DAMAGE TO INNER TUBE (MUST PASS 17.8MM PLUG), RUBBER ON MOUNTING SURFACES, MOLDING DEFECTS.",100,179,,0,"2021-09-23 00:00:00",NULL
+Kobe/THK,806730,Internal,Open,"Inspect parts for non-fills and seal damage",100,162,,1,"2021-01-05 00:00:00",NULL
+Toyota,803905,Internal,Open,"service 
+rubber in the I.T. GA3206 to plug gauge inner mounting hole. Verify the washer is secure to the base.  Inspect per op standard.",100,312,,0,"2021-03-03 00:00:00",NULL
+Toyota,806750,Internal,Open,"Line side sort (L6P12) - 100% visual inspection per op standard and boundary samples",100,87,,1,"2023-05-16 00:00:00",NULL
+HONDA,907866,Customer,Open,"Non-fills, Buckles, Leaking, Molding defects - Use light box and follow 907866 - Sort op std",100,NULL,100,0,"2024-01-03 00:00:00",NULL
+Toyota,909500,Internal,Open,"service 
+Pull 909500 sort instructions and sort per those requirements.",100,NULL,,1,"2022-01-31 00:00:00",NULL
+Toyota,909510,Internal,Open,"service 
+Pull 909510 sort instructions and sort per those requirements.",100,NULL,,1,"2021-07-20 00:00:00",NULL
+Toyota,806603,Internal,Open,"100% visually inspect per 806603 op standard.  Pull up op standard and review before sorting.  ALL PARTS TAKEN FROM PARTIAL TOTE RACK MUST BE GAUGED WITH GA2400.
+Parts have shorter Inner Tube, THREE SPRUES PER SIDE, and NO PAINT. Aluminum Outer Tube.",100,NULL,,0,"2023-05-16 00:00:00",NULL
+Toyota,806745,Customer,Open,"2CD emboss - LIGHT BLUE cc 
+Missing washers, damaged washers, rubber on washer, rubber in washer.
+Sort 100% visually per 806745 Paint op std with CC facing up.",100,NULL,,0,"2023-09-21 00:00:00",NULL
+Toyota,806845,Internal,Open,"3CD emboss- Green cc 
+Missing washers, damaged washers, rubber on washer, rubber in washer.
+Sort 100% visually per 806845 Paint op std with CC facing up.",100,NULL,,0,"2023-06-01 00:00:00",NULL
+Toyota,904720,Internal,Open,"3.10.25-Use component 305010 as gage to verify bolt perpendicularity.
+Inspection per Op Standard - check rivet area is not leaking",100,NULL,,0,"2023-08-18 00:00:00",NULL
+Toyota,806785,Internal,Open,"REVIEW SORT OP INSTRUCTIONS 9/23/24    --100% SORT--
+Person 1: Lightbox, Gauge and BLUE Paint Dot",100,NULL,,0,"2024-09-23 00:00:00",NULL
+Toyota,806795,Internal,Open,"Rubber in ID & inside washer surface - 100% plug gauge with GA3206. 100% sort to op std.",100,NULL,,0,"2023-05-16 00:00:00",NULL
+Toyota,807015,Internal,Open,"100% sort to op std.  
+- Parts with rubber in the ID / underside of plate - reference rework sheet in file - only provided arbor brush can be used.  Metal must be touched up with top coat bond.",100,NULL,,0,"2021-09-29 00:00:00",NULL
+Nissan,903610,Internal,Open,"Low runner, manual assembly, no sensors
+Visual inspection for all inspection items on the operating standard",100,NULL,,0,"2021-10-05 00:00:00",NULL
+Toyota,902280,Internal,Open,"service 
+Sort part for Felt and color code and good crimp on damper (not loose).  Poke yoke removed from assembly due to service status. Must remain of sort remainder of service life.",100,NULL,,0,"2021-10-15 00:00:00",NULL
+Toyota,902290,Internal,Open,"service 
+Sort part for Felt and color code and good crimp on damper (not loose).  Poke yoke removed from assembly due to service status. Must remain of sort remainder of service life.",100,NULL,,0,"2021-10-15 00:00:00",NULL
+YAT,806343,Customer,Open,"Customer complaint for nonfill 3.31.22 and 12/20/22. Parts were already sorted lineside. 100% sort for all visuals per the operating standard and rust in the ID. If rust is found, remove with scotch brite pad.",100,NULL,,0,"2021-10-19 00:00:00",NULL
+Toyota,906920,Customer,Open,"CERT for rubber in ID 5.21.25 - plug gauge entire length of ID using GA3634.
+Cured Flash - sort per OpStd
+P4 Bracket with SLOTTED IT",100,NULL,YELLOW,0,"2024-04-25 00:00:00",NULL
+Toyota,807040,Internal,Open,"Bond failure on the outer tube.  Reference QA Alert 3821.  MUST BE SORTED BY BNC AT LINE 1 table",100,NULL,,1,"2022-02-08 00:00:00",NULL
+Nissan,906630,Launch,Open,"New part due to resource of 3 components. (previously 905530)
+All visuals per the operating standard and bracket cracks",100,NULL,,0,"2022-05-11 00:00:00",NULL
+Toyota,902040,Internal,Open,"service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Toyota,902050,Internal,Open,"service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Toyota,902060,Internal,Open,"service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Toyota,902010,Internal,Open,"service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Toyota,902020,Internal,Open,"service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Toyota,902030,Internal,Open,"Service 
+manually applying ID mark
+visually inspect per op stnd",100,NULL,,0,"2022-05-24 00:00:00",NULL
+Nissan,904440,Internal,Open,"Visuals per the operating standard on 5pcs/layer - ANY PARTS FAIL INSPECT ROPACK MUST BE 100% SORTED, verify bracket alignment with GA3664. Gage 2 pcs per layer. If any parts fail the gage, the entire ropak must be gaged.",20,NULL,,0,"2022-06-06 00:00:00",NULL
+Toyota,908770,Customer,Open,"Must Sort per 908770 sort instructions in controlled drive
+Journal orientation - Make sure journal is correctly installed - tabs on snubbers line up
+excessive glue - QA Alert 4311!
+Glue rework, damaged curl, excess rubber on IT's",100,NULL,,0,"2023-12-05 00:00:00",NULL
+Nissan,902100,Internal,Open,"Visual inspection per operating standard required due to equipment moved to expansion.",100,NULL,,0,"2022-10-28 00:00:00","2022-11-28 00:00:00"
+Nissan,902680,Internal,Open,"100% visual inspection for all items listed on 902680 operating standard due to equipment move to expansion, including excess flash in ID of urethane. (complaint 3/6/23)",100,NULL,,0,"2022-11-11 00:00:00",NULL
+HONDA,601190,Internal,Open,"Verify spring mounting hole is clear of rubber",100,NULL,,0,"2023-02-08 00:00:00",NULL
+YAT,805843,Customer,Open,"Nonfill and all other visual items per the 805843 operating standard. Yellow rework sheet provided in complaint email.",100,NULL,,0,"2023-04-06 00:00:00",NULL
+YAT,903310,Customer,Open,"SORT 4 PCS / TOTE - ANY DEFECTS FOUND RESULTS IN 100% SORT OF SKID
+Bond failure on bottom bumper - Apply moderate pressure to bottom bumper to ensure full adhesion of rubber on bottom of OT",25,NULL,White,0,"2023-05-05 00:00:00",NULL
+Toyota,806985,Launch,Open,"Sort per op standard with CC facing up
+2AB emboss/Purple cc (visually inspect emboss)",100,NULL,,0,"2023-11-03 00:00:00",NULL
+Toyota,807020,Internal,Open,"BOND FAILURE-
+Review part for bond failure as what is stated in Quality Alert #4193.
+MUST BE SORTED BY BNC AT LINE 1 table",100,NULL,no,0,"2023-12-11 00:00:00",NULL
+"THK - Nissan",806513,Customer,Open,"Nonfills--inspect both sides carefully for nonfills and ALL OTHER VISUALS PER THE OPERATING STANDARD. No rubber or bond on the outside of the OT.",100,NULL,,0,"2024-06-14 00:00:00",NULL
+Nissan,904450,Internal,Open,"SORT 5PC/TOTE - IF ANY DEFECTS ARE FOUND SKID MUST BE 100% SORTED Sort for all visuals per the 904450 operating standard.",100,NULL,,0,"2024-07-09 00:00:00",NULL
+Toyota,802725,Internal,Open,"Visual inspect per OpStds & verify color code WHITE dot is present",100,NULL,,0,"2024-07-23 00:00:00",NULL
+Toyota,803295,Internal,Open,"Visual inspect per OpStds & verify color code GRAY dot is present",100,NULL,,0,"2024-07-24 00:00:00",NULL
+Nissan,903630,Internal,Open,"All visuals per the operating standard, bracket cracks.",100,NULL,,0,"2024-08-12 00:00:00",NULL
+Subaru,901530,Internal,Open,"Verify per op std - Bolts must be present and seated.",100,NULL,,0,"2024-10-16 00:00:00",NULL
+Subaru,804525,Internal,Open,"SERVICE PART - INSPECT PER OP STD",100,NULL,,0,"2025-01-16 00:00:00",NULL
+Toyota,803715,Internal,Open,"Verify color code dot is present and part is swaged.
+All other defects per op std.",100,NULL,,0,"2025-02-20 00:00:00",NULL
+Subaru,901800,Internal,Open,"- Damaged and Wrong bolts -One part per tote must be checked with 0.05 mm feeler gauge. If NG is found, entire skid must be 100% gauged. Notify Eng.
+- 100% inspect per op std. No molding defects and blisters over 3mm.
+- Complete paint coverage
+- Marconi date and time
+- 2 Green paint dots 
+- Bearing- dust cover facing out and bearing moves freely",100,NULL,,0,"2025-03-03 00:00:00",NULL
+Subaru,901540,Internal,Open,"- Damaged and Wrong bolts -One part per tote must be checked with 0.05 mm feeler gauge. If NG is found, entire skid must be 100% gauged. Notify Eng.
+- 100% inspect per op std. No molding defects and blisters over 3mm.
+- Complete paint coverage
+- Marconi date and time
+- 2 Blue paint dots 
+- Bearing- dust cover facing out and bearing moves freely",100,NULL,,0,"2025-03-03 00:00:00",NULL
+Subaru,902780,Internal,Open,"- Damaged/Wrong bolts -One part per tote must be checked with 0.05 mm feeler gauge. If NG is found, entire skid must be 100% gauged. Notify Eng.
+- 100% inspect per op std. No molding defects and blisters over 3mm.
+- Complete paint coverage
+- Marconi date and time
+- 1 Light Blue and 1 Yellow paint dots
+- Bearing- dust cover facing out and bearing moves freely",100,NULL,,0,"2025-03-03 00:00:00",NULL
+"THK - Nissan",903300,Customer,Open,"Raised bushing above the OT.",100,NULL,white,0,"2025-04-04 00:00:00",NULL
+Toyota,909310,Internal,Open,"ONLY MANUAL CELL PRODUCTION - VERIFY RIVET IS PRESENT",100,NULL,,0,"2025-04-11 00:00:00",NULL
+Toyota,906000,Customer,Open,"Green paint marker dot on alum bracket after visual inspection for bolt presence & torqued to rib area of bolt into alum bracket.",100,NULL,yellow,0,"2025-04-24 00:00:00",NULL
+Toyota,909870,Customer,Open,"missing bolt in aluminum bracket",100,NULL,,0,"2025-04-25 00:00:00",NULL
+Toyota,906850,Customer,Open,"Visual inspection for red color code - 2 approx. 10 mm dots 180 degrees apart",100,NULL,Toyota,0,"2025-05-22 00:00:00",NULL
+Subaru,905760,Customer,Open,"Verify no leaking glycol or excess moisture present",100,NULL,,0,"2025-06-06 00:00:00",NULL
+Subaru,905770,Customer,Open,"Verify no leaking glycol or excess moisture present",100,NULL,,0,"2025-06-06 00:00:00",NULL
+Dynamig,806875,Customer,Open,"BENCHMARK SORT ONLY as of 6.6.25",100,NULL,yellow,0,"2025-06-06 00:00:00",NULL
