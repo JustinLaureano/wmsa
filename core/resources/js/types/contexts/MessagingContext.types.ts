@@ -25,4 +25,5 @@ export interface MessagingContextValue {
     handleRemoveNewConversationParticipant: (participant: string) => void;
     handleCreateNewConversation: (content: string) => Promise<void>;
     participantOptions: ParticipantAutocompleteResource[];
+    conversationExists: () => ConversationResource | false;
 }

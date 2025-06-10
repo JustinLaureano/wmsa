@@ -26,6 +26,7 @@ export interface MessagingContextType {
     handleRemoveNewConversationParticipant: (participant: string) => void;
     handleCreateNewConversation: (content: string) => Promise<void>;
     participantOptions: ParticipantAutocompleteResource[];
+    conversationExists: () => ConversationResource | false;
 }
 
 const MessagingContext = createContext<MessagingContextType>({
@@ -49,6 +50,7 @@ const MessagingContext = createContext<MessagingContextType>({
     handleRemoveNewConversationParticipant: () => {},
     handleCreateNewConversation: async () => {},
     participantOptions: [],
+    conversationExists: () => false,
 });
 
 export default MessagingContext;

@@ -3,17 +3,22 @@ import { Divider, IconButton, Paper, Stack } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
 import MessagingContext from '@/Contexts/MessagingContext';
-import Message from './Message';
+import AuthContext from '@/Contexts/AuthContext';
 
 export default function NewMessageInput() {
+    const { user } = useContext(AuthContext);
     const {
         activeConversation,
         handleNewMessageRequest,
         newConversationParticipants,
         isStartingNewConversation,
-        handleCreateNewConversation
+        handleCreateNewConversation,
+        setActiveConversation,
+        conversationExists,
     } = useContext(MessagingContext);
+
     const [content, setContent] = useState('');
+    const [awaitingActiveConversation, setAwaitingActiveConversation] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +35,22 @@ export default function NewMessageInput() {
     }
 
     const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+        if (!user) return;
+
         if (isStartingNewConversation && newConversationParticipants.length > 0) {
-            // determine if actually new conversation based on participants
-            // if it is, create new conversation
-            // if it is not, set active conversation and add new message
-            handleCreateNewConversation(content);
+
+            const existingConversation = conversationExists();
+
+            if (existingConversation) {
+                // Set as active conversation and send message
+                setAwaitingActiveConversation(true);
+                setActiveConversation(existingConversation);
+
+            } else {
+                // Create new conversation
+                handleCreateNewConversation(content);
+            }
+
             return;
         }
 
@@ -71,6 +87,12 @@ export default function NewMessageInput() {
     }
 
     useEffect(() => {
+        if (awaitingActiveConversation) {
+            setAwaitingActiveConversation(false);
+            handleNewMessage();
+            return;
+        }
+
         setContent('');
         focusInput();
     }, [activeConversation])

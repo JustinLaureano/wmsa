@@ -7,18 +7,18 @@ export interface ConversationAttributes {
 
 export interface ConversationRelations {
     latest_message?: MessageResource;
-    participants: Array<{
+    participants:{
         data: {
             user_uuid: string;
             name: string;
-        };
+        }[];
         computed: {
             count: number;
         };
         meta: {
             timestamp: string;
         };
-    }>;
+    };
 }
 
 export interface ConversationComputed {

@@ -12,8 +12,6 @@ export default function ParticipantSearchInput() {
 
     const inputLabel = newConversationParticipants.length > 0 ? 'Participants' : 'Search';
 
-    console.log(newConversationParticipants);
-
     return (
         <Autocomplete
             multiple

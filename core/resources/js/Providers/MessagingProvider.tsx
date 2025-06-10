@@ -56,6 +56,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         setIsLoadingMessages(true);
         try {
             const messages = await conversationService.getConversationMessages(activeConversation.uuid);
+
             setActiveMessages(messages);
         }
         finally {
@@ -135,6 +136,26 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         setParticipantOptions(options || []);
     };
 
+    const conversationExists = () => {
+        if (!user?.uuid) return false;
+
+        const existingConversation = conversations.find(conversation => {
+            const participants = conversation.relations.participants.data;
+            const expectedParticipantCount = newConversationParticipants.length + 1; // +1 for current user
+
+            if (participants.length !== expectedParticipantCount) {
+                return false;
+            }
+
+            const participantUuids = participants.map(p => p.user_uuid);
+            const expectedUuids = [...newConversationParticipants, user.uuid];
+
+            return expectedUuids.every(uuid => participantUuids.includes(uuid));
+        });
+
+        return existingConversation ? existingConversation : false;
+    }
+
     useEffect(() => {
         fetchConversations();
     }, [user?.uuid]);
@@ -145,10 +166,24 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         }
         else {
             setIsStartingNewConversation(false);
+            if (activeConversation && (!activeMessages || activeMessages[0]?.attributes.conversation_uuid !== activeConversation.uuid)) {
+                fetchConversationMessages();
+            }
         }
 
-        fetchConversationMessages();
     }, [activeConversation]);
+
+    useEffect(() => {
+        if (activeMessages) {
+            const conversationUuid = activeMessages[0]?.attributes.conversation_uuid;
+        if (conversationUuid && activeConversation?.uuid !== conversationUuid) {
+            const matchingConversation = conversations.find(conv => conv.uuid === conversationUuid);
+            if (matchingConversation) {
+                    setActiveConversation(matchingConversation);
+                }
+            }
+        }
+    }, [activeMessages]);
 
     useEffect(() => {
         if (user?.uuid) {
@@ -190,6 +225,7 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
         handleRemoveNewConversationParticipant,
         handleCreateNewConversation,
         participantOptions,
+        conversationExists,
     };
 
     const value = useMemo(() => defaultValue, [

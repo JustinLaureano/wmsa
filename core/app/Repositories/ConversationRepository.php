@@ -43,6 +43,7 @@ class ConversationRepository
         $userUuid = request()->user()->uuid;
 
         // TODO: add conversation group names to list
+        // and sort by teammate last name
 
         return User::query()
             ->with('teammate')
