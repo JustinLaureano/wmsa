@@ -64,6 +64,8 @@ export const navigationDrawerLinks = [
         selected: [
             route('quality.sort'),
             route('quality.sort.part-numbers'),
+            route('quality.sort.inventory', { storage_location_building_id: 1 }),
+            route('quality.sort.inventory', { storage_location_building_id: 2 }),
         ]
     },
     {

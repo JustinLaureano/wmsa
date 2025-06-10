@@ -17,6 +17,16 @@ class ViewSortListInventory extends Model
     protected $table = 'view_sort_list_inventory';
 
     /**
+     * The primary key for the model.
+     */
+    protected $primaryKey = 'material_container_uuid';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are filterable.
      */
     protected array $filterable = [
@@ -25,6 +35,7 @@ class ViewSortListInventory extends Model
         'quantity',
         'part_number',
         'storage_location_area_name',
+        'storage_location_building_id',
         'storage_location_name',
     ];
 
