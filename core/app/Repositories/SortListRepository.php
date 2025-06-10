@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\SortList;
+use App\Models\Views\ViewSortListPartNumber;
 use Illuminate\Support\Collection;
 
 class SortListRepository
@@ -21,14 +22,14 @@ class SortListRepository
             ->get();
     }
 
+    /**
+     * Get all sort list part numbers.
+     */
     public function getPartNumbers() : Collection
     {
-        return SortList::query()
-            ->with('material')
+        return ViewSortListPartNumber::query()
             ->get()
-            ->pluck('material.part_number')
-            ->unique()
-            ->sort()
+            ->pluck('part_number')
             ->values();
     }
 }
