@@ -6,6 +6,7 @@ use App\Domain\Materials\DataTransferObjects\ContainerLocationData;
 use App\Models\MaterialContainer;
 use App\Models\StorageLocation;
 use App\Repositories\ContainerLocationRepository;
+use App\Repositories\SortListRepository;
 use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Seeder;
@@ -22,32 +23,52 @@ class ContainerLocationSeeder extends Seeder
     {
         $repository = new ContainerLocationRepository;
 
-        $containers = MaterialContainer::doesntHave('location')->inRandomOrder()->get();
+        $containers = MaterialContainer::doesntHave('location')
+            ->with('material')
+            ->inRandomOrder()
+            ->get();
+
+        $sortParts = (new SortListRepository())->getPartNumbers()->toArray();
 
         foreach ($containers as $container) {
-            // $noLocation = Lottery::odds(1, 100)->choose();
+            $partNumber = $container->material->part_number;
 
-            // if ($noLocation) continue;
+            if ( in_array($partNumber, $sortParts) ) {
+                $sortLocation = Lottery::odds(1, 2)->choose();
 
-            $palletRack = Lottery::odds(9, 10)->choose();
-            // $palletRack = Lottery::odds(10, 10)->choose();
-
-            if ($palletRack) {
-                $location = StorageLocation::query()
-                    ->doesntHave('containers')
-                    ->whereHas('type', function (Builder $query) {
-                        $query->where('id', 1);
-                    })
-                    ->inRandomOrder()
-                    ->first();
+                if ($sortLocation) {
+                    $location = StorageLocation::query()
+                        ->where('name', 'SORT')
+                        ->inRandomOrder()
+                        ->first();
+                }
+                else {
+                    $location = StorageLocation::query()
+                        ->where('name', 'like', '%COMPLETION%')
+                        ->inRandomOrder()
+                        ->first();
+                }
             }
             else {
-                $location = StorageLocation::query()
-                    ->whereHas('type', function (Builder $query) {
-                        $query->where('id', 9);
-                    })
-                    ->inRandomOrder()
-                    ->first();
+                $palletRack = Lottery::odds(9, 10)->choose();
+
+                if ($palletRack) {
+                    $location = StorageLocation::query()
+                        ->doesntHave('containers')
+                        ->whereHas('type', function (Builder $query) {
+                            $query->where('id', 1);
+                        })
+                        ->inRandomOrder()
+                        ->first();
+                }
+                else {
+                    $location = StorageLocation::query()
+                        ->whereHas('type', function (Builder $query) {
+                            $query->where('id', 9);
+                        })
+                        ->inRandomOrder()
+                        ->first();
+                }
             }
 
             $data = new ContainerLocationData(

@@ -120,6 +120,13 @@ class StorageLocationSeeder extends Seeder
                     $name = $row['area'];
                 }
 
+                if ($row['id'] === '1-COMPLETION-0-0-0-0') {
+                    $name = 'Plant 2 Completion';
+                }
+                else if ($row['id'] === '2-COMPLETION-0-0-0-0') {
+                    $name = 'Blackhawk Completion';
+                }
+
                 $areaId = $this->areas[$row['building']][$row['area']]['id'];
 
                 $locationData = new StorageLocationData(
