@@ -18,6 +18,7 @@ return new class extends Migration
                 ->on('material_containers');
             $table->string('event_type', 40);
             $table->json('event_data');
+            $table->text('summary')->nullable();
             $table->timestamp('occurred_at');
         });
     }
