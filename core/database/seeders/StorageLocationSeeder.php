@@ -120,12 +120,7 @@ class StorageLocationSeeder extends Seeder
                     $name = $row['area'];
                 }
 
-                if ($row['id'] === '1-COMPLETION-0-0-0-0') {
-                    $name = 'Plant 2 Completion';
-                }
-                else if ($row['id'] === '2-COMPLETION-0-0-0-0') {
-                    $name = 'Blackhawk Completion';
-                }
+                $name = $this->setUniqueName($row['id'], $name);
 
                 $areaId = $this->areas[$row['building']][$row['area']]['id'];
 
@@ -153,5 +148,30 @@ class StorageLocationSeeder extends Seeder
 
             StorageLocation::insert($data);
         }
+    }
+
+    /**
+     * Set the unique name for the storage locations
+     * that have a unique name structure, or return
+     * the original name if not.
+     */
+    public function setUniqueName(string $id, string $name) : string
+    {
+        $uniqueName = null;
+
+        if ($id === '1-COMPLETION-0-0-0-0') {
+            $uniqueName = 'Plant 2 Completion';
+        }
+        else if ($id === '2-COMPLETION-0-0-0-0') {
+            $uniqueName = 'Blackhawk Completion';
+        }
+        else if ($id === '1-SORT-0-0-0-0') {
+            $uniqueName = 'Plant 2 Sort';   
+        }
+        else if ($id === '2-SORT-0-0-0-0') {
+            $uniqueName = 'Blackhawk Sort';
+        }
+
+        return $uniqueName ? $uniqueName : $name;
     }
 }
