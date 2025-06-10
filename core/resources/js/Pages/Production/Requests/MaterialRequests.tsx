@@ -23,7 +23,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const theme = useTheme();
     const { lang } = useContext(LanguageContext);
     const list = requests.data;
-    console.log(list);
+
     return (
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
@@ -31,7 +31,6 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
             <Paper variant="outlined" sx={{ maxWidth: '1100px', width: '90vw', margin: '0 auto', p: 5 }}>
 
                 <RequestNavTabs />
-
 
                 <Stack spacing={2} sx={{
                     maxWidth: '1000px',
