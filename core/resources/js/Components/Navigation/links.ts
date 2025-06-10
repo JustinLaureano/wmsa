@@ -63,6 +63,7 @@ export const navigationDrawerLinks = [
         route: route('quality.sort'),
         selected: [
             route('quality.sort'),
+            route('quality.sort.part-numbers'),
         ]
     },
     {

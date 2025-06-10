@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\Quality\ViewSortList;
+use App\Http\Controllers\Quality\ViewSortListPartNumbers;
 use Illuminate\Support\Facades\Route;
 
 Route::get('quality/sort', ViewSortList::class)
     ->name('quality.sort');
+
+Route::get('quality/sort/part-numbers', ViewSortListPartNumbers::class)
+    ->name('quality.sort.part-numbers');
 
 Route::middleware('auth')->group(function () {
     //
