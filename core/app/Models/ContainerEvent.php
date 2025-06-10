@@ -23,6 +23,7 @@ class ContainerEvent extends Model
         'material_container_uuid',
         'event_type',
         'event_data',
+        'summary',
         'occurred_at',
     ];
 

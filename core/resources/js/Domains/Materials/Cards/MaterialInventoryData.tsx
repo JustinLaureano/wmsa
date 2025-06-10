@@ -65,7 +65,7 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
 
     useEffect(() => {
         if (!loaded) return;
-        console.log('params', filterParams);
+
         handleFilterEvent(filterParams);
     }, [filterParams])
 
@@ -155,6 +155,7 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
                                         </TableHead>
                                         <TableBody>
                                             {containers.map((container) => {
+
                                                 const { quantity, lot_number } = container.attributes;
                                                 const { storage_location_name } = container.computed;
 
