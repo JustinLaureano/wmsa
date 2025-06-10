@@ -24,6 +24,7 @@ class ViewSortListInventory extends Model
         'lot_number',
         'quantity',
         'part_number',
+        'storage_location_area_name',
         'storage_location_name',
     ];
 
@@ -39,6 +40,7 @@ class ViewSortListInventory extends Model
             'lot_number' => $this->lot_number,
             'quantity' => $this->quantity,
             'part_number' => $this->part_number,
+            'storage_location_area_name' => $this->storage_location_area_name,
             'storage_location_name' => $this->storage_location_name,
         ];
     }
