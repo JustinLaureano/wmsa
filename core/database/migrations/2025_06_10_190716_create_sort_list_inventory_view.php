@@ -23,6 +23,7 @@ return new class extends Migration
                     m.part_number,
                     ms.name AS movement_status_name,
                     sla.building_id AS storage_location_building_id,
+                    sla.name AS storage_location_area_name,
                     sl.name AS storage_location_name
                 FROM material_containers mc
                 LEFT JOIN materials m
