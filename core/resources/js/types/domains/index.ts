@@ -4,3 +4,4 @@ export * from './locations';
 export * from './materials';
 export * from './messaging';
 export * from './production';
+export * from './quality';
