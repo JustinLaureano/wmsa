@@ -8,22 +8,12 @@ import { getCollectionPagination } from '@/Utils/pagination';
 import LanguageContext from '@/Contexts/LanguageContext';
 import { getUrlParams } from '@/Components/Tables/Filters/params';
 import {
-    AccordionDetails,
-    Accordion,
     Card,
     CardActions,
     CardContent,
     CardHeader,
     Typography,
-    AccordionSummary,
-    Box,
     Grid,
-    TableContainer,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
     Divider,
     Stack,
     TextField,
