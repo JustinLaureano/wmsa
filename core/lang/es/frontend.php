@@ -30,7 +30,7 @@ return [
     */
     'view_history' => 'Ver Historial',
     'clear_skid' => 'Limpiar Skid',
-
+    'view_barcode_label' => 'Ver Etiqueta de Código de Barras',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,8 @@ return [
     |
     */
     'material_inventory' => 'Inventario de Materiales',
-    
+    'part' => 'Parte',
+
     /*
     |--------------------------------------------------------------------------
     | Messaging

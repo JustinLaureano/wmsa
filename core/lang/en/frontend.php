@@ -29,6 +29,7 @@ return [
     */
     'view_history' => 'View History',
     'clear_skid' => 'Clear Skid',
+    'view_barcode_label' => 'View Barcode Label',
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ return [
     |
     */
     'material_inventory' => 'Material Inventory',
-    
+    'part' => 'Part',
+
     /*
     |--------------------------------------------------------------------------
     | Messaging

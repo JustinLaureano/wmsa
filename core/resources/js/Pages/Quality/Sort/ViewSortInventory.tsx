@@ -5,7 +5,7 @@ import QualityPageHeader from '@/Domains/Quality/Layout/Header/QualityPageHeader
 import { ViewSortInventoryProps } from '@/types';
 import { Paper } from '@mui/material';
 import SortInventoryNavTabs from '@/Domains/Quality/Layout/Navigation/SortInventoryNavTabs';
-import SortInventoryData from '@/Domains/Quality/Cards/SortInventoryData';
+import SortInventoryData from '@/Domains/Quality/Cards/SortInventory/SortInventoryData';
 
 export default function ViewSortInventory({ inventory, materialOptions }: ViewSortInventoryProps) {
     const { lang } = useContext(LanguageContext);
