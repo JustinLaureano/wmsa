@@ -107,7 +107,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                                 });
                             }}
                             sx={{ width: 400 }}
-                            renderInput={(params) => <TextField {...params} label="Part Number" />}
+                            renderInput={(params) => <TextField {...params} label={lang.part_number} />}
                         />
                     </Stack>
 
