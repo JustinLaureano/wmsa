@@ -36,7 +36,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
     const { lang } = useContext(LanguageContext);
     const sortInventoryService = new SortInventoryService();
 
-    console.log(inventory);
+    // console.log(inventory);
 
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState(inventory.data.data);
@@ -71,7 +71,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
     }, [filterParams])
 
     useEffect(() => {
-        setFilterParams(getUrlParams());
+        // setFilterParams(getUrlParams());
         setLoaded(true);
     }, [])
 

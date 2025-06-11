@@ -10,12 +10,13 @@ class ViewSortListInventoryRepository
 {
     public function filterPaginate($search = null) : LengthAwarePaginator
     {
-        if ($search === null) {
-            $search = request()->query('search');
-        }
+        $buildingId = request()->query('storage_location_building_id');
 
-        return ViewSortListInventory::search($search)
-            ->query(fn (Builder $query) => $query->filter())
+        return ViewSortListInventory::query()
+            ->filter()
+            ->when($buildingId, function (Builder $query) use ($buildingId) {
+                $query->where('storage_location_building_id', $buildingId);
+            })
             ->orderBy('part_number', 'asc')
             ->paginate();
     }
