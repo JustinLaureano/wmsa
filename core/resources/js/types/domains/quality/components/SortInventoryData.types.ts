@@ -4,7 +4,7 @@ import {
     ViewSortListInventoryResource
 } from "@/types";
 
-export interface ViewSortInventoryProps {
+export interface SortInventoryDataProps {
     inventory: JsonPaginateCollection<ViewSortListInventoryResource>;
     materialOptions: MaterialAutocompleteResource[];
 }

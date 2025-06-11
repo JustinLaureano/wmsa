@@ -28,7 +28,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
         <SidebarLayout title={lang.requests}>
             <ProductionPageHeader />
 
-            <Paper variant="outlined" sx={{ maxWidth: '1100px', width: '90vw', margin: '0 auto', p: 5 }}>
+            <Paper variant="outlined" sx={{ maxWidth: '1100px', width: '90vw', margin: '0 auto', px: 5 }}>
 
                 <RequestNavTabs />
 

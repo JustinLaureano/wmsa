@@ -38,13 +38,13 @@ class ContainerLocationSeeder extends Seeder
 
                 if ($sortLocation) {
                     $location = StorageLocation::query()
-                        ->where('name', 'SORT')
+                        ->whereIn('name', ['Plant 2 Sort', 'Blackhawk Sort'])
                         ->inRandomOrder()
                         ->first();
                 }
                 else {
                     $location = StorageLocation::query()
-                        ->where('name', 'like', '%COMPLETION%')
+                        ->whereIn('name', ['Plant 2 Completion', 'Blackhawk Completion'])
                         ->inRandomOrder()
                         ->first();
                 }

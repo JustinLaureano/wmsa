@@ -30,6 +30,7 @@ class ViewSortListInventory extends Model
      * The attributes that are filterable.
      */
     protected array $filterable = [
+        'material_uuid',
         'barcode',
         'lot_number',
         'quantity',
