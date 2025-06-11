@@ -72,10 +72,10 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                     contrastText: '#fff',
                 },
 
-                info: {
-                    main: '#13c2c2',
-                    contrastText: '#fff',
-                },
+                // info: {
+                //     main: '#13c2c2',
+                //     contrastText: '#fff',
+                // },
 
                 danger: {
                     main: red[600],

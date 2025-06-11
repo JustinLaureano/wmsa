@@ -4,6 +4,7 @@ namespace App\Http\Resources\Quality;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 
 class ViewSortListInventoryResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class ViewSortListInventoryResource extends JsonResource
             'material_container_uuid' => $this->material_container_uuid,
             'material_uuid' => $this->material_uuid,
             'barcode' => $this->barcode,
+            'barcode_label' => BarcodeFactory::make($this->barcode)->toArray(),
             'lot_number' => $this->lot_number,
             'quantity' => $this->quantity,
             'part_number' => $this->part_number,

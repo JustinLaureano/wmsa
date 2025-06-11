@@ -27,9 +27,23 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'view_history' => 'View History',
+    'barcode' => 'Barcode',
+    'barcode_hash' => 'Barcode Hash',
+    'barcode_label_information' => 'Barcode Label Information',
+    'barcode_type' => 'Barcode Type',
     'clear_skid' => 'Clear Skid',
+    'clock_number' => 'Clock Number',
+    'copy_barcode' => 'Copy Barcode',
+    'expiration_date' => 'Expiration Date',
+    'lot_number' => 'Lot Number',
+    'manufacture_date' => 'Manufacture Date',
+    'quantity' => 'Quantity',
+    'serial_number' => 'Serial Number',
+    'supplier' => 'Supplier',
+    'supplier_part_number' => 'Supplier Part Number',
+    'time' => 'Time',
     'view_barcode_label' => 'View Barcode Label',
+    'view_history' => 'View History',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +53,7 @@ return [
     */
     'material_inventory' => 'Material Inventory',
     'part' => 'Part',
+    'part_number' => 'Part Number',
 
     /*
     |--------------------------------------------------------------------------

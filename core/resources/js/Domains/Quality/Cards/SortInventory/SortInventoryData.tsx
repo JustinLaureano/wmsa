@@ -2,7 +2,8 @@ import { useContext, useState, useEffect } from 'react';
 import {
     SortInventoryDataProps,
     JsonObject,
-    MaterialAutocompleteResource
+    MaterialAutocompleteResource,
+    MaterialBarcodeResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -19,7 +20,8 @@ import {
     TextField,
     Autocomplete,
     IconButton,
-    Tooltip
+    Tooltip,
+    Box
 } from '@mui/material';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { SortInventoryService } from '@/Services/Quality';
@@ -38,16 +40,16 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
     const [pagination, setPagination] = useState(getCollectionPagination(inventory.links, inventory.meta));
     const [filterParams, setFilterParams] = useState({});
     const [barcodeLabelDialogOpen, setBarcodeLabelDialogOpen] = useState(false);
-    const [barcodeLabel, setBarcodeLabel] = useState('');
+    const [barcodeLabel, setBarcodeLabel] = useState<MaterialBarcodeResource | null>(null);
 
-    const handleBarcodeLabelDialogOpen = (barcodeLabel : string) => {
+    const handleBarcodeLabelDialogOpen = (barcodeLabel : MaterialBarcodeResource) => {
         setBarcodeLabel(barcodeLabel);
         setBarcodeLabelDialogOpen(true);
     };
 
     const handleBarcodeLabelDialogClose = () => {
         setBarcodeLabelDialogOpen(false);
-        setBarcodeLabel('');
+        setBarcodeLabel(null);
     };
 
     const handleFilterEvent = async (filterParams: JsonObject) => {
@@ -116,6 +118,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                             material_container_uuid,
                             material_uuid,
                             barcode,
+                            barcode_label,
                             lot_number,
                             quantity,
                             part_number,
@@ -123,8 +126,8 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                         } = container;
 
                         return (
-                            <>
-                                <Grid key={material_container_uuid} container sx={{ py: 1 }}>
+                            <Box key={material_container_uuid}>
+                                <Grid container sx={{ py: 1 }}>
                                     <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Typography variant="body2" fontWeight="bold">{part_number}</Typography>
                                     </Grid>
@@ -142,7 +145,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                                     </Grid>
                                     <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Tooltip title={lang.view_barcode_label} arrow>
-                                            <IconButton onClick={() => handleBarcodeLabelDialogOpen(barcode)}>
+                                            <IconButton onClick={() => handleBarcodeLabelDialogOpen(barcode_label)}>
                                                 <QrCode />
                                             </IconButton>
                                         </Tooltip>
@@ -163,7 +166,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                                     </Grid>
                                 </Grid>
                                 <Divider />
-                            </>
+                            </Box>
                         )
                     })}
                 </CardContent>

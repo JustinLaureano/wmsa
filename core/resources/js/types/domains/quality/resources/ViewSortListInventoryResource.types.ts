@@ -1,7 +1,10 @@
+import { MaterialBarcodeResource } from '@/types';
+
 export interface ViewSortListInventoryResource {
     material_container_uuid: string;
     material_uuid: string;
     barcode: string;
+    barcode_label: MaterialBarcodeResource;
     lot_number: string;
     quantity: number;
     part_number: string;
