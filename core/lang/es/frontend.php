@@ -28,6 +28,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
+    'actions' => 'Acciones',
     'barcode' => 'Código de Barras',
     'barcode_hash' => 'Hash del Código de Barras',
     'barcode_label_information' => 'Información de Etiqueta de Código de Barras',
@@ -36,9 +37,14 @@ return [
     'clock_number' => 'Número de Reloj',
     'copy_barcode' => 'Copiar Código de Barras',
     'copy_barcode_hash' => 'Copiar Hash del Código de Barras',
+    'dropped_off' => 'Despachado',
     'expiration_date' => 'Fecha de Expiración',
+    'label' => 'Etiqueta',
+    'location' => 'Ubicación',
+    'lot' => 'Lote',
     'lot_number' => 'Número de Lote',
     'manufacture_date' => 'Fecha de Manufactura',
+    'qty' => 'Qty',
     'quantity' => 'Cantidad',
     'serial_number' => 'Número de Serie',
     'supplier' => 'Proveedor',

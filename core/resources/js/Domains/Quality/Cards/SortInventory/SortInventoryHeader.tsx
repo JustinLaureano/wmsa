@@ -21,22 +21,22 @@ export default function SortInventoryHeader() {
                     <Typography variant="overline" fontWeight="bold" color="primary">{lang.part}</Typography>
                 </Grid>
                 <Grid size={1}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Lot</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.lot}</Typography>
                 </Grid>
                 <Grid size={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Qty</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.qty}</Typography>
                 </Grid>
                 <Grid size={3}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Location</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.location}</Typography>
                 </Grid>
                 <Grid size={3}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Dropped Off</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.dropped_off}</Typography>
                 </Grid>
                 <Grid size={1}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Label</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.label}</Typography>
                 </Grid>
                 <Grid size={1}>
-                    <Typography variant="overline" fontWeight="bold" color="primary">Actions</Typography>
+                    <Typography variant="overline" fontWeight="bold" color="primary">{lang.actions}</Typography>
                 </Grid>
             </Grid>
 

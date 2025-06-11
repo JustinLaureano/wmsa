@@ -27,6 +27,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
+    'actions' => 'Actions',
     'barcode' => 'Barcode',
     'barcode_hash' => 'Barcode Hash',
     'barcode_label_information' => 'Barcode Label Information',
@@ -35,9 +36,14 @@ return [
     'clock_number' => 'Clock Number',
     'copy_barcode' => 'Copy Barcode',
     'copy_barcode_hash' => 'Copy Barcode Hash',
+    'dropped_off' => 'Dropped Off',
     'expiration_date' => 'Expiration Date',
+    'label' => 'Label',
+    'location' => 'Location',
+    'lot' => 'Lot',
     'lot_number' => 'Lot Number',
     'manufacture_date' => 'Manufacture Date',
+    'qty' => 'Qty',
     'quantity' => 'Quantity',
     'serial_number' => 'Serial Number',
     'supplier' => 'Supplier',
