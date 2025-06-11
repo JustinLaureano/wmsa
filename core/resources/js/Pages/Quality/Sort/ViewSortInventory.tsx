@@ -21,6 +21,7 @@ export default function ViewSortInventory({ inventory, materialOptions }: ViewSo
                     width: '90vw',
                     margin: '0 auto',
                     px: 5,
+                    mb: 4
                 }}
             >
                 <SortInventoryNavTabs />

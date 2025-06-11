@@ -17,10 +17,13 @@ import {
     Divider,
     Stack,
     TextField,
-    Autocomplete
+    Autocomplete,
+    IconButton,
+    Tooltip
 } from '@mui/material';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { SortInventoryService } from '@/Services/Quality';
+import { HideSource, History, QrCode } from '@mui/icons-material';
 
 export default function SortInventoryData({ inventory, materialOptions } : SortInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
@@ -66,7 +69,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
     }, [])
 
     return (
-        <Card sx={{ flexGrow: 1 }}>
+        <Card sx={{ flexGrow: 1 }} elevation={0}>
             <CardHeader title={lang.sort_inventory} sx={{ pt: 2, pb: 0}} />
             <CardContent>
                 <Stack
@@ -99,25 +102,25 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                     }}
                 >
                     <Grid size={1}>
-                        <Typography variant="overline" color="">Item</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Item</Typography>
                     </Grid>
                     <Grid size={2}>
-                        <Typography variant="overline" color="">Lot</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Lot</Typography>
                     </Grid>
                     <Grid size={1}>
-                        <Typography variant="overline" color="">Qty</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Qty</Typography>
                     </Grid>
                     <Grid size={3}>
-                        <Typography variant="overline" color="">Location</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Location</Typography>
                     </Grid>
                     <Grid size={3}>
-                        <Typography variant="overline" color="">Dropped Off</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Dropped Off</Typography>
                     </Grid>
                     <Grid size={1}>
-                        <Typography variant="overline" color="">Label</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Label</Typography>
                     </Grid>
                     <Grid size={1}>
-                        <Typography variant="overline" color="">Actions</Typography>
+                        <Typography variant="overline" fontWeight="bold" color="primary">Actions</Typography>
                     </Grid>
                 </Grid>
 
@@ -136,27 +139,42 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
 
                     return (
                         <>
-                            <Grid container sx={{ py: 1 }}>
-                                <Grid size={1}>
-                                    <Typography variant="body2">{part_number}</Typography>
+                            <Grid key={material_container_uuid} container sx={{ py: 1 }}>
+                                <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography variant="body2" fontWeight="bold">{part_number}</Typography>
                                 </Grid>
-                                <Grid size={2}>
+                                <Grid size={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body2">{lot_number}</Typography>
                                 </Grid>
-                                <Grid size={1}>
+                                <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body2">{quantity}</Typography>
                                 </Grid>
-                                <Grid size={3}>
+                                <Grid size={3} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body2">{storage_location_name}</Typography>
                                 </Grid>
-                                <Grid size={3}>
+                                <Grid size={3} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body2">July 16th, 2024 2:14pm</Typography>
                                 </Grid>
-                                <Grid size={1}>
-                                    <Typography variant="body2">icon</Typography>
+                                <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Tooltip title={barcode} arrow>
+                                        <IconButton>
+                                            <QrCode />
+                                        </IconButton>
+                                    </Tooltip>
                                 </Grid>
-                                <Grid size={1}>
-                                    <Typography variant="subtitle2">Actions</Typography>
+                                <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Stack direction="row" gap={1}>
+                                        <Tooltip title={lang.view_history} arrow>
+                                            <IconButton>
+                                                <History />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title={lang.clear_skid} arrow>
+                                            <IconButton color="danger">
+                                                <HideSource />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                             <Divider />

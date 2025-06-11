@@ -20,6 +20,7 @@ declare module '@mui/material/styles' {
     interface PaletteOptions {
         primaryText?: PaletteOptions['primary'];
         secondaryText?: PaletteOptions['primary'];
+        danger?: PaletteOptions['primary'];
     }
 }
 
@@ -35,6 +36,7 @@ declare module '@mui/material/IconButton' {
     interface IconButtonPropsColorOverrides {
         primaryText: true;
         secondaryText: true;
+        danger: true;
     }
 }
 

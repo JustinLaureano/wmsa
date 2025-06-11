@@ -5,6 +5,7 @@ import { darkMode, lightMode } from '@/Theme/colors';
 import dimensions from '@/Theme/dimensions';
 import ColorModeContext from '@/Contexts/ColorModeContext';
 import { PrimaryThemeProps } from '@/types';
+import { red } from '@mui/material/colors';
 
 export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
     const [mode, setMode] = useState<PaletteMode>('light');
@@ -73,6 +74,13 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
 
                 info: {
                     main: '#13c2c2',
+                    contrastText: '#fff',
+                },
+
+                danger: {
+                    main: red[600],
+                    light: red[400],
+                    dark: red[700],
                     contrastText: '#fff',
                 },
 
