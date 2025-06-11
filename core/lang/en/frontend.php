@@ -34,6 +34,7 @@ return [
     'clear_skid' => 'Clear Skid',
     'clock_number' => 'Clock Number',
     'copy_barcode' => 'Copy Barcode',
+    'copy_barcode_hash' => 'Copy Barcode Hash',
     'expiration_date' => 'Expiration Date',
     'lot_number' => 'Lot Number',
     'manufacture_date' => 'Manufacture Date',

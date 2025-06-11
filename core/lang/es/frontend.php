@@ -35,6 +35,7 @@ return [
     'clear_skid' => 'Limpiar Skid',
     'clock_number' => 'Número de Reloj',
     'copy_barcode' => 'Copiar Código de Barras',
+    'copy_barcode_hash' => 'Copiar Hash del Código de Barras',
     'expiration_date' => 'Fecha de Expiración',
     'lot_number' => 'Número de Lote',
     'manufacture_date' => 'Fecha de Manufactura',

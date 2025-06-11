@@ -9,7 +9,6 @@ import {
 	Tooltip,
 	Stack,
 	Box,
-	useTheme,
 	Divider,
 } from '@mui/material';
 import { BarcodeLabelDialogProps } from '@/types';
@@ -51,7 +50,6 @@ export default function BarcodeLabelDialog({ open, onClose, barcodeLabel }: Barc
 	if ( !barcodeLabel ) return null;
 
 	const { lang } = useContext(LanguageContext);
-	const theme = useTheme();
 	const handleCopyBarcode = () => {
 		navigator.clipboard.writeText(barcodeLabel.barcode);
 	};
@@ -83,7 +81,7 @@ export default function BarcodeLabelDialog({ open, onClose, barcodeLabel }: Barc
 					icon={false}
 					severity="info"
 					action={
-						<Tooltip title={lang.copy_barcode} arrow>
+						<Tooltip title={lang.copy_barcode_hash} arrow>
 							<IconButton onClick={handleCopyHash}>
 								<ContentCopy />
 							</IconButton>
@@ -108,7 +106,6 @@ export default function BarcodeLabelDialog({ open, onClose, barcodeLabel }: Barc
 				<InfoRow label={lang.serial_number} content={barcodeLabel.serial_number} />
 				<InfoRow label={lang.expiration_date} content={barcodeLabel.expiration_date} />
 				<InfoRow label={lang.lot_number} content={barcodeLabel.lot_number} />
-
 
 			</DialogContent>
 		</Dialog>
