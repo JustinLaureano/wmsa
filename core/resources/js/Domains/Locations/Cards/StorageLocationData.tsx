@@ -11,8 +11,6 @@ import {
     CardActions,
     CardContent,
     CardHeader,
-    Chip,
-    Divider,
     Grid,
     Stack,
     Typography
