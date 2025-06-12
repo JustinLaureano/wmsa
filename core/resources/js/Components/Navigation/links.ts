@@ -84,7 +84,7 @@ export const navigationDrawerLinks = [
         route: route('locations.buildings.kpi'),
         selected: [
             route('locations.buildings.kpi'),
+            route('locations.show'),
         ]
     },
 ];
-
