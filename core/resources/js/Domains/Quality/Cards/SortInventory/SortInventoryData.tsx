@@ -118,7 +118,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
     }, [filterParams])
 
     useEffect(() => {
-        // setFilterParams(getUrlParams());
+        setFilterParams(getUrlParams());
         setLoaded(true);
     }, [])
 

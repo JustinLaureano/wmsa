@@ -10,8 +10,17 @@ export const getUrlParams = () => {
         const filterArray = param.split('=');
         const key = filterArray[0];
         const filter = filterArray[1].replace(/%3A/, OPERATOR_SEPARATOR).split(OPERATOR_SEPARATOR);
-        const operator = filter[0];
-        const value = filter[2];
+
+        let operator;
+        let value;
+
+        if (filter.length == 1) {
+            operator = 'eq';
+            value = filter[0];
+        } else {
+            operator = filter[0];
+            value = filter[2];
+        }
 
         if (!value) {
             return obj;
