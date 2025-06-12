@@ -24,6 +24,17 @@ class Building extends Model
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
      * Get the organization for the building.
      */
     public function organization(): BelongsTo

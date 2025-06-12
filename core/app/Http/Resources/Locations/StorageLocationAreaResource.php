@@ -16,7 +16,7 @@ class StorageLocationAreaResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'attributes' => $this->attributes->toArray(),
+            'attributes' => $this->resource->toArray(),
             'relations' => [
                 'building' => $this->building
             ],

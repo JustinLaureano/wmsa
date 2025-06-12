@@ -17,7 +17,7 @@ class StorageLocationResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'attributes' => $this->attributes->toArray(),
+            'attributes' => $this->resource->toArray(),
             'relations' => [
                 'area' => new StorageLocationAreaResource($this->area),
                 'containers' => MaterialContainerResource::collection($this->containers),
