@@ -3,6 +3,7 @@
 use App\Http\Controllers\Materials\FindOrCreateMaterialContainer;
 use App\Http\Controllers\Materials\GetBarcodeInformation;
 use App\Http\Controllers\Materials\InitiateContainerMovement;
+use App\Http\Controllers\Materials\UpdateContainerQuantity;
 use App\Http\Controllers\Materials\ViewMaterials;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,7 @@ Route::get('/materials/container/{barcode}', FindOrCreateMaterialContainer::clas
 Route::middleware('auth')->group(function () {
     Route::post('/materials/container-movement', InitiateContainerMovement::class)
         ->name('api.container.movement');
+
+    Route::post('/materials/container/quantity', UpdateContainerQuantity::class)
+        ->name('api.container.quantity');
 });

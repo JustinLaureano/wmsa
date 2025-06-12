@@ -3,7 +3,8 @@ import {
     SortInventoryDataProps,
     JsonObject,
     MaterialAutocompleteResource,
-    MaterialBarcodeResource
+    MaterialBarcodeResource,
+    ViewSortListInventoryResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -21,16 +22,20 @@ import {
     Autocomplete,
     IconButton,
     Tooltip,
-    Box
+    Box,
 } from '@mui/material';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { SortInventoryService } from '@/Services/Quality';
 import { HideSource, History, QrCode } from '@mui/icons-material';
 import BarcodeLabelDialog from '@/Domains/Materials/Dialogs/BarcodeLabelDialog';
 import SortInventoryHeader from '@/Domains/Quality/Cards/SortInventory/SortInventoryHeader';
+import QuantityUpdateInput from './QuantityUpdateInput';
+import { ContainerQuantityService } from '@/Services/Materials';
+import AuthContext from '@/Contexts/AuthContext';
 
 export default function SortInventoryData({ inventory, materialOptions } : SortInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
+    const { user } = useContext(AuthContext);
     const sortInventoryService = new SortInventoryService();
 
     // console.log(inventory);
@@ -70,6 +75,40 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                 'page': page
             };
         });
+    }
+
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>, container : ViewSortListInventoryResource) => {
+        container.quantity = parseInt(e.target.value);
+        container.quantity_edited = true;
+
+        setData(data.map((item) => {    
+            if (item.material_container_uuid === container.material_container_uuid) {
+                return container;
+            }
+            return item;
+        }));
+    }
+
+    const saveQuantityChange = async (container : ViewSortListInventoryResource) => {
+        if ( !user?.uuid ) return;
+
+        const containerQuantityService = new ContainerQuantityService();
+        const response = await containerQuantityService.updateContainerQuantity(
+            container.material_container_uuid,
+            container.quantity,
+            user?.uuid
+        );
+
+        if ( !response ) return;
+
+        container.quantity_updated = true;
+
+        setData(data.map((item) => {
+            if (item.material_container_uuid === container.material_container_uuid) {
+                return container;
+            }
+            return item;
+        }));
     }
 
     useEffect(() => {
@@ -134,13 +173,18 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
                                     <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Typography variant="body2">{lot_number}</Typography>
                                     </Grid>
-                                    <Grid size={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Typography variant="body2">{quantity}</Typography>
+                                    <Grid size={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <QuantityUpdateInput
+                                            quantity={quantity}
+                                            onHandleQuantityChange={handleQuantityChange}
+                                            onSaveQuantityChange={saveQuantityChange}
+                                            container={container}
+                                        />
                                     </Grid>
                                     <Grid size={3} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Typography variant="body2">{storage_location_name}</Typography>
                                     </Grid>
-                                    <Grid size={3} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Grid size={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Typography variant="body2">July 16th, 2024 2:14pm</Typography>
                                     </Grid>
                                     <Grid size={1} sx={{ display: 'flex', alignItems: 'center' }}>

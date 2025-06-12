@@ -7,6 +7,8 @@ export interface ViewSortListInventoryResource {
     barcode_label: MaterialBarcodeResource;
     lot_number: string;
     quantity: number;
+    quantity_edited?: boolean;
+    quantity_updated?: boolean;
     part_number: string;
     movement_status_name: string;
     storage_location_building_id: number;
