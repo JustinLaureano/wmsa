@@ -3,10 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\StorageLocation;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class StorageLocationRepository
 {
+    public function filterPaginate() : LengthAwarePaginator
+    {
+        return StorageLocation::query()
+            ->filter()
+            ->orderBy('name', 'asc')
+            ->paginate();
+    }
+
     public function findByUuid(string $uuid) : StorageLocation
     {
         return StorageLocation::query()->whereUuid($uuid)->first();
