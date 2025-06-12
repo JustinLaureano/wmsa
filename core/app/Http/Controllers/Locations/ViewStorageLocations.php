@@ -8,7 +8,7 @@ use App\Repositories\StorageLocationRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ShowStorageLocations extends Controller
+class ViewStorageLocations extends Controller
 {
     /**
      * Create a new controller instance.
@@ -30,7 +30,7 @@ class ShowStorageLocations extends Controller
             );
         }
 
-        return Inertia::render('Locations/ShowStorageLocations', [
+        return Inertia::render('Locations/ViewStorageLocations', [
             'storageLocations' => new StorageLocationCollection(
                 $this->storageLocationRepository->filterPaginate()
             )

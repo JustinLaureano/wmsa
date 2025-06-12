@@ -2,13 +2,13 @@ import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import LocationsPageHeader from '@/Domains/Locations/Layout/Header/LocationsPageHeader';
-import SkeletonPage from '@/Components/SkeletonPage';
-import { ShowStorageLocationsProps } from '@/types';
+import { ViewStorageLocationsProps } from '@/types';
+import StorageLocationDataTable from '@/Domains/Locations/Cards/StorageLocationDataTable';
 
-export default function ShowStorageLocations({
+export default function ViewStorageLocations({
     storageLocations,
     ...props
-} : ShowStorageLocationsProps) {
+} : ViewStorageLocationsProps) {
     const { lang } = useContext(LanguageContext);
 
     console.log(storageLocations);
@@ -17,7 +17,9 @@ export default function ShowStorageLocations({
         <SidebarLayout title={lang.storage_locations}>
             <LocationsPageHeader />
 
-            <SkeletonPage />
+            <StorageLocationDataTable
+                storageLocations={storageLocations}
+            />
         </SidebarLayout>
     );
 }

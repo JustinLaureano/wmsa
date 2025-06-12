@@ -1,1 +1,1 @@
-export * from './ShowStorageLocations.types';
+export * from './ViewStorageLocations.types';
