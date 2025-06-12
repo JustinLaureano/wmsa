@@ -1,2 +1,2 @@
 export * from './LocationScanInput.types';
-export * from './StorageLocationDataTable.types';
+export * from './StorageLocationData.types';

@@ -3,7 +3,7 @@ import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import LocationsPageHeader from '@/Domains/Locations/Layout/Header/LocationsPageHeader';
 import { ViewStorageLocationsProps } from '@/types';
-import StorageLocationDataTable from '@/Domains/Locations/Cards/StorageLocationDataTable';
+import StorageLocationData from '@/Domains/Locations/Cards/StorageLocationData';
 
 export default function ViewStorageLocations({
     storageLocations,
@@ -17,7 +17,7 @@ export default function ViewStorageLocations({
         <SidebarLayout title={lang.storage_locations}>
             <LocationsPageHeader />
 
-            <StorageLocationDataTable
+            <StorageLocationData
                 storageLocations={storageLocations}
             />
         </SidebarLayout>

@@ -1,5 +1,5 @@
 import { StorageLocationResource, JsonPaginateCollection } from "@/types";
 
-export interface StorageLocationDataTableProps {
+export interface StorageLocationDataProps {
     storageLocations: JsonPaginateCollection<StorageLocationResource>;
 }
