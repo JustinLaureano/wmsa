@@ -11,8 +11,15 @@ import {
     CardActions,
     CardContent,
     CardHeader,
+    Divider,
     Grid,
     Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
     Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -78,6 +85,8 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                         location_type,
                         maximum_container_count
                     } = storageLocation.computed;
+
+                    const { containers } = storageLocation.relations;
 
                     return (
                         <Accordion key={storageLocation.uuid}>
@@ -150,7 +159,42 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                 </Box>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography variant="overline">Containers</Typography>
+                                <Divider />
+                                <Box>
+                                    <Typography variant="overline">Containers</Typography>
+                                    <Divider />
+                                    <TableContainer>
+                                        <Table stickyHeader>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Part Number</TableCell>
+                                                    <TableCell>Quantity</TableCell>
+                                                    <TableCell>Lot Number</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {containers.map((container) => {
+                                                    const { quantity, lot_number } = container.attributes;
+                                                    const { part_number } = container.computed;
+
+                                                    return (
+                                                        <TableRow key={container.uuid}>
+                                                            <TableCell>{part_number}</TableCell>
+                                                            <TableCell>{quantity}</TableCell>
+                                                            <TableCell>{lot_number}</TableCell>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+                                                {containers.length === 0 && (
+                                                    <TableRow>
+                                                        <TableCell colSpan={3}>No containers found.</TableCell>
+                                                    </TableRow>
+                                                )}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     )
