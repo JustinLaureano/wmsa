@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Locations\Enums\StorageLocationType;
+use App\Domain\Locations\Enums\StorageLocationTypeEnum;
 use App\Domain\Production\Actions\CreateMaterialRequestAction;
 use App\Domain\Production\Enums\RequestStatusEnum;
 use App\Domain\Production\Enums\RequestTypeEnum;
@@ -94,7 +94,7 @@ class MaterialRequestSeeder extends Seeder
                                 $query->where('building_id', $building);
                             })
                             ->whereHas('type', function (Builder $query) {
-                                $query->where('name', StorageLocationType::FLOOR->value);
+                                $query->where('name', StorageLocationTypeEnum::FLOOR->value);
                             })
                             ->inRandomOrder()
                             ->first()
@@ -142,7 +142,7 @@ class MaterialRequestSeeder extends Seeder
                         $query->where('building_id', $building);
                     })
                     ->whereHas('type', function (Builder $query) {
-                        $query->where('name', StorageLocationType::FLOOR->value);
+                        $query->where('name', StorageLocationTypeEnum::FLOOR->value);
                     })
                     ->inRandomOrder()
                     ->first()

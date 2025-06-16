@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\Locations\DataTransferObjects\StorageLocationData;
-use App\Domain\Locations\Enums\StorageLocationType as StorageLocationTypeEnum;
+use App\Domain\Locations\Enums\StorageLocationTypeEnum;
 use App\Models\StorageLocation;
 use App\Models\StorageLocationArea;
 use App\Models\StorageLocationType;

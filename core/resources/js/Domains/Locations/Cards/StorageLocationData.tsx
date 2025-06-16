@@ -74,6 +74,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                         restrict_request_allocations
                      } = storageLocation.attributes;
 
+                    const { container_count, location_type } = storageLocation.computed;
                     return (
                         <Accordion key={storageLocation.uuid}>
                             <AccordionSummary
@@ -90,7 +91,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                         <Grid size={2}>
                                             <Box>
                                                 <Typography variant="subtitle2" color="text.secondary">Type</Typography>
-                                                <Typography variant="body1">Pallet Rack</Typography>
+                                                <Typography variant="body1">{location_type}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>
@@ -102,7 +103,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                         <Grid size={2}>
                                             <Box>
                                                 <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
-                                                <Typography variant="body1">1</Typography>
+                                                <Typography variant="body1">{container_count}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={1}>

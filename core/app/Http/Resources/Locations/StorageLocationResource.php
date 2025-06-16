@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Locations;
 
+use App\Domain\Locations\Enums\StorageLocationTypeEnum;
 use App\Http\Resources\Materials\MaterialContainerResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,7 +25,8 @@ class StorageLocationResource extends JsonResource
                 'type' => new StorageLocationTypeResource($this->type),
             ],
             'computed' => [
-
+                'container_count' => $this->containers->count(),
+                'location_type' => StorageLocationTypeEnum::from($this->type->name)->label(),
             ]
         ];
     }
