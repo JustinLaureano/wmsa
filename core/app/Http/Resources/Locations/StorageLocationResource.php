@@ -25,6 +25,7 @@ class StorageLocationResource extends JsonResource
                 'type' => new StorageLocationTypeResource($this->type),
             ],
             'computed' => [
+                'maximum_container_count' => $this->max_containers !== null ? $this->max_containers : 'N/A',
                 'container_count' => $this->containers->count(),
                 'location_type' => StorageLocationTypeEnum::from($this->type->name)->label(),
             ]

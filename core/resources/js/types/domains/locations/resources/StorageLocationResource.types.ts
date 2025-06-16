@@ -24,6 +24,7 @@ export interface StorageLocationResourceRelations {
 export interface StorageLocationResourceComputed {
     container_count: number;
     location_type: string;
+    maximum_container_count: string | number;
 }
 
 export type StorageLocationResource = JsonApiResource<

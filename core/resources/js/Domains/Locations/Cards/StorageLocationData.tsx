@@ -19,7 +19,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getCollectionPagination } from '@/Utils/pagination';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { StorageLocationService } from '@/Services/Locations';
-import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material';
+import { CheckBoxOutlineBlank, CheckBoxOutlined } from '@mui/icons-material';
 
 export default function StorageLocationData({ storageLocations } : StorageLocationDataProps) {
     const { lang } = useContext(LanguageContext);
@@ -69,12 +69,16 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                     const {
                         name,
                         disabled,
-                        max_containers,
                         reservable,
                         restrict_request_allocations
                      } = storageLocation.attributes;
 
-                    const { container_count, location_type } = storageLocation.computed;
+                    const {
+                        container_count,
+                        location_type,
+                        maximum_container_count
+                    } = storageLocation.computed;
+
                     return (
                         <Accordion key={storageLocation.uuid}>
                             <AccordionSummary
@@ -97,7 +101,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                         <Grid size={2}>
                                             <Box>
                                                 <Typography variant="subtitle2" color="text.secondary">Max Containers</Typography>
-                                                <Typography variant="body1">{max_containers}</Typography>
+                                                <Typography variant="body1">{maximum_container_count}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>
@@ -111,7 +115,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                                 <Typography variant="subtitle2" color="text.secondary">Enabled</Typography>
                                                 {
                                                     !disabled ? (
-                                                        <CheckBox color="disabled" />
+                                                        <CheckBoxOutlined />
                                                     ) : (
                                                         <CheckBoxOutlineBlank />
                                                     )
@@ -123,7 +127,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                                 <Typography variant="subtitle2" color="text.secondary">Reservable</Typography>
                                                 {
                                                     reservable ? (
-                                                        <CheckBox color="disabled" />
+                                                        <CheckBoxOutlined />
                                                     ) : (
                                                         <CheckBoxOutlineBlank />
                                                     )
@@ -135,7 +139,7 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                                 <Typography variant="subtitle2" color="text.secondary">Allocatable</Typography>
                                                 {
                                                     !restrict_request_allocations ? (
-                                                        <CheckBox color="disabled" />
+                                                        <CheckBoxOutlined />
                                                     ) : (
                                                         <CheckBoxOutlineBlank />
                                                     )
