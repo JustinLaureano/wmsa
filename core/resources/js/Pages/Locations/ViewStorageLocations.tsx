@@ -11,8 +11,6 @@ export default function ViewStorageLocations({
 } : ViewStorageLocationsProps) {
     const { lang } = useContext(LanguageContext);
 
-    console.log(storageLocations);
-
     return (
         <SidebarLayout title={lang.storage_locations}>
             <LocationsPageHeader />

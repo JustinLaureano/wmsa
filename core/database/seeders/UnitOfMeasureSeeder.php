@@ -16,7 +16,7 @@ class UnitOfMeasureSeeder extends Seeder
         foreach (UnitOfMeasureEnum::cases() as $case) {
             UnitOfMeasure::create([
                 'unit_of_measure' => $case->value,
-                'description' => ucfirst($case->value)
+                'description' => UnitOfMeasureEnum::from($case->value)->label(),
             ]);
         }
     }
