@@ -16,6 +16,8 @@ return [
     'home' => 'Hogar',
     'requests' => 'Solicitudes',
     'inventory' => 'Inventario',
+    'irm' => 'IRM',
+    'irm_chemicals' => 'Químicos IRM',
     'materials' => 'Materiales',
 
     'email' => 'correo',

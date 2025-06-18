@@ -1,1 +1,5 @@
-export interface ViewChemicalsProps {}
+import { ViewIrmChemicalPagination } from "@/types";
+
+export interface ViewChemicalsProps {
+    chemicals: ViewIrmChemicalPagination;
+}

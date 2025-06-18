@@ -3,16 +3,18 @@ import { ViewChemicalsProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import IrmPageHeader from '@/Domains/Irm/Layout/Header/IrmPageHeader';
-import SkeletonPage from '@/Components/SkeletonPage';
+import ViewIrmChemicalDataTable from '@/Domains/Irm/Cards/ViewIrmChemicalDataTable';
 
-export default function ViewChemicals({ ...props } : ViewChemicalsProps) {
+export default function ViewChemicals({ chemicals } : ViewChemicalsProps) {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.inventory}>
+        <SidebarLayout title={lang.irm}>
             <IrmPageHeader />
 
-            <SkeletonPage />
+            <ViewIrmChemicalDataTable
+                chemicals={chemicals}
+            />
         </SidebarLayout>
     );
 }

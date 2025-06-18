@@ -15,6 +15,8 @@ return [
     'home' => 'Home',
     'requests' => 'Requests',
     'inventory' => 'Inventory',
+    'irm' => 'IRM',
+    'irm_chemicals' => 'IRM Chemicals',
     'materials' => 'Materials',
 
     'email' => 'Email',
