@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
-            CREATE  OR REPLACE VIEW `view_container_inventory` AS
+            CREATE OR REPLACE VIEW `view_container_inventory` AS
                 SELECT
                     mc.id,
                     mc.uuid,

@@ -113,7 +113,7 @@ class MaterialSeeder extends Seeder
         $this->descriptionContainerIds = [
             'bag' => 6,
             'barrel' => 5,
-            'basket' => 6,
+            'basket' => 8,
             'bin' => 7,
             'box' => 2,
             'ropack' => 1,
