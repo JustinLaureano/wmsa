@@ -6,3 +6,4 @@ export * from './MaterialContainerInventoryResource.types';
 export * from './MaterialOptionResource.types';
 export * from './MaterialInventoryCollection.types';
 export * from './MaterialInventoryResource.types';
+export * from './MaterialResource.types';

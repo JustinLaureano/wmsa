@@ -1,6 +1,7 @@
 import { JsonApiResource, JsonObject, MaterialContainerResource } from "@/types";
 
 export interface StorageLocationResourceAttributes {
+    uuid: string;
     name: string;
     barcode: string;
     storage_location_type_id: string;

@@ -73,6 +73,14 @@ class Material extends Model
     }
 
     /**
+     * Get the material container type for the material.
+     */
+    public function materialContainerType(): HasOne
+    {
+        return $this->hasOne(MaterialContainerType::class, 'id', 'material_container_type_id');
+    }
+
+    /**
      * Get the material type for the material.
      */
     public function materialType(): HasOne
