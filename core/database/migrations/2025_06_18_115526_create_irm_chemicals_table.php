@@ -13,7 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('irm_chemicals', function (Blueprint $table) {
-            $table->id();
+            $table->id()
+                ->comment('This id corresponds to the identifer on lot card barcode labels to identify the chemical');
             $table->uuid('uuid')->index();
             $table->foreignUuid('material_uuid')
                 ->references('uuid')

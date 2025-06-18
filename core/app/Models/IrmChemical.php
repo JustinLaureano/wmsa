@@ -20,6 +20,7 @@ class IrmChemical extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'uuid',
         'material_uuid',
         'lot_quantity',
@@ -34,7 +35,6 @@ class IrmChemical extends Model
      * @var array<string>
      */
     protected $hidden = [
-        'id',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -24,6 +24,7 @@ class IrmChemicalResource extends JsonResource
                 'drop_off_storage_location' => $this->whenLoaded('dropOffStorageLocation', $this->dropOffStorageLocation),
             ],
             'computed' => [
+                'barcode_label_id' => $this->id,
                 'material_part_number' => $this->whenLoaded('material', $this->material?->part_number),
                 'material_description' => $this->whenLoaded('material', $this->material?->description),
                 'material_container_type_name' => $this->whenLoaded('material', $this->material?->materialContainerType?->name),

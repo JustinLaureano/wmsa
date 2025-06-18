@@ -60,6 +60,7 @@ class IrmChemicalSeeder extends Seeder
                 }
 
                 $irmChemicalData = new IrmChemicalData(
+                    id: $row['id'],
                     material_uuid: $materialUuid,
                     lot_quantity: (int) $row['lot_qty'],
                     unit_quantity: (int) $row['unit_qty'],

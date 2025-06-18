@@ -1,6 +1,7 @@
 import { JsonApiResource, MaterialResource, StorageLocationResourceAttributes } from "@/types";
 
 export interface IrmChemicalResourceAttributes {
+    id: number;
     uuid: string;
     lot_quantity: number;
     unit_quantity: number;
@@ -15,6 +16,7 @@ export interface IrmChemicalResourceRelations {
 }
 
 export interface IrmChemicalResourceComputed {
+    barcode_label_id: number;
     material_part_number: string;
     material_description: string;
     material_container_type_name: string;
