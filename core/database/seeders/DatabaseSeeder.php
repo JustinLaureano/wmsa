@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             SortListSeeder::class,
             MaterialContainerSeeder::class,
             ContainerLocationSeeder::class,
+            IrmChemicalLocationSeeder::class,
             MaterialRequestSeeder::class,
             DeliveryDocumentSeeder::class,
         ]);

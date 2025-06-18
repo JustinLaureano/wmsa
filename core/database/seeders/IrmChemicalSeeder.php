@@ -43,8 +43,7 @@ class IrmChemicalSeeder extends Seeder
  
         foreach ($csvReader->toArray() as $data) {
             foreach ($data as $key => $row) {
-                
-                logger($row['part_number']);
+
                 $materialUuid = Material::query()->where('part_number', $row['part_number'])->first()->uuid;
                 if ($row['assigned_rack_location_id'] !== 'NULL') {
                     $assignedStorageLocationUuid = StorageLocation::query()->where('name', $row['assigned_rack_location_id'])->first()->uuid;
