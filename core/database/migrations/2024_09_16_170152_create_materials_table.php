@@ -24,6 +24,10 @@ return new class extends Migration
                 ->on('material_types');
             $table->decimal('base_quantity')->nullable();
             $table->string('base_unit_of_measure', 4)->default('EA');
+            $table->foreignId('material_container_type_id')
+                ->nullable()
+                ->references('id')
+                ->on('material_container_types');
             $table->timestamps();
             $table->softDeletes();
         });

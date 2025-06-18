@@ -1,0 +1,5 @@
+id,building,area,aisle,bay,shelf,position,type,split_request,disabled,exclude_allocations,restrict_request_allocations
+"A MINOR",1,"A MINOR",0,0,0,0,30,0,0,0,0
+"B MINOR",1,"B MINOR",0,0,0,0,30,0,0,0,0
+"BANBURY",1,"BANBURY",0,0,0,0,30,0,0,0,0
+"CARBON BLACK",1,"CARBON BLACK",0,0,0,0,30,0,0,0,0

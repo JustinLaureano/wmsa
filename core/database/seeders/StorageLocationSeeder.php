@@ -27,6 +27,7 @@ class StorageLocationSeeder extends Seeder
 
         $this->setPalletRackStorageLocations();
         $this->setFloorStorageLocations();
+        $this->setIrmStorageLocations();
     }
 
     /**
@@ -55,7 +56,7 @@ class StorageLocationSeeder extends Seeder
     protected function setPalletRackStorageLocations() : void
     {
         $file = database_path('data/storage_locations/pallet_racks.csv');
-        $type = StorageLocationType::where('name', StorageLocationTypeEnum::PALLET_RACK)->first();
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::PALLET_RACK->value)->first();
         $csvReader = new CsvReader($file);
 
         foreach ($csvReader->toArray() as $data) {
@@ -102,7 +103,7 @@ class StorageLocationSeeder extends Seeder
     protected function setFloorStorageLocations() : void
     {
         $file = database_path('data/storage_locations/floor.csv');
-        $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR)->first();
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR->value)->first();
         $csvReader = new CsvReader($file);
 
         foreach ($csvReader->toArray() as $data) {
@@ -151,11 +152,63 @@ class StorageLocationSeeder extends Seeder
     }
 
     /**
+     * Set the IRM storage locations.
+     */
+    protected function setIrmStorageLocations() : void
+    {
+        $file = database_path('data/storage_locations/irm_locations.csv');
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR)->first();
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+
+                if ($row['aisle']) {
+                    $name = $this->areas[$row['building']][$row['area']]['building_id']
+                        .'-'. $row['area']
+                        .'-'. $row['aisle']
+                        .'-'. $row['bay']
+                        .'-'. $row['shelf']
+                        .'-'. $row['position'];
+                }
+                else {
+                    $name = $row['area'];
+                }
+
+                $areaId = $this->areas[$row['building']][$row['area']]['id'];
+
+                $locationData = new StorageLocationData(
+                    name: $name,
+                    barcode: $row['id'],
+                    storage_location_type_id: $type->id,
+                    storage_location_area_id: $areaId,
+                    aisle: $row['aisle'],
+                    bay: $row['bay'],
+                    shelf: $row['shelf'],
+                    position: $row['position'],
+                    max_containers: null,
+                    restrict_request_allocations: $row['restrict_request_allocations'],
+                    disabled: $row['disabled'],
+                    reservable: $row['exclude_allocations'] ? 0 : 1
+                );
+
+                $data[$key] = array_merge(
+                    $locationData->toArray(),
+                    $this->getUuid(),
+                    $this->getTimestamps()
+                );
+            }
+
+            StorageLocation::insert($data);
+        }
+    }
+
+    /**
      * Set the unique name for the storage locations
      * that have a unique name structure, or return
      * the original name if not.
      */
-    public function setUniqueName(string $id, string $name) : string
+    protected function setUniqueName(string $id, string $name) : string
     {
         $uniqueName = null;
 

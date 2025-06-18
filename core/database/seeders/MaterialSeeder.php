@@ -13,11 +13,16 @@ class MaterialSeeder extends Seeder
 {
     use Timestamps, Uuid;
 
+    protected array $baseContainerTypes = [];
+    protected array $descriptionContainerIds = [];
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+        $this->setMaterialContainerTypes();
+        $this->setDescriptionContainerIds();
         $this->setMaterials();
     }
 
@@ -47,13 +52,21 @@ class MaterialSeeder extends Seeder
         foreach ($csvReader->toArray() as $data) {
             foreach ($data as $key => $row) {
 
+                if (isset($this->baseContainerTypes[$row['part_number']])) {
+                    $materialContainerTypeId = $this->descriptionContainerIds[$this->baseContainerTypes[$row['part_number']]];
+                }
+                else {
+                    $materialContainerTypeId = null;
+                }
+
                 $materialData = new MaterialData(
                     material_number: $row['material_number'],
                     part_number: $row['part_number'],
                     description: $row['material_description'],
                     material_type_code: null,
                     base_quantity: (float) $row['base_quantity'],
-                    base_unit_of_measure: $row['base_unit_of_measure']
+                    base_unit_of_measure: $row['base_unit_of_measure'],
+                    material_container_type_id: $materialContainerTypeId
                 );
 
                 $data[$key] = array_merge(
@@ -65,5 +78,47 @@ class MaterialSeeder extends Seeder
 
             Material::insert($data);
         }
+    }
+
+    /**
+     * Set all the base material container descriptions from seed data.
+     */
+    protected function setMaterialContainerTypes() : void
+    {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     DISTINCT part_number,
+         *     container_description
+         * FROM irm_chemicals
+         * WHERE deleted_at IS NULL
+         * ORDER BY part_number ASC;
+         */
+        $file = database_path('data/irm_chemical_container_types.csv');
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+                $this->baseContainerTypes[$row['part_number']] = $row['container_description'];
+            }
+        }
+    }
+
+    /**
+     * Match all of the container descriptions to their new corresponding ids.
+     */
+    protected function setDescriptionContainerIds() : void
+    {
+        $this->descriptionContainerIds = [
+            'bag' => 6,
+            'barrel' => 5,
+            'basket' => 6,
+            'bin' => 7,
+            'box' => 2,
+            'ropack' => 1,
+            'skid' => 1,
+            'tote' => 4,
+        ];
     }
 }
