@@ -19,6 +19,7 @@ export interface IrmChemicalResourceComputed {
     barcode_label_id: number;
     material_part_number: string;
     material_description: string;
+    base_unit_of_measure: string;
     material_container_type_name: string;
     assigned_storage_location_name: string;
     drop_off_storage_location_name: string;

@@ -10,6 +10,11 @@ class ViewIrmChemical extends Model
     use SoftDeletes;
 
     /**
+     * The primary key for the model.
+     */
+    protected $primaryKey = 'barcode_label_id';
+
+    /**
      * The table associated with the model.
      */
     protected $table = 'view_irm_chemicals';

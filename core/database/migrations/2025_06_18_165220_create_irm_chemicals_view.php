@@ -13,6 +13,7 @@ return new class extends Migration
         DB::unprepared("
             CREATE OR REPLACE VIEW `view_irm_chemicals` AS
                 SELECT
+                    ic.id AS barcode_label_id,
                     ic.uuid,
                     m.part_number,
                     ic.lot_quantity,
