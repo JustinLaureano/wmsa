@@ -12,6 +12,7 @@ return [
     */
     'lang_code' => 'en',
 
+    'chemical' => 'Chemical',
     'home' => 'Home',
     'requests' => 'Requests',
     'inventory' => 'Inventory',
@@ -19,6 +20,7 @@ return [
     'irm_chemicals' => 'IRM Chemicals',
     'irm_chemical_inventory' => 'IRM Chemical Inventory',
     'materials' => 'Materials',
+    'search' => 'Search',
     'total_quantity' => 'Total Quantity',
 
     'email' => 'Email',

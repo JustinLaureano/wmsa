@@ -1,20 +1,37 @@
 import { useContext, useState } from 'react';
 import { IrmChemicalInventoryDataProps } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
-import { Box, Card, CardContent, CardHeader, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, Typography, useTheme } from '@mui/material';
-import IrmChemicalSearchFilter from '../Filters/IrmChemicalSearchFilter';
-import { Stack } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardContent,
+    CardHeader,
+    IconButton,
+    Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    Typography,
+    useTheme,
+} from '@mui/material';
 import { toLocalTime } from '@/Utils/date';
 import StyledTableRow from '@/Components/Styled/StyledTableRow';
 import { HistoryOutlined } from '@mui/icons-material';
-
-const filters = [
-    { component: IrmChemicalSearchFilter },
-];
+import SearchInput from '@/Components/Inputs/SearchInput';
 
 export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
     const theme = useTheme();
+
+    const [data, setData] = useState(inventory);
+    const [search, setSearch] = useState('');
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+        setData(inventory.filter((item) => item.computed.part_number.toLowerCase().includes(e.target.value.toLowerCase())));
+    }
 
     return (
         <Card
@@ -26,7 +43,15 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
         >
             <CardHeader title={lang.irm_chemical_inventory} />
             <CardContent>
-                {inventory.map((item) => {
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4 }}>
+                    <SearchInput
+                        label={lang.chemical}
+                        value={search}
+                        onChange={handleInputChange}
+                    />
+                </Stack>
+
+                {data.map((item) => {
                     const {
                         part_number,
                         total_quantity,

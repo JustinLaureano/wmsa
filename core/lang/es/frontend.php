@@ -13,6 +13,7 @@ return [
 
     'lang_code' => 'es',
 
+    'chemical' => 'Químico',
     'home' => 'Hogar',
     'requests' => 'Solicitudes',
     'inventory' => 'Inventario',
@@ -20,6 +21,7 @@ return [
     'irm_chemicals' => 'Químicos IRM',
     'irm_chemical_inventory' => 'Inventario de Químicos IRM',
     'materials' => 'Materiales',
+    'search' => 'Buscar',
     'total_quantity' => 'Cantidad Total',
 
     'email' => 'correo',
