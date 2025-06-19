@@ -3,6 +3,7 @@
 use App\Http\Resources\Auth\UserDetailResource;
 use App\Http\Resources\Auth\UserProfileCollection;
 use App\Models\User;
+use App\Repositories\SafetyStockRepository;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/users', function () {
@@ -11,4 +12,8 @@ Route::get('/users', function () {
 
 Route::get('/user/{cn}', function (string $cn) {
     return new UserDetailResource(User::where('teammate_clock_number', $cn)->first());
+});
+
+Route::get('/safety-stock', function () {
+    return (new SafetyStockRepository())->getSafetyStockReport();
 });
