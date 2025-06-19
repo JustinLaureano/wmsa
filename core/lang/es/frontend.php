@@ -18,7 +18,9 @@ return [
     'inventory' => 'Inventario',
     'irm' => 'IRM',
     'irm_chemicals' => 'Químicos IRM',
+    'irm_chemical_inventory' => 'Inventario de Químicos IRM',
     'materials' => 'Materiales',
+    'total_quantity' => 'Cantidad Total',
 
     'email' => 'correo',
     'password' => 'Contraseña',

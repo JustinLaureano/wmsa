@@ -17,7 +17,9 @@ export interface IrmChemicalLocationResourceComputed {
     irm_chemical_part_number: string;
     irm_chemical_description: string;
     irm_chemical_container_type_name: string;
+    irm_chemical_quantity: number;
     storage_location_name: string;
+    stored_at: string;
 }
 
 export type IrmChemicalLocationResource = JsonApiResource<

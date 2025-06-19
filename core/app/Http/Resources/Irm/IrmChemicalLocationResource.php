@@ -25,7 +25,9 @@ class IrmChemicalLocationResource extends JsonResource
                 'irm_chemical_part_number' => $this->whenLoaded('irmChemical', $this->irmChemical?->material?->part_number),
                 'irm_chemical_description' => $this->whenLoaded('irmChemical', $this->irmChemical?->material?->description),
                 'irm_chemical_container_type_name' => $this->whenLoaded('irmChemical', $this->irmChemical?->material?->materialContainerType?->name),
+                'irm_chemical_quantity' => $this->quantity,
                 'storage_location_name' => $this->whenLoaded('storageLocation', $this->storageLocation?->name),
+                'stored_at' => $this->created_at,
             ]
         ];
     }

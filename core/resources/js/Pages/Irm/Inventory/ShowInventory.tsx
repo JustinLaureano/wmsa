@@ -3,16 +3,18 @@ import { ShowInventoryProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
 import IrmPageHeader from '@/Domains/Irm/Layout/Header/IrmPageHeader';
-import SkeletonPage from '@/Components/SkeletonPage';
+import IrmChemicalInventoryData from '@/Domains/Irm/Cards/IrmChemicalInventoryData';
 
-export default function ShowInventory({ ...props } : ShowInventoryProps) {
+export default function ShowInventory({ inventory } : ShowInventoryProps) {
     const { lang } = useContext(LanguageContext);
+
+    console.log(inventory);
 
     return (
         <SidebarLayout title={lang.inventory}>
             <IrmPageHeader />
 
-            <SkeletonPage />
+            <IrmChemicalInventoryData inventory={inventory} />
         </SidebarLayout>
     );
 }

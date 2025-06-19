@@ -17,7 +17,9 @@ return [
     'inventory' => 'Inventory',
     'irm' => 'IRM',
     'irm_chemicals' => 'IRM Chemicals',
+    'irm_chemical_inventory' => 'IRM Chemical Inventory',
     'materials' => 'Materials',
+    'total_quantity' => 'Total Quantity',
 
     'email' => 'Email',
     'password' => 'Password',
