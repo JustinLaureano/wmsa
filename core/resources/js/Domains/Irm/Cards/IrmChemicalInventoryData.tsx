@@ -13,6 +13,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
+    TableRow,
     Typography,
     useTheme,
 } from '@mui/material';
@@ -87,7 +88,7 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
                                 </Stack>
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Typography variant="subtitle1" fontWeight="bold">{lang.total_quantity}:</Typography>
-                                    <Typography variant="body1">{total_quantity} {unit_of_measure_label}</Typography>
+                                    <Typography variant="body1">{total_quantity.toLocaleString()} {unit_of_measure_label}</Typography>
                                 </Stack>
                             </Stack>
                             <TableContainer>
@@ -118,7 +119,7 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
                                             return (
                                                 <StyledTableRow key={item.uuid}>
                                                     <TableCell>{storage_location_name}</TableCell>
-                                                    <TableCell>{irm_chemical_quantity}</TableCell>
+                                                    <TableCell>{irm_chemical_quantity.toLocaleString()} {unit_of_measure_label}</TableCell>
                                                     <TableCell>{toLocalTime(stored_at, 'MMMM dd, yyyy hh:mm a')}</TableCell>
                                                     <TableCell align="center">
                                                         <IconButton size="small">
@@ -128,6 +129,14 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
                                                 </StyledTableRow>
                                             )
                                         })}
+                                        {
+                                            inventory.length === 0 &&
+                                            <StyledTableRow>
+                                                <TableCell colSpan={4} align="center">
+                                                    <Typography variant="body1">No inventory found</Typography>
+                                                </TableCell>
+                                            </StyledTableRow>
+                                        }
                                     </TableBody>
                                 </Table>
                             </TableContainer>
