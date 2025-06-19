@@ -291,29 +291,12 @@ material_requests:
 
 
 
-
-
-material properties
-    required_hold_hours
-    required_degas_hours
-    base_container_unit_quantity
-    expiration_days
-
 safety_stocks
     material_uuid
     building_id
     quantity
     unit_of_measure
     notes
-
-compound_materials
-    material_uuid
-
-cemented_metal_materials
-    material_uuid
-
-service_materials
-    material_uuid
 
 toyota_materials
     material_uuid

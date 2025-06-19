@@ -30,7 +30,13 @@ class Material extends Model
         'description',
         'material_type_code',
         'base_quantity',
+        'base_container_unit_quantity',
         'base_unit_of_measure',
+        'expiration_days',
+        'required_degas_hours',
+        'required_hold_hours',
+        'material_container_type_id',
+        'service_part',
     ];
 
     /**
