@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Building;
 use App\Models\Material;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SafetyStockRepository
 {
@@ -13,22 +13,26 @@ class SafetyStockRepository
      * Get the safety stock for each material in each building
      * and return as a flat report collection.
      */
-    public function getSafetyStockReport() : Collection
+    public function getSafetyStockReport() : LengthAwarePaginator
     {
-        $buildings = Building::all();
-        $caseStatements = $buildings->flatMap(function ($building) {
+        $buildings = (new BuildingRepository())->getBuildingIds();
+
+        $caseStatements = $buildings->flatMap(function ($buildingId) {
                 return [
-                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$building->id} THEN safety_stocks.quantity END) as building_{$building->id}_quantity"),
-                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$building->id} THEN safety_stocks.unit_of_measure END) as building_{$building->id}_uom"),
-                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$building->id} THEN safety_stocks.notes END) as building_{$building->id}_notes"),
+                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$buildingId} THEN safety_stocks.quantity END) as building_{$buildingId}_safety_stock"),
+                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$buildingId} THEN safety_stocks.unit_of_measure END) as building_{$buildingId}_uom"),
+                    DB::raw("MAX(CASE WHEN safety_stocks.building_id = {$buildingId} THEN safety_stocks.notes END) as building_{$buildingId}_notes"),
                 ];
             })
             ->toArray();
 
-        $report = Material::join('safety_stocks', 'materials.uuid', '=', 'safety_stocks.material_uuid')
-            ->select(array_merge(['materials.uuid AS material_uuid', 'materials.part_number'], $caseStatements))
+        $report = Material::query()
+            ->join('safety_stocks', 'materials.uuid', '=', 'safety_stocks.material_uuid')
+            ->select(array_merge(['materials.uuid', 'materials.part_number'], $caseStatements))
+            // ->has('containers.location')
+            ->with('containers.location.area.building')
             ->groupBy('materials.uuid', 'materials.part_number')
-            ->get();
+            ->paginate();
 
         return $report;
     }

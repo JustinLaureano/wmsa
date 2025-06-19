@@ -2,6 +2,7 @@
 
 use App\Http\Resources\Auth\UserDetailResource;
 use App\Http\Resources\Auth\UserProfileCollection;
+use App\Http\Resources\Materials\SafetyStockReportResource;
 use App\Models\User;
 use App\Repositories\SafetyStockRepository;
 use Illuminate\Support\Facades\Route;
@@ -15,5 +16,6 @@ Route::get('/user/{cn}', function (string $cn) {
 });
 
 Route::get('/safety-stock', function () {
-    return (new SafetyStockRepository())->getSafetyStockReport();
+    $report = (new SafetyStockRepository())->getSafetyStockReport();
+    return SafetyStockReportResource::collection($report);
 });
