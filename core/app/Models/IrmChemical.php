@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class IrmChemical extends Model
 {
@@ -55,6 +56,14 @@ class IrmChemical extends Model
     public function material(): HasOne
     {
         return $this->hasOne(Material::class, 'uuid', 'material_uuid');
+    }
+
+    /**
+     * Get the inventory for this chemical.
+     */
+    public function inventory(): HasMany
+    {
+        return $this->hasMany(IrmChemicalLocation::class, 'irm_chemical_uuid', 'uuid');
     }
 
     /**
