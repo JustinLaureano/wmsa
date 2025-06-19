@@ -95,6 +95,14 @@ class Material extends Model
     }
 
     /**
+     * Get the safety stocks for the material.
+     */
+    public function safetyStocks(): HasMany
+    {
+        return $this->hasMany(SafetyStock::class, 'material_uuid', 'uuid');
+    }
+
+    /**
      * Scope a query to filter on the part_number column.
      */
     public function scopeWherePartNumber(Builder $query, string $partNumber): void
