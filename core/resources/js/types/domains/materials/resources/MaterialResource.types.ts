@@ -7,8 +7,13 @@ export interface MaterialResourceAttributes {
     description: string;
     material_type_code: string;
     base_quantity: number;
+    base_container_unit_quantity: number;
     base_unit_of_measure: string;
+    expiration_days: number;
+    required_degas_hours: number;
+    required_hold_hours: number;
     material_container_type_id: number;
+    service_part: boolean;
 }
 
 export interface MaterialResourceRelations {

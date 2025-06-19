@@ -296,7 +296,7 @@ material_requests:
 material properties
     required_hold_hours
     required_degas_hours
-    standard_container_unit_quantity
+    base_container_unit_quantity
     expiration_days
 
 safety_stocks

@@ -12,8 +12,13 @@ class MaterialData extends Data
         public string|null $description,
         public string|null $material_type_code,
         public float|null $base_quantity,
+        public int|null $base_container_unit_quantity,
         public string|null $base_unit_of_measure,
-        public string|null $material_container_type_id
+        public int|null $expiration_days,
+        public int|null $required_degas_hours,
+        public int|null $required_hold_hours,
+        public string|null $material_container_type_id,
+        public bool $service_part,
     ) {
 
     }

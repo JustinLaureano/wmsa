@@ -66,8 +66,13 @@ class MaterialSeeder extends Seeder
                     description: $row['material_description'] ? $row['material_description'] : null,
                     material_type_code: null,
                     base_quantity: $row['base_quantity'] ? (float) $row['base_quantity'] : null,
+                    base_container_unit_quantity: null,
                     base_unit_of_measure: $row['base_unit_of_measure'] ? $row['base_unit_of_measure'] : strtoupper(UnitOfMeasureEnum::EA->value),
-                    material_container_type_id: $materialContainerTypeId
+                    expiration_days: null,
+                    required_degas_hours: null,
+                    required_hold_hours: null,
+                    material_container_type_id: $materialContainerTypeId,
+                    service_part: false,
                 );
 
                 $data[$key] = array_merge(
