@@ -293,6 +293,40 @@ material_requests:
 
 
 
+material properties
+    required_hold_hours
+    required_degas_hours
+    standard_container_unit_quantity
+    expiration_days
+
+safety_stocks
+    material_uuid
+    building_id
+    quantity
+    unit_of_measure
+    notes
+
+compound_materials
+    material_uuid
+
+cemented_metal_materials
+    material_uuid
+
+service_materials
+    material_uuid
+
+toyota_materials
+    material_uuid
+    workspace_storage_location_uuid
+
+cardboard_materials
+    material_uuid
+    display_part_number
+    customer_part_number
+    description
+
+
+
 
 
 

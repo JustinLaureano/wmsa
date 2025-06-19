@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\Materials\DataTransferObjects\MaterialData;
+use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Models\Material;
 use App\Support\CsvReader;
 use Database\Seeders\Traits\Timestamps;
@@ -60,12 +61,12 @@ class MaterialSeeder extends Seeder
                 }
 
                 $materialData = new MaterialData(
-                    material_number: $row['material_number'],
-                    part_number: $row['part_number'],
-                    description: $row['material_description'],
+                    material_number: $row['material_number'] ? $row['material_number'] : null,
+                    part_number: $row['part_number'] ? $row['part_number'] : null,
+                    description: $row['material_description'] ? $row['material_description'] : null,
                     material_type_code: null,
-                    base_quantity: (float) $row['base_quantity'],
-                    base_unit_of_measure: $row['base_unit_of_measure'],
+                    base_quantity: $row['base_quantity'] ? (float) $row['base_quantity'] : null,
+                    base_unit_of_measure: $row['base_unit_of_measure'] ? $row['base_unit_of_measure'] : strtoupper(UnitOfMeasureEnum::EA->value),
                     material_container_type_id: $materialContainerTypeId
                 );
 
