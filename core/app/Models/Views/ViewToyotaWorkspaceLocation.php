@@ -5,19 +5,19 @@ namespace App\Models\Views;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ViewStorageLocation extends Model
+class ViewToyotaWorkspaceLocation extends Model
 {
     use SoftDeletes;
 
     /**
      * The table associated with the model.
      */
-    protected $table = 'view_storage_locations';
+    protected $table = 'view_toyota_workspace_locations';
 
     /**
      * The primary key for the model.
      */
-    protected $primaryKey = 'storage_location_uuid';
+    protected $primaryKey = 'toyota_workspace_location_uuid';
 
     /**
      * Indicates if the IDs are auto-incrementing.

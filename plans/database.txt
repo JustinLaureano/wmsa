@@ -298,7 +298,7 @@ safety_stocks
     unit_of_measure
     notes
 
-toyota_workstations
+toyota_workstations - done
     material_uuid
     workspace_storage_location_uuid
 
