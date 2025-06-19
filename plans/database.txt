@@ -298,12 +298,12 @@ safety_stocks
     unit_of_measure
     notes
 
-toyota_materials
+toyota_workstations
     material_uuid
     workspace_storage_location_uuid
 
-cardboard_materials
-    material_uuid
+cardboard_materials - done
+    part_number
     display_part_number
     customer_part_number
     description

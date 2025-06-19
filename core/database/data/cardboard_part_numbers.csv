@@ -1,0 +1,30 @@
+id,part_number,display_part_number,customer_part_number,description,quantity,deleted_at
+1,DCH107,DCH107,23687,"Cardboard Packaging",90,NULL
+2,DCH207,DCH207,23686,"Cardboard Packaging",250,NULL
+3,LGDVDR,"Lg Divider",34364,"Lg Divider - Cardboard Packaging",150,NULL
+4,TXCBOX,"TX Box",9139,"TX Box",500,NULL
+5,TOTEBX,"Tote Box",NULL,"Tote Box",225,NULL
+6,PADIRM,"IRM Pad",6950,"26 x 26 IRM Pad",330,NULL
+8,24159B,"24 x 15 x 9 Box",33273,"24 x 15 x 9 Box",250,NULL
+10,2729RP,"27 x 29 Ropak Pad",29451,"27 x 29 Ropak Pad",175,NULL
+12,23144P,"BS 23144 PTN (23 x 14 x 3 7/8)",NULL,"BS 23144 PTN (23 x 14 x 3 7/8)",300,NULL
+13,23144B,"BS 23144 Box (23 1/4 x 14 x 4)",NULL,"BS 23144 Box (23 1/4 x 14 x 4)",225,NULL
+14,12159B,"1215-9 Box (14 1/2 x 11 3/8 x 8 1/2)",NULL,"1215-9 Box (14 1/2 x 11 3/8 x 8 1/2)",625,NULL
+15,HDMDXB,"Honda MDX Box",NULL,"Honda MDX Box",300,NULL
+16,HDMDXI,"Honda MDX Insert",NULL,"Honda MDX Insert",300,NULL
+17,DC1CBP,DC1,DC1,"DC1 (21 1/4 x 14 1/4 x 11 5/8) ",150,NULL
+18,DC3CBP,DC3,DC3,"DC3 (21 1/4 x 14 1/4 x 5 3/8) ",225,NULL
+19,DC4CBP,DC4,DC4,"DC4 (14 1/4 x 10 1/4 x 5 3/8) ",375,NULL
+21,90309B,"903090 Box",NULL,"903090 Box (22 3/8 x 13 7/8 x 5 3/8)",240,NULL
+28,M975BX,"M975 Box",NULL,"M975 Box (8 1/2 x 6 1/2 x 4 1/2)",1125,NULL
+29,M975SP,"M975 SSH Partition",NULL,"M975 SSH Partition (14 5/8 x 4 1/2)",3600,NULL
+30,90600B,"906000 Box",NULL,"906000 Box",600,NULL
+31,BBOXBX,B-Box,22529,B-Box,30,NULL
+32,TORQRD,"Torque Rod",10323,"Torque Rod",500,NULL
+33,SDVDRP,"SM Divider Pad",29683,"SM Divider Pad",1750,NULL
+34,BBOXPD,"B-Box Pad",29579,"B-Box Pad",175,NULL
+36,29274P,"29 x 27 x 4 1/4 HUB Partition","HUB PTN","29 x 27 x 4 1/4 HUB Partition",144,NULL
+37,22156P,"BCAP Partition","BCAP PTN","22 3/4 x 15 1/4 x 6 3/16 BCAP Partition",500,NULL
+38,23156B,"BCAP Box","BCAP BOX","23 x 15 3/8 x 6 5/16 BCAP Box",150,NULL
+39,24151P,"241511 PAD",NULL,"21 x 12 7/8 pad",789,NULL
+40,90600P,"906000 Partition",NULL,"906000 Partition",78,NULL
