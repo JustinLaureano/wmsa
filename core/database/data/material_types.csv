@@ -1,5 +1,8 @@
 name,code
 "Raw Materials",RAW
+"IRM Chemicals",IRM
+"Compound",COMP
+"Cemented Metal",CMET
 "Semifinished Goods",SEMI
 "Finished Goods",FG
 "Packaging Material",CBP

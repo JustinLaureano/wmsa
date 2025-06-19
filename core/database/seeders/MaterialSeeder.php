@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\Materials\DataTransferObjects\MaterialData;
+use App\Domain\Materials\Enums\MaterialTypeEnum;
 use App\Domain\Materials\Enums\UnitOfMeasureEnum;
 use App\Models\Material;
 use App\Support\CsvReader;
@@ -16,6 +17,7 @@ class MaterialSeeder extends Seeder
 
     protected array $baseContainerTypes = [];
     protected array $descriptionContainerIds = [];
+    protected array $irmChemicalPartNumbers = [];
 
     /**
      * Run the database seeds.
@@ -24,6 +26,7 @@ class MaterialSeeder extends Seeder
     {
         $this->setMaterialContainerTypes();
         $this->setDescriptionContainerIds();
+        $this->setIrmChemicalPartNumbers();
         $this->setMaterials();
     }
 
@@ -60,11 +63,13 @@ class MaterialSeeder extends Seeder
                     $materialContainerTypeId = null;
                 }
 
+                $materialTypeCode = $this->setMaterialTypeCode($row['part_number']);
+
                 $materialData = new MaterialData(
                     material_number: $row['material_number'] ? $row['material_number'] : null,
                     part_number: $row['part_number'] ? $row['part_number'] : null,
                     description: $row['material_description'] ? $row['material_description'] : null,
-                    material_type_code: null,
+                    material_type_code: $materialTypeCode,
                     base_quantity: $row['base_quantity'] ? (float) $row['base_quantity'] : null,
                     base_container_unit_quantity: null,
                     base_unit_of_measure: $row['base_unit_of_measure'] ? $row['base_unit_of_measure'] : strtoupper(UnitOfMeasureEnum::EA->value),
@@ -126,5 +131,35 @@ class MaterialSeeder extends Seeder
             'skid' => 1,
             'tote' => 4,
         ];
+    }
+
+    /**
+     * Set the IRM chemicals.
+     */
+    protected function setIrmChemicalPartNumbers() : void
+    {
+        $file = database_path('data/irm_chemicals.csv');
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+                $this->irmChemicalPartNumbers[$row['part_number']] = $row['part_number'];
+            }
+        }
+    }
+
+    /**
+     * Set the material type code for a given part number.
+     */
+    protected function setMaterialTypeCode(string $partNumber) : string|null
+    {
+        if ( isset($this->irmChemicalPartNumbers[$partNumber]) ) {
+            return MaterialTypeEnum::IRM->code();
+        }
+        if ($partNumber[0] === '2') {
+            return MaterialTypeEnum::COMPOUND->code();
+        }
+
+        return null;
     }
 }
