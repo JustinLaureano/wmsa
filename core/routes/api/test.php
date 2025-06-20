@@ -16,7 +16,7 @@ Route::get('/user/{cn}', function (string $cn) {
 });
 
 Route::get('/safety-stock', function () {
-    // $report = (new SafetyStockRepository())->getSafetyStockReportPaginated(materialTypeCode: 'IRM');
-    $report = (new SafetyStockRepository())->getSafetyStockReport(materialTypeCode: 'COMP');
+    $report = (new SafetyStockRepository())->getSafetyStockReportPaginated(materialTypeCode: 'IRM');
+    // $report = (new SafetyStockRepository())->getSafetyStockReport(materialTypeCode: 'COMP');
     return SafetyStockReportResource::collection($report);
 });
