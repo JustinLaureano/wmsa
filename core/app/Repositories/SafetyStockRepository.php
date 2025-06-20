@@ -15,9 +15,9 @@ class SafetyStockRepository
      * Get the safety stock for each material in each building
      * and return as a paginated flat report collection.
      */
-    public function getSafetyStockReportPaginated() : LengthAwarePaginator
+    public function getSafetyStockReportPaginated(string|null $materialTypeCode = null) : LengthAwarePaginator
     {
-        $report = $this->getSafetyStockReportQuery()->paginate();
+        $report = $this->getSafetyStockReportQuery($materialTypeCode)->paginate();
         $report = $this->calculateOnHandQuantity($report);
 
         return $report;
@@ -27,9 +27,9 @@ class SafetyStockRepository
      * Get the safety stock for each material in each building
      * and return as a flat report collection.
      */
-    public function getSafetyStockReport() : Collection
+    public function getSafetyStockReport(string|null $materialTypeCode = null) : Collection
     {
-        $report = $this->getSafetyStockReportQuery()->get();
+        $report = $this->getSafetyStockReportQuery($materialTypeCode)->get();
         $report = $this->calculateOnHandQuantity($report);
 
         return $report;
@@ -38,7 +38,7 @@ class SafetyStockRepository
     /**
      * Get the base query for the safety stock report.
      */
-    private function getSafetyStockReportQuery() : Builder
+    private function getSafetyStockReportQuery(string|null $materialTypeCode) : Builder
     {
         // Will query and return all materials with safety stocks configured.
         return Material::query()
@@ -55,6 +55,9 @@ class SafetyStockRepository
                 ], 
                 $this->getBuildingCaseStatements())
             )
+            ->when($materialTypeCode, function ($query) use ($materialTypeCode) {
+                $query->where('materials.material_type_code', $materialTypeCode);
+            })
             ->with('containers.location.area.building')
             ->groupBy(
                 'materials.uuid',
