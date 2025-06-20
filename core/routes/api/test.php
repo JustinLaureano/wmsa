@@ -16,6 +16,7 @@ Route::get('/user/{cn}', function (string $cn) {
 });
 
 Route::get('/safety-stock', function () {
-    $report = (new SafetyStockRepository())->getSafetyStockReport();
+    $report = (new SafetyStockRepository())->getSafetyStockReportPaginated();
+    // $report = (new SafetyStockRepository())->getSafetyStockReport();
     return SafetyStockReportResource::collection($report);
 });
