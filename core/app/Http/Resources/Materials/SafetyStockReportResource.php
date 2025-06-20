@@ -18,29 +18,15 @@ class SafetyStockReportResource extends JsonResource
         $attributes = $this->resource->toArray();
         unset($attributes['containers']);
 
-        $buildings = (new BuildingRepository())->getBuildingIds();
-
-        $onHand = [];
-
-        foreach ($buildings as $buildingId) {
-            $onHand['building_'.$buildingId.'_on_hand'] = 0;
-        }
-
-        foreach ($this->containers as $container) {
-            $onHand['building_'.$container->location->area->building_id.'_on_hand'] += $container->quantity;
-        }
-
-        $computed = array_merge($onHand, [
-            'material_uuid' => $this->uuid,
-        ]);
-
         return [
             'uuid' => $this->uuid,
             'attributes' => $attributes,
             'relations' => [
                 'containers' => $this->whenLoaded('containers', $this->containers),
             ],
-            'computed' => $computed
+            'computed' => [
+                'material_uuid' => $this->uuid,
+            ]
         ];
     }
 }
