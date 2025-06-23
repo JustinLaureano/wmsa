@@ -1,5 +1,5 @@
 import { JsonPaginateCollection, SafetyStockReportResource } from "@/types";
 
-export interface ViewSafetyStockProps {
+export interface SafetyStockReportDataProps {
     safetyStock: JsonPaginateCollection<SafetyStockReportResource>;
 }

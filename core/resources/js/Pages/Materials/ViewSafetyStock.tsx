@@ -5,6 +5,7 @@ import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPage
 import { ViewSafetyStockProps } from '@/types';
 import SafetyStockNavTabs from '@/Domains/Materials/Layout/Navigation/SafetyStockNavTabs';
 import { Paper } from '@mui/material';
+import SafetyStockReportData from '@/Domains/Materials/Cards/SafetyStockReportData';
 
 export default function ViewSafetyStock({
     safetyStock,
@@ -12,7 +13,6 @@ export default function ViewSafetyStock({
 } : ViewSafetyStockProps) {
 
     const { lang } = useContext(LanguageContext);
-
     return (
         <SidebarLayout title={lang.safety_stock}>
             <MaterialsPageHeader />
@@ -20,7 +20,7 @@ export default function ViewSafetyStock({
             <Paper
                 variant="outlined"
                 sx={{
-                    maxWidth: '1100px',
+                    maxWidth: '1400px',
                     width: '90vw',
                     margin: '0 auto',
                     px: 5,
@@ -29,7 +29,7 @@ export default function ViewSafetyStock({
             >
                 <SafetyStockNavTabs />
 
-                stock
+                <SafetyStockReportData safetyStock={safetyStock} />
             </Paper>
         </SidebarLayout>
     );

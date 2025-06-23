@@ -47,6 +47,7 @@ class Material extends Model
         'material_number',
         'part_number',
         'description',
+        'material_type_code',
     ];
 
     /**
