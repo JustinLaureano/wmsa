@@ -20,6 +20,7 @@ return [
     'irm_chemicals' => 'IRM Chemicals',
     'irm_chemical_inventory' => 'IRM Chemical Inventory',
     'materials' => 'Materials',
+    'safety_stock' => 'Safety Stock',
     'search' => 'Search',
     'total_quantity' => 'Total Quantity',
 

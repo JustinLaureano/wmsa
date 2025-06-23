@@ -76,6 +76,10 @@ export const navigationDrawerLinks = [
             route('materials'),
             route('materials.inventory'),
             route('containers.inventory'),
+            route('materials.safety-stock'),
+            route('materials.safety-stock', { material_type_code: 'IRM' }),
+            route('materials.safety-stock', { material_type_code: 'CMET' }),
+            route('materials.safety-stock', { material_type_code: 'COMP' }),
         ]
     },
     {

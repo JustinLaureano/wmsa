@@ -4,13 +4,13 @@ import { NavigationTab, SubpageNavigationTabsProps } from '@/types';
 import StyledTabsContainer from '@/Components/Styled/StyledTabsContainer';
 import { Tabs, Tab } from '@mui/material';
 
-export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsProps) {
+export default function SubpageNavigationTabs({ tabs, centered = false, sx = {} } : SubpageNavigationTabsProps) {
     const href = window.location.href;
 
     let initialValue = 0;
 
     tabs.map((tab, index) => {
-        if (href == tab.route) {
+        if (tab.selected?.some(route => href == route)) {
             initialValue = index;
         }
     })
@@ -22,8 +22,16 @@ export default function SubpageNavigationTabs({ tabs } : SubpageNavigationTabsPr
     };
 
     return (
-        <StyledTabsContainer>
-            <Tabs value={value} onChange={handleChange}>
+        <StyledTabsContainer sx={{ ...sx }}>
+            <Tabs
+                sx={centered ? {
+                    '& .MuiTabs-flexContainer': {
+                        justifyContent: 'center',
+                    },
+                } : {}}
+                value={value}
+                onChange={handleChange}
+            >
                 { tabs.map((tab : NavigationTab, index) => (
                     <Tab
                         key={index}

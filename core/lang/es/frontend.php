@@ -21,6 +21,7 @@ return [
     'irm_chemicals' => 'Químicos IRM',
     'irm_chemical_inventory' => 'Inventario de Químicos IRM',
     'materials' => 'Materiales',
+    'safety_stock' => 'Stock de Seguridad',
     'search' => 'Buscar',
     'total_quantity' => 'Cantidad Total',
 
