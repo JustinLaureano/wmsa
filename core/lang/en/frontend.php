@@ -11,8 +11,10 @@ return [
     |
     */
     'lang_code' => 'en',
-
+    
+    'blackhawk' => 'Blackhawk',
     'chemical' => 'Chemical',
+    'defiance' => 'Defiance',
     'home' => 'Home',
     'requests' => 'Requests',
     'inventory' => 'Inventory',
@@ -20,6 +22,10 @@ return [
     'irm_chemicals' => 'IRM Chemicals',
     'irm_chemical_inventory' => 'IRM Chemical Inventory',
     'materials' => 'Materials',
+    'on_hand' => 'On Hand',
+    'plant_2' => 'Plant 2',
+    'ropack' => 'Ropack',
+    'ropacks' => 'Ropacks',
     'safety_stock' => 'Safety Stock',
     'search' => 'Search',
     'total_quantity' => 'Total Quantity',

@@ -13,7 +13,9 @@ return [
 
     'lang_code' => 'es',
 
+    'blackhawk' => 'Blackhawk',
     'chemical' => 'Químico',
+    'defiance' => 'Defiance',
     'home' => 'Hogar',
     'requests' => 'Solicitudes',
     'inventory' => 'Inventario',
@@ -21,6 +23,10 @@ return [
     'irm_chemicals' => 'Químicos IRM',
     'irm_chemical_inventory' => 'Inventario de Químicos IRM',
     'materials' => 'Materiales',
+    'on_hand' => 'En Stock',
+    'plant_2' => 'Planta 2',
+    'ropack' => 'Ropack',
+    'ropacks' => 'Ropacks',
     'safety_stock' => 'Stock de Seguridad',
     'search' => 'Buscar',
     'total_quantity' => 'Cantidad Total',

@@ -5,7 +5,7 @@ import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPage
 import { ViewSafetyStockProps } from '@/types';
 import SafetyStockNavTabs from '@/Domains/Materials/Layout/Navigation/SafetyStockNavTabs';
 import { Paper } from '@mui/material';
-import SafetyStockReportData from '@/Domains/Materials/Cards/SafetyStockReportData';
+import SafetyStockReportData from '@/Domains/Materials/Cards/SafetyStockReport/SafetyStockReportData';
 
 export default function ViewSafetyStock({
     safetyStock,

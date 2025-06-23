@@ -25,6 +25,19 @@ export interface SafetyStockReportResourceRelations {
 
 export interface SafetyStockReportResourceComputed {
     material_uuid: string;
+    part_number: string;
+    building_1_safety_stock_formatted: string|null;
+    building_1_on_hand_formatted: string|null;
+    building_1_difference: number;
+    building_1_notes: string|null;
+    building_2_safety_stock_formatted: string|null;
+    building_2_on_hand_formatted: string|null;
+    building_2_difference: number;
+    building_2_notes: string|null;
+    building_3_safety_stock_formatted: string|null;
+    building_3_on_hand_formatted: string|null;
+    building_3_difference: number;
+    building_3_notes: string|null;
 }
 
 export type SafetyStockReportResource = JsonApiResource<
