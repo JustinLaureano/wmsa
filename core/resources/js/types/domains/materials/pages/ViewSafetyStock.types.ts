@@ -1,3 +1,5 @@
+import { SafetyStockReportCollection } from "@/types";
+
 export interface ViewSafetyStockProps {
-    safetyStock: any;
+    safetyStock: SafetyStockReportCollection;
 }
