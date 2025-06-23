@@ -1,12 +1,14 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import LanguageContext from '@/Contexts/LanguageContext';
 import {
     Box,
     Stack,
     TableCell,
+    Tooltip,
     Typography,
     useTheme
 } from '@mui/material';
+import { WarningAmberOutlined } from '@mui/icons-material';
 
 export default function SafetyStockDataCell(
     {
@@ -25,23 +27,51 @@ export default function SafetyStockDataCell(
     const theme = useTheme();
 
     return (
-        <TableCell colSpan={2} sx={{ verticalAlign: 'baseline' }}>
+        <TableCell
+            colSpan={3}
+            sx={{
+                verticalAlign: 'baseline',
+                backgroundColor: difference && difference < 0 ? theme.palette.error.light : 'transparent',
+            }}
+        >
             <Stack direction="row" spacing={1} alignItems="center">
-                <Box sx={{ width: '50%', textAlign: 'center' }}>
+                <Box sx={{ width: '10%', textAlign: 'center' }}>
+                    {difference && difference < 0 ? (
+                        <Tooltip
+                            arrow
+                            title={
+                                <React.Fragment>
+                                    <Typography variant="body2" color="inherit">
+                                        {`${lang.difference}: ${difference}`}
+                                    </Typography>
+                              </React.Fragment>
+                            }
+                        >
+                            <WarningAmberOutlined
+                                sx={{
+                                    color: theme.palette.error.dark,
+                                }}
+                            />
+                        </Tooltip>
+                    ) : ''}
+                </Box>
+                <Box sx={{ width: '45%', textAlign: 'center', pl: 4 }}>
                     {
                         safetyStock ? (
                             <Typography variant="body2">{safetyStock}</Typography>
                         ) : (
-                            <Typography variant="body2" color="text.secondary">n/a</Typography>
+                            <Typography variant="body2" color="text.secondary">{lang.na}</Typography>
                         )
                     }
                 </Box>
-                <Box sx={{ width: '50%', textAlign: 'center', pl: 5 }}>
+                <Box sx={{ width: '45%', textAlign: 'center', pl: 5 }}>
                     <Typography variant="body2">{onHand}</Typography>
                 </Box>
             </Stack>
-            <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="body2">{notes}</Typography>
+            <Box sx={{ pt: 1 }}>
+                <Typography variant="body2">
+                    {notes ? `${lang.note}: ${notes}` : ''}
+                </Typography>
             </Box>
         </TableCell>
     )

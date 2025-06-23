@@ -12,7 +12,7 @@ export default function TableHeader() {
 				<TableCell sx={{ borderBottom: 'none' }} />
 				<TableCell
 					align="center"
-					colSpan={2}
+					colSpan={3}
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 						borderBottom: 'none'
@@ -28,7 +28,7 @@ export default function TableHeader() {
 				</TableCell>
 				<TableCell
 					align="center"
-					colSpan={2}
+					colSpan={3}
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 						borderBottom: 'none'
@@ -44,7 +44,7 @@ export default function TableHeader() {
 				</TableCell>
 				<TableCell
 					align="center"
-					colSpan={2}
+					colSpan={3}
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 						borderBottom: 'none'
@@ -68,11 +68,15 @@ export default function TableHeader() {
 						{lang.part_number}
 					</Typography>
 				</TableCell>
+
 				<TableCell
-					align="center"
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 					}}
+				>
+				</TableCell>
+				<TableCell
+					align="center"
 				>
 					<Typography
 						variant="subtitle2"
@@ -89,11 +93,15 @@ export default function TableHeader() {
 						{lang.on_hand}
 					</Typography>
 				</TableCell>
+
 				<TableCell
-					align="center"
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 					}}
+				>
+				</TableCell>
+				<TableCell
+					align="center"
 				>
 					<Typography
 						variant="subtitle2"
@@ -107,11 +115,15 @@ export default function TableHeader() {
 						{lang.on_hand}
 					</Typography>
 				</TableCell>
+
 				<TableCell
-					align="center"
 					sx={{
 						borderLeft: `1px solid ${theme.palette.divider}`,
 					}}
+				>
+				</TableCell>
+				<TableCell
+					align="center"
 				>
 					<Typography
 						variant="subtitle2"
