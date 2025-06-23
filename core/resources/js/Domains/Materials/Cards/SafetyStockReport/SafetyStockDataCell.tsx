@@ -58,14 +58,24 @@ export default function SafetyStockDataCell(
                 <Box sx={{ width: '45%', textAlign: 'center', pl: 4 }}>
                     {
                         safetyStock ? (
-                            <Typography variant="body2">{safetyStock}</Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    fontWeight: difference && difference < 0 ? 'bold' : 'normal',
+                                }}
+                            >{safetyStock}</Typography>
                         ) : (
                             <Typography variant="body2" color="text.secondary">{lang.na}</Typography>
                         )
                     }
                 </Box>
                 <Box sx={{ width: '45%', textAlign: 'center', pl: 5 }}>
-                    <Typography variant="body2">{onHand}</Typography>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            fontWeight: difference && difference < 0 ? 'bold' : 'normal',
+                        }}
+                    >{onHand}</Typography>
                 </Box>
             </Stack>
             <Box sx={{ pt: 1 }}>
