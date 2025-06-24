@@ -6,15 +6,17 @@ import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
 import IrmChemicalSearchFilter from '../Filters/IrmChemicalSearchFilter';
 
-const columns = [
-    { field: 'part_number', headerName: 'Part' },
-    { field: 'lot_quantity', headerName: 'Lot Qty' },
-    { field: 'unit_quantity', headerName: 'Unit Qty' },
-    { field: 'base_unit_of_measure', headerName: 'UOM' },
-    { field: 'material_container_type', headerName: 'Container' },
-    { field: 'assigned_storage_location_name', headerName: 'Assigned Location' },
-    { field: 'drop_off_storage_location_name', headerName: 'Drop Off Location' },
-];
+const columns = (lang: JsonObject) => {
+    return [
+        { field: 'part_number', headerName: lang.part_number },
+        { field: 'lot_quantity', headerName: lang.lot_quantity },
+        { field: 'unit_quantity', headerName: lang.unit_quantity },
+        { field: 'base_unit_of_measure', headerName: lang.uom },
+        { field: 'material_container_type', headerName: lang.container },
+        { field: 'assigned_storage_location_name', headerName: lang.assigned_location },
+        { field: 'drop_off_storage_location_name', headerName: lang.drop_off_location },
+    ];
+}
 
 const filters = [
     { component: IrmChemicalSearchFilter },
@@ -35,7 +37,7 @@ export default function ViewIrmChemicalDataTable({ chemicals } : ViewIrmChemical
             <CardHeader title={lang.irm_chemicals} />
             <CardContent>
                 <DataTable
-                    columns={columns}
+                    columns={columns(lang)}
                     rows={data.data}
                     pagination={data}
                     filters={filters}

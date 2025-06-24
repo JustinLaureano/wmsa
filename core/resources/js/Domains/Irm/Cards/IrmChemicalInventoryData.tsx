@@ -13,7 +13,6 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow,
     Typography,
     useTheme,
 } from '@mui/material';
@@ -31,7 +30,13 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
-        setData(inventory.filter((item) => item.computed.part_number.toLowerCase().includes(e.target.value.toLowerCase())));
+
+        setData(inventory.filter((item) => {
+            return item.computed
+                .part_number
+                .toLowerCase()
+                .includes(e.target.value.toLowerCase())
+        }));
     }
 
     return (
@@ -95,16 +100,40 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
                                 <Table>
                                     <TableHead>
                                         <TableCell width="25%">
-                                            <Typography variant="overline" fontWeight="bold" color="primary">Location</Typography>
+                                            <Typography
+                                                variant="overline"
+                                                fontWeight="bold"
+                                                color="primary"
+                                            >
+                                                {lang.location}
+                                            </Typography>
                                         </TableCell>
                                         <TableCell width="25%">
-                                            <Typography variant="overline" fontWeight="bold" color="primary">Quantity</Typography>
+                                            <Typography
+                                                variant="overline"
+                                                fontWeight="bold"
+                                                color="primary"
+                                            >
+                                                {lang.quantity}
+                                            </Typography>
                                         </TableCell>
                                         <TableCell width="35%">
-                                            <Typography variant="overline" fontWeight="bold" color="primary">Stored At</Typography>
+                                            <Typography
+                                                variant="overline"
+                                                fontWeight="bold"
+                                                color="primary"
+                                            >
+                                                {lang.stored_at}
+                                            </Typography>
                                         </TableCell>
                                         <TableCell width="15%" align="center">
-                                            <Typography variant="overline" fontWeight="bold" color="primary">History</Typography>
+                                            <Typography
+                                                variant="overline"
+                                                fontWeight="bold"
+                                                color="primary"
+                                            >
+                                                {lang.history}
+                                            </Typography>
                                         </TableCell>
                                     </TableHead>
                                     <TableBody>
@@ -133,7 +162,7 @@ export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInve
                                             inventory.length === 0 &&
                                             <StyledTableRow>
                                                 <TableCell colSpan={4} align="center">
-                                                    <Typography variant="body1">No inventory found</Typography>
+                                                    <Typography variant="body1">{lang.no_inventory_found}</Typography>
                                                 </TableCell>
                                             </StyledTableRow>
                                         }
