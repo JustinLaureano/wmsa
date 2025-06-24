@@ -132,6 +132,8 @@ export default function MessagingProvider({ children }: MessagingProviderProps) 
     };
 
     const fetchParticipantOptions = async () => {
+        if (!user?.uuid) return;
+
         const options = await participantOptionService.getParticipantOptions();
         setParticipantOptions(options || []);
     };
