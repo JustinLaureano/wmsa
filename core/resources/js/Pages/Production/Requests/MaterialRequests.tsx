@@ -84,22 +84,22 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                                 <Stack sx={{ mt: 1 }} spacing={1}>
                                     <Grid container>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Part Number</Typography>
+                                            <Typography variant="subtitle2">{lang.part_number}</Typography>
                                         </Grid>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Order Qty</Typography>
+                                            <Typography variant="subtitle2">{lang.order_qty}</Typography>
                                         </Grid>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Delivered Qty</Typography>
+                                            <Typography variant="subtitle2">{lang.delivered_qty}</Typography>
                                         </Grid>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Container Type</Typography>
+                                            <Typography variant="subtitle2">{lang.container_type}</Typography>
                                         </Grid>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Status</Typography>
+                                            <Typography variant="subtitle2">{lang.status}</Typography>
                                         </Grid>
                                         <Grid size={2}>
-                                            <Typography variant="subtitle2">Skids Available</Typography>
+                                            <Typography variant="subtitle2">{lang.skids_available}</Typography>
                                         </Grid>
                                     </Grid>
                                     <Divider sx={{ color: 'divider' }}/>
@@ -143,7 +143,7 @@ export default function MaterialRequests({ requests } : MaterialRequestsProps) {
                         >
                             <ViewList sx={{ fontSize: 200 }} color="disabled" />
                             <Typography variant="body1" color="textSecondary">
-                                No requests at this time
+                                {lang.no_requests_at_this_time}
                             </Typography>
                         </Stack>
                     )}
