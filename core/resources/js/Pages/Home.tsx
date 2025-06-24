@@ -32,7 +32,7 @@ export default function Home({ recentRequests, ...props } : any) {
                     mb: theme.spacing(4)
                 }}
             >
-                <Typography variant="h3">Home</Typography>
+                <Typography variant="h3">{lang.home}</Typography>
 
                 <HomeTabs />
             </Stack>
