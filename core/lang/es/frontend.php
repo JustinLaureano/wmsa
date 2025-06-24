@@ -38,6 +38,7 @@ return [
     'containers' => 'Contenedores',
     'copy_barcode' => 'Copiar Código de Barras',
     'copy_barcode_hash' => 'Copiar Hash del Código de Barras',
+    'create_request' => 'Crear Solicitud',
     'defiance' => 'Defiance',
     'description' => 'Descripción',
     'difference' => 'Diferencia',

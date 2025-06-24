@@ -38,6 +38,7 @@ return [
     'containers' => 'Containers',
     'copy_barcode' => 'Copy Barcode',
     'copy_barcode_hash' => 'Copy Barcode Hash',
+    'create_request' => 'Create Request',
     'defiance' => 'Defiance',
     'description' => 'Description',
     'difference' => 'Difference',
