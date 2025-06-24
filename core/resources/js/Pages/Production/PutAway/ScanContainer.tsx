@@ -64,8 +64,7 @@ export default function ScanContainer() {
                     minHeight: '250px',
                 }}
             >
-                <CardHeader title="Put Away Skid">
-                </CardHeader>
+                <CardHeader title={lang.put_away_skid} />
                 <CardContent>
                     <BarcodeScanInput
                         inputRef={inputRef}

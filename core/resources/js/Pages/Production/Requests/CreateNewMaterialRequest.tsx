@@ -57,27 +57,27 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
                     margin: '0 auto'
                 }}
             >
-                <CardHeader title="New Material Request" />
+                <CardHeader title={lang.new_material_request} />
                 
                 <form onSubmit={handleSubmit}>
                     <CardContent>
                         <Stack spacing={3}>
                             <ComboBox
                                 options={machines}
-                                inputLabel="Choose a machine"
+                                inputLabel={lang.choose_a_machine}
                                 value={selectedMachine}
                                 onChange={(value) => setSelectedMachine(value as MachineOptionResource)}
                             />
 
                             <TextInput
-                                label="Part Number"
+                                label={lang.part_number}
                                 value={partNumber}
                                 onChange={setPartNumber}
                                 required
                             />
                             
                             <TextInput
-                                label="Quantity"
+                                label={lang.quantity}
                                 type="number"
                                 value={quantity}
                                 onChange={(value) => setQuantity(parseInt(value))}
@@ -96,14 +96,14 @@ export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterial
                             onClick={handleClear}
                             variant="outlined"
                         >
-                            Clear
+                            {lang.clear}
                         </Button>
                         <Button 
                             type="submit"
                             variant="contained"
                             color="primary"
                         >
-                            Create
+                            {lang.create}
                         </Button>
                     </CardActions>
                 </form>
