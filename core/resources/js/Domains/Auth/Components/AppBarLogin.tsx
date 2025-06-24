@@ -10,7 +10,7 @@ import LanguageContext from '@/Contexts/LanguageContext';
 import LoginForm from './LoginForm';
 
 export default function AppBarLogin(props: any) {
-    const lang = useContext(LanguageContext);
+    const { lang } = useContext(LanguageContext);
     const { loginDialogOpen, setLoginDialogOpen } = useContext(UIContext);
 
     const handleLoginButtonClick = () => {
@@ -29,7 +29,7 @@ export default function AppBarLogin(props: any) {
                     startIcon={<AccountCircle sx={{ color: grey[700] }} />}
                     onClick={handleLoginButtonClick}
                 >
-                    Login
+                    {lang.login}
                 </Button>
             </Box>
 
@@ -38,10 +38,10 @@ export default function AppBarLogin(props: any) {
                 onClose={handleCloseDialog}
                 maxWidth={false}
             >
-                <DialogTitle>Login</DialogTitle>
+                <DialogTitle>{lang.login}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Sign In
+                        {lang.sign_in}
                     </DialogContentText>
 
                     <LoginForm onLoginSuccess={handleCloseDialog} />

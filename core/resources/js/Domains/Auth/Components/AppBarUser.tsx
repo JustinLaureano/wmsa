@@ -6,7 +6,7 @@ import AuthContext from '@/Contexts/AuthContext';
 import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function AppBarUser(props: any) {
-    const lang = useContext(LanguageContext);
+    const { lang } = useContext(LanguageContext);
     const { user } = useContext(AuthContext);
 
     const [userMenuEl, setUserMenuEl] = useState<EventTarget & HTMLElement | null>(null);
@@ -54,7 +54,7 @@ export default function AppBarUser(props: any) {
             >
                 <MenuItem onClick={handleUserMenuClose}>
                     <ListItemText onClick={handleLogoutClick}>
-                        Logout
+                        {lang.logout}
                     </ListItemText>
                 </MenuItem>
             </Menu>

@@ -19,7 +19,7 @@ const FormStack = ({ children, ...props } : any) => {
 
 export default function LoginForm({ onLoginSuccess = () => {} }: any) {
     // TODO: make sure lang has expected properties
-    const lang = useContext(LanguageContext);
+    const { lang } = useContext(LanguageContext);
     const { setUser } = useContext(AuthContext);
 
     // For future use
@@ -88,7 +88,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
                         endAdornment: (
                             <InputAdornment position="end">
                                 <IconButton
-                                    aria-label="toggle password visibility"
+                                    aria-label={lang.toggle_password_visibility}
                                     edge="end"
                                     onClick={handleClickShowPassword}
                                 >
@@ -102,7 +102,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
 
             <Stack sx={{ pt: 2 }}>
                 <Button type="submit" variant="contained" fullWidth>
-                    Login
+                    {lang.login}
                 </Button>
             </Stack>
         </FormStack>

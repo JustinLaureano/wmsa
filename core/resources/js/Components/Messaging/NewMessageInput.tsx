@@ -4,8 +4,10 @@ import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
 import MessagingContext from '@/Contexts/MessagingContext';
 import AuthContext from '@/Contexts/AuthContext';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function NewMessageInput() {
+    const { lang } = useContext(LanguageContext);
     const { user } = useContext(AuthContext);
     const {
         activeConversation,
@@ -115,7 +117,7 @@ export default function NewMessageInput() {
             >
                 <StyledInputBase
                     inputRef={inputRef}
-                    placeholder={'Type a message'}
+                    placeholder={lang.type_a_message}
                     value={content}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}

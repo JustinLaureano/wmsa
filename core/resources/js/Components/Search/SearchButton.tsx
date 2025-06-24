@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { JsonObject } from '@/types';
 import { Search } from '@mui/icons-material';
-import { Chip, Button, Box, useTheme } from '@mui/material';
+import { Button, Box, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function SearchButton(props : JsonObject) {
+    const { lang } = useContext(LanguageContext);
     const theme = useTheme();
 
     const handleButtonClick= (e: React.MouseEvent<HTMLElement>) => {
@@ -22,7 +24,7 @@ export default function SearchButton(props : JsonObject) {
                 textTransform: 'none',
             }}
         >
-            Search...
+            {lang.search}...
 
             <Box
                 component="span"
