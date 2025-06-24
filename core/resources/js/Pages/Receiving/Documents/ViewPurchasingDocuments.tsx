@@ -8,7 +8,7 @@ export default function ViewPurchasingDocuments() {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.requests}>
+        <SidebarLayout title={lang.purchasing_documents}>
             <ReceivingPageHeaderHeader />
 
             <SkeletonPage />

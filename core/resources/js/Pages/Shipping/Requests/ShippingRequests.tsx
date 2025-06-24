@@ -8,7 +8,7 @@ export default function ShippingRequests() {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.requests}>
+        <SidebarLayout title={`${lang.shipping} ${lang.requests}`}>
             <ShippingPageHeader />
 
             <SkeletonPage />
