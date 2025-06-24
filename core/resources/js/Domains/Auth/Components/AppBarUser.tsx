@@ -1,13 +1,26 @@
 import React, { useContext, useState } from 'react';
 import { router } from '@inertiajs/react';
-import { IconButton, ListItemText, Menu, MenuItem } from '@mui/material';
-import { AccountCircleOutlined } from '@mui/icons-material';
+import {
+    Avatar,
+    Divider,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Stack,
+    Typography,
+    useTheme
+} from '@mui/material';
+import { orange } from '@mui/material/colors';
+import { AccountCircleOutlined, LogoutOutlined, PersonOutline } from '@mui/icons-material';
 import AuthContext from '@/Contexts/AuthContext';
 import LanguageContext from '@/Contexts/LanguageContext';
 
-export default function AppBarUser(props: any) {
+export default function AppBarUser() {
     const { lang } = useContext(LanguageContext);
     const { user } = useContext(AuthContext);
+    const theme = useTheme();
 
     const [userMenuEl, setUserMenuEl] = useState<EventTarget & HTMLElement | null>(null);
     const openUserMenu = Boolean(userMenuEl);
@@ -26,9 +39,13 @@ export default function AppBarUser(props: any) {
         });
     }
 
+    const handleUserProfileClick = () => {
+        console.log('user profile click');
+        // router.get(route('user.profile'));
+    }
+
     return (
         <>
-
             <IconButton
                 onClick={handleUserButtonClick}
             >
@@ -39,20 +56,87 @@ export default function AppBarUser(props: any) {
                 anchorEl={userMenuEl}
                 open={openUserMenu}
                 onClose={handleUserMenuClose}
-                MenuListProps={{
-                    'aria-labelledby': 'user-menu-button',
-                }}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'right',
                 }}
                 sx={{
                     '& .MuiPaper-root': {
-                        minWidth: 180
+                        minWidth: 200,
                     }
                 }}
             >
+                <MenuItem>
+                    <Stack
+                        alignItems="center"
+                        justifyContent="center"
+                        sx={{
+                            width: '100%',
+                            px: 2,
+                            py: 1
+                        }}
+                        spacing={2}
+                    >
+                        <Avatar
+                            sx={{
+                                height: 50,
+                                width: 50,
+                                bgcolor: orange[300],
+                            }}
+                        >
+                            <PersonOutline
+                                sx={{
+                                    fontSize: 32
+                                }}
+                            />
+                        </Avatar>
+
+                        <Stack
+                            spacing={0}
+                            alignItems="center"
+                        >
+                            <Typography
+                                variant="body1"
+                                fontWeight={500}
+                                fontSize={20}
+                                sx={{
+                                    color: theme.palette.mode === 'light'
+                                        ? theme.palette.primary.main
+                                        : theme.palette.text.primary,
+                                    mb: 1
+                                }}
+                            >
+                                {user?.display_name}
+                            </Typography>
+
+                            <Typography variant="body2" fontWeight={500}>
+                                {user?.title}
+                            </Typography>
+
+                            <Typography variant="body2" color="text.secondary">
+                                {user?.department}
+                            </Typography>
+                        </Stack>
+                    </Stack>
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem onClick={handleUserProfileClick}>
+                    <ListItemIcon>
+                        <AccountCircleOutlined />
+                    </ListItemIcon>
+                    <ListItemText onClick={handleUserProfileClick}>
+                        {lang.view_profile}
+                    </ListItemText>
+                </MenuItem>
+
+                <Divider />
+
                 <MenuItem onClick={handleUserMenuClose}>
+                    <ListItemIcon>
+                        <LogoutOutlined />
+                    </ListItemIcon>
                     <ListItemText onClick={handleLogoutClick}>
                         {lang.logout}
                     </ListItemText>

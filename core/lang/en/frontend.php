@@ -156,6 +156,7 @@ return [
     'view_documents' => 'View Documents',
     'view_history' => 'View History',
     'view_materials' => 'View Materials',
+    'view_profile' => 'View Profile',
     'warehouse_kpi' => 'Warehouse KPI',
     'you' => 'you',
 ];

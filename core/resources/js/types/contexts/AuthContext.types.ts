@@ -1,6 +1,6 @@
-import { User } from "../domains/auth/entities";
+import { UserProfileResource } from "../domains/auth/resources/UserProfileResource.types";
 
 export type AuthContextType = {
-    user: User | null;
-    setUser: (user: User | null) => void;
+    user: UserProfileResource | null;
+    setUser: (user: UserProfileResource | null) => void;
 }

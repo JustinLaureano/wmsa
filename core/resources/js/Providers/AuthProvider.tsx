@@ -1,8 +1,19 @@
 import { useMemo, useState } from 'react';
-import { AuthProviderProps } from '@/types';
+import { AuthProviderProps, InitialPageProps } from '@/types';
 import AuthContext from '@/Contexts/AuthContext';
 
-const defaultInitialPage = { props: {} }
+const defaultInitialPage: InitialPageProps = {
+    props: {
+        auth: {
+            auth_method: '',
+            user: null,
+        },
+        errors: {},
+        lang: {},
+        recentRequests: {},
+        ziggy: {}
+    }
+}
 
 export default function AuthProvider({
     children,
