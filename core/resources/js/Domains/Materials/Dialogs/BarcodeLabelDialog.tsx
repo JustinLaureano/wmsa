@@ -11,12 +11,12 @@ import {
 	Box,
 	Divider,
 } from '@mui/material';
-import { BarcodeLabelDialogProps } from '@/types';
+import { BarcodeLabelDialogProps, InfoRowProps } from '@/types';
 import { ContentCopy } from '@mui/icons-material';
 import LanguageContext from '@/Contexts/LanguageContext';
-import { styled, SxProps } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
-const InfoRow = ({ label, content, sx }: { label: string, content: string | number | null, sx?: SxProps }) => {
+const InfoRow = ({ label, content, sx }: InfoRowProps) => {
 	return (
 		<Stack
 			direction="row"
