@@ -8,7 +8,7 @@ export default function ViewSortList() {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.inventory}>
+        <SidebarLayout title={lang.sort_list}>
             <QualityPageHeader />
 
             <SkeletonPage />

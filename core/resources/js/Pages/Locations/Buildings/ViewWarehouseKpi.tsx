@@ -8,7 +8,7 @@ export default function ViewWarehouseKpi() {
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.inventory}>
+        <SidebarLayout title={lang.warehouse_kpi}>
             <LocationsPageHeader />
 
             <SkeletonPage />

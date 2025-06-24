@@ -25,15 +25,15 @@ export default function ViewSortListPartNumbers({ partNumbers }: ViewSortListPar
     ));
 
     return (
-        <SidebarLayout title={lang.inventory}>
+        <SidebarLayout title={lang.sort_part_numbers}>
             <QualityPageHeader />
 
             <Card sx={{ mb: theme.spacing(4) }}>
-                <CardHeader title="Sort List Part Numbers" />
+                <CardHeader title={lang.sort_list_part_numbers} />
                 <CardContent>
                     <Stack direction="row" spacing={2}>
                         <TextField
-                            label="Search"
+                            label={lang.search}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -52,7 +52,7 @@ export default function ViewSortListPartNumbers({ partNumbers }: ViewSortListPar
                         ))}
 
                         {filteredPartNumbers.length === 0 && (
-                            <Typography>No part numbers found</Typography>
+                            <Typography>{lang.no_part_numbers_found}</Typography>
                         )}
                     </OverflowScrollBox>
                 </CardContent>

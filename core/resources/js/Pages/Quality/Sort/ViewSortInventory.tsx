@@ -11,7 +11,7 @@ export default function ViewSortInventory({ inventory, materialOptions }: ViewSo
     const { lang } = useContext(LanguageContext);
 
     return (
-        <SidebarLayout title={lang.inventory}>
+        <SidebarLayout title={lang.sort_inventory}>
             <QualityPageHeader />
 
             <Paper
