@@ -20,7 +20,8 @@ export interface SafetyStockReportResourceAttributes {
 }
 
 export interface SafetyStockReportResourceRelations {
-    containers: JsonObject;
+    containers: JsonObject[];
+    chemical: JsonObject;
 }
 
 export interface SafetyStockReportResourceComputed {
