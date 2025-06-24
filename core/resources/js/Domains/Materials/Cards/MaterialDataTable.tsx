@@ -1,16 +1,27 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { MaterialDataTableProps, JsonObject } from '@/types';
+import { Link } from '@inertiajs/react';
+import { MaterialDataTableProps, JsonObject, RenderCellParams } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
 import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
+import PrimaryLink from '@/Components/Shared/PrimaryLink';
+
+const MaterialLinkCell = (params : RenderCellParams) => {
+    return (
+        <PrimaryLink
+            route={route('materials.show', { material: params.row.uuid })}
+            label={params.value}
+        />
+    )
+}
 
 const columns = [
-    { field: 'material_number', headerName: 'Material' },
-    { field: 'part_number', headerName: 'Part' },
+    { field: 'material_number', headerName: 'Material', renderCell: MaterialLinkCell },
+    { field: 'part_number', headerName: 'Part', renderCell: MaterialLinkCell },
     { field: 'description', headerName: 'Description' },
     { field: 'base_unit_of_measure', headerName: 'UOM' },
 ];

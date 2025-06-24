@@ -1,22 +1,29 @@
 import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import LanguageContext from '@/Contexts/LanguageContext';
-import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 import { ShowMaterialProps } from '@/types';
+import { Stack, useTheme } from '@mui/material';
+import NavigateBackLink from '@/Components/Navigation/NavigateBackLink';
 
 export default function ShowMaterial({
     material,
     ...props
 } : ShowMaterialProps) {
+    const theme = useTheme();
     const { lang } = useContext(LanguageContext);
 
     console.log(material)
 
-    // TODO: fix header and style page properly
+    // TODO: style page properly
 
     return (
         <SidebarLayout title={material.part_number}>
-            <MaterialsPageHeader />
+            <Stack sx={{ mb: theme.spacing(4) }} spacing={2}>
+                <NavigateBackLink
+                    route={route('materials')}
+                    label={`${lang.back_to} ${lang.materials}`}
+                />
+            </Stack>
 
             <h4>{material.material_number}</h4>
             <h4>{material.part_number}</h4>

@@ -291,7 +291,7 @@ material_requests:
 
 
 
-safety_stocks
+safety_stocks - done
     material_uuid
     building_id
     quantity

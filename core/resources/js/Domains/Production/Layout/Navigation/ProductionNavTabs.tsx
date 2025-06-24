@@ -20,6 +20,13 @@ export default function ProductionNavTabs() {
                 route('production.material-request.new'),
             ]
         },
+        {
+            label: 'Put Away',
+            route: route('production.put-away.scan'),
+            selected: [
+                route('production.put-away.scan'),
+            ]
+        },
     ]
 
     return (

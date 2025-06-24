@@ -50,7 +50,6 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
         setData(response.data.data);
         setPagination(getCollectionPagination(response.links, response.meta));
         return;
-
     }
 
     const handlePageChange = (page: number) => {
@@ -60,19 +59,18 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
                 'page': page
             };
         });
-        
     }
 
     useEffect(() => {
         if (!loaded) return;
 
         handleFilterEvent(filterParams);
-    }, [filterParams])
+    }, [filterParams]);
 
     useEffect(() => {
         setFilterParams(getUrlParams());
         setLoaded(true);
-    }, [])
+    }, []);
 
     return (
         <Card sx={{ flexGrow: 1 }}>

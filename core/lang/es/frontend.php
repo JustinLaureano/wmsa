@@ -13,6 +13,8 @@ return [
 
     'lang_code' => 'es',
 
+    'back' => 'Volver',
+    'back_to' => 'Volver a',
     'blackhawk' => 'Blackhawk',
     'chemical' => 'Químico',
     'defiance' => 'Defiance',

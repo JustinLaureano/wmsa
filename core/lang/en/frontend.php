@@ -11,7 +11,9 @@ return [
     |
     */
     'lang_code' => 'en',
-    
+
+    'back' => 'Back',
+    'back_to' => 'Back to',
     'blackhawk' => 'Blackhawk',
     'chemical' => 'Chemical',
     'defiance' => 'Defiance',

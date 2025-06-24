@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { Link } from '@inertiajs/react';
 import axios from 'axios';
 import { ContainerInventoryDataTableProps, JsonObject, RenderCellParams } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
@@ -9,12 +8,14 @@ import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
 import PartNumberSearchFilter from '../Filters/PartNumberSearchFilter';
 import LotNumberFilter from '../Filters/LotNumberFilter';
+import PrimaryLink from '@/Components/Shared/PrimaryLink';
 
 const MaterialNumberCell = (params : RenderCellParams) => {
     return (
-        <Link href={route('materials.show', { material: params.row.material_uuid })}>
-            {params.value}
-        </Link>
+        <PrimaryLink
+            route={route('materials.show', { material: params.row.material_uuid })}
+            label={params.value}
+        />
     )
 }
 
