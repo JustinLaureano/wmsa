@@ -1,12 +1,23 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useContext, useState } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import { Head, router, useForm } from '@inertiajs/react';
-import { Button, Card, CardActions, CardContent, CardHeader, IconButton, InputAdornment, Stack } from '@mui/material';
+import { useForm } from '@inertiajs/react';
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    IconButton,
+    InputAdornment,
+    Stack
+} from '@mui/material';
 import TextInput from '@/Components/Inputs/TextInput';
-import { VisibilityOffOutlined } from '@mui/icons-material';
-import { VisibilityOutlined } from '@mui/icons-material';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function Login({ referrer }: { referrer: string }) {
+    const { lang } = useContext(LanguageContext);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         username: '',
         password: '',
@@ -15,7 +26,6 @@ export default function Login({ referrer }: { referrer: string }) {
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(show => !show);
-
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -33,7 +43,7 @@ export default function Login({ referrer }: { referrer: string }) {
     };
 
     return (
-        <SidebarLayout title={"Login"}>
+        <SidebarLayout title={lang.login}>
             <Stack
                 direction="row"
                 justifyContent="center"
@@ -49,12 +59,12 @@ export default function Login({ referrer }: { referrer: string }) {
                     }}
                 >
                     <CardHeader
-                        title="Login"
+                        title={lang.login}
                     />
                     <CardContent>
                         <Stack spacing={3}>
                             <TextInput
-                                label="Username"
+                                label={lang.username}
                                 value={data.username}
                                 onChange={value => setData('username', value)}
                                 required
@@ -63,7 +73,7 @@ export default function Login({ referrer }: { referrer: string }) {
                             />
 
                             <TextInput
-                                label="Password"
+                                label={lang.password}
                                 value={data.password}
                                 onChange={value => setData('password', value)}
                                 required
@@ -75,7 +85,7 @@ export default function Login({ referrer }: { referrer: string }) {
                                         endAdornment: (
                                             <InputAdornment position="end">
                                                 <IconButton
-                                                    aria-label="toggle password visibility"
+                                                    aria-label={lang.toggle_password_visibility}
                                                     edge="end"
                                                     onClick={handleClickShowPassword}
                                                 >
@@ -93,7 +103,7 @@ export default function Login({ referrer }: { referrer: string }) {
                         justifyContent: 'flex-end',
                     }}>
                         <Button type="submit" onClick={submit}>
-                            Login
+                            {lang.login}
                         </Button>
                     </CardActions>
                 </Card>
