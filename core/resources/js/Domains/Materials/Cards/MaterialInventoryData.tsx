@@ -96,7 +96,7 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
                             });
                         }}
                         sx={{ width: 400 }}
-                        renderInput={(params) => <TextField {...params} label="Part Number" />}
+                        renderInput={(params) => <TextField {...params} label={lang.part_number} />}
                     />
                 </Stack>
 
@@ -114,25 +114,33 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
                                     <Grid container>
                                         <Grid size={3}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Part Number</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.part_number}
+                                                </Typography>
                                                 <Typography variant="body1">{part_number}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={3}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Material Number</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.material_number}
+                                                </Typography>
                                                 <Typography variant="body1">{material_number}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={3}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.container_count}
+                                                </Typography>
                                                 <Typography variant="body1">{container_count}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={3}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Total Quantity</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.total_quantity}
+                                                </Typography>
                                                 <Typography variant="body1">{total_quantity_formatted}</Typography>
                                             </Box>
                                         </Grid>
@@ -140,15 +148,23 @@ export default function MaterialInventoryData({ inventory, materialOptions } : M
                                 </Box>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography variant="overline">Containers</Typography>
+                                <Typography variant="overline">
+                                    {lang.containers}
+                                </Typography>
                                 <Divider />
                                 <TableContainer>
                                     <Table stickyHeader>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell>Quantity</TableCell>
-                                                <TableCell>Lot Number</TableCell>
-                                                <TableCell>Location</TableCell>
+                                                <TableCell>
+                                                    {lang.quantity}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {lang.lot_number}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {lang.location}
+                                                </TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
