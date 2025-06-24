@@ -23,6 +23,7 @@ class SafetyStockReportResource extends JsonResource
             'attributes' => $attributes,
             'relations' => [
                 'containers' => $this->whenLoaded('containers', $this->containers),
+                'chemicals' => $this->whenLoaded('chemical', $this->chemicals),
             ],
             'computed' => [
                 'material_uuid' => $this->uuid,

@@ -52,11 +52,14 @@ class SafetyStockRepository
                     'materials.uuid',
                     'materials.material_type_code',
                     'materials.part_number'
-                ], 
+                ],
                 $this->getBuildingCaseStatements())
             )
             ->filter()
-            ->with('containers.location.area.building')
+            ->with([
+                'containers.location.area.building',
+                'chemical.inventory'
+            ])
             ->groupBy(
                 'materials.uuid',
                 'materials.part_number',
@@ -159,6 +162,15 @@ class SafetyStockRepository
                 }
                 else {
                     $item['building_'.$container->location->area->building_id.'_on_hand'] += $container->quantity;
+                }
+            }
+
+            // If the material has a chemical, then we can add the on hand quantity
+            // of the chemical to the on hand quantity for the material.
+            if ($item->chemical) {
+                foreach ($item->chemical->inventory as $inventory) {
+                    // As of now chemicals are only in building 1.
+                    $item['building_1_on_hand'] += $inventory->quantity;
                 }
             }
 

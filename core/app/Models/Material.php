@@ -72,6 +72,14 @@ class Material extends Model
     }
 
     /**
+     * Get the chemicals for the material.
+     */
+    public function chemical(): HasOne
+    {
+        return $this->hasOne(IrmChemical::class, 'material_uuid', 'uuid');
+    }
+
+    /**
      * Get the container inventories for the material.
      */
     public function containers(): HasMany

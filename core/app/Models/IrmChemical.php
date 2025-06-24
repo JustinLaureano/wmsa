@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class IrmChemical extends Model
 {
     use HasFactory,
@@ -53,9 +53,9 @@ class IrmChemical extends Model
     /**
      * Get the material for this chemical.
      */
-    public function material(): HasOne
+    public function material(): BelongsTo
     {
-        return $this->hasOne(Material::class, 'uuid', 'material_uuid');
+        return $this->belongsTo(Material::class, 'material_uuid', 'uuid');
     }
 
     /**
