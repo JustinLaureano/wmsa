@@ -6,6 +6,6 @@ export interface BarcodeScanInputProps {
     onButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     inputRef: React.RefObject<HTMLInputElement> | null;
     value: string;
-    placeholder?: string;
+    placeholder?: string | null;
     sx?: SxProps<Theme>;
 }

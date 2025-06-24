@@ -1,30 +1,34 @@
+import { useContext } from 'react';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function MaterialsNavTabs() {
+    const { lang } = useContext(LanguageContext);
+
     const tabs = [
         {
-            label: 'Material Inventory',
+            label: lang.material_inventory,
             route: route('materials.inventory'),
             selected: [
                 route('materials.inventory'),
             ]
         },
         {
-            label: 'Full Inventory',
+            label: lang.full_inventory,
             route: route('containers.inventory'),
             selected: [
                 route('containers.inventory'),
             ]
         },
         {
-            label: 'View Materials',
+            label: lang.view_materials,
             route: route('materials'),
             selected: [
                 route('materials'),
             ]
         },
         {
-            label: 'Safety Stock',
+            label: lang.safety_stock,
             route: route('materials.safety-stock'),
             selected: [
                 route('materials.safety-stock'),

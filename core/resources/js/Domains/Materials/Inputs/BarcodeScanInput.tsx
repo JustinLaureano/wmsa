@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
     Paper,
     Stack,
@@ -10,6 +10,7 @@ import { Send } from '@mui/icons-material';
 import StyledInputBase from '@/Components/Styled/StyledInputBase';
 import { BarcodeScanInputProps } from '@/types';
 import { blue } from '@mui/material/colors';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function BarcodeScanInput({
     onChange,
@@ -17,17 +18,19 @@ export default function BarcodeScanInput({
     onButtonClick,
     inputRef,
     value,
-    placeholder = 'Barcode Label...',
+    placeholder = null,
     sx,
     ...rest
 }: BarcodeScanInputProps) {
+    const { lang } = useContext(LanguageContext);
+
     const [isFocused, setIsFocused] = useState(false);
 
     return (
 
         <Stack>
             <Typography variant="subtitle2">
-                Scan a Barcode Label
+                {lang.scan_a_barcode_label}
             </Typography>
             <Paper
                 elevation={0}
@@ -45,7 +48,7 @@ export default function BarcodeScanInput({
 
                     <StyledInputBase
                         inputRef={inputRef}
-                        placeholder={placeholder}
+                        placeholder={placeholder || `${lang.barcode_label}...`}
                         value={value}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
                         onKeyDown={onKeyDown}
