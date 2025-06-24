@@ -173,4 +173,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Teammate::class, 'clock_number', 'teammate_clock_number');
     }
+
+    /**
+     * Get the user settings for the user.
+     */
+    public function settings(): HasOne
+    {
+        return $this->hasOne(UserSetting::class, 'user_uuid', 'uuid');
+    }
 }

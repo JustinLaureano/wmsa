@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TeammateSeeder::class,
             UserSeeder::class,
+            UserSettingSeeder::class,
             ConversationSeeder::class,
             SortListSeeder::class,
             MaterialContainerSeeder::class,

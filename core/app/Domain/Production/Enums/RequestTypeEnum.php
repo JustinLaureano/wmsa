@@ -42,9 +42,6 @@ enum RequestTypeEnum: string
      */
     public static function toRequestValidTypesArray(string $building_id, string $type): array
     {
-        logger()->info('Building ID: ' . $building_id);
-        logger()->info('Type: ' . $type);
-
         if ($building_id == 1) {
             return match($type) {
                 self::TRANSFER->value => [self::TRANSFER->value, self::MISC->value],

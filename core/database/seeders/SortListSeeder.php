@@ -7,7 +7,6 @@ use App\Domain\Quality\Enums\SortListStatusEnum;
 use App\Models\Material;
 use App\Models\SortList;
 use App\Models\SortListCustomer;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Traits\Timestamps;
 use Database\Seeders\Traits\Uuid;
