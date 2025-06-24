@@ -7,7 +7,7 @@ export default function LocationsNavTabs() {
 
     const tabs = [
         {
-            label: 'Warehouse KPI',
+            label: lang.warehouse_kpi,
             route: route('locations.buildings.kpi'),
             selected: [
                 route('locations.buildings.kpi'),

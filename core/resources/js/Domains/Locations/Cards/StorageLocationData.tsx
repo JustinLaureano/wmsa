@@ -97,31 +97,41 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                     <Grid container>
                                         <Grid size={2}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Name</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.name}
+                                                </Typography>
                                                 <Typography variant="body1">{name}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Type</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.type}
+                                                </Typography>
                                                 <Typography variant="body1">{location_type}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Max Containers</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.max_containers}
+                                                </Typography>
                                                 <Typography variant="body1">{maximum_container_count}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>
                                             <Box>
-                                                <Typography variant="subtitle2" color="text.secondary">Container Count</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.container_count}
+                                                </Typography>
                                                 <Typography variant="body1">{container_count}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid size={1}>
                                             <Stack alignItems="center">
-                                                <Typography variant="subtitle2" color="text.secondary">Enabled</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.enabled}
+                                                </Typography>
                                                 {
                                                     !disabled ? (
                                                         <CheckBoxOutlined />
@@ -133,7 +143,9 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                         </Grid>
                                         <Grid size={1}>
                                             <Stack alignItems="center">
-                                                <Typography variant="subtitle2" color="text.secondary">Reservable</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.reservable}
+                                                </Typography>
                                                 {
                                                     reservable ? (
                                                         <CheckBoxOutlined />
@@ -145,7 +157,9 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                         </Grid>
                                         <Grid size={1}>
                                             <Stack alignItems="center">
-                                                <Typography variant="subtitle2" color="text.secondary">Allocatable</Typography>
+                                                <Typography variant="subtitle2" color="text.secondary">
+                                                    {lang.allocatable}
+                                                </Typography>
                                                 {
                                                     !restrict_request_allocations ? (
                                                         <CheckBoxOutlined />
@@ -161,15 +175,23 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                             <AccordionDetails>
                                 <Divider />
                                 <Box>
-                                    <Typography variant="overline">Containers</Typography>
+                                    <Typography variant="overline">
+                                        {lang.containers}
+                                    </Typography>
                                     <Divider />
                                     <TableContainer>
                                         <Table stickyHeader>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell>Part Number</TableCell>
-                                                    <TableCell>Quantity</TableCell>
-                                                    <TableCell>Lot Number</TableCell>
+                                                    <TableCell>
+                                                        {lang.part_number}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {lang.quantity}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {lang.lot_number}
+                                                    </TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -188,7 +210,9 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
 
                                                 {containers.length === 0 && (
                                                     <TableRow>
-                                                        <TableCell colSpan={3}>No containers found.</TableCell>
+                                                        <TableCell colSpan={3}>
+                                                            {lang.no_containers_found}
+                                                        </TableCell>
                                                     </TableRow>
                                                 )}
                                             </TableBody>

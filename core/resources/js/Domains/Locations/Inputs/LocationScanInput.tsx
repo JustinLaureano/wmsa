@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
     Paper,
     Stack,
@@ -10,6 +10,7 @@ import { Send } from '@mui/icons-material';
 import StyledInputBase from '@/Components/Styled/StyledInputBase';
 import { LocationScanInputProps } from '@/types';
 import { blue } from '@mui/material/colors';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function LocationScanInput({
     onChange,
@@ -21,13 +22,15 @@ export default function LocationScanInput({
     sx,
     ...rest
 }: LocationScanInputProps) {
+    const { lang } = useContext(LanguageContext);
+
     const [isFocused, setIsFocused] = useState(false);
 
     return (
 
         <Stack>
             <Typography variant="subtitle2">
-                Scan a Location Label
+                {lang.scan_a_location_label}
             </Typography>
             <Paper
                 elevation={0}

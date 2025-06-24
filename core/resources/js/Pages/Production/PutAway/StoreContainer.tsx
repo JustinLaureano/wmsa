@@ -65,18 +65,20 @@ export default function StoreContainer({ materialContainer }: { materialContaine
     }
 
     useEffect(() => focusInput(), []);
+
     return (
         <SidebarLayout title={lang.put_away}>
             <StoreContainerHeader />
 
             <Card>
-                <CardHeader title="Store Container" />
+                <CardHeader title={lang.store_container} />
                 <CardContent>
                     <LocationScanInput
                         inputRef={inputRef}
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         onButtonClick={handleButtonClick}
+                        placeholder={`${lang.location}...`}
                         value={location}
                     />
                 </CardContent>
