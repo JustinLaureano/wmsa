@@ -19,12 +19,14 @@ const MaterialLinkCell = (params : RenderCellParams) => {
     )
 }
 
-const columns = [
-    { field: 'material_number', headerName: 'Material', renderCell: MaterialLinkCell },
-    { field: 'part_number', headerName: 'Part', renderCell: MaterialLinkCell },
-    { field: 'description', headerName: 'Description' },
-    { field: 'base_unit_of_measure', headerName: 'UOM' },
-];
+const columns = (lang: JsonObject) => {
+    return [
+        { field: 'material_number', headerName: lang.material, renderCell: MaterialLinkCell },
+        { field: 'part_number', headerName: lang.part, renderCell: MaterialLinkCell },
+        { field: 'description', headerName: lang.description },
+        { field: 'base_unit_of_measure', headerName: lang.uom },
+    ];
+}
 
 const filters = [
     { component: MaterialSearchFilter },
@@ -47,7 +49,7 @@ export default function MaterialDataTable({ materials } : MaterialDataTableProps
             <CardHeader title={lang.materials} />
             <CardContent>
                 <DataTable
-                    columns={columns}
+                    columns={columns(lang)}
                     rows={data.data}
                     pagination={data}
                     filters={filters}
