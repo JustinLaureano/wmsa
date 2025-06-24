@@ -2,6 +2,8 @@
 
 return [
 
+    'lang_code' => 'es',
+
     /*
     |--------------------------------------------------------------------------
     | Frontend Language Lines
@@ -10,8 +12,6 @@ return [
     | The following language lines contain the frontend content shown to users.
     |
     */
-
-    'lang_code' => 'es',
 
     'actions' => 'Acciones',
     'back' => 'Volver',
@@ -30,6 +30,7 @@ return [
     'difference' => 'Diferencia',
     'dropped_off' => 'Despachado',
     'email' => 'correo',
+    'english' => 'Inglés',
     'expiration_date' => 'Fecha de Expiración',
     'home' => 'Hogar',
     'requests' => 'Solicitudes',
@@ -38,23 +39,35 @@ return [
     'irm_chemicals' => 'Químicos IRM',
     'irm_chemical_inventory' => 'Inventario de Químicos IRM',
     'label' => 'Etiqueta',
+    'language' => 'Inglés',
+    'light_dark_mode' => 'Modo claro/oscuro',
     'location' => 'Ubicación',
     'lot' => 'Lote',
     'lot_number' => 'Número de Lote',
     'manufacture_date' => 'Fecha de Manufactura',
+    'material_inventory' => 'Inventario de Materiales',
     'materials' => 'Materiales',
     'na' => 'n/a',
     'note' => 'Nota',
+    'notifications' => 'Notificaciones',
     'on_hand' => 'En Stock',
+    'part' => 'Parte',
+    'part_number' => 'Número de Parte',
     'password' => 'Contraseña',
     'plant_2' => 'Planta 2',
+    'put_away' => 'Guardar',
     'qty' => 'Qty',
     'quantity' => 'Cantidad',
     'ropack' => 'Ropack',
     'ropacks' => 'Ropacks',
     'safety_stock' => 'Stock de Seguridad',
     'search' => 'Buscar',
+    'select_your_preferred_language' => 'Seleccione su idioma preferido.',
     'serial_number' => 'Número de Serie',
+    'settings' => 'Ajustes',
+    'sort_inventory' => 'Inventario de Ordenamiento',
+    'spanish' => 'Inglés',
+    'storage_locations' => 'Ubicaciones de Almacenamiento',
     'supplier' => 'Proveedor',
     'supplier_part_number' => 'Número de Parte del Proveedor',
     'time' => 'Hora',
@@ -62,68 +75,5 @@ return [
     'username' => 'Nombre de Usuario',
     'view_barcode_label' => 'Ver Etiqueta de Código de Barras',
     'view_history' => 'Ver Historial',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Materials
-    |--------------------------------------------------------------------------
-    |
-    */
-    'material_inventory' => 'Inventario de Materiales',
-    'part' => 'Parte',
-    'part_number' => 'Número de Parte',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Messaging
-    |--------------------------------------------------------------------------
-    |
-    */
     'you' => 'tú',
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Notifications
-    |--------------------------------------------------------------------------
-    |
-    */
-    'notifications' => 'Notificaciones',
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Production
-    |--------------------------------------------------------------------------
-    |
-    */
-    'put_away' => 'Guardar',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Quality
-    |--------------------------------------------------------------------------
-    |
-    */
-    'sort_inventory' => 'Inventario de Ordenamiento',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Storage Locations
-    |--------------------------------------------------------------------------
-    |
-    */
-    'storage_locations' => 'Ubicaciones de Almacenamiento',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Settings
-    |--------------------------------------------------------------------------
-    |
-    */
-    'settings' => 'Ajustes',
-
-    'english' => 'Inglés',
-    'language' => 'Inglés',
-    'light_dark_mode' => 'Modo claro/oscuro',
-    'select_your_preferred_language' => 'Seleccione su idioma preferido.',
-    'spanish' => 'Inglés',
 ];
