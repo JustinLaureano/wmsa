@@ -52,6 +52,7 @@ return [
     'enabled' => 'Enabled',
     'english' => 'English',
     'expiration_date' => 'Expiration Date',
+    'for' => 'For',
     'full_inventory' => 'Full Inventory',
     'history' => 'History',
     'home' => 'Home',

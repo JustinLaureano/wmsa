@@ -4,7 +4,6 @@ namespace App\Http\Resources\Production;
 
 use App\Domain\Production\Enums\RequestStatusEnum;
 use App\Domain\Production\Enums\RequestTypeEnum;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -48,6 +47,6 @@ class MaterialRequestListResource extends JsonResource
         $item = $this->items->first();
         $locationName = $item->machine->name ?? $item->storageLocation->name;
 
-        return $item->material->part_number .' for '. $locationName;
+        return $item->material->part_number .' '. __('for') .' '. $locationName;
     }
 }

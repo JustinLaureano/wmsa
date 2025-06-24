@@ -52,6 +52,7 @@ return [
     'enabled' => 'Habilitado',
     'english' => 'Inglés',
     'expiration_date' => 'Fecha de Expiración',
+    'for' => 'Para',
     'full_inventory' => 'Inventario Completo',
     'history' => 'Historial',
     'home' => 'Hogar',
