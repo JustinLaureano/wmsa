@@ -19,17 +19,19 @@ const MaterialNumberCell = (params : RenderCellParams) => {
     )
 }
 
-const columns = [
-    { field: 'material_number', headerName: 'Material', renderCell: MaterialNumberCell },
-    { field: 'part_number', headerName: 'Part' },
-    { field: 'lot_number', headerName: 'Lot' },
-    { field: 'quantity', headerName: 'Quantity' },
-    { field: 'base_unit_of_measure', headerName: 'UOM' },
-    { field: 'expiration_date', headerName: 'Expiration Date' },
-    { field: 'container_type_name', headerName: 'Container Type' },
-    { field: 'storage_location_name', headerName: 'Storage Location' },
-    { field: 'movement_status_name', headerName: 'Movement Status' },
-];
+const columns = (lang: JsonObject) => {
+    return [
+        { field: 'material_number', headerName: lang.material, renderCell: MaterialNumberCell },
+        { field: 'part_number', headerName: lang.part },
+        { field: 'lot_number', headerName: lang.lot },
+        { field: 'quantity', headerName: lang.quantity },
+        { field: 'base_unit_of_measure', headerName: lang.uom },
+        { field: 'expiration_date', headerName: lang.expiration_date },
+        { field: 'container_type_name', headerName: lang.container_type },
+        { field: 'storage_location_name', headerName: lang.storage_location },
+        { field: 'movement_status_name', headerName: lang.movement_status },
+    ];
+}
 
 const filters = [
     { component: MaterialSearchFilter },
@@ -53,7 +55,7 @@ export default function ContainerInventoryDataTable({ inventory } : ContainerInv
             <CardHeader title={lang.inventory} />
             <CardContent>
                 <DataTable
-                    columns={columns}
+                    columns={columns(lang)}
                     rows={data.data}
                     pagination={data}
                     filters={filters}
