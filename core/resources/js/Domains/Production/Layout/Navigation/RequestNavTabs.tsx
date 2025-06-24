@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
-import { NavigationTab } from '@/types';
+import React, { useContext, useState } from 'react';
+import { NavigationTab, JsonObject } from '@/types';
 import { router } from '@inertiajs/react';
 import {
     Box,
     Tabs,
     Tab,
 } from '@mui/material';
+import LanguageContext from '@/Contexts/LanguageContext';
 
-const tabs : NavigationTab[] = [
-    { label: 'Plant 2', route: route('production.requests', { building_id: 1, type: 'transfer' }) },
-    { label: 'Blackhawk', route: route('production.requests', { building_id: 2, type: 'transfer' }) },
-    { label: 'Defiance', route: route('production.requests', { building_id: 3, type: 'transfer' }) },
-    { label: 'Phosphate', route: route('production.requests', { building_id: 1, type: 'phosphate' }) },
-    { label: 'Shipping', route: route('production.requests', { building_id: 2, type: 'shipping' }) },
-]
+const getTabs = (lang: JsonObject) : NavigationTab[] => {
+    return [
+        { label: lang.plant_2, route: route('production.requests', { building_id: 1, type: 'transfer' }) },
+        { label: lang.blackhawk, route: route('production.requests', { building_id: 2, type: 'transfer' }) },
+        { label: lang.defiance, route: route('production.requests', { building_id: 3, type: 'transfer' }) },
+        { label: lang.phosphate, route: route('production.requests', { building_id: 1, type: 'phosphate' }) },
+        { label: lang.shipping, route: route('production.requests', { building_id: 2, type: 'shipping' }) },
+    ]
+}
 
 export default function RequestNavTabs() {
+    const { lang } = useContext(LanguageContext);
+
     const href = window.location.href;
 
     let initialValue = 0;
+
+    const tabs = getTabs(lang);
 
     tabs.map((tab, index) => {
         if (href == tab.route) {
@@ -31,7 +38,6 @@ export default function RequestNavTabs() {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-
 
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>

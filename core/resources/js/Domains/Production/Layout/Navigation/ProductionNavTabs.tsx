@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
+import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function ProductionNavTabs() {
+    const { lang } = useContext(LanguageContext);
+
     const tabs = [
         {
-            label: 'Material Requests',
+            label: lang.material_requests,
             route: route('production.requests', { building_id: 1, type: 'transfer' }),
             selected: [
                 route('production.requests', { building_id: 1, type: 'transfer' }),
@@ -14,14 +18,14 @@ export default function ProductionNavTabs() {
             ]
         },
         {
-            label: 'New Request',
+            label: lang.new_request,
             route: route('production.material-request.new'),
             selected: [
                 route('production.material-request.new'),
             ]
         },
         {
-            label: 'Put Away',
+            label: lang.put_away,
             route: route('production.put-away.scan'),
             selected: [
                 route('production.put-away.scan'),
