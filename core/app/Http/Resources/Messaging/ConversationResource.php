@@ -64,19 +64,19 @@ class ConversationResource extends JsonResource
             ->filter()
             ->implode(', ');
 
-        return $names ?: 'Group Conversation';
+        return $names ?: __('frontend.group_conversation');
     }
 
     protected function getSubject(): string
     {
         if (!$this->latestMessage) {
-            return 'No Messages';
+            return __('frontend.no_messages');
         }
 
         $sender = $this->latestMessage->user;
         $teammate = $sender->teammate;
         $senderName = $sender->uuid === $this->participantData->user_uuid
-            ? 'You'
+            ? __('frontend.you')
             : "{$teammate->first_name} {$teammate->last_name}";
 
         return "{$senderName}: {$this->latestMessage->content}";

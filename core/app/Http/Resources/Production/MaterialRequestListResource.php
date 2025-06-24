@@ -47,6 +47,6 @@ class MaterialRequestListResource extends JsonResource
         $item = $this->items->first();
         $locationName = $item->machine->name ?? $item->storageLocation->name;
 
-        return $item->material->part_number .' '. __('for') .' '. $locationName;
+        return $item->material->part_number .' '. __('frontend.for') .' '. $locationName;
     }
 }

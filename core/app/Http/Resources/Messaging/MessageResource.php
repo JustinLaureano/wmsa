@@ -66,7 +66,7 @@ class MessageResource extends JsonResource
             return $lastName;
         }
 
-        return 'Unknown';
+        return __('frontend.unknown');
     }
 
     /**
