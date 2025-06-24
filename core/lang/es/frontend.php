@@ -114,6 +114,7 @@ return [
     'sort_list' => 'Lista de Ordenamiento',
     'sort_list_part_numbers' => 'Lista de Números de Parte',
     'sort_part_numbers' => 'Lista de Números de Parte',
+    'sort_parts' => 'Lista de Partes',
     'spanish' => 'Inglés',
     'storage_location' => 'Ubicación de Almacenamiento',
     'storage_locations' => 'Ubicaciones de Almacenamiento',

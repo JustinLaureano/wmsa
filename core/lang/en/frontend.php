@@ -114,6 +114,7 @@ return [
     'sort_list' => 'Sort List',
     'sort_list_part_numbers' => 'Sort List Part Numbers',
     'sort_part_numbers' => 'Sort Part Numbers',
+    'sort_parts' => 'Sort Parts',
     'spanish' => 'Spanish',
     'storage_location' => 'Storage Location',
     'storage_locations' => 'Storage Locations',
