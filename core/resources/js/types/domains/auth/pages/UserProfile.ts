@@ -1,5 +1,5 @@
-import { JsonObject } from "@/types";
+import { UserDetailResource } from "@/types";
 
 export type UserProfileProps = {
-    user: JsonObject;
+    user: UserDetailResource;
 };

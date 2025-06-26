@@ -36,6 +36,6 @@ class AppServiceProvider extends ServiceProvider
 
         JsonResource::withoutWrapping();
 
-        Model::automaticallyEagerLoadRelationships();
+        // Model::automaticallyEagerLoadRelationships();
     }
 }

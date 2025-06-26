@@ -10,24 +10,25 @@ services:
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         volumes:
-            - ./core/app:/var/www/html/app
-            - ./core/config:/var/www/html/config
-            - ./core/database:/var/www/html/database
-            - ./core/lang:/var/www/html/lang
-            - ./core/public:/var/www/html/public
-            - ./core/resources:/var/www/html/resources
-            - ./core/routes:/var/www/html/routes
-            - ./core/storage:/var/www/html/storage
-            - ./core/tests:/var/www/html/tests
-            - ./core/composer.json:/var/www/html/composer.json
-            - ./core/composer.lock:/var/www/html/composer.lock
-            - ./core/package.json:/var/www/html/package.json
-            - ./core/package-lock.json:/var/www/html/package-lock.json
-            - ./core/phpunit.xml:/var/www/html/phpunit.xml
-            - ./core/postcss.config.js:/var/www/html/postcss.config.js
-            - ./core/tailwind.config.js:/var/www/html/tailwind.config.js
-            - ./core/tsconfig.json:/var/www/html/tsconfig.json
-            - ./core/vite.config.js:/var/www/html/vite.config.js
+            - ./core:/var/www/html
+            # - ./core/app:/var/www/html/app
+            # - ./core/config:/var/www/html/config
+            # - ./core/database:/var/www/html/database
+            # - ./core/lang:/var/www/html/lang
+            # - ./core/public:/var/www/html/public
+            # - ./core/resources:/var/www/html/resources
+            # - ./core/routes:/var/www/html/routes
+            # - ./core/storage:/var/www/html/storage
+            # - ./core/tests:/var/www/html/tests
+            # - ./core/composer.json:/var/www/html/composer.json
+            # - ./core/composer.lock:/var/www/html/composer.lock
+            # - ./core/package.json:/var/www/html/package.json
+            # - ./core/package-lock.json:/var/www/html/package-lock.json
+            # - ./core/phpunit.xml:/var/www/html/phpunit.xml
+            # - ./core/postcss.config.js:/var/www/html/postcss.config.js
+            # - ./core/tailwind.config.js:/var/www/html/tailwind.config.js
+            # - ./core/tsconfig.json:/var/www/html/tsconfig.json
+            # - ./core/vite.config.js:/var/www/html/vite.config.js
             - '.env:/var/www/html/.env'
             - ./docker/core/php-fpm/php-dev.ini:/usr/local/etc/php/conf.d/php.ini
         networks:
