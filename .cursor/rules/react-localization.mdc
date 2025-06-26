@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This application must include multi language support, so all string values should be rendered from the language provider.
+
+For a language string to be valid, it must be present in the `core/lang/en/frontend.php` and `core/lang/es/frontend.php` files. If a new language string is needed, add it to both files with the appropriate translations.
+
+Example usage of a language string usage:
+
+```javascript
+import { useLanguage } from "@/Providers/LangProvider";
+
+export default function SettingsDialog() {
+    const { lang } = useLanguage();
+
+    return (
+        <UserListItem
+            label={lang.hire_date}
+        />
+    )
+}
+```

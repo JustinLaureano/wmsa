@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Any authorization used to allow a user to perform actions or access parts of the application should be performed using the methods from the AuthProvider.
+
+The `can` method checks if the user has the appropriate permissions, and the `is` method checks if the user has the appropriate role. The permissions should be checked whenever possible, and the role should be checked only in unique circumstances.
+
+Example usage of the `can` method:
+
+```javascript
+import { useAuth } from "@/Providers/AuthProvider";
+
+export default function SettingsDialog() {
+    const { can } = useAuth();
+
+    return (
+        {can('edit_materials') && (
+            <Button>
+                {lang.edit_materials}
+            </Button>
+        )}
+    )
+}
+```
+
+Example usage of the `is` method:
+
+```javascript
+import { useAuth } from "@/Providers/AuthProvider";
+
+export default function SettingsDialog() {
+    const { is } = useAuth();
+
+    return (
+        {is('it_admin') && (
+            <Button>
+                {lang.assign_role}
+            </Button>
+        )}
+    )
+}
+```

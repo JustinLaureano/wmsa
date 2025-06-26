@@ -11,6 +11,8 @@ export interface InitialPageProps {
         auth?: {
             auth_method: string;
             user: UserProfileResource | null;
+            permissions: string[];
+            roles: string[];
         },
         errors?: JsonObject;
         lang: JsonObject;

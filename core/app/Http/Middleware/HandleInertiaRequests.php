@@ -39,6 +39,25 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'auth_method' => session('auth_method'),
                 'user' => $request->user() ? new UserProfileResource($request->user()) : null,
+                'permissions' => $request->user()
+                    ? array_merge(
+                        $request->user()
+                            ->roles
+                            ->pluck('permissions')
+                            ->flatten()
+                            ->pluck('name')
+                            ->toArray(),
+                        $request->user()
+                            ->getDirectPermissions()
+                            ->pluck('name')
+                            ->toArray()
+                    )
+                    : [],
+                'roles' => $request->user()
+                    ? $request->user()
+                        ->getRoleNames()
+                        ->toArray()
+                    : [],
             ],
 
             'lang' => __('frontend'),

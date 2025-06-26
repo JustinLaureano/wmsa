@@ -7,6 +7,8 @@ const defaultInitialPage: InitialPageProps = {
         auth: {
             auth_method: '',
             user: null,
+            permissions: [],
+            roles: [],
         },
         errors: {},
         lang: {},
@@ -20,14 +22,31 @@ export default function AuthProvider({
     initialPage = defaultInitialPage,
     ...props
 }: AuthProviderProps) {
+    console.log(initialPage.props.auth);
     const [user, setUser] = useState(initialPage.props?.auth?.user || null);
+    const [permissions, setPermissions] = useState(initialPage.props?.auth?.permissions || []);
+    const [roles, setRoles] = useState(initialPage.props?.auth?.roles || []);
+
+    const can = (permission: string) => {
+        return permissions.includes(permission);
+    };
+
+    const is = (role: string) => {
+        return roles.includes(role);
+    };
 
     const defaultValue = {
         user,
-        setUser
+        setUser,
+        permissions,
+        setPermissions,
+        roles,
+        setRoles,
+        can,
+        is
     };
 
-    const dependencies = [user];
+    const dependencies = [user, permissions, roles];
 
     const value = useMemo(() => defaultValue, dependencies)
 
