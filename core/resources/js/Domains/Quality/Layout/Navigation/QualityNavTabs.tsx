@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function QualityNavTabs() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const tabs = [
         {

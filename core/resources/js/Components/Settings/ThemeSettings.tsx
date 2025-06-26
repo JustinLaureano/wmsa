@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import ColorModeContext from '@/Contexts/ColorModeContext';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Brightness6, LightMode } from '@mui/icons-material';
 import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
 
 export default function ThemeSettings() {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const colorMode = useContext(ColorModeContext);
 
     const handleChange = (

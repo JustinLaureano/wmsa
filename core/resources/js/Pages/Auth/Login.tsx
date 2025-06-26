@@ -1,4 +1,4 @@
-import { FormEventHandler, useContext, useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import { useForm } from '@inertiajs/react';
 import {
@@ -13,10 +13,10 @@ import {
 } from '@mui/material';
 import TextInput from '@/Components/Inputs/TextInput';
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function Login({ referrer }: { referrer: string }) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const { data, setData, post, processing, errors, reset } = useForm({
         username: '',

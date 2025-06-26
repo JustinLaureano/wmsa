@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import LanguageContext from '@/Contexts/LanguageContext';
+import React from 'react';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import {
     Box,
     Stack,
@@ -23,7 +23,7 @@ export default function SafetyStockDataCell(
         difference: number|null;
     }
 ) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     return (

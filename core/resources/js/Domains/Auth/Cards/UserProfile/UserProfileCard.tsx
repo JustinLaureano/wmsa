@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import {
     Card,
     CardContent,
     Grid,
 } from "@mui/material";
 import { UserProfileCardProps } from "@/types";
-import LanguageContext from "@/Contexts/LanguageContext";
+import { useLanguage } from "@/Providers/LanguageProvider";
 import { 
     PersonOutlineOutlined,
     Settings,
@@ -17,7 +16,7 @@ import UserInfoCard from "./UserInfoCard";
 import SystemListItem from "./SystemListItem";
 
 export default function UserProfileCard({ user }: UserProfileCardProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const {
         clock_number,

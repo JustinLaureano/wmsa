@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import StyledTabs from '@/Components/Styled/StyledTabs';
 import StyledTab from '@/Components/Styled/StyledTab';
 import StyledTabsContainer from './Styled/StyledTabsContainer';
 import { JsonObject } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function HomeTabs(props : JsonObject) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const [value, setValue] = useState(0);
 

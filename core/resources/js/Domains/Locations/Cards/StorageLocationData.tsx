@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { StorageLocationDataProps, JsonObject } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { getUrlParams } from '@/Components/Tables/Filters/params';
 import {
     Accordion,
@@ -29,7 +29,7 @@ import { StorageLocationService } from '@/Services/Locations';
 import { CheckBoxOutlineBlank, CheckBoxOutlined } from '@mui/icons-material';
 
 export default function StorageLocationData({ storageLocations } : StorageLocationDataProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const storageLocationService = new StorageLocationService();
     console.log(storageLocations);
 

@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { UserProfileProps } from "@/types";
-import LanguageContext from "@/Contexts/LanguageContext";
+import { useLanguage } from "@/Providers/LanguageProvider";
 import SidebarLayout from "@/Layouts/SidebarLayout";
 import UserProfileCard from "@/Domains/Auth/Cards/UserProfile/UserProfileCard";
 
 export default function UserProfile({ user }: UserProfileProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SidebarLayout title={lang.user_profile}>

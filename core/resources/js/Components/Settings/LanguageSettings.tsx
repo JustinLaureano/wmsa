@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
 
 export default function LanguageSettings() {
     const theme = useTheme();
     const [initialLoad, setInitialLoad] = useState(true);
-    const { lang, setLang } = useContext(LanguageContext);
+    const { lang, setLang } = useLanguage();
     const [langCode, setLangCode] = useState(lang.lang_code);
 
     const handleChange = (

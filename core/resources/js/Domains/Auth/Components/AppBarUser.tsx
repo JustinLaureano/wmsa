@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
 import {
     Avatar,
@@ -15,10 +15,10 @@ import {
 import { orange } from '@mui/material/colors';
 import { AccountCircleOutlined, LogoutOutlined, PersonOutline } from '@mui/icons-material';
 import { useAuth } from '@/Providers/AuthProvider';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function AppBarUser() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { user } = useAuth();
     const theme = useTheme();
 

@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import QualityPageHeader from '@/Domains/Quality/Layout/Header/QualityPageHeader';
 import { ViewSortInventoryProps } from '@/types';
 import { Paper } from '@mui/material';
@@ -8,7 +7,7 @@ import SortInventoryNavTabs from '@/Domains/Quality/Layout/Navigation/SortInvent
 import SortInventoryData from '@/Domains/Quality/Cards/SortInventory/SortInventoryData';
 
 export default function ViewSortInventory({ inventory, materialOptions }: ViewSortInventoryProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SidebarLayout title={lang.sort_inventory}>

@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { MailOutline } from '@mui/icons-material';
 import { Stack, Typography, useTheme} from '@mui/material';
 import { grey } from '@mui/material/colors';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function MessagesPlaceholder() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     const color = theme.palette.mode == 'light'

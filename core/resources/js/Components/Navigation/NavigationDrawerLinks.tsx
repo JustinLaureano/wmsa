@@ -1,11 +1,10 @@
-import { useContext } from 'react';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { getNavigationDrawerLinks } from './links';
 import StyledNavList from '@/Components/Styled/StyledNavList';
 import NavigationDrawerLink from './NavigationDrawerLink';
 
 export default function NavigationDrawerLinks() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const navigationDrawerLinks = getNavigationDrawerLinks(lang);
 

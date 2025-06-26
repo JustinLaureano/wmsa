@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
     Card,
     CardContent,
@@ -10,12 +10,12 @@ import {
 } from '@mui/material';
 import { ViewSortListPartNumbersProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import QualityPageHeader from '@/Domains/Quality/Layout/Header/QualityPageHeader';
 import OverflowScrollBox from '@/Components/Shared/OverflowScrollBox';
 
 export default function ViewSortListPartNumbers({ partNumbers }: ViewSortListPartNumbersProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     const [search, setSearch] = useState('');

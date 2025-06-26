@@ -4,10 +4,10 @@ import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
 import MessagingContext from '@/Contexts/MessagingContext';
 import { useAuth } from '@/Providers/AuthProvider';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function NewMessageInput() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { user } = useAuth();
     const {
         activeConversation,

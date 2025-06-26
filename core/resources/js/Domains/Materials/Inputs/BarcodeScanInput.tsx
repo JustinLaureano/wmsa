@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {
     Paper,
     Stack,
@@ -10,7 +10,7 @@ import { Send } from '@mui/icons-material';
 import StyledInputBase from '@/Components/Styled/StyledInputBase';
 import { BarcodeScanInputProps } from '@/types';
 import { blue } from '@mui/material/colors';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function BarcodeScanInput({
     onChange,
@@ -22,7 +22,7 @@ export default function BarcodeScanInput({
     sx,
     ...rest
 }: BarcodeScanInputProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const [isFocused, setIsFocused] = useState(false);
 

@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { router } from '@inertiajs/react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import { BarcodeLabelService } from '@/Services/Materials';
 import BarcodeScanInput from '@/Domains/Materials/Inputs/BarcodeScanInput';
 import { Card, CardContent, CardHeader } from '@mui/material';
 
 export default function ScanContainer() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const barcodeLabelService = new BarcodeLabelService();
 
     const [barcode, setBarcode] = useState('');

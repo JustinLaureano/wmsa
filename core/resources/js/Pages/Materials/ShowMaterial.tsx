@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { ShowMaterialProps } from '@/types';
 import { Stack, useTheme } from '@mui/material';
 import NavigateBackLink from '@/Components/Navigation/NavigateBackLink';
@@ -10,7 +9,7 @@ export default function ShowMaterial({
     ...props
 } : ShowMaterialProps) {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     console.log(material)
 

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     SortInventoryDataProps,
     JsonObject,
@@ -7,7 +7,7 @@ import {
     ViewSortListInventoryResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { getUrlParams } from '@/Components/Tables/Filters/params';
 import {
     Card,
@@ -34,7 +34,7 @@ import { ContainerQuantityService } from '@/Services/Materials';
 import { useAuth } from '@/Providers/AuthProvider';
 
 export default function SortInventoryData({ inventory, materialOptions } : SortInventoryDataProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { user } = useAuth();
     const sortInventoryService = new SortInventoryService();
 

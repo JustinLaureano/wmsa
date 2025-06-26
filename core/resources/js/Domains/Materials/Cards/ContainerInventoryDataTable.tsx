@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { ContainerInventoryDataTableProps, JsonObject, RenderCellParams } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
 import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
@@ -41,7 +41,7 @@ const filters = [
 ];
 
 export default function ContainerInventoryDataTable({ inventory } : ContainerInventoryDataTableProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const [data, setData] = useState(inventory);
 

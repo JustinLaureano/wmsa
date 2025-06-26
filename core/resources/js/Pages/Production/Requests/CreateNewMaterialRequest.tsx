@@ -1,8 +1,8 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Card, CardHeader, CardContent, CardActions, Button, Stack } from '@mui/material';
 import { CreateNewMaterialRequestProps, MachineOptionResource, MaterialRequestFormData } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import RequestService from '@/Services/RequestService';
 import ComboBox from '@/Components/Inputs/ComboBox';
@@ -10,7 +10,7 @@ import TextInput from '@/Components/Inputs/TextInput';
 import { useAuth } from '@/Providers/AuthProvider';
 
 export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterialRequestProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { user } = useAuth();
 
     const { machines } = props;

@@ -1,7 +1,6 @@
-import { useContext } from 'react';
 import { JsonObject, NavigationTab } from '@/types';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 const tabs = (lang: JsonObject) : NavigationTab[] => {
     return [
@@ -23,7 +22,7 @@ const tabs = (lang: JsonObject) : NavigationTab[] => {
 }
 
 export default function SortInventoryNavTabs() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SubpageNavigationTabs

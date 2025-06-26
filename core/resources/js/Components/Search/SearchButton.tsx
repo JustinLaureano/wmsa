@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { JsonObject } from '@/types';
 import { Search } from '@mui/icons-material';
 import { Button, Box, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function SearchButton(props : JsonObject) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     const handleButtonClick= (e: React.MouseEvent<HTMLElement>) => {

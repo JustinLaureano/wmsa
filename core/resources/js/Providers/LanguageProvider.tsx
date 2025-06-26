@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { LanguageProviderProps } from '@/types';
 import LanguageContext from '@/Contexts/LanguageContext';
 
@@ -27,3 +27,5 @@ export default function LanguageProvider({
         </LanguageContext.Provider>
     );
 }
+
+export const useLanguage = () => useContext(LanguageContext);

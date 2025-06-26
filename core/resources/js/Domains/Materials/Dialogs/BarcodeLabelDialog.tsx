@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import {
 	Dialog,
 	DialogTitle,
@@ -13,7 +12,7 @@ import {
 } from '@mui/material';
 import { BarcodeLabelDialogProps, InfoRowProps } from '@/types';
 import { ContentCopy } from '@mui/icons-material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { styled } from '@mui/material/styles';
 
 const InfoRow = ({ label, content, sx }: InfoRowProps) => {
@@ -49,7 +48,7 @@ const LabelContentBox = styled(Box)(({ theme }) => ({
 export default function BarcodeLabelDialog({ open, onClose, barcodeLabel }: BarcodeLabelDialogProps) {
 	if ( !barcodeLabel ) return null;
 
-	const { lang } = useContext(LanguageContext);
+	const { lang } = useLanguage();
 	const handleCopyBarcode = () => {
 		navigator.clipboard.writeText(barcodeLabel.barcode);
 	};

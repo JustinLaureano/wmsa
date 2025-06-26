@@ -1,9 +1,8 @@
 import { TableCell, TableHead, TableRow, Typography, useTheme } from '@mui/material';
-import { useContext } from 'react';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function TableHeader() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
 	return (

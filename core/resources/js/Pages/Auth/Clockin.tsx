@@ -1,11 +1,11 @@
-import { FormEventHandler, useContext } from 'react';
+import { FormEventHandler } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import { Head, useForm } from '@inertiajs/react';
 import PrimaryLogo from '@/Components/PrimaryLogo';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function Clockin(props: any) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const { data, setData, post, processing, errors, reset } = useForm({
         clock_number: '',

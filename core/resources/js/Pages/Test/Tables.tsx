@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Card, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import HomeTabs from '@/Components/HomeTabs';
 import DataTable from '@/Components/Tables/DataTable';
@@ -19,7 +18,7 @@ const columns = [
 
 export default function ViewTables({ containers, ...props } : ViewTablesProps) {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     console.log(containers)
 

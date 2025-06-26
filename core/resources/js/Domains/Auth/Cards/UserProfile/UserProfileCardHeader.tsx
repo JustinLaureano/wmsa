@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import {
     Box,
     Typography,
 } from "@mui/material";
-import LanguageContext from "@/Contexts/LanguageContext";
+import { useLanguage } from "@/Providers/LanguageProvider";
 
 export default function UserProfileCardHeader() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <Box

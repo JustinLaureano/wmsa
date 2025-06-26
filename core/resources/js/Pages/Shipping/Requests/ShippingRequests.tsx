@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import ShippingPageHeader from '@/Domains/Shipping/Layout/Header/ShippingPageHeader';
 import SkeletonPage from '@/Components/SkeletonPage';
 
 export default function ShippingRequests() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SidebarLayout title={`${lang.shipping} ${lang.requests}`}>

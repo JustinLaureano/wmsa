@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
     Alert,
     IconButton,
@@ -6,13 +5,13 @@ import {
     Typography,
 } from "@mui/material";
 import { SystemListItemProps } from "@/types";
-import LanguageContext from "@/Contexts/LanguageContext";
+import { useLanguage } from "@/Providers/LanguageProvider";
 import { 
     ContentCopy,
 } from "@mui/icons-material";
 
 export default function SystemListItem({ label, text, onCopyClick }: SystemListItemProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <> 

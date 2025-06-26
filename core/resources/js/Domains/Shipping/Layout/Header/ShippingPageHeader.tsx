@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { Stack, Typography, useTheme } from '@mui/material';
 import ShippingNavTabs from '../Navigation/ShippingNavTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function ShippingPageHeader() {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <Stack sx={{ mb: theme.spacing(4) }}>

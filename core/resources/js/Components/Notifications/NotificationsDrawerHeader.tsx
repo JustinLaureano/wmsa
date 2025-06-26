@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import { NotificationsDrawerHeaderProps } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Close } from '@mui/icons-material';
 import { IconButton, Stack, Typography, useTheme } from '@mui/material';
 
 export default function NotificationsDrawerHeader({ onCloseClick, ...props } : NotificationsDrawerHeaderProps) {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <Stack direction="row" alignItems="center">

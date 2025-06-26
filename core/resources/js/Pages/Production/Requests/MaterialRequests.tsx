@@ -1,8 +1,7 @@
-import { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { MaterialRequestsProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionPageHeader';
 import { green, red, blue, grey } from '@mui/material/colors';
 import { PersonOutlined, ScheduleOutlined, ViewList } from '@mui/icons-material';
@@ -21,7 +20,7 @@ import LocalDateDisplay from '@/Components/Shared/LocalDateDisplay';
 
 export default function MaterialRequests({ requests } : MaterialRequestsProps) {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const list = requests.data;
 
     return (

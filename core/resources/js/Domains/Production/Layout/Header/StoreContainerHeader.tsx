@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { Stack, Typography, useTheme } from '@mui/material';
 import NavigateBackLink from '@/Components/Navigation/NavigateBackLink';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function StoreContainerHeader() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     return (

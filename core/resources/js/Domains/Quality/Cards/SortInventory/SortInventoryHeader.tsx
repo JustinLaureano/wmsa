@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import {
     Typography,
     Grid,
     Divider,
 } from '@mui/material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function SortInventoryHeader() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <>

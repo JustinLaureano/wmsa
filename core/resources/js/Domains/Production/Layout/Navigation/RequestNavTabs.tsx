@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { NavigationTab, JsonObject } from '@/types';
 import { router } from '@inertiajs/react';
 import {
@@ -6,7 +6,7 @@ import {
     Tabs,
     Tab,
 } from '@mui/material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 const getTabs = (lang: JsonObject) : NavigationTab[] => {
     return [
@@ -19,7 +19,7 @@ const getTabs = (lang: JsonObject) : NavigationTab[] => {
 }
 
 export default function RequestNavTabs() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const href = window.location.href;
 

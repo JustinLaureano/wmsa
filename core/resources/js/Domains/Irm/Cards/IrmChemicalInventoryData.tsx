@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { IrmChemicalInventoryDataProps } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import {
     Box,
     Card,
@@ -22,7 +22,7 @@ import { HistoryOutlined } from '@mui/icons-material';
 import SearchInput from '@/Components/Inputs/SearchInput';
 
 export default function IrmChemicalInventoryData({ inventory } : IrmChemicalInventoryDataProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
 
     const [data, setData] = useState(inventory);

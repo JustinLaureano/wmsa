@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import QualityPageHeader from '@/Domains/Quality/Layout/Header/QualityPageHeader';
 import SkeletonPage from '@/Components/SkeletonPage';
 
 export default function ViewSortList() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SidebarLayout title={lang.sort_list}>

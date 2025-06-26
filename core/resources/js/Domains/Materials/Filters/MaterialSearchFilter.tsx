@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import TextSearchFilter from "@/Components/Tables/Filters/TextSearchFilter";
 import { TextSearchFilterProps } from "@/types";
-import LanguageContext from "@/Contexts/LanguageContext";
+import { useLanguage } from "@/Providers/LanguageProvider";
 
 export default function MaterialNumberSearchFilter({
     onFilterChange,
     ...props
 } : TextSearchFilterProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <TextSearchFilter

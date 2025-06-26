@@ -1,11 +1,11 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     MaterialInventoryDataProps,
     JsonObject,
     MaterialAutocompleteResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { getUrlParams } from '@/Components/Tables/Filters/params';
 import {
     AccordionDetails,
@@ -34,7 +34,7 @@ import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { MaterialInventoryService } from '@/Services/Materials';
 
 export default function MaterialInventoryData({ inventory, materialOptions } : MaterialInventoryDataProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const materialInventoryService = new MaterialInventoryService();
 
     const [loaded, setLoaded] = useState(false);

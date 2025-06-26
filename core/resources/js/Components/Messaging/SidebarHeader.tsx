@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { OpenInNew } from '@mui/icons-material';
 import { Divider, IconButton, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import MessagingContext from '@/Contexts/MessagingContext';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function SidebarHeader() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { handleStartNewConversation } = useContext(MessagingContext);
     const theme = useTheme();
 

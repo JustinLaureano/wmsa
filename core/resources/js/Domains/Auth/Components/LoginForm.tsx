@@ -8,7 +8,7 @@ import {
     VisibilityOffOutlined,
     VisibilityOutlined
 } from '@mui/icons-material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import AuthContext from '@/Contexts/AuthContext';
 
 const FormStack = ({ children, ...props } : any) => {
@@ -19,7 +19,7 @@ const FormStack = ({ children, ...props } : any) => {
 
 export default function LoginForm({ onLoginSuccess = () => {} }: any) {
     // TODO: make sure lang has expected properties
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { setUser } = useContext(AuthContext);
 
     // For future use

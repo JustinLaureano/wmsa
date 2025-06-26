@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { Link } from '@inertiajs/react';
 import { MaterialDataTableProps, JsonObject, RenderCellParams } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
-import { Card, CardContent, CardHeader, Typography } from '@mui/material';
+import { useLanguage } from '@/Providers/LanguageProvider';
+import { Card, CardContent, CardHeader } from '@mui/material';
 import DataTable from '@/Components/Tables/DataTable';
 import MaterialSearchFilter from '../Filters/MaterialSearchFilter';
 import MaterialNumberSearchFilter from '../Filters/MaterialNumberSearchFilter';
@@ -35,7 +34,7 @@ const filters = [
 ];
 
 export default function MaterialDataTable({ materials } : MaterialDataTableProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const [data, setData] = useState(materials);
 

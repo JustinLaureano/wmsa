@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import { ShowInventoryProps } from '@/types';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import IrmPageHeader from '@/Domains/Irm/Layout/Header/IrmPageHeader';
 import IrmChemicalInventoryData from '@/Domains/Irm/Cards/IrmChemicalInventoryData';
 
 export default function ShowInventory({ inventory } : ShowInventoryProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     console.log(inventory);
 

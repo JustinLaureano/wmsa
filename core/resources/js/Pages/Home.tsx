@@ -1,15 +1,15 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import { Stack, Typography, useTheme } from '@mui/material';
 import { toast } from 'react-toastify';
 import HomeTabs from '@/Components/HomeTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import SkeletonPage from '@/Components/SkeletonPage';
 
 export default function Home({ recentRequests, ...props } : any) {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     useEffect(() => {
         window.Echo.channel('request-created')

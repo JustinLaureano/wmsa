@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { Stack, Typography, useTheme } from '@mui/material';
 import ReceivingNavTabs from '../Navigation/ReceivingNavTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function ReceivingPageHeaderHeader() {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <Stack sx={{ mb: theme.spacing(4) }}>

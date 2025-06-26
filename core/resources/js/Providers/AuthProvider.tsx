@@ -15,7 +15,7 @@ const defaultInitialPage: InitialPageProps = {
     }
 }
 
-export function AuthProvider({
+export default function AuthProvider({
     children,
     initialPage = defaultInitialPage,
     ...props

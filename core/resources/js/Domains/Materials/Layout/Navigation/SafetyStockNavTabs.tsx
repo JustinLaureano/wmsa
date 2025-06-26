@@ -1,7 +1,6 @@
-import { useContext } from 'react';
 import { NavigationTab, JsonObject } from '@/types';
 import SubpageNavigationTabs from '@/Components/Navigation/SubpageNavigationTabs';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 const tabs = (lang: JsonObject) : NavigationTab[] => {
     return [
@@ -37,7 +36,7 @@ const tabs = (lang: JsonObject) : NavigationTab[] => {
 }
 
 export default function SafetyStockNavTabs() {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SubpageNavigationTabs

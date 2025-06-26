@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { SafetyStockReportDataProps, JsonObject } from '@/types';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import {
     Card,
     CardActions,
@@ -19,7 +19,7 @@ import TableHeader from './TableHeader';
 import MaterialTableRow from './MaterialTableRow';
 
 export default function SafetyStockReportData({ safetyStock } : SafetyStockReportDataProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const theme = useTheme();
     const safetyStockReportService = new SafetyStockReportService();
 

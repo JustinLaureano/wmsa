@@ -4,7 +4,7 @@ import {
     Box,
     Button, Stack, Typography
 } from '@mui/material';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 const FormStack = ({ children, ...props } : any) => {
     return (

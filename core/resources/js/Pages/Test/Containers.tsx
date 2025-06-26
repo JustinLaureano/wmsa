@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import { Button, Card,CardActions, CardContent, CardHeader, Stack, Typography, useTheme } from '@mui/material';
 import HomeTabs from '@/Components/HomeTabs';
 
 export default function ContainersTest() {
     const theme = useTheme();
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     const [barcodeValue, setBarcodeValue] = useState('');
 

@@ -6,11 +6,11 @@ import {
 } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import LoginForm from './LoginForm';
 
 export default function AppBarLogin(props: any) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     const { loginDialogOpen, setLoginDialogOpen } = useContext(UIContext);
 
     const handleLoginButtonClick = () => {

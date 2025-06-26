@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 import { ViewSafetyStockProps } from '@/types';
 import SafetyStockNavTabs from '@/Domains/Materials/Layout/Navigation/SafetyStockNavTabs';
@@ -12,7 +11,7 @@ export default function ViewSafetyStock({
     ...props
 } : ViewSafetyStockProps) {
 
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
     return (
         <SidebarLayout title={lang.safety_stock}>
             <MaterialsPageHeader />

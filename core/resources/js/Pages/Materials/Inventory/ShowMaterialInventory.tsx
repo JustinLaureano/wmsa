@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import LanguageContext from '@/Contexts/LanguageContext';
+import { useLanguage } from '@/Providers/LanguageProvider';
 import MaterialsPageHeader from '@/Domains/Materials/Layout/Header/MaterialsPageHeader';
 import MaterialInventoryData from '@/Domains/Materials/Cards/MaterialInventoryData';
 import { ShowMaterialInventoryProps } from '@/types';
 
 export default function ShowMaterialInventory({ inventory, materialOptions, ...props } : ShowMaterialInventoryProps) {
-    const { lang } = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     return (
         <SidebarLayout title={lang.inventory}>
