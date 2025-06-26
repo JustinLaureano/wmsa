@@ -150,6 +150,7 @@ return [
     'unit_quantity' => 'Unit Quantity',
     'unknown' => 'Unknown',
     'uom' => 'UOM',
+    'user_profile' => 'User Profile',
     'username' => 'Username',
     'view_barcode_label' => 'View Barcode Label',
     'view_chemicals' => 'View Chemicals',

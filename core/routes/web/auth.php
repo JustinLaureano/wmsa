@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ClockinController;
+use App\Http\Controllers\Auth\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,4 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('clockout', [ClockinController::class, 'destroy'])
         ->name('clockout');
+
+    Route::get('user-profile/{user:uuid}', UserProfileController::class)
+        ->name('user.profile');
 });

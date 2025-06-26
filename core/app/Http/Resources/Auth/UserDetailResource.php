@@ -19,7 +19,10 @@ class UserDetailResource extends JsonResource
             'attributes' => $this->resource->getAttributes(),
             'relations' => [
                 'teammate' => $this->teammate,
-                'domainAccount' => $this->domainAccount
+                'domainAccount' => $this->domainAccount,
+                'roles' => $this->roles,
+                'permissions' => $this->permissions,
+                'settings' => $this->settings,
             ],
             'computed' => [
                 'clock_number' => $this->teammate_clock_number,

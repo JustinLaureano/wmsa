@@ -1,11 +1,21 @@
-import { JsonApiResource } from '../../../shared/JsonApiResource.types';
-import { Teammate, DomainAccount, User } from '../entities';
+import {
+    JsonApiResource,
+    Teammate,
+    DomainAccount,
+    User,
+    Role,
+    Permission,
+    UserSetting,
+} from '@/types';
 
 export type UserDetailAttributes = User;
 
 export interface UserDetailRelations {
     teammate: Teammate;
     domainAccount: DomainAccount;
+    roles: Role[];
+    permissions: Permission[];
+    settings: UserSetting[];
 }
 
 export interface UserDetailComputed {

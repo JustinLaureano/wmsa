@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Domain\Auth\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         JsonResource::withoutWrapping();
+
+        Model::automaticallyEagerLoadRelationships();
     }
 }

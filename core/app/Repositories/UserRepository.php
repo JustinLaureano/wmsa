@@ -38,6 +38,23 @@ class UserRepository
     }
 
     /**
+     * Get the authenticated user record.
+     */
+    public function getAuthUser() : User
+    {
+        return User::query()
+            ->where('uuid', auth()->user()->uuid)
+            ->with([
+                'domainAccount',
+                'roles',
+                'permissions',
+                'settings',
+                'teammate',
+            ])
+            ->first();
+    }
+
+    /**
      * Remove a role for the user.
      */
     public function removeRole(RemoveUserRoleData $data) : void

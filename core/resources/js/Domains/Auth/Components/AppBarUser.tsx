@@ -40,8 +40,9 @@ export default function AppBarUser() {
     }
 
     const handleUserProfileClick = () => {
-        console.log('user profile click');
-        // router.get(route('user.profile'));
+        router.get(route('user.profile', {
+            user: user?.uuid
+        }));
     }
 
     return (

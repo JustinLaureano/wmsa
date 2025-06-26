@@ -150,6 +150,7 @@ return [
     'unit_quantity' => 'Cantidad de Unidad',
     'unknown' => 'Desconocido',
     'uom' => 'UOM',
+    'user_profile' => 'Perfil de Usuario',
     'username' => 'Nombre de Usuario',
     'view_barcode_label' => 'Ver Etiqueta de Código de Barras',
     'view_chemicals' => 'Ver Químicos',
