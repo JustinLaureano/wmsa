@@ -35,6 +35,7 @@ class UserDetailResource extends JsonResource
                 'department' => $this->domainAccount?->department,
                 'email' => $this->domainAccount?->email,
                 'hire_date' => $this->teammate?->hire_date,
+                'user_uuid' => $this->uuid,
             ]
         ];
     }

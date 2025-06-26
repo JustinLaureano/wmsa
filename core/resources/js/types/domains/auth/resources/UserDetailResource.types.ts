@@ -29,6 +29,7 @@ export interface UserDetailComputed {
     department: string;
     email: string;
     hire_date: string;
+    user_uuid: string;
 }
 
 export type UserDetailResource = JsonApiResource<
