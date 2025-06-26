@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { AuthProviderProps, InitialPageProps } from '@/types';
 import AuthContext from '@/Contexts/AuthContext';
 
@@ -15,7 +15,7 @@ const defaultInitialPage: InitialPageProps = {
     }
 }
 
-export default function AuthProvider({
+export function AuthProvider({
     children,
     initialPage = defaultInitialPage,
     ...props
@@ -37,3 +37,5 @@ export default function AuthProvider({
         </AuthContext.Provider>
     );
 }
+
+export const useAuth = () => useContext(AuthContext);

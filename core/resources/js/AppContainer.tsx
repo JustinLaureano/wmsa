@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import CssBaseline from '@mui/material/CssBaseline';
-import AuthProvider from './Providers/AuthProvider';
+import { AuthProvider } from './Providers/AuthProvider';
 import LanguageProvider from './Providers/LanguageProvider';
 import PrimaryThemeProvider from './Providers/PrimaryThemeProvider';
 import UIProvider from './Providers/UIProvider';

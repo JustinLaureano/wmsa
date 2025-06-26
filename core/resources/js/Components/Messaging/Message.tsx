@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import { MessageProps } from '@/types';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 import MessageContainer from './MessageContainer';
 import MessageMeta from './MessageMeta';
 import MessageCard from './MessageCard';
 
 export default function Message({ message, ...props }: MessageProps) {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const { sender_uuid } = message.computed;
 
     let justify = 'left';

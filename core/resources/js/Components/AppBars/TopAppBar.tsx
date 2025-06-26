@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
 import { AppBar, Toolbar, Stack, Typography, useTheme } from '@mui/material';
 import { TopAppBarProps } from '@/types';
 import NavigationToggle from './NavigationToggle';
 import AppBarLogin from '@/Domains/Auth/Components/AppBarLogin';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 import AppBarUser from '@/Domains/Auth/Components/AppBarUser';
 import NotificationsButton from '@/Components/Notifications/NotificationsButton';
 import SettingsButton from '../Settings/SettingsButton';
@@ -12,7 +11,7 @@ import MessagingButton from '../Messaging/MessagingButton';
 
 export default function TopAppBar({ title, ...props } : TopAppBarProps) {
     const theme = useTheme();
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
 
     return (
         <AppBar

@@ -3,12 +3,12 @@ import { Divider, IconButton, Paper, Stack } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import StyledInputBase from '../Styled/StyledInputBase';
 import MessagingContext from '@/Contexts/MessagingContext';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function NewMessageInput() {
     const { lang } = useContext(LanguageContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const {
         activeConversation,
         handleNewMessageRequest,

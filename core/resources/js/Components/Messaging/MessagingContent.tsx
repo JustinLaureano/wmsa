@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { Stack, useTheme } from '@mui/material';
-import AuthContext from '@/Contexts/AuthContext';
+import ParticipantSearch from './ParticipantSearch';
 import MessagingContext from '@/Contexts/MessagingContext';
 import MessagesHeader from './MessagesHeader';
 import MessagesList from './MessagesList';
 import MessagesActions from './MessagesActions';
 import MessagesPlaceholder from './MessagesPlaceholder';
-import ParticipantSearch from './ParticipantSearch';
+import { useAuth } from '@/Providers/AuthProvider';
 
 export default function MessagingContent() {
     const theme = useTheme();
@@ -16,7 +16,7 @@ export default function MessagingContent() {
         handleConversationMessagesRead,
         isStartingNewConversation,
     } = useContext(MessagingContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [readTimeout, setReadTimeout] = useState<NodeJS.Timeout>();
     const [showPlaceholder, setShowPlaceholder] = useState(true);
 

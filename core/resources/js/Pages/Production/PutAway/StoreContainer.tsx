@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 import { router } from '@inertiajs/react';
 import SidebarLayout from '@/Layouts/SidebarLayout';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 import LanguageContext from '@/Contexts/LanguageContext';
 import StoreContainerHeader from '@/Domains/Production/Layout/Header/StoreContainerHeader';
 import { Card, CardContent, CardHeader } from '@mui/material';
@@ -11,7 +11,7 @@ import { ContainerMovementService } from '@/Services/Materials';
 
 export default function StoreContainer({ materialContainer }: { materialContainer: any }) {
     const { lang } = useContext(LanguageContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const containerMovementService = new ContainerMovementService();
     const locationLabelService = new LocationLabelService();
 

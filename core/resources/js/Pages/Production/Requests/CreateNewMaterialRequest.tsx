@@ -7,11 +7,11 @@ import ProductionPageHeader from '@/Domains/Production/Layout/Header/ProductionP
 import RequestService from '@/Services/RequestService';
 import ComboBox from '@/Components/Inputs/ComboBox';
 import TextInput from '@/Components/Inputs/TextInput';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 
 export default function CreateNewMaterialRequest({ ...props }: CreateNewMaterialRequestProps) {
     const { lang } = useContext(LanguageContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
 
     const { machines } = props;
     const [selectedMachine, setSelectedMachine] = useState<MachineOptionResource | null>(null);

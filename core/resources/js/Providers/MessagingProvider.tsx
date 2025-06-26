@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     ConversationFormData,
     ConversationResource,
@@ -15,10 +15,10 @@ import {
     ConversationCreationService,
     ParticipantOptionService,
 } from "@/Services/Messaging";
-import AuthContext from "@/Contexts/AuthContext";
+import { useAuth } from '@/Providers/AuthProvider';
 
 export default function MessagingProvider({ children }: MessagingProviderProps) {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const messageService = new MessageCreationService();
     const messageStatusService = new MessageStatusService();
     const conversationService = new ConversationService();

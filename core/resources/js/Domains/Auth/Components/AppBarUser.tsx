@@ -14,12 +14,12 @@ import {
 } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import { AccountCircleOutlined, LogoutOutlined, PersonOutline } from '@mui/icons-material';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 import LanguageContext from '@/Contexts/LanguageContext';
 
 export default function AppBarUser() {
     const { lang } = useContext(LanguageContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const theme = useTheme();
 
     const [userMenuEl, setUserMenuEl] = useState<EventTarget & HTMLElement | null>(null);

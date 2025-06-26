@@ -31,11 +31,11 @@ import BarcodeLabelDialog from '@/Domains/Materials/Dialogs/BarcodeLabelDialog';
 import SortInventoryHeader from '@/Domains/Quality/Cards/SortInventory/SortInventoryHeader';
 import QuantityUpdateInput from './QuantityUpdateInput';
 import { ContainerQuantityService } from '@/Services/Materials';
-import AuthContext from '@/Contexts/AuthContext';
+import { useAuth } from '@/Providers/AuthProvider';
 
 export default function SortInventoryData({ inventory, materialOptions } : SortInventoryDataProps) {
     const { lang } = useContext(LanguageContext);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const sortInventoryService = new SortInventoryService();
 
     // console.log(inventory);
