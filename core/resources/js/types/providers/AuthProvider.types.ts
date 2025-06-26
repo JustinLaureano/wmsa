@@ -3,7 +3,7 @@ import { JsonObject, UserProfileResource } from "@/types";
 
 export interface AuthProviderProps {
     children: ReactNode;
-    initialPage: InitialPageProps;
+    initialPage?: InitialPageProps;
 }
 
 export interface InitialPageProps {
