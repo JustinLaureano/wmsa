@@ -123,7 +123,6 @@ return new class extends Migration
         Artisan::call('db:seed --class=RoleSeeder');
         Artisan::call('db:seed --class=PermissionSeeder');
         Artisan::call('db:seed --class=RoleHasPermissionSeeder');
-        Artisan::call('db:seed --class=ModelHasRoleSeeder');
     }
 
     /**

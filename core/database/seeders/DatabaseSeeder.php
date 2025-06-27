@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TeammateSeeder::class,
             UserSeeder::class,
             UserSettingSeeder::class,
+            ModelHasRoleSeeder::class,
             ConversationSeeder::class,
             SortListSeeder::class,
             MaterialContainerSeeder::class,

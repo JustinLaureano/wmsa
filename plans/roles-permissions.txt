@@ -1,0 +1,299 @@
+# Roles
+
+## Roles with departments or job titles that quality for role
+
+
+- finance
+    - Finance (Department)
+    - Controller
+    - Financial Analyst
+    - Accounting
+    - Plant Controller
+    - Business Analyst
+    - Junior Accountant
+    - Senior Accountant
+
+- continuous improvement
+    - CI Tech
+    - Continuous Improvement Supervisor
+    - Continuous Improvement Tech
+
+- corporate
+    - Corporate (Department)
+    - CPO (Department)
+    - CSO (Department)
+    - CTO (Department)
+
+- electrical engineer
+    - Electrical Engineer
+    - Electrical Engineer Technician
+    - Maintenance & Tooling Supervisor & Electrical
+
+- esh
+    - Environmental Safety and Health (Department)
+    - Plant ES&H Facilitator
+
+- hr
+    - Human Resources (Department)
+    - Nurse
+    - Compensation Consultant
+    - Master Trainer
+    - Senior Corporate Payroll & Benefits Administrator
+    - Talent Acquisition Specialist
+
+- irm manager
+    - IRM Supervisor
+    - Senior IRM Process Engineer
+
+- irm production operator
+    - Rubber Mixing
+
+- it administrator
+    - Application Developer
+
+- maintenance
+    - Utility (Maybe here?)
+    - Building and Grounds Technician
+    - Lead Mechatronics Technician
+    - Maintenance & Tooling Supervisor & Electrical
+    - Facility Engineer
+    - Maintenance Crib Attendant
+    - Maintenance Manager
+    - Maintenance Technician
+    - Mechatronics Lead
+    - Mechatronics Technician
+    - Mechatronics/EE Intern
+
+
+- materials control
+    - Materials Control Specialist
+    - Materials Control Technician
+    - Materials Manager
+    - Materials Planner
+
+- material handler
+    - (dont typically have AD accounts)
+
+- mentor
+    - Mentor
+
+- molding
+    - Mold Cleaner
+    - Mold Tech
+    - Molding Operator
+
+- process engineer
+    - Process Engineering Group (Department)
+    - Process Engineer
+    - Tooling Engineer
+    - Process Manager
+    - Process Technician 
+    - Senior Industrial Engineer
+    - Senior Process Engineer
+
+- product development
+    (Any engineer not fitting into other engineer categories)
+    - Product Development Group (Department)
+    - Product Development Engineer
+    - Launch Engineer
+    - Finite Element Analysis Engineer
+    - Materials Engineering Manager
+    - Senior Industrial Engineer
+    - Senior IRM Process Engineer
+    - Program Manager
+    - Prototype Technician
+    - Senior Cad Designer
+    - Senior Materials Engineering Technician
+
+- production operator
+    - Production Paint
+
+- production manager
+    - Area Business Manager
+    - Operations Manager
+    - Plant Manager
+
+- production scheduler
+    - Production Scheduler
+
+- production shipping (shipping laborers)
+    - Production Shipping
+
+- production supervisor
+    - Maintenance & Tooling Supervisor & Electrical
+    - Production Supervisor
+
+- purchasing
+    - Commodity Buyer
+
+- quality engineer
+    - Quality Engineer
+    - Supplier Quality Engineer
+
+- quality manager
+    - Quality Manager
+    - Manager of G.Q.A.S.
+    - Manager of Supplier Quality
+    - Supplier Quality Engineer
+
+- quality technician
+    - Lab Technician
+    - Corporate Document Control
+    - Lab Supervisor
+    - Layout Technician
+    - Lead Quality Technician
+
+- sales
+    - Sales (Department)
+    - Sales Clerk
+    - Sales Representative
+    - Senior Account Manager
+
+- shipping clerk
+    - Billing Clerk
+    - Shipping Clerk
+
+- shipping supervisor
+    - Logistics Supervisor
+
+- sort
+    - Sorter
+    - Lead Sort
+
+- team lead
+    - Team Lead *
+    - Team Leader *
+    - Line Leader
+    - Assy All (Maybe here? - not sure what this position is)
+
+- technical administrator
+    - Senior Network Administrator
+    - Senior Server Administrator
+    - Server Administrator
+    - Technical Administrator
+
+- tooling
+    - Maintenance & Tooling Supervisor & Electrical
+    - Tool & Die/CNC Operator
+    - Tooling Engineer
+    - Tooling Engineer Supervisor
+    - Tooling Tech P2
+
+- translator
+    - Translator
+
+
+
+
+# Permissions
+
+## With roles that can have permission
+
+- create storage locations
+    - it administator
+
+- transfer material stock
+    - irm manager
+    - irm production operator
+    - it administrator
+    - materials control
+    - production operator
+    - production manager
+    - production scheduler
+    - production shipping
+    - production supervisor
+    - quality engineer
+    - quality manager
+    - quality technician
+    - shipping clerk
+    - shipping supervisor
+    - sort
+    - team lead
+
+
+update container movement status
+    - quality engineer
+    - quality technician
+    - quality manager
+
+- update material requests
+    - irm manager
+    - irm production operator
+    - material handler
+    - materials control
+    - production operator
+    - production manager
+    - production scheduler
+    - production shipping
+    - production supervisor
+    - shipping supervisor
+    - team lead
+
+
+- update compound safety stock
+    - irm manager
+    - production manager
+    - materials control
+
+- update cemented metals safety stock
+    - irm manager
+    - production manager
+    - materials control
+
+- update irm chemical safety stock
+    - irm manager
+    - materials control
+
+- update material properties
+    - materials control
+
+- update sort list
+    - quality manager
+
+- update sort inventory
+    - quality engineer
+    - quality manager
+    - production manager
+    - production supervisor
+    - sort
+    - team lead
+
+- update material routing
+    - irm manager
+    - materials control
+    - quality manager
+
+- update shipping documents
+    - shipping clerk
+
+- print cardboard labels
+    - shipping clerk
+    - shipping supervisor
+    - technical administrator
+    - production shipping
+
+- perform inventory audit
+    - irm production operator
+    - materials control
+    - material handler
+
+- update toyota workspaces
+    - it administrator
+    - shipping supervisor
+
+- update user authorization
+    - it administator
+    - production manager
+
+- update barcode press scans
+    - it administrator
+    - materials control
+    - production manager
+
+- transfer molds
+    - material handler
+    - molding
+    - tooling
+
+- view material costs
+    - finance
