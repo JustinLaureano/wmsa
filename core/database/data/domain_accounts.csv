@@ -26,3 +26,17 @@ receiving.clerk,Willow,Barton,"Barton, Willow",Receiving Clerk,Receiving Clerk,P
 shipping.clerk,Jordan,Armstrong,"Armstrong, Jordan",Shipping Clerk,Shipping Clerk,Production Control,shipping.clerk@acme.com
 shipping.supervisor,Elena,Purdy,"Purdy, Elena",Shipping Supervisor,Shipping Supervisor,Production Control,shipping.supervisor@acme.com
 technical.administrator,Todd,Fisher,"Fisher, Todd",Technical Administrator,Technical Administrator,Information Technology,technical.administrator@acme.com
+ci.tech,Cameron,Gleichner,"Gleichner, Cameron",CI Technician,CI Technician,Manufacturing Group,ci.tech@acme.com
+president.ceo,Henry,Martin,"Martin, Henry",President & CEO,President & CEO,Corporate,president.ceo@acme.com
+launch.engineer,Dale,Kautzer,"Kautzer, Dale",Launch Engineer,Launch Engineer,Product Development Group,launch.engineer@acme.com
+production.paint,Mike,Bentley,"Bentley, Mike",Production Paint,Production Paint,Production,production.paint@acme.com
+abm,Stacy,Welsh,"Welsh, Stacy",Area Business Manager,Area Business Manager,Manufacturing Group,abm@acme.com
+operations.manager,Sarah,Collins,"Collins, Sarah",Operations Manager,Operations Manager,Manufacturing Group,operations.manager@acme.com
+plant.manager,Andrew,Myers,"Myers, Andrew",Plant Manager,Plant Manager,Production,plant.manager@acme.com
+production.shipping,Jacob,Bellhowser,"Bellhowser, Jacob",Production Shipping,Production Shipping,Manufacturing Group,production.shipping@acme.com
+commodity.buyer,Nicole,Bonds,"Bonds, Nicole",Commodity Buyer,Commodity Buyer,Purchasing Group,commodity.buyer@acme.com
+sales.clerk,Amy,Wiggs,"Wiggs, Amy",Sales Clerk,Sales Clerk,Sales,sales.clerk@acme.com
+lead.sort,Chad,Boston,"Boston, Chad",Lead Sort,Lead Sort,Manufacturing Group,lead.sort@acme.com
+sorter,Becky,Herman,"Herman, Becky",Sorter,Sorter,Manufacturing Group,sorter@acme.com
+tooling.engineer,Shelly,Brewer,"Brewer, Shelly",Tooling Engineer,Tooling Engineer,Process Engineering Group,tooling.engineer@acme.com
+mechatronics.tech,Larry,Zellers,"Zellers, Larry",Mechatronics Technician,Mechatronics Technician,Production Systems Group,mechatronics.tech@acme.com
