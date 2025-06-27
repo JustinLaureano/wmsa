@@ -197,8 +197,8 @@
     - irm production operator
     - it administrator
     - materials control
-    - production operator
     - production manager
+    - production operator
     - production scheduler
     - production shipping
     - production supervisor
@@ -221,8 +221,8 @@ update container movement status
     - irm production operator
     - material handler
     - materials control
-    - production operator
     - production manager
+    - production operator
     - production scheduler
     - production shipping
     - production supervisor
@@ -232,13 +232,13 @@ update container movement status
 
 - update compound safety stock
     - irm manager
-    - production manager
     - materials control
+    - production manager
 
 - update cemented metals safety stock
     - irm manager
-    - production manager
     - materials control
+    - production manager
 
 - update irm chemical safety stock
     - irm manager
@@ -267,15 +267,16 @@ update container movement status
     - shipping clerk
 
 - print cardboard labels
+    - production shipping
     - shipping clerk
     - shipping supervisor
     - technical administrator
-    - production shipping
 
 - perform inventory audit
+    - irm manager
     - irm production operator
-    - materials control
     - material handler
+    - materials control
 
 - update toyota workspaces
     - it administrator

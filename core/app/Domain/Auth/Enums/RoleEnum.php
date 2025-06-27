@@ -8,8 +8,8 @@ enum RoleEnum : string
     case IRM_MANAGER = 'irm-manager';
     case IRM_PRODUCTION_OPERATOR = 'irm-production-operator';
     case IT_ADMINISTRATOR = 'it-administrator';
-    case MATERIALS_CONTROL = 'materials-control';
     case MATERIAL_HANDLER = 'material-handler';
+    case MATERIALS_CONTROL = 'materials-control';
     case MOLDING = 'molding';
     case PRODUCTION_MANAGER = 'production-manager';
     case PRODUCTION_OPERATOR = 'production-operator';
@@ -34,8 +34,8 @@ enum RoleEnum : string
             static::IRM_MANAGER => __('frontend.irm_manager'),
             static::IRM_PRODUCTION_OPERATOR => __('frontend.irm_production_operator'),
             static::IT_ADMINISTRATOR => __('frontend.it_administrator'),
-            static::MATERIALS_CONTROL => __('frontend.materials_control'),
             static::MATERIAL_HANDLER => __('frontend.material_handler'),
+            static::MATERIALS_CONTROL => __('frontend.materials_control'),
             static::MOLDING => __('frontend.molding'),
             static::PRODUCTION_MANAGER => __('frontend.production_manager'),
             static::PRODUCTION_OPERATOR => __('frontend.production_operator'),
