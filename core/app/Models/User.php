@@ -181,4 +181,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserSetting::class, 'user_uuid', 'uuid');
     }
+
+    /**
+     * Get the notification preferences for the user.
+     */
+    public function notificationPreferences(): HasMany
+    {
+        return $this->hasMany(NofificationPreference::class, 'user_uuid', 'uuid');
+    }
 }
