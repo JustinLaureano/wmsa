@@ -12,6 +12,7 @@ return [
     */
 
     'sort_list_material_added' => [
+        'label' => 'Material Agregado a la Lista de Ordenamiento',
         'subject' => 'Un Item ha sido agregado a tu Lista de Ordenamiento',
         'header' => 'Part Number :part_number ha sido agregado a tu Lista de Ordenamiento',
     ],

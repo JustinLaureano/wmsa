@@ -48,7 +48,7 @@ class NotificationDispatcher
      */
     public static function sendSortListMaterialAddedNotification(SortList $sortList)
     {
-        $recipients = self::getRecipients('sort-list-material-added');
+        $recipients = self::getRecipients(NotificationTypeEnum::SORT_LIST_MATERIAL_ADDED->value);
 
         self::sendNotification($recipients, new SortListMaterialAdded($sortList));
     }
