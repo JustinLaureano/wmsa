@@ -39,9 +39,10 @@ class SortListMaterialAdded extends Notification
 
         return (new MailMessage)
             ->subject(__('notifications.sort_list_material_added.subject'))
-            ->line(__('notifications.sort_list_material_added.header', [
-                'part_number' => $this->sortList->material->part_number,
-            ]));
+            ->markdown('mail.sort-list.material-added', [
+                'sortList' => $this->sortList,
+                'notifiable' => $notifiable,
+            ]);
     }
 
     /**
