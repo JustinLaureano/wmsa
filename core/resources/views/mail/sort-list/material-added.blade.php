@@ -10,6 +10,14 @@
 - **{{ __('frontend.list_date') }}**: {{ $sortList->list_date }}
 - **{{ __('frontend.reason') }}**: {{ $sortList->reason }}
 
+@if($sortList->line_side_sort === 1)
+- {{ __('notifications.sort_list_material_added.line_side_sort_disclaimer') }}
+@endif
+
+@if($sortList->percent === 200)
+- {{ __('notifications.sort_list_material_added.percent_200_disclaimer') }}
+@endif
+
 {{-- @component('mail::button', ['url' => route('sort-lists.show', $sortList->uuid)])
 View Sort List
 @endcomponent --}}
