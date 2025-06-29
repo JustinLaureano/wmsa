@@ -37,12 +37,12 @@ class ConversationSeeder extends Seeder
             for ($j = $i + 1; $j < count($this->users); $j++) {
                 $user2 = $this->users[$j];
 
-                $hasConversation = Lottery::odds(1, 3)->choose();
+                $hasConversation = Lottery::odds(1, 4)->choose();
                 if (!$hasConversation) {
                     continue;
                 }
 
-                $startDate = now()->subDays(fake()->numberBetween(2, 45));
+                $startDate = now()->subDays(fake()->numberBetween(2, 30));
                 $conversation = [
                     'uuid' => Str::uuid(),
                     'group_conversation' => false,
@@ -82,7 +82,7 @@ class ConversationSeeder extends Seeder
                         continue;
                     }
 
-                    $numberOfMessages = fake()->numberBetween(1, 12);
+                    $numberOfMessages = fake()->numberBetween(1, 8);
                     $messagesSent = 0;
 
                     while ($messagesSent < $numberOfMessages) {
