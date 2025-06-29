@@ -16,12 +16,12 @@ return [
     'thank_you' => 'Gracias',
 
     'sort_list_material_added' => [
-        'header' => 'Part Number :part_number ha sido agregado a la Lista de Ordenamiento',
+        'header' => 'El número de pieza :part_number se ha añadido a la lista de clasificación',
         'label' => 'Material Agregado a la Lista de Ordenamiento',
         'line_side_sort_disclaimer' => 'Este número de parte es ordenado en línea.',
         'percent_200_disclaimer' => 'Este número de parte es ordenado al 200%.',
-        'subheader' => 'Un nuevo número de parte ha sido agregado a la lista de ordenamiento:',
-        'subject' => 'Un Item ha sido agregado a tu Lista de Ordenamiento',
+        'subheader' => 'Se ha añadido un nuevo número de pieza a la lista de clasificación:',
+        'subject' => 'Se ha añadido un artículo a su lista de clasificación',
     ],
 
 ];
