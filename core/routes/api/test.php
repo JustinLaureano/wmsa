@@ -16,7 +16,12 @@ Route::get('/user/{cn}', function (string $cn) {
 });
 
 Route::get('/safety-stock', function () {
-    $report = (new SafetyStockRepository())->getSafetyStockReportPaginated(materialTypeCode: 'IRM');
-    // $report = (new SafetyStockRepository())->getSafetyStockReport(materialTypeCode: 'COMP');
+    $report = (new SafetyStockRepository())->getSafetyStockReportPaginated();
+    // $report = (new SafetyStockRepository())->getSafetyStockReport();
     return SafetyStockReportResource::collection($report);
+});
+
+Route::get('/sort-list-material-added', function () {
+    $sortList = App\Models\SortList::find(1);
+    App\Notifications\Support\NotificationDispatcher::sendSortListMaterialAddedNotification($sortList);
 });

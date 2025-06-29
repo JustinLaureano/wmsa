@@ -187,6 +187,18 @@ class User extends Authenticatable
      */
     public function notificationPreferences(): HasMany
     {
-        return $this->hasMany(NofificationPreference::class, 'user_uuid', 'uuid');
+        return $this->hasMany(NotificationPreference::class, 'user_uuid', 'uuid');
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return  array<string, string>|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return [
+            $this->domainAccount?->email => $this->domainAccount?->display_name,
+        ];
     }
 }
