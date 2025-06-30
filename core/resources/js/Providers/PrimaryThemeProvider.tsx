@@ -191,7 +191,7 @@ export default function PrimaryThemeProvider({ children }: PrimaryThemeProps) {
                         root: {
                             borderRadius: 16,
                             '&:hover': {
-                                backgroundColor: 'unset'
+                                // backgroundColor: 'unset'
                             },
                         }
                     }

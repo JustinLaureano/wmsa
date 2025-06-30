@@ -1,26 +1,41 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import {
-    Button, IconButton,
-    InputAdornment, Stack, TextField
+    Button,
+    Divider,
+    IconButton,
+    InputAdornment,
+    Stack,
+    TextField,
+    Typography
 } from '@mui/material';
 import {
     VisibilityOffOutlined,
     VisibilityOutlined
 } from '@mui/icons-material';
 import { useLanguage } from '@/Providers/LanguageProvider';
-import AuthContext from '@/Contexts/AuthContext';
+import PrimaryLogo from '@/Components/PrimaryLogo';
 
 const FormStack = ({ children, ...props } : any) => {
     return (
-        <Stack {...props}>{children}</Stack>
+        <Stack
+            component="form"
+            spacing={2}
+            sx={{
+                width: '100%',
+                minWidth: 350,
+            }}
+            {...props}
+        >
+            {children}
+        </Stack>
     )
 }
 
 export default function LoginForm({ onLoginSuccess = () => {} }: any) {
-    // TODO: make sure lang has expected properties
     const { lang } = useLanguage();
-    const { setUser } = useContext(AuthContext);
+
+    const loginUsernameRef = useRef<HTMLInputElement>(null);
 
     // For future use
     // const localEnvironment = props?.ziggy?.location.includes('localhost');
@@ -29,15 +44,43 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
     const handleClickShowPassword = () => setShowPassword(show => !show);
 
     /** Form */
-    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
+    const {
+        data: loginData,
+        setData: setLoginData,
+        post: postLogin,
+        processing: loginProcessing,
+        errors: loginErrors,
+        reset: resetLogin
+    } = useForm({
         username: '',
         password: ''
     });
 
-    const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    const {
+        data: clockinData,
+        setData: setClockinData,
+        post: postClockin,
+        processing: clockinProcessing,
+        errors: clockinErrors,
+        reset: resetClockin
+    } = useForm({
+        clock_number: '',
+    });
+
+    const handleLoginSubmit = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
-        post(route('login'), {
+        postLogin(route('login'), {
+            onSuccess: (page) => {
+                window.location.reload();
+            }
+        });
+    };
+
+    const handleClockinSubmit = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        postClockin(route('clockin'), {
             onSuccess: (page) => {
                 window.location.reload();
             }
@@ -45,66 +88,144 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
     };
 
     useEffect(() => {
-        // TODO: focus input
+        if (loginUsernameRef.current) {
+            loginUsernameRef.current.focus();
+        }
 
         return () => {
-            reset('password');
+            resetLogin();
+            resetClockin();
         };
     }, []);
 
     return (
-        <FormStack
-            component="form"
-            onSubmit={handleSubmit}
-            spacing={2}
-        >
+        <>
+            <FormStack onSubmit={handleLoginSubmit}>
+                <Stack
+                    alignItems="center"
+                    spacing={2}
+                    sx={{ py: 1 }}
+                >
+                    <PrimaryLogo />
+                    <Typography variant="h6">
+                        Warehouse Management System
+                    </Typography>
+                </Stack>
 
-            <TextField
-                required
-                value={data.username}
-                error={Boolean(errors.username)}
-                helperText={errors.username}
-                label={lang.username}
-                name="username"
-                size="small"
-                fullWidth
-                onChange={e => setData('username', e.target.value)}
-            />
+                <Divider />
 
-            <TextField
-                required
-                // required={!localEnvironment}
-                value={data.password}
-                error={Boolean(errors.password)}
-                helperText={errors.password}
-                name="password"
-                label={lang.password}
-                type={showPassword ? "text" : "password"}
-                size="small"
-                fullWidth
-                onChange={e => setData('password', e.target.value)}
-                slotProps={{
-                    input: {
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label={lang.toggle_password_visibility}
-                                    edge="end"
-                                    onClick={handleClickShowPassword}
-                                >
-                                    {showPassword ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }
-                }}
-            />
+                <Stack
+                    alignItems="center"
+                    spacing={3}
+                    sx={{ pb: 3, pt: 1 }}
+                >
+                    <Typography variant="h6">
+                        {lang.windows_login}
+                    </Typography>
+                    <TextField
+                        inputRef={loginUsernameRef}
+                        required
+                        value={loginData.username}
+                        error={Boolean(loginErrors.username)}
+                        helperText={loginErrors.username}
+                        label={lang.username}
+                        name="username"
+                        size="small"
+                        fullWidth
+                        onChange={e => setLoginData('username', e.target.value)}
+                    />
+                    <TextField
+                        required
+                        // required={!localEnvironment}
+                        value={loginData.password}
+                        error={Boolean(loginErrors.password)}
+                        helperText={loginErrors.password}
+                        name="password"
+                        label={lang.password}
+                        type={showPassword ? "text" : "password"}
+                        size="small"
+                        fullWidth
+                        onChange={e => setLoginData('password', e.target.value)}
+                        slotProps={{
+                            input: {
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label={lang.toggle_password_visibility}
+                                            edge="end"
+                                            onClick={handleClickShowPassword}
+                                        >
+                                            {
+                                                showPassword
+                                                    ? <VisibilityOutlined />
+                                                    : <VisibilityOffOutlined />
+                                            }
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }
+                        }}
+                    />
 
-            <Stack sx={{ pt: 2 }}>
-                <Button type="submit" variant="contained" fullWidth>
-                    {lang.login}
-                </Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        loading={loginProcessing}
+                        disabled={loginProcessing}
+                        fullWidth
+                    >
+                        {lang.login}
+                    </Button>
+                </Stack>
+            </FormStack>
+
+            <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                justifyContent="center"
+                sx={{ my: 1 }}
+            >
+                <Divider sx={{ flex: 1 }} />
+                <Typography variant="body2">
+                    {lang.or.toUpperCase()}
+                </Typography>
+                <Divider sx={{ flex: 1 }} />
             </Stack>
-        </FormStack>
+
+            <FormStack onSubmit={handleClockinSubmit}>
+                <Stack
+                    alignItems="center"
+                    spacing={3}
+                    sx={{ pb: 1, pt: 1 }}
+                >
+                    <Typography variant="h6">
+                        {lang.badge_clock_in}
+                    </Typography>
+
+                    <TextField
+                        required
+                        value={clockinData.clock_number}
+                        error={Boolean(clockinErrors.clock_number)}
+                        helperText={clockinErrors.clock_number}
+                        label={lang.clock_number}
+                        name="clock_number"
+                        size="small"
+                        fullWidth
+                        onChange={e => setClockinData('clock_number', e.target.value)}
+                    />
+
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        loading={clockinProcessing}
+                        disabled={clockinProcessing}
+                        fullWidth
+                    >
+                        {lang.clock_in}
+                    </Button>
+                </Stack>
+            </FormStack>
+        </>
     );
 }

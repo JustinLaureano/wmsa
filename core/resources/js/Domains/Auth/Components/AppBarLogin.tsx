@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { grey } from '@mui/material/colors';
 import {
-    Box, Button, Dialog, DialogContent,
-    DialogContentText, DialogTitle
+    Box,
+    Button,
+    Dialog,
+    DialogContent,
 } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
@@ -38,14 +40,8 @@ export default function AppBarLogin(props: any) {
                 onClose={handleCloseDialog}
                 maxWidth={false}
             >
-                <DialogTitle>{lang.login}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        {lang.sign_in}
-                    </DialogContentText>
-
                     <LoginForm onLoginSuccess={handleCloseDialog} />
-
                 </DialogContent>
             </Dialog>
         </>
