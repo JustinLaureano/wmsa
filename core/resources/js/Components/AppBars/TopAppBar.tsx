@@ -1,4 +1,11 @@
-import { AppBar, Toolbar, Stack, Typography, useTheme } from '@mui/material';
+import {
+    AppBar,
+    Toolbar,
+    Stack,
+    Typography,
+    useTheme,
+    Divider
+} from '@mui/material';
 import { TopAppBarProps } from '@/types';
 import NavigationToggle from './NavigationToggle';
 import AppBarLogin from '@/Domains/Auth/Components/AppBarLogin';
@@ -10,6 +17,7 @@ import SearchButton from '../Search/SearchButton';
 import MessagingButton from '../Messaging/MessagingButton';
 import PrimaryLogo from '../PrimaryLogo';
 import { useLanguage } from '@/Providers/LanguageProvider';
+import BuildingSelectButton from '@/Domains/Auth/Buttons/BuildingSelectButton';
 
 export default function TopAppBar({ title, ...props } : TopAppBarProps) {
     const { lang } = useLanguage();
@@ -72,19 +80,34 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                         }}
                     >
                         {
-                            user &&
-                            <NotificationsButton />
-                        }
-
-                        {
-                            user &&
-                            <MessagingButton />
+                            user ? (
+                                <>
+                                    <NotificationsButton />
+                                    <MessagingButton />
+                                </>
+                            ) : ''
                         }
 
                         <SettingsButton />
 
                         {
-                            user ? <AppBarUser /> : <AppBarLogin />
+                            user ? (
+                                <>
+                                    <Divider
+                                        orientation="vertical"
+                                        flexItem
+                                    />
+                                    <BuildingSelectButton />
+                                    <Divider
+                                        orientation="vertical"
+                                        flexItem
+                                    />
+                                    <AppBarUser />
+                                </>
+                            ) : 
+                            (
+                                <AppBarLogin />
+                            )
                         }
 
                     </Stack>

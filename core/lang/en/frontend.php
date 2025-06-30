@@ -29,6 +29,7 @@ return [
     'barcode_type' => 'Barcode Type',
     'blackhawk' => 'Blackhawk',
     'building' => 'Building',
+    'change_building' => 'Change Building',
     'chemical' => 'Chemical',
     'choose_a_machine' => 'Choose a machine',
     'clear' => 'Clear',

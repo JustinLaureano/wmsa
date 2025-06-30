@@ -47,6 +47,6 @@ class Building extends Model
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(BuildingType::class);
+        return $this->belongsTo(BuildingType::class, 'building_type_id', 'id');
     }
 }

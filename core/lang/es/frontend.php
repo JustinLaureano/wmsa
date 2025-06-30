@@ -29,6 +29,7 @@ return [
     'barcode_type' => 'Tipo de Código de Barras',
     'blackhawk' => 'Blackhawk',
     'building' => 'Edificio',
+    'change_building' => 'Cambiar Edificio',
     'chemical' => 'Químico',
     'choose_a_machine' => 'Seleccionar una Máquina',
     'clear' => 'Limpiar',

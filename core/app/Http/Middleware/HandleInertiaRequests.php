@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\Auth\UserProfileResource;
+use App\Http\Resources\Locations\BuildingResource;
+use App\Models\User;
+use App\Repositories\BuildingRepository;
 use App\Support\Localization;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -38,26 +41,14 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'auth_method' => session('auth_method'),
+                'building' => $this->getBuilding(),
                 'building_id' => session('building_id'),
                 'user' => $request->user() ? new UserProfileResource($request->user()) : null,
                 'permissions' => $request->user()
-                    ? array_merge(
-                        $request->user()
-                            ->roles
-                            ->pluck('permissions')
-                            ->flatten()
-                            ->pluck('name')
-                            ->toArray(),
-                        $request->user()
-                            ->getDirectPermissions()
-                            ->pluck('name')
-                            ->toArray()
-                    )
+                    ? $this->getPermissions($request->user())
                     : [],
                 'roles' => $request->user()
-                    ? $request->user()
-                        ->getRoleNames()
-                        ->toArray()
+                    ? $request->user()->getRoleNames()->toArray()
                     : [],
             ],
 
@@ -69,5 +60,28 @@ class HandleInertiaRequests extends Middleware
                 ]);
             }
         ];
+    }
+
+    protected function getBuilding() : BuildingResource|null
+    {
+        return session('building_id')
+            ? new BuildingResource(
+                (new BuildingRepository)->find(session('building_id'))
+            )
+            : null;
+    }
+
+    protected function getPermissions(User $user) : array
+    {
+        return array_merge(
+            $user->roles
+                ->pluck('permissions')
+                ->flatten()
+                ->pluck('name')
+                ->toArray(),
+            $user->getDirectPermissions()
+                ->pluck('name')
+                ->toArray()
+        );
     }
 }

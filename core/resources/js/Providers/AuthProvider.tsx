@@ -6,7 +6,7 @@ const defaultInitialPage: InitialPageProps = {
     props: {
         auth: {
             auth_method: '',
-            building_id: null,
+            building: null,
             user: null,
             permissions: [],
             roles: [],
@@ -25,7 +25,7 @@ export default function AuthProvider({
 }: AuthProviderProps) {
     console.log(initialPage.props.auth);
     const [user, setUser] = useState(initialPage.props?.auth?.user || null);
-    const [buildingId, setBuildingId] = useState(initialPage.props?.auth?.building_id || null);
+    const [building, setBuilding] = useState(initialPage.props?.auth?.building || null);
     const [permissions, setPermissions] = useState(initialPage.props?.auth?.permissions || []);
     const [roles, setRoles] = useState(initialPage.props?.auth?.roles || []);
 
@@ -40,8 +40,8 @@ export default function AuthProvider({
     const defaultValue = {
         user,
         setUser,
-        buildingId,
-        setBuildingId,
+        building,
+        setBuilding,
         permissions,
         setPermissions,
         roles,
@@ -52,7 +52,7 @@ export default function AuthProvider({
 
     const dependencies = [
         user,
-        buildingId,
+        building,
         permissions,
         roles
     ];

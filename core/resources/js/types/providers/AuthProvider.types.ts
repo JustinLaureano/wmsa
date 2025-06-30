@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { JsonObject, UserProfileResource } from "@/types";
+import { BuildingResource, JsonObject, UserProfileResource } from "@/types";
 
 export interface AuthProviderProps {
     children: ReactNode;
@@ -10,7 +10,7 @@ export interface InitialPageProps {
     props: {
         auth?: {
             auth_method: string;
-            building_id: number | null;
+            building: BuildingResource | null;
             user: UserProfileResource | null;
             permissions: string[];
             roles: string[];

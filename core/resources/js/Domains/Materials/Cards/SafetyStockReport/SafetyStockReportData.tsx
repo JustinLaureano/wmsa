@@ -8,8 +8,7 @@ import {
     CardHeader,
     Table,
     TableBody,
-    TableContainer,
-    useTheme
+    TableContainer
 } from '@mui/material';
 import { getCollectionPagination } from '@/Utils/pagination';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
@@ -20,7 +19,6 @@ import MaterialTableRow from './MaterialTableRow';
 
 export default function SafetyStockReportData({ safetyStock } : SafetyStockReportDataProps) {
     const { lang } = useLanguage();
-    const theme = useTheme();
     const safetyStockReportService = new SafetyStockReportService();
 
     const [loaded, setLoaded] = useState(false);
