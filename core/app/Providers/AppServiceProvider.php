@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 use App\Domain\Auth\Enums\RoleEnum;
+use App\Services\SearchService;
+use App\Repositories\ViewSearchIrmChemicalRepository;
+use App\Repositories\ViewSearchMaterialRepository;
+use App\Repositories\ViewSearchMaterialContainerRepository;
+use App\Repositories\ViewSearchStorageLocationRepository;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(SearchService::class, function ($app) {
+            return new SearchService(
+                $app->make(ViewSearchIrmChemicalRepository::class),
+                $app->make(ViewSearchMaterialRepository::class),
+                $app->make(ViewSearchMaterialContainerRepository::class),
+                $app->make(ViewSearchStorageLocationRepository::class)
+            );
+        });
     }
 
     /**

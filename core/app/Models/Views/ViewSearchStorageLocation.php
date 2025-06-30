@@ -15,6 +15,16 @@ class ViewSearchStorageLocation extends Model
     protected $primaryKey = 'storage_location_uuid';
 
     /**
+     * The key type for the model.
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = false;
+
+    /**
      * The table associated with the model.
      */
     protected $table = 'view_search_storage_locations';
@@ -28,7 +38,7 @@ class ViewSearchStorageLocation extends Model
     {
         return [
             'name' => $this->name,
-            'barcode' => $this->barcode,
+            // 'barcode' => $this->barcode,
         ];
     }
 }

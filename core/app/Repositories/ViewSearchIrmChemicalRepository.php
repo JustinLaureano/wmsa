@@ -9,8 +9,7 @@ class ViewSearchIrmChemicalRepository
 {
     public function search(string $query, int $limit = 10) : Collection
     {
-        return ViewSearchIrmChemical::query()
-            ->search($query)
+        return ViewSearchIrmChemical::search($query)
             ->take($limit)
             ->get()
             ->map(function ($chemical) {

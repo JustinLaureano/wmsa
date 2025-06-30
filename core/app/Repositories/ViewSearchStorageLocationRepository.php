@@ -9,11 +9,11 @@ class ViewSearchStorageLocationRepository
 {
     public function search(string $query, int $limit = 10) : Collection
     {
-        return ViewSearchStorageLocation::query()
-            ->search($query)
+        return ViewSearchStorageLocation::search($query)
             ->take($limit)
             ->get()
             ->map(function ($location) {
+                
                 $location->search_type = 'storage_location';
                 return $location;
             });

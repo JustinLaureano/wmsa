@@ -15,6 +15,16 @@ class ViewSearchIrmChemical extends Model
     protected $primaryKey = 'irm_chemical_uuid';
 
     /**
+     * The key type for the model.
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = false;
+
+    /**
      * The table associated with the model.
      */
     protected $table = 'view_search_irm_chemicals';
@@ -27,7 +37,7 @@ class ViewSearchIrmChemical extends Model
     public function toSearchableArray(): array
     {
         return [
-            'material_number' => $this->material_number,
+            // 'material_number' => $this->material_number,
             'part_number' => $this->part_number,
             'description' => $this->description,
         ];
