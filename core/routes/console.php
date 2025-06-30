@@ -4,6 +4,7 @@ use App\Domain\Requests\Jobs\GenerateRecurringRequest;
 use App\Domain\Production\Jobs\Scheduled\AttemptRequestListAllocations;
 use Illuminate\Support\Facades\Schedule;
 
+Schedule::command('session:clear-expired')->daily();
 
 // TODO: activate
 // Schedule::command('ldap:import', [
