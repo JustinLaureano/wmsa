@@ -27,6 +27,7 @@ export default function AppBarLogin(props: any) {
         <>
             <Box>
                 <Button
+                    disableElevation
                     variant="contained"
                     color="info"
                     size="small"
