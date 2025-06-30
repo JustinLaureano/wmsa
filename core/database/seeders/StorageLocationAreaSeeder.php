@@ -33,7 +33,7 @@ class StorageLocationAreaSeeder extends Seeder
     protected function setBuildingOneAreas() : void
     {
         $file = fopen(database_path('data/storage_location_areas/building_one.csv'), 'r');
-        $building = Building::where('name', 'Building 1 (Plant 2)')->first();
+        $building = Building::where('name', 'Plant 2')->first();
         $areas = [];
         $firstLine = true;
 
@@ -63,7 +63,7 @@ class StorageLocationAreaSeeder extends Seeder
     protected function setBuildingTwoAreas() : void
     {
         $file = fopen(database_path('data/storage_location_areas/building_two.csv'), 'r');
-        $building = Building::where('name', 'Building 2 (Blackhawk)')->first();
+        $building = Building::where('name', 'Blackhawk')->first();
         $areas = [];
         $firstLine = true;
 
