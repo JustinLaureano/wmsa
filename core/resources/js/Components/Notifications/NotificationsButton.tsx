@@ -21,7 +21,7 @@ export default function NotificationsButton(props : JsonObject) {
                 aria-label="toggle-navigation"
                 onClick={handleButtonClick}
             >
-                <NotificationsOutlined />
+                <NotificationsOutlined sx={{ fontSize: 24 }} />
             </IconButton>
 
             <NotificationsDrawer

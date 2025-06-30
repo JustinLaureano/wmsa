@@ -221,6 +221,7 @@ return [
     'warehouse_kpi' => 'KPI de Almacén',
     'warehouse_management_system' => 'Sistema de Gestión de Almacén',
     'windows_login' => 'Iniciar Sesión con Windows',
+    'wms' => 'WMS',
     'work_information' => 'Información de Trabajo',
     'you' => 'tú',
 ];

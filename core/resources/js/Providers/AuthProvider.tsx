@@ -25,6 +25,7 @@ export default function AuthProvider({
 }: AuthProviderProps) {
     console.log(initialPage.props.auth);
     const [user, setUser] = useState(initialPage.props?.auth?.user || null);
+    const [buildingId, setBuildingId] = useState(initialPage.props?.auth?.building_id || null);
     const [permissions, setPermissions] = useState(initialPage.props?.auth?.permissions || []);
     const [roles, setRoles] = useState(initialPage.props?.auth?.roles || []);
 
@@ -39,6 +40,8 @@ export default function AuthProvider({
     const defaultValue = {
         user,
         setUser,
+        buildingId,
+        setBuildingId,
         permissions,
         setPermissions,
         roles,
@@ -47,7 +50,12 @@ export default function AuthProvider({
         is
     };
 
-    const dependencies = [user, permissions, roles];
+    const dependencies = [
+        user,
+        buildingId,
+        permissions,
+        roles
+    ];
 
     const value = useMemo(() => defaultValue, dependencies)
 

@@ -3,6 +3,8 @@ import { UserProfileResource } from "../domains/auth/resources/UserProfileResour
 export type AuthContextType = {
     user: UserProfileResource | null;
     setUser: (user: UserProfileResource | null) => void;
+    buildingId: number | null;
+    setBuildingId: (buildingId: number | null) => void;
     permissions: string[];
     setPermissions: (permissions: string[]) => void;
     roles: string[];

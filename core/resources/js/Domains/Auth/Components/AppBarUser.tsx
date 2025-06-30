@@ -50,7 +50,7 @@ export default function AppBarUser() {
             <IconButton
                 onClick={handleUserButtonClick}
             >
-                <AccountCircleOutlined />
+                <AccountCircleOutlined sx={{ fontSize: 24 }} />
             </IconButton>
 
             <Menu

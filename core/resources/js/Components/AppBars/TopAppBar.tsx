@@ -8,8 +8,11 @@ import NotificationsButton from '@/Components/Notifications/NotificationsButton'
 import SettingsButton from '../Settings/SettingsButton';
 import SearchButton from '../Search/SearchButton';
 import MessagingButton from '../Messaging/MessagingButton';
+import PrimaryLogo from '../PrimaryLogo';
+import { useLanguage } from '@/Providers/LanguageProvider';
 
 export default function TopAppBar({ title, ...props } : TopAppBarProps) {
+    const { lang } = useLanguage();
     const theme = useTheme();
     const { user } = useAuth();
 
@@ -37,8 +40,14 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
                     >
                         <NavigationToggle />
 
-                        <Typography variant="h6">
-                            Prospira America Co
+                        <PrimaryLogo height={16} />
+
+                        <Typography
+                            fontSize={21}
+                            fontWeight={500}
+                            sx={{ lineHeight: 1 }}
+                        >
+                            | {lang.wms}
                         </Typography>
                     </Stack>
 
@@ -50,24 +59,22 @@ export default function TopAppBar({ title, ...props } : TopAppBarProps) {
 
                         }}
                     >
-                        <Typography variant="h6">
-                            WMS {title && `- ${title}`}
-                        </Typography>
+                        <SearchButton />
                     </Stack>
 
                     <Stack
                         direction="row"
                         justifyContent="right"
                         alignItems="center"
+                        spacing={1}
                         sx={{
                             flexGrow: 1,
-
                         }}
                     >
-
-                        <SearchButton />
-
-                        <NotificationsButton />
+                        {
+                            user &&
+                            <NotificationsButton />
+                        }
 
                         {
                             user &&

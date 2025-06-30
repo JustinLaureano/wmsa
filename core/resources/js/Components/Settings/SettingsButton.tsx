@@ -22,7 +22,7 @@ export default function SettingsButton(props : JsonObject) {
                 aria-label="toggle-navigation"
                 onClick={handleButtonClick}
             >
-                <SettingsOutlined />
+                <SettingsOutlined sx={{ fontSize: 24 }} />
             </IconButton>
 
             <SettingsDrawer

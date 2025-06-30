@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { grey } from '@mui/material/colors';
 import {
     Box,
     Button,
     Dialog,
     DialogContent,
+    Typography,
 } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { Person2Outlined } from '@mui/icons-material';
 import UIContext from '@/Contexts/UIContext';
 import { useLanguage } from '@/Providers/LanguageProvider';
 import LoginForm from './LoginForm';
@@ -27,11 +27,19 @@ export default function AppBarLogin(props: any) {
         <>
             <Box>
                 <Button
-                    variant="text"
-                    startIcon={<AccountCircle sx={{ color: grey[700] }} />}
+                    variant="contained"
+                    color="info"
+                    size="small"
+                    startIcon={<Person2Outlined />}
                     onClick={handleLoginButtonClick}
+                    sx={{
+                        pr: 3,
+                        pl: 2
+                    }}
                 >
-                    {lang.login}
+                    <Typography variant="subtitle2" fontWeight={400}>
+                        {lang.login}
+                    </Typography>
                 </Button>
             </Box>
 

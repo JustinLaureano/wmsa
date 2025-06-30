@@ -21,10 +21,10 @@ export default function MessagingButton() {
                 aria-label="toggle-navigation"
                 onClick={handleButtonClick}
             >
-                <ChatBubbleOutline />
+                <ChatBubbleOutline sx={{ fontSize: 24 }} />
                 <Badge
                     badgeContent={unreadMessages}
-                    color="primary"
+                    color="info"
                     sx={{
                         '& .MuiBadge-badge': {
                             top: -8,

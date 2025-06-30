@@ -4,6 +4,8 @@ import { AuthContextType } from "@/types";
 const AuthContext = createContext<AuthContextType>({
     user: null,
     setUser: () => {},
+    buildingId: null,
+    setBuildingId: () => {},
     permissions: [],
     setPermissions: () => {},
     roles: [],

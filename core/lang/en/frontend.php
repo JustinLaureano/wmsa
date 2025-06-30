@@ -221,6 +221,7 @@ return [
     'warehouse_kpi' => 'Warehouse KPI',
     'warehouse_management_system' => 'Warehouse Management System',
     'windows_login' => 'Windows Login',
+    'wms' => 'WMS',
     'work_information' => 'Work Information',
     'you' => 'you',
 ];
