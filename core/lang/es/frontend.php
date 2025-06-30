@@ -28,6 +28,7 @@ return [
     'barcode_label_information' => 'Información de Etiqueta de Código de Barras',
     'barcode_type' => 'Tipo de Código de Barras',
     'blackhawk' => 'Blackhawk',
+    'building' => 'Edificio',
     'chemical' => 'Químico',
     'choose_a_machine' => 'Seleccionar una Máquina',
     'clear' => 'Limpiar',

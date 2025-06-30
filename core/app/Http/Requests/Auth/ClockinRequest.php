@@ -30,7 +30,8 @@ class ClockinRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'clock_number' => ['required', 'integer']
+            'clock_number' => ['required', 'integer'],
+            'building_id' => ['exists:buildings,id']
         ];
     }
 
@@ -57,7 +58,10 @@ class ClockinRequest extends FormRequest
 
         Auth::login($user);
 
-        session(['auth_method' => AuthMethodEnum::CLOCK_NUMBER->value]);
+        session([
+            'auth_method' => AuthMethodEnum::CLOCK_NUMBER->value,
+            'building_id' => $this->input('building_id')
+        ]);
 
         RateLimiter::clear($this->throttleKey());
     }

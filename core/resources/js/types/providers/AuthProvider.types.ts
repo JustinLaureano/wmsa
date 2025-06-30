@@ -10,6 +10,7 @@ export interface InitialPageProps {
     props: {
         auth?: {
             auth_method: string;
+            building_id: number | null;
             user: UserProfileResource | null;
             permissions: string[];
             roles: string[];

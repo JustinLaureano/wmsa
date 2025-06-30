@@ -7,6 +7,8 @@ import {
     InputAdornment,
     Stack,
     TextField,
+    ToggleButton,
+    ToggleButtonGroup,
     Typography
 } from '@mui/material';
 import {
@@ -40,6 +42,7 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
     // For future use
     // const localEnvironment = props?.ziggy?.location.includes('localhost');
     const [showPassword, setShowPassword] = useState(false);
+    const [building, setBuilding] = useState(1);
 
     const handleClickShowPassword = () => setShowPassword(show => !show);
 
@@ -53,7 +56,8 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
         reset: resetLogin
     } = useForm({
         username: '',
-        password: ''
+        password: '',
+        building_id: 1
     });
 
     const {
@@ -65,7 +69,14 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
         reset: resetClockin
     } = useForm({
         clock_number: '',
+        building_id: 1
     });
+
+    const handleBuildingChange = (e: React.MouseEvent<HTMLElement>, value: number) => {
+        setBuilding(value);
+        setLoginData('building_id', value);
+        setClockinData('building_id', value);
+    }
 
     const handleLoginSubmit = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
@@ -79,6 +90,8 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
 
     const handleClockinSubmit = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
+
+        setClockinData('building_id', building);
 
         postClockin(route('clockin'), {
             onSuccess: (page) => {
@@ -108,11 +121,31 @@ export default function LoginForm({ onLoginSuccess = () => {} }: any) {
                 >
                     <PrimaryLogo />
                     <Typography variant="h6">
-                        Warehouse Management System
+                        {lang.warehouse_management_system}
                     </Typography>
                 </Stack>
 
                 <Divider />
+
+                <Stack
+                    alignItems="center"
+                    spacing={2}
+                    sx={{ pb: 1, pt: 1 }}
+                >
+                    <Typography variant="body2" fontWeight={500}>
+                        {lang.building}
+                    </Typography>
+                    <ToggleButtonGroup
+                        color="primary"
+                        exclusive
+                        value={building}
+                        onChange={handleBuildingChange}
+                    >
+                        <ToggleButton value={1}>{lang.plant_2}</ToggleButton>
+                        <ToggleButton value={2}>{lang.blackhawk}</ToggleButton>
+                        <ToggleButton value={3}>{lang.defiance}</ToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
 
                 <Stack
                     alignItems="center"

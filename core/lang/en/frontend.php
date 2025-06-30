@@ -28,6 +28,7 @@ return [
     'barcode_label_information' => 'Barcode Label Information',
     'barcode_type' => 'Barcode Type',
     'blackhawk' => 'Blackhawk',
+    'building' => 'Building',
     'chemical' => 'Chemical',
     'choose_a_machine' => 'Choose a machine',
     'clear' => 'Clear',

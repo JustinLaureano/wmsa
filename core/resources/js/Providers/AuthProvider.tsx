@@ -6,6 +6,7 @@ const defaultInitialPage: InitialPageProps = {
     props: {
         auth: {
             auth_method: '',
+            building_id: null,
             user: null,
             permissions: [],
             roles: [],

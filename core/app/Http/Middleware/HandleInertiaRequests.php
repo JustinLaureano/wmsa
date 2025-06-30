@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'auth_method' => session('auth_method'),
+                'building_id' => session('building_id'),
                 'user' => $request->user() ? new UserProfileResource($request->user()) : null,
                 'permissions' => $request->user()
                     ? array_merge(

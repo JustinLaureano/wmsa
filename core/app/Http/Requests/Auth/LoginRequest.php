@@ -30,6 +30,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         $rules = ['username' => ['required', 'string']];
+        $rules['building_id'] = ['exists:buildings,id'];
 
         if ( !app()->environment(['local', 'testing']) ) {
             $rules['password'] = ['required', 'string'];
@@ -45,6 +46,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        logger('LoginRequest', $this->all());
         $this->ensureIsNotRateLimited();
 
         if ( app()->environment(['local', 'testing']) ) {
@@ -75,7 +77,10 @@ class LoginRequest extends FormRequest
 
         Auth::login($user);
 
-        session(['auth_method' => AuthMethodEnum::DOMAIN->value]);
+        session([
+            'auth_method' => AuthMethodEnum::DOMAIN->value,
+            'building_id' => $this->input('building_id')
+        ]);
 
         RateLimiter::clear($this->throttleKey());
     }
@@ -102,7 +107,10 @@ class LoginRequest extends FormRequest
 
         Auth::login($user);
 
-        session(['auth_method' => AuthMethodEnum::DOMAIN->value]);
+        session([
+            'auth_method' => AuthMethodEnum::DOMAIN->value,
+            'building_id' => $this->input('building_id')
+        ]);
 
         RateLimiter::clear($this->throttleKey());
     }
