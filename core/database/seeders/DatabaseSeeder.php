@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSettingSeeder::class,
             ModelHasRoleSeeder::class,
             ConversationSeeder::class,
+            NotificationPreferenceSeeder::class,
             SortListSeeder::class,
             MaterialContainerSeeder::class,
             ContainerLocationSeeder::class,
