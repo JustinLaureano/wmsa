@@ -17,7 +17,7 @@ const FormStack = ({ children, ...props } : any) => {
  */
 
 export default function RequestForm({ onSubmitSuccess = () => {} }: any) {
-    const lang = useContext(LanguageContext);
+    const { lang } = useLanguage();
 
     /** Form */
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({

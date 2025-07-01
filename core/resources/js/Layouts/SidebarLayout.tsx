@@ -18,7 +18,7 @@ export default function SidebarLayout({ title, children, ...props } : SidebarLay
 
             <Head title={title} />
 
-            <TopAppBar title={title} />
+            <TopAppBar title={title || ''} />
 
             <NavigationDrawer />
 

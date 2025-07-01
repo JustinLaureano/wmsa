@@ -1,5 +1,5 @@
 import { TableCell, TableSortLabel } from '@mui/material';
-import { DataTableHeaderCellProps } from './types';
+import { DataTableHeaderCellProps } from '@/types';
 
 export default function DataTableHeaderCell({
     column,

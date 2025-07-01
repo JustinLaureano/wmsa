@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
 export interface SidebarLayoutProps {
-    title: string;
+    title?: string;
     children: ReactNode;
 }

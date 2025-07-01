@@ -1,6 +1,5 @@
 import {
     CollectionPagination,
-    JsonApiCollection,
     JsonPaginateCollectionLinks,
     JsonPaginateCollectionMeta
 } from '@/types';
@@ -18,7 +17,7 @@ export const getCollectionPagination = (
         next_page_url: links.next,
         last_page_url: links.last,
         path: meta.path,
-        links: links,
+        links: meta.links,
         to: meta.to,
         total: meta.total,
     }

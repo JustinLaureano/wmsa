@@ -1,5 +1,5 @@
 import { ReactNode, MouseEvent } from 'react';
-import { JsonObject, Pagination } from '@/types/shared';
+import { JsonApiCollection, JsonObject, Pagination } from '@/types/shared';
 
 export interface RowInterface {
     [key: string]: any;
@@ -20,7 +20,7 @@ export interface ColumnInterface {
 
 export interface DataTableProps {
     columns: ColumnInterface[];
-    rows: RowInterface[];
+    rows: RowInterface[] | JsonApiCollection<any>;
     dense?: boolean;
     pagination: Pagination;
     filters: any[];

@@ -1,3 +1,3 @@
 export interface TopAppBarProps {
-    title: string;
+    title?: string;
 }
