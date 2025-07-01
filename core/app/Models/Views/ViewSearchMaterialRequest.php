@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Models\Views;
+
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+
+class ViewSearchMaterialRequest extends Model
+{
+    use Searchable;
+
+    /**
+     * The primary key for the model.
+     */
+    protected $primaryKey = 'material_request_uuid';
+
+    /**
+     * The key type for the model.
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = false;
+
+    /**
+     * The table associated with the model.
+     */
+    protected $table = 'view_search_material_requests';
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'part_number' => $this->part_number,
+            'material_description' => $this->material_description,
+            'machine_name' => $this->machine_name,
+            'storage_location_name' => $this->storage_location_name,
+        ];
+    }
+}

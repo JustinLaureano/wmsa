@@ -6,6 +6,7 @@ use App\Repositories\ViewSearchIrmChemicalRepository;
 use App\Repositories\ViewSearchMaterialRepository;
 use App\Repositories\ViewSearchMaterialContainerRepository;
 use App\Repositories\ViewSearchStorageLocationRepository;
+use App\Repositories\ViewSearchMaterialRequestRepository;
 use Illuminate\Support\Arr;
 
 class SearchService
@@ -14,7 +15,8 @@ class SearchService
         protected ViewSearchIrmChemicalRepository $irmChemicalRepository,
         protected ViewSearchMaterialRepository $materialRepository,
         protected ViewSearchMaterialContainerRepository $materialContainerRepository,
-        protected ViewSearchStorageLocationRepository $storageLocationRepository
+        protected ViewSearchMaterialRequestRepository $materialRequestRepository,
+        protected ViewSearchStorageLocationRepository $storageLocationRepository,
     ) {
     }
 
@@ -24,8 +26,11 @@ class SearchService
         if (empty(trim($query))) {
             return [
                 'irm_chemicals' => [],
+                'machines' => [],
                 'materials' => [],
                 'material_containers' => [],
+                'material_requests' => [],
+                'sort_list' => [],
                 'storage_locations' => [],
             ];
         }
@@ -33,8 +38,11 @@ class SearchService
         // Aggregate results from each repository
         $results = [
             'irm_chemicals' => $this->irmChemicalRepository->search($query, 8),
+            'machines' => [],
             'materials' => $this->materialRepository->search($query, 8),
             'material_containers' => $this->materialContainerRepository->search($query, 8),
+            'material_requests' => $this->materialRequestRepository->search($query, 8),
+            'sort_list' => [],
             'storage_locations' => $this->storageLocationRepository->search($query, 8),
         ];
 

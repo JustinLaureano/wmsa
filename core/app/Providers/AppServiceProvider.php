@@ -7,6 +7,7 @@ use App\Services\SearchService;
 use App\Repositories\ViewSearchIrmChemicalRepository;
 use App\Repositories\ViewSearchMaterialRepository;
 use App\Repositories\ViewSearchMaterialContainerRepository;
+use App\Repositories\ViewSearchMaterialRequestRepository;
 use App\Repositories\ViewSearchStorageLocationRepository;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(ViewSearchIrmChemicalRepository::class),
                 $app->make(ViewSearchMaterialRepository::class),
                 $app->make(ViewSearchMaterialContainerRepository::class),
-                $app->make(ViewSearchStorageLocationRepository::class)
+                $app->make(ViewSearchMaterialRequestRepository::class),
+                $app->make(ViewSearchStorageLocationRepository::class),
             );
         });
     }
