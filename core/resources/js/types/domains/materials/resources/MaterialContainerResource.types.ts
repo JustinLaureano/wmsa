@@ -1,7 +1,7 @@
 import {
     JsonApiResource,
     JsonObject,
-    BarcodeInformationResource
+    MaterialBarcodeResource
 } from "@/types";
 
 export interface MaterialContainerResourceAttributes {
@@ -24,7 +24,8 @@ export interface MaterialContainerResourceRelations {
 }
 
 export interface MaterialContainerResourceComputed {
-    barcode_label: BarcodeInformationResource;
+    // barcode_label: BarcodeInformationResource;
+    barcode_label: MaterialBarcodeResource;
     container_type_name?: string;
     container_tote_type_name?: string;
     movement_status?: string;
