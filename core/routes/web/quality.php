@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Quality\ShowSortListPart;
 use App\Http\Controllers\Quality\ViewSortList;
 use App\Http\Controllers\Quality\ViewSortListPartNumbers;
 use App\Http\Controllers\Quality\ViewSortInventory;
@@ -14,4 +15,7 @@ Route::get('quality/sort/part-numbers', ViewSortListPartNumbers::class)
 Route::middleware('auth')->group(function () {
     Route::get('quality/sort/inventory', ViewSortInventory::class)
         ->name('quality.sort.inventory');
+
+    Route::get('quality/sort/{sortList:uuid}', ShowSortListPart::class)
+        ->name('quality.sort.show');
 });
