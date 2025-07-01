@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Domain\Auth\Enums\RoleEnum;
 use App\Services\SearchService;
 use App\Repositories\ViewSearchIrmChemicalRepository;
+use App\Repositories\ViewSearchMachineRepository;
 use App\Repositories\ViewSearchMaterialRepository;
 use App\Repositories\ViewSearchMaterialContainerRepository;
 use App\Repositories\ViewSearchMaterialRequestRepository;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SearchService::class, function ($app) {
             return new SearchService(
                 irmChemicalRepository: $app->make(ViewSearchIrmChemicalRepository::class),
+                machineRepository: $app->make(ViewSearchMachineRepository::class),
                 materialRepository: $app->make(ViewSearchMaterialRepository::class),
                 materialContainerRepository: $app->make(ViewSearchMaterialContainerRepository::class),
                 materialRequestRepository: $app->make(ViewSearchMaterialRequestRepository::class),

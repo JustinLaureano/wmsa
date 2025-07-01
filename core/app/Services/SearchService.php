@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ViewSearchIrmChemicalRepository;
+use App\Repositories\ViewSearchMachineRepository;
 use App\Repositories\ViewSearchMaterialRepository;
 use App\Repositories\ViewSearchMaterialContainerRepository;
 use App\Repositories\ViewSearchMaterialRequestRepository;
@@ -14,6 +15,7 @@ class SearchService
 {
     public function __construct(
         protected ViewSearchIrmChemicalRepository $irmChemicalRepository,
+        protected ViewSearchMachineRepository $machineRepository,
         protected ViewSearchMaterialRepository $materialRepository,
         protected ViewSearchMaterialContainerRepository $materialContainerRepository,
         protected ViewSearchMaterialRequestRepository $materialRequestRepository,
@@ -40,7 +42,7 @@ class SearchService
         // Aggregate results from each repository
         $results = [
             'irm_chemicals' => $this->irmChemicalRepository->search($query, 8),
-            'machines' => [],
+            'machines' => $this->machineRepository->search($query, 8),
             'materials' => $this->materialRepository->search($query, 8),
             'material_containers' => $this->materialContainerRepository->search($query, 8),
             'material_requests' => $this->materialRequestRepository->search($query, 8),
