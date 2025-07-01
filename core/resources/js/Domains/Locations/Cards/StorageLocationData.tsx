@@ -27,6 +27,7 @@ import { getCollectionPagination } from '@/Utils/pagination';
 import CollectionPagination from '@/Components/Shared/CollectionPagination';
 import { StorageLocationService } from '@/Services/Locations';
 import { CheckBoxOutlineBlank, CheckBoxOutlined } from '@mui/icons-material';
+import PrimaryLink from '@/Components/Shared/PrimaryLink';
 
 export default function StorageLocationData({ storageLocations } : StorageLocationDataProps) {
     const { lang } = useLanguage();
@@ -100,7 +101,11 @@ export default function StorageLocationData({ storageLocations } : StorageLocati
                                                 <Typography variant="subtitle2" color="text.secondary">
                                                     {lang.name}
                                                 </Typography>
-                                                <Typography variant="body1">{name}</Typography>
+                                                <PrimaryLink
+                                                    route={route('locations.show', { storageLocation: storageLocation.uuid })}
+                                                    label={name}
+                                                    variant='body1'
+                                                />
                                             </Box>
                                         </Grid>
                                         <Grid size={2}>

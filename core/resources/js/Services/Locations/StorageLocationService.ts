@@ -23,7 +23,7 @@ export class StorageLocationService {
     ): Promise<JsonPaginateCollection<StorageLocationResource> | null> {
         try {
             const response = await this.apiService.get<JsonPaginateCollection<StorageLocationResource>>(
-                route('locations.show'),
+                route('locations.index'),
                 { params: filterParams }
             );
 

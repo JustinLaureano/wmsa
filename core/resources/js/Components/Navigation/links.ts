@@ -91,7 +91,7 @@ export function getNavigationDrawerLinks(lang: JsonObject) {
             route: route('locations.buildings.kpi'),
             selected: [
                 route('locations.buildings.kpi'),
-                route('locations.show'),
+                route('locations.index'),
             ]
         },
     ];

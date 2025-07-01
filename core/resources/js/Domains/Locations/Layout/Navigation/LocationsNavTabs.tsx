@@ -14,9 +14,9 @@ export default function LocationsNavTabs() {
         },
         {
             label: lang.storage_locations,
-            route: route('locations.show'),
+            route: route('locations.index'),
             selected: [
-                route('locations.show'),
+                route('locations.index'),
             ]
         },
     ]
