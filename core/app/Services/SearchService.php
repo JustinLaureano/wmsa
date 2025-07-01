@@ -5,8 +5,9 @@ namespace App\Services;
 use App\Repositories\ViewSearchIrmChemicalRepository;
 use App\Repositories\ViewSearchMaterialRepository;
 use App\Repositories\ViewSearchMaterialContainerRepository;
-use App\Repositories\ViewSearchStorageLocationRepository;
 use App\Repositories\ViewSearchMaterialRequestRepository;
+use App\Repositories\ViewSearchSortListRepository;
+use App\Repositories\ViewSearchStorageLocationRepository;
 use Illuminate\Support\Arr;
 
 class SearchService
@@ -16,6 +17,7 @@ class SearchService
         protected ViewSearchMaterialRepository $materialRepository,
         protected ViewSearchMaterialContainerRepository $materialContainerRepository,
         protected ViewSearchMaterialRequestRepository $materialRequestRepository,
+        protected ViewSearchSortListRepository $sortListRepository,
         protected ViewSearchStorageLocationRepository $storageLocationRepository,
     ) {
     }
@@ -42,7 +44,7 @@ class SearchService
             'materials' => $this->materialRepository->search($query, 8),
             'material_containers' => $this->materialContainerRepository->search($query, 8),
             'material_requests' => $this->materialRequestRepository->search($query, 8),
-            'sort_list' => [],
+            'sort_list' => $this->sortListRepository->search($query, 8),
             'storage_locations' => $this->storageLocationRepository->search($query, 8),
         ];
 
