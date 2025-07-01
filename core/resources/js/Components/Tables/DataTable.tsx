@@ -126,7 +126,7 @@ export default function DataTable({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map( (row, index) => {
+                        {(Array.isArray(rows) ? rows : rows.data).map( (row: any, index: number) => {
                             return (
                                 <TableRow
                                     key={index}

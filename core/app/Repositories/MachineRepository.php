@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Models\Machine;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class MachineRepository
 {
@@ -15,6 +17,17 @@ class MachineRepository
         return Machine::query()
             ->orderBy($sortBy, $sortOrder)
             ->get();
+    }
+
+    public function filterPaginate($search = null) : LengthAwarePaginator
+    {
+        if ($search === null) {
+            $search = request()->query('search');
+        }
+
+        return Machine::search($search)
+            ->query(fn (Builder $query) => $query->filter())
+            ->paginate();
     }
 
     /**

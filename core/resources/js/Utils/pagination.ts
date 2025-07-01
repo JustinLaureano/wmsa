@@ -1,4 +1,9 @@
-import { CollectionPagination, JsonPaginateCollectionLinks, JsonPaginateCollectionMeta } from '@/types';
+import {
+    CollectionPagination,
+    JsonApiCollection,
+    JsonPaginateCollectionLinks,
+    JsonPaginateCollectionMeta
+} from '@/types';
 
 export const getCollectionPagination = (
     links: JsonPaginateCollectionLinks,
@@ -19,4 +24,17 @@ export const getCollectionPagination = (
     }
 
     return pagination;
+}
+
+/**
+ * This will input a collection pagination object and return a pagination object with the data.
+ *
+ * @param data
+ * @returns 
+ */
+export const collectionPaginationToPagination = (data: any) => {
+    return {
+        ...getCollectionPagination(data.links, data.meta),
+        data: data.data
+    }
 }

@@ -2,9 +2,9 @@ import NavigateBackLink from '@/Components/Navigation/NavigateBackLink';
 import SidebarLayout from '@/Layouts/SidebarLayout';
 import { useLanguage } from '@/Providers/LanguageProvider';
 import { Stack, useTheme } from '@mui/material';
+import { ShowChemicalProps } from '@/types';
 
-
-export default function ShowChemical({ chemical } : any) {
+export default function ShowChemical({ chemical } : ShowChemicalProps) {
     const theme = useTheme();
     const { lang } = useLanguage();
 
@@ -20,7 +20,7 @@ export default function ShowChemical({ chemical } : any) {
     } = chemical.computed;
 
     return (
-        <SidebarLayout title={chemical.relations.material.part_number}>
+        <SidebarLayout title={material_part_number}>
             <Stack sx={{ mb: theme.spacing(4) }} spacing={2}>
                 <NavigateBackLink
                     route={route('irm.chemicals')}

@@ -30,6 +30,13 @@ export default function ProductionNavTabs() {
                 route('production.put-away.scan'),
             ]
         },
+        {
+            label: lang.machines,
+            route: route('machines'),
+            selected: [
+                route('machines'),
+            ]
+        },
     ]
 
     return (
