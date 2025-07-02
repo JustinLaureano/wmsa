@@ -34,3 +34,12 @@ Route::get('/site-search', function (Request $request) {
 
     return response()->json($results);
 });
+
+Route::get('/locations/available', function () {
+
+    $records = DB::select('CALL get_available_storage_locations_by_area(?, ?)', [6, null]);
+
+    $storageLocations = App\Models\StorageLocation::hydrate($records);
+
+    return response()->json($storageLocations);
+});

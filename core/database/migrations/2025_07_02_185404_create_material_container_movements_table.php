@@ -26,6 +26,7 @@ return new class extends Migration
                 ->comment('Storage location being moved to');
 
             $table->unsignedInteger('sequence')
+                ->nullable()
                 ->comment('The sequence number from material_routing');
 
             $table->boolean('is_sort_location')

@@ -32,4 +32,14 @@ class SortListRepository
             ->pluck('part_number')
             ->values();
     }
+
+    /**
+     * Check if a material is on an active sort list.
+     */
+    public function isActiveMaterial(string $materialUuid) : bool
+    {
+        return SortList::where('material_uuid', $materialUuid)
+            ->where('status', '!=', 'closed')
+            ->exists();
+    }
 }
