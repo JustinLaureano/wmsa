@@ -61,7 +61,9 @@ export default function SearchDialog({ open, onClose }: SearchDialogProps) {
             }}
         >
 			<DialogContent dividers>
-                <SearchInput onChange={handleSearchChange} />
+                <SearchInput
+                    onChange={handleSearchChange}
+                />
                 <Divider />
                 {
                     (!results) &&
