@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import {
-    CircularProgress,
 	Dialog,
 	DialogActions,
 	DialogContent,
-    Divider,
-    Stack,
+    Divider
 } from '@mui/material';
 import { JsonObject, SearchDialogProps } from '@/types';
-import { useLanguage } from '@/Providers/LanguageProvider';
 import SearchInput from './SearchInput';
 import { SearchService } from '@/Services/SearchService';
 import NoSearchResults from './NoSearchResults';
@@ -16,7 +13,6 @@ import LoadingIndicator from './LoadingIndicator';
 import SearchResults from './SearchResults';
 
 export default function SearchDialog({ open, onClose }: SearchDialogProps) {
-	const { lang } = useLanguage();
     const searchService = new SearchService();
 
     const [results, setResults] = useState<JsonObject | null>(null);
@@ -24,7 +20,6 @@ export default function SearchDialog({ open, onClose }: SearchDialogProps) {
     const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
 
     const handleSearchChange = (value: string) => {
-        // TODO: set to state so a clear button can be used to clear the search
         if (searchTimeout) clearTimeout(searchTimeout);
 
         setSearchTimeout(setTimeout(() => {
@@ -54,7 +49,6 @@ export default function SearchDialog({ open, onClose }: SearchDialogProps) {
             fullWidth
             maxWidth="sm"
             sx={{
-                // height: '300px',
                 '& .MuiDialogContent-root': {
                     padding: 0,
                 },
