@@ -24,33 +24,28 @@ class SearchService
     ) {
     }
 
-    public function search($query)
+    /**
+     * Search for a query.
+     */
+    public function search(string $query) : array
     {
         // Return empty results if query is empty
         if (empty(trim($query))) {
-            return [
-                'irm_chemicals' => [],
-                'machines' => [],
-                'materials' => [],
-                'material_containers' => [],
-                'material_requests' => [],
-                'sort_list' => [],
-                'storage_locations' => [],
-            ];
+            return [];
         }
 
         // Aggregate results from each repository
         $results = [
-            'irm_chemicals' => $this->irmChemicalRepository->search($query, 8),
-            'machines' => $this->machineRepository->search($query, 8),
-            'materials' => $this->materialRepository->search($query, 8),
-            'material_containers' => $this->materialContainerRepository->search($query, 8),
-            'material_requests' => $this->materialRequestRepository->search($query, 8),
-            'sort_list' => $this->sortListRepository->search($query, 8),
-            'storage_locations' => $this->storageLocationRepository->search($query, 8),
+            'irm_chemicals' => $this->irmChemicalRepository->search($query, 6),
+            'machines' => $this->machineRepository->search($query, 6),
+            'materials' => $this->materialRepository->search($query, 6),
+            'material_containers' => $this->materialContainerRepository->search($query, 6),
+            'material_requests' => $this->materialRequestRepository->search($query, 6),
+            'sort_list' => $this->sortListRepository->search($query, 6),
+            'storage_locations' => $this->storageLocationRepository->search($query, 6),
         ];
 
         // Filter out empty result sets
-        return Arr::where($results, fn($items) => !empty($items));
+        return Arr::where($results, fn($items) => !$items->isEmpty());
     }
 }

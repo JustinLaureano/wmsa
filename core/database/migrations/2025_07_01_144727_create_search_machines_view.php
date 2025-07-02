@@ -13,11 +13,14 @@ return new class extends Migration
         DB::unprepared("
             CREATE OR REPLACE VIEW `view_search_machines` AS
                 SELECT
-                    uuid AS machine_uuid,
-                    name AS machine_name
-                FROM wms.machines
-                WHERE deleted_at IS NULL
-                ORDER BY name ASC;
+                    m.uuid AS machine_uuid,
+                    m.name AS machine_name,
+                    b.name AS building_name
+                FROM wms.machines m
+                LEFT JOIN buildings b
+                    ON b.id = m.building_id
+                WHERE m.deleted_at IS NULL
+                ORDER BY m.name ASC;
         ");
     }
 

@@ -37,8 +37,7 @@ class ViewSearchStorageLocation extends Model
     public function toSearchableArray(): array
     {
         return [
-            'name' => $this->name,
-            // 'barcode' => $this->barcode,
+            'storage_location_name' => $this->storage_location_name,
         ];
     }
 }

@@ -14,13 +14,15 @@ return new class extends Migration
             CREATE OR REPLACE VIEW `view_search_storage_locations` AS
                 SELECT
                     sl.uuid AS storage_location_uuid,
-                    sl.name,
-                    sl.barcode
+                    sl.name AS storage_location_name,
+                    b.name AS building_name
                 FROM wms.storage_locations sl
                 LEFT JOIN storage_location_areas sla
                     ON sla.id = sl.storage_location_area_id
+                LEFT JOIN buildings b
+                    ON b.id = sla.building_id
                 WHERE sl.deleted_at IS NULL
-                ORDER BY name ASC;
+                ORDER BY sl.name ASC;
         ");
     }
 

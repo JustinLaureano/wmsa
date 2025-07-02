@@ -119,6 +119,7 @@ return [
     'no_inventory_found' => 'No se encontró inventario',
     'no_messages' => 'No hay mensajes',
     'no_part_numbers_found' => 'No se encontraron números de parte',
+    'no_recent_searches' => 'No hay búsquedas recientes',
     'no_requests_at_this_time' => 'No hay solicitudes en este momento',
     'note' => 'Nota',
     'notifications' => 'Notificaciones',

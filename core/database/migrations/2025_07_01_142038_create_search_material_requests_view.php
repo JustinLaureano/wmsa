@@ -20,7 +20,8 @@ return new class extends Migration
                     mach.name AS machine_name,
                     sl.name AS storage_location_name,
                     mr.material_request_status_code,
-                    mr.material_request_type_code
+                    mr.material_request_type_code,
+                    mr.requested_at
                 FROM wms.material_request_items mri
                 LEFT JOIN material_requests mr
                     ON mr.uuid = mri.material_request_uuid

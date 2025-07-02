@@ -119,6 +119,7 @@ return [
     'no_inventory_found' => 'No inventory found',
     'no_messages' => 'No messages',
     'no_part_numbers_found' => 'No part numbers found',
+    'no_recent_searches' => 'No recent searches',
     'no_requests_at_this_time' => 'No requests at this time',
     'note' => 'Note',
     'notifications' => 'Notifications',
