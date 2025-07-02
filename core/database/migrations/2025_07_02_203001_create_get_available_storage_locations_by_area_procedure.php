@@ -11,6 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
+            DROP PROCEDURE IF EXISTS get_available_storage_locations_by_area;
             CREATE PROCEDURE get_available_storage_locations_by_area(
                 IN p_storage_location_area_id INT,
                 IN p_limit INT
