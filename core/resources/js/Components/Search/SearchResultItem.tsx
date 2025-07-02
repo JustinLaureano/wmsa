@@ -1,17 +1,34 @@
-import { JsonObject } from "@/types";
 import { InsertDriveFileOutlined, LaunchOutlined } from "@mui/icons-material";
 import { Box, ListItemButton, Stack, Typography } from "@mui/material";
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import { RecentSearchService } from "@/Services/Search";
+import { SearchResultItemProps } from "@/types/components/search";
 
 export default function SearchResultItem({
     primaryText,
     secondaryText,
     url
-}: { primaryText: string, secondaryText: string, url: string }) {
+}: SearchResultItemProps) {
+    const recentSearchService = new RecentSearchService();
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+
+        const searchItem = {
+            primaryText,
+            secondaryText,
+            url
+        };
+
+        recentSearchService.addRecentSearch(searchItem);
+        router.get(url);
+    }
+
     return (
         <ListItemButton
             component={Link}
             href={url}
+            onClick={handleClick}
         >
             <Stack
                 direction="row"

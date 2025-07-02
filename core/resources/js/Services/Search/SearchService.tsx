@@ -1,5 +1,5 @@
 import { JsonObject } from '@/types';
-import ApiService from './ApiService';
+import ApiService from '../ApiService';
 
 export class SearchService {
     private apiService: ApiService;

@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { JsonObject, SearchDialogProps } from '@/types';
 import SearchInput from './SearchInput';
-import { SearchService } from '@/Services/SearchService';
+import { SearchService } from '@/Services/Search';
 import NoSearchResults from './NoSearchResults';
 import LoadingIndicator from './LoadingIndicator';
 import SearchResults from './SearchResults';
