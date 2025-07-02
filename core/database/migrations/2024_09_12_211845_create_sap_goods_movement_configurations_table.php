@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sap_goods_movement_configurations');
+        Schema::dropIfExists('sap_goods_movement_configuration');
     }
 };
