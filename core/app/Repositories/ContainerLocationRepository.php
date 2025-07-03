@@ -4,9 +4,18 @@ namespace App\Repositories;
 
 use App\Domain\Materials\DataTransferObjects\ContainerLocationData;
 use App\Models\ContainerLocation;
+use App\Models\StorageLocation;
 
 class ContainerLocationRepository
 {
+    public function getContainerLocation(string $containerUuid): StorageLocation|null
+    {
+        return ContainerLocation::query()
+            ->where('material_container_uuid', $containerUuid)
+            ->first()
+            ?->storageLocation;
+    }
+
     /**
      * Store a container location record for a material container.
      */

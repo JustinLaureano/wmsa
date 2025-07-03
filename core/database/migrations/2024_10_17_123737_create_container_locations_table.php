@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('container_locations', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->index();
             $table->foreignUuid('material_container_uuid')
                 ->references('uuid')
                 ->on('material_containers');

@@ -3,6 +3,8 @@
 namespace App\Domain\Materials\Services;
 
 use App\Models\MaterialContainer;
+use App\Models\StorageLocation;
+use App\Repositories\ContainerLocationRepository;
 use App\Repositories\MaterialContainerMovementRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
@@ -13,9 +15,10 @@ use Illuminate\Database\Eloquent\Collection;
 class MaterialContainerRoutingService
 {
     public function __construct(
-        protected SortListRepository $sortListRepository,
+        protected ContainerLocationRepository $containerLocationRepository,
         protected MaterialContainerMovementRepository $materialContainerMovementRepository,
         protected MaterialRoutingRepository $materialRoutingRepository,
+        protected SortListRepository $sortListRepository,
         protected SortStorageLocationRepository $sortStorageLocationRepository,
         protected StorageLocationRepository $storageLocationRepository,
     ) {
@@ -24,6 +27,8 @@ class MaterialContainerRoutingService
     public function getNextDestination(MaterialContainer $container, int $buildingId)
     {
         $materialUuid = $container->material_uuid;
+
+        $currentLocation = $this->getContainerCurrentLocation($container);
 
         if ($this->needsSorted($materialUuid, $container->uuid)) {
             // Route to sort location
@@ -87,6 +92,12 @@ class MaterialContainerRoutingService
         return $max === 1
             ? $storageLocations->first()
             : $storageLocations;
+    }
+
+    protected function getContainerCurrentLocation(MaterialContainer $container): StorageLocation|null
+    {
+        return $this->containerLocationRepository
+            ->getContainerLocation($container->uuid);
     }
 
     protected function needsSorted(string $materialUuid, string $containerUuid): bool
