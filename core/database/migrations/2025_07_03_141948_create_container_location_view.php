@@ -16,6 +16,7 @@ return new class extends Migration
                     cl.uuid AS container_location_uuid,
                     mc.uuid AS material_container_uuid,
                     mc.material_uuid,
+                    m.material_number,
                     m.part_number,
                     mc.lot_number,
                     mc.quantity,

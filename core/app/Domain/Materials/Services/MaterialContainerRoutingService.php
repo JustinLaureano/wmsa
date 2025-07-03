@@ -52,11 +52,8 @@ class MaterialContainerRoutingService
             }
         }
 
-        // Get the latest movement sequence
-        $latestSequence = $this->materialContainerMovementRepository
-            ->getLatestSequence($container->uuid);
-
-        $nextSequence = $latestSequence + 1;
+        // Find the next routing sequence
+        $nextSequence = $this->getNextSequence($container->uuid);
 
         // Get routing rules for the next sequence
         $rules = $this->getRoutingRules($materialUuid, $buildingId, $nextSequence);
@@ -98,6 +95,14 @@ class MaterialContainerRoutingService
     {
         return $this->containerLocationRepository
             ->getContainerLocation($container->uuid);
+    }
+
+    protected function getNextSequence(string $containerUuid): int
+    {
+        $latestSequence = $this->materialContainerMovementRepository
+            ->getLatestSequence($containerUuid);
+
+        return $latestSequence + 1;
     }
 
     protected function needsSorted(string $materialUuid, string $containerUuid): bool
