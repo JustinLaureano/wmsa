@@ -1,7 +1,8 @@
 name,description,default_max_containers
 "pallet-rack","A pallet racking structure for storing goods and materials",1
-"flow-rack","rolling dynamic storage racking for storing high use materials",9
+"flow-rack","rolling dynamic storage racking for storing high use materials",11
 "mold-rack","Mold racking structure for storing molds",1
+"bond-lane","Designated area for parts to be bonded",11
 "shipping-zone","Area designated for soon to be shipped goods",
 "receiving-zone","Receiving area",
 "building-exit","An area for materials to leave a building location",

@@ -7,6 +7,7 @@ enum StorageLocationTypeEnum: string
     case PALLET_RACK = 'pallet-rack';
     case FLOW_RACK = 'flow-rack';
     case MOLD_RACK = 'mold-rack';
+    case BOND_LANE = 'bond-lane';
     case SHIPPING_ZONE = 'shipping-zone';
     case RECEIVING_ZONE = 'receiving-zone';
     case BUILDING_EXIT = 'building-exit';
@@ -23,6 +24,7 @@ enum StorageLocationTypeEnum: string
             self::PALLET_RACK => 'Pallet Rack',
             self::FLOW_RACK => 'Flow Rack',
             self::MOLD_RACK => 'Mold Rack',
+            self::BOND_LANE => 'Bond Lane',
             self::SHIPPING_ZONE => 'Shipping Zone',
             self::RECEIVING_ZONE => 'Receiving Zone',
             self::BUILDING_EXIT => 'Building Exit',

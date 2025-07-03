@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Domain\Locations\Enums\StorageLocationTypeEnum;
 use App\Domain\Materials\DataTransferObjects\ContainerLocationData;
 use App\Models\MaterialContainer;
 use App\Models\StorageLocation;
+use App\Models\StorageLocationType;
 use App\Repositories\ContainerLocationRepository;
 use App\Repositories\SortListRepository;
 use Database\Seeders\Traits\Timestamps;
@@ -53,18 +55,22 @@ class ContainerLocationSeeder extends Seeder
                 $palletRack = Lottery::odds(9, 10)->choose();
 
                 if ($palletRack) {
+                    $palletRackType = StorageLocationType::where('name', StorageLocationTypeEnum::PALLET_RACK->value)->first();
+
                     $location = StorageLocation::query()
                         ->doesntHave('containers')
-                        ->whereHas('type', function (Builder $query) {
-                            $query->where('id', 1);
+                        ->whereHas('type', function (Builder $query) use ($palletRackType) {
+                            $query->where('id', $palletRackType->id);
                         })
                         ->inRandomOrder()
                         ->first();
                 }
                 else {
+                    $floorType = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR->value)->first();
+
                     $location = StorageLocation::query()
-                        ->whereHas('type', function (Builder $query) {
-                            $query->where('id', 9);
+                        ->whereHas('type', function (Builder $query) use ($floorType) {
+                            $query->where('id', $floorType->id);
                         })
                         ->inRandomOrder()
                         ->first();

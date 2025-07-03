@@ -5,6 +5,7 @@ location,description,storage_location_group
 "B MINOR","B MINOR",1000
 "BANBURY","BANBURY",1000
 BFIX,"Bond Fixtures",1000
+"BL","Phosphate Bond Lanes",1000
 "BOND QUALITY","BOND QUALITY",1000
 BRATWMRB,BRATWMBR,1101
 "BURN OFF FLOOR","BURN OFF FLOOR",1000
@@ -68,6 +69,30 @@ RAW,"Raw Metal Racks",1000
 "REPACK","REPACK",1000
 "SCRAP","SCRAP",1200
 "SCRAP RTV","SCRAP RTV",1000
+"SFLOW-1","Swage Flow Rack",1000
+"SFLOW-2","Swage Flow Rack",1000
+"SFLOW-3","Swage Flow Rack",1000
+"SFLOW-4","Swage Flow Rack",1000
+"SFLOW-5","Swage Flow Rack",1000
+"SFLOW-6","Swage Flow Rack",1000
+"SFLOW-7","Swage Flow Rack",1000
+"SFLOW-8","Swage Flow Rack",1000
+"SFLOW-9","Swage Flow Rack",1000
+"SFLOW-10","Swage Flow Rack",1000
+"SFLOW-11","Swage Flow Rack",1000
+"SFLOW-12","Swage Flow Rack",1000
+"SFLOW-13","Swage Flow Rack",1000
+"SFLOW-14","Swage Flow Rack",1000
+"SFLOW-15","Swage Flow Rack",1000
+"SFLOW-16","Swage Flow Rack",1000
+"SFLOW-17","Swage Flow Rack",1000
+"SFLOW-18","Swage Flow Rack",1000
+"SFLOW-19","Swage Flow Rack",1000
+"SFLOW-20","Swage Flow Rack",1000
+"SFLOW-21","Swage Flow Rack",1000
+"SFLOW-22","Swage Flow Rack",1000
+"SFLOW-23","Swage Flow Rack",1000
+"SFLOW-24","Swage Flow Rack",1000
 "Shipping Out","Shipping Out",1000
 SLIT,"Slitter Components",1000
 "SORT","SORT",1000

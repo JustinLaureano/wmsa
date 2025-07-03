@@ -28,6 +28,8 @@ class StorageLocationSeeder extends Seeder
         $this->setPalletRackStorageLocations();
         $this->setFloorStorageLocations();
         $this->setIrmStorageLocations();
+        $this->setFlowRackStorageLocations();
+        $this->setBondLaneStorageLocations();
     }
 
     /**
@@ -201,6 +203,152 @@ class StorageLocationSeeder extends Seeder
 
             StorageLocation::insert($data);
         }
+    }
+
+    /**
+     * Set the flow rack storage locations.
+     */
+    protected function setFlowRackStorageLocations() : void
+    {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     id,
+         *     building,
+         *     area,
+         *     aisle,
+         *     bay,
+         *     shelf,
+         *     position,
+         *     type,
+         *     split_request,
+         *     disabled,
+         *     exclude_allocations,
+         *     0 AS restrict_request_allocations
+         * FROM wms.tblwms_rack_location
+         * WHERE `type` in (2, 8, 9)
+         *     AND area LIKE 'SFLOW%'
+         *     OR area LIKE 'FLOW%'
+         * ORDER BY building, position;
+         */
+
+        $file = database_path('data/storage_locations/flow_racks.csv');
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOW_RACK)->first();
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+
+                $name = $row['area'];
+
+                $areaId = $this->areas[$row['building']][$row['area']]['id'];
+
+                $maxContainers = StorageLocationType::where(
+                        'name',
+                        StorageLocationTypeEnum::FLOW_RACK->value
+                    )
+                    ->first()
+                    ->default_max_containers;
+
+                if (str_contains($row['area'], 'SFLOW')) {
+                    $maxContainers = 7;
+                }
+
+                $locationData = new StorageLocationData(
+                    name: $name,
+                    barcode: $row['id'],
+                    storage_location_type_id: $type->id,
+                    storage_location_area_id: $areaId,
+                    aisle: $row['aisle'],
+                    bay: $row['bay'],
+                    shelf: $row['shelf'],
+                    position: $row['position'],
+                    max_containers: $maxContainers,
+                    restrict_request_allocations: $row['restrict_request_allocations'],
+                    disabled: $row['disabled'],
+                    reservable: $row['exclude_allocations'] ? 0 : 1
+                );
+
+                $data[$key] = array_merge(
+                    $locationData->toArray(),
+                    $this->getUuid(),
+                    $this->getTimestamps()
+                );
+            }
+
+            StorageLocation::insert($data);
+        }
+    }
+
+    /**
+     * Set the bond lane storage locations.
+     */
+    protected function setBondLaneStorageLocations() : void
+    {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     id,
+         *     building,
+         *     area,
+         *     aisle,
+         *     bay,
+         *     shelf,
+         *     position,
+         *     type,
+         *     split_request,
+         *     disabled,
+         *     exclude_allocations,
+         *     0 AS restrict_request_allocations
+         * FROM wms.tblwms_rack_location
+         * WHERE area = 'BL'
+         * ORDER BY position;
+         */
+
+         $file = database_path('data/storage_locations/bond_lanes.csv');
+         $type = StorageLocationType::where('name', StorageLocationTypeEnum::BOND_LANE)->first();
+         $csvReader = new CsvReader($file);
+ 
+         foreach ($csvReader->toArray() as $data) {
+             foreach ($data as $key => $row) {
+ 
+                 $name = 'Bond Lane '. $row['position'];
+ 
+                 $areaId = $this->areas[$row['building']][$row['area']]['id'];
+ 
+                 $maxContainers = StorageLocationType::where(
+                         'name',
+                         StorageLocationTypeEnum::BOND_LANE->value
+                     )
+                     ->first()
+                     ->default_max_containers;
+ 
+                 $locationData = new StorageLocationData(
+                     name: $name,
+                     barcode: $row['id'],
+                     storage_location_type_id: $type->id,
+                     storage_location_area_id: $areaId,
+                     aisle: $row['aisle'],
+                     bay: $row['bay'],
+                     shelf: $row['shelf'],
+                     position: $row['position'],
+                     max_containers: $maxContainers,
+                     restrict_request_allocations: $row['restrict_request_allocations'],
+                     disabled: $row['disabled'],
+                     reservable: $row['exclude_allocations'] ? 0 : 1
+                 );
+ 
+                 $data[$key] = array_merge(
+                     $locationData->toArray(),
+                     $this->getUuid(),
+                     $this->getTimestamps()
+                 );
+             }
+ 
+             StorageLocation::insert($data);
+         }
     }
 
     /**
