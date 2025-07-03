@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Domain\Auth\Enums\RoleEnum;
+use App\Domain\Materials\Services\MaterialContainerRoutingService;
 use App\Services\SearchService;
+use App\Repositories\MaterialContainerMovementRepository;
+use App\Repositories\MaterialRoutingRepository;
+use App\Repositories\SortListRepository;
+use App\Repositories\SortStorageLocationRepository;
+use App\Repositories\StorageLocationRepository;
 use App\Repositories\ViewSearchIrmChemicalRepository;
 use App\Repositories\ViewSearchMachineRepository;
 use App\Repositories\ViewSearchMaterialRepository;
@@ -33,6 +39,16 @@ class AppServiceProvider extends ServiceProvider
                 materialRequestRepository: $app->make(ViewSearchMaterialRequestRepository::class),
                 sortListRepository: $app->make(ViewSearchSortListRepository::class),
                 storageLocationRepository: $app->make(ViewSearchStorageLocationRepository::class),
+            );
+        });
+
+        $this->app->bind(MaterialContainerRoutingService::class, function ($app) {
+            return new MaterialContainerRoutingService(
+                sortListRepository: $app->make(SortListRepository::class),
+                materialContainerMovementRepository: $app->make(MaterialContainerMovementRepository::class),
+                materialRoutingRepository: $app->make(MaterialRoutingRepository::class),
+                sortStorageLocationRepository: $app->make(SortStorageLocationRepository::class),
+                storageLocationRepository: $app->make(StorageLocationRepository::class),
             );
         });
     }

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Locations\Enums;
 
-enum BuildingIdEnum: string
+enum BuildingIdEnum: int
 {
     case PLANT_2 = 1;
     case BLACKHAWK = 2;

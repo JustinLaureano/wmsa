@@ -1,41 +1,42 @@
 <?php
 
-namespace App\Services;
+namespace App\Domain\Materials\Services;
 
-use App\Domain\Locations\Enums\BuildingIdEnum;
 use App\Models\MaterialContainer;
-use App\Models\MaterialRouting;
-use App\Models\StorageLocation;
 use App\Repositories\MaterialContainerMovementRepository;
+use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
+use App\Repositories\StorageLocationRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class MaterialContainerRoutingService
 {
+    public function __construct(
+        protected SortListRepository $sortListRepository,
+        protected MaterialContainerMovementRepository $materialContainerMovementRepository,
+        protected MaterialRoutingRepository $materialRoutingRepository,
+        protected SortStorageLocationRepository $sortStorageLocationRepository,
+        protected StorageLocationRepository $storageLocationRepository,
+    ) {
+    }
+
     public function getNextDestination(MaterialContainer $container, int $buildingId)
     {
-        $material = $container->material;
-        $currentBuildingId = $buildingId; // Current building or user's building
+        $materialUuid = $container->material_uuid;
 
-        // Check if material is on the sort list
-        $sortList = (new SortListRepository)->isActiveMaterial($material->uuid);
-
-        // Check if the container has visited the sort location
-        $hasVisitedSort = (new MaterialContainerMovementRepository)
-            ->hasVisitedSortLocation($container->uuid);
-
-        if ($sortList && !$hasVisitedSort) {
+        if ($this->needsSorted($materialUuid, $container->uuid)) {
             // Route to sort location
-            $sortStation = (new SortStorageLocationRepository)
-                ->getSortStationByBuilding($currentBuildingId ?? BuildingIdEnum::PLANT_2->value);
+            $sortStation = $this->sortStorageLocationRepository
+                ->getSortStationByBuilding($buildingId);
 
             if ($sortStation) {
-                $storageLocation = $this->findAvailableStorageLocation($sortStation->storage_location_area_id);
+                $storageLocation = $this->findAvailableStorageLocations($sortStation->storage_location_area_id, 1);
                 if ($storageLocation) {
                     return [
                         'storage_location_uuid' => $storageLocation->uuid,
                         'is_sort_location' => true,
-                        'sequence' => 0, // Sort location doesn't count in sequence
+                        'sequence' => null, // Sort location doesn't count in sequence
                     ];
                 }
             }
@@ -47,65 +48,68 @@ class MaterialContainerRoutingService
         }
 
         // Get the latest movement sequence
-        $latestSequence = (new MaterialContainerMovementRepository)
+        $latestSequence = $this->materialContainerMovementRepository
             ->getLatestSequence($container->uuid);
 
         $nextSequence = $latestSequence + 1;
 
         // Get routing rules for the next sequence
-        $rules = MaterialRouting::where('material_uuid', $material->uuid)
-            ->where('building_id', $currentBuildingId)
-            ->where('sequence', $nextSequence)
-            ->orderBy('is_preferred', 'desc')
-            ->orderBy('fallback_order')
-            ->get();
+        $rules = $this->getRoutingRules($materialUuid, $buildingId, $nextSequence);
 
         foreach ($rules as $rule) {
-            $storageLocation = $this->findAvailableStorageLocation($rule->storage_location_area_id);
-            if ($storageLocation) {
-                return [
-                    'storage_location_uuid' => $storageLocation->uuid,
-                    'is_sort_location' => false,
-                    'sequence' => $nextSequence,
-                ];
+            // If the rule is for the current building,
+            // return the storage locations available for the rule
+            if ($rule->building_id === $buildingId) {
+                $storageLocations = $this->findAvailableStorageLocations($rule->storage_location_area_id, 10);
+                if ($storageLocations) {
+                    return [
+                        'preferred' => $storageLocations->first(),
+                        'all' => $storageLocations,
+                    ];
+                }
             }
+            else {
+                // Need to return a building out location
+                // if at building out location, return building in location
+                // for the next rule building and sequence
+            }
+
         }
 
         return null; // No available destinations
     }
 
-    protected function findAvailableStorageLocation($storageLocationAreaId)
+    protected function findAvailableStorageLocations($storageLocationAreaId, $max = 10)
     {
-        return StorageLocation::where('storage_location_area_id', $storageLocationAreaId)
-            ->where('disabled', false)
-            ->where('reservable', true)
-            ->where(function ($query) {
-                $query->whereNull('max_containers')
-                    ->orWhereRaw('(SELECT COUNT(*) FROM container_locations cl WHERE cl.storage_location_uuid = storage_locations.uuid AND cl.deleted_at IS NULL) < max_containers');
-            })
-            ->first();
+        $storageLocations = $this->storageLocationRepository
+            ->getAvailableStorageLocationsByArea($storageLocationAreaId, $max);
+
+        return $max === 1
+            ? $storageLocations->first()
+            : $storageLocations;
     }
 
-    // public function recordMovement($materialContainerUuid, $storageLocationUuid, $sequence, $isSortLocation)
-    // {
-    //     MaterialContainerMovement::create([
-    //         'uuid' => (string) Str::uuid(),
-    //         'material_container_uuid' => $materialContainerUuid,
-    //         'storage_location_uuid' => $storageLocationUuid,
-    //         'sequence' => $sequence,
-    //         'is_sort_location' => $isSortLocation,
-    //     ]);
+    protected function needsSorted(string $materialUuid, string $containerUuid): bool
+    {
+        // Check if material is on the sort list
+        $sortList = $this->sortListRepository->isActiveMaterial($materialUuid);
 
-    //     // Update container_locations
-    //     \DB::table('container_locations')
-    //         ->where('material_container_uuid', $materialContainerUuid)
-    //         ->update(['deleted_at' => now()]);
+        // Check if the container has visited the sort location
+        $hasVisitedSort = $this->materialContainerMovementRepository
+            ->hasVisitedSortLocation($containerUuid);
 
-    //     \DB::table('container_locations')->insert([
-    //         'material_container_uuid' => $materialContainerUuid,
-    //         'storage_location_uuid' => $storageLocationUuid,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ]);
-    // }
+        return $sortList && !$hasVisitedSort;
+    }
+
+    protected function getRoutingRules(string $materialUuid, int $buildingId, int $sequence): Collection
+    {
+        // Get routing rules for the next sequence
+        $buildingRules = $this->materialRoutingRepository
+            ->getMaterialRoutingForBuilding($materialUuid, $buildingId, $sequence);
+
+        $otherRules = $this->materialRoutingRepository
+            ->getMaterialRoutingForOtherBuildings($materialUuid, $buildingId, $sequence);
+
+        return $buildingRules->merge($otherRules);
+    }
 }

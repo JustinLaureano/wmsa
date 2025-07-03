@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Locations\Enums\BuildingIdEnum;
+use App\Domain\Materials\Services\MaterialContainerRoutingService;
 use App\Http\Resources\Auth\UserDetailResource;
 use App\Http\Resources\Auth\UserProfileCollection;
 use App\Http\Resources\Materials\SafetyStockReportResource;
@@ -35,11 +37,15 @@ Route::get('/site-search', function (Request $request) {
     return response()->json($results);
 });
 
-Route::get('/locations/available', function () {
+Route::get(
+    '/locations/available/{materialContainer:uuid}',
+    function (App\Models\MaterialContainer $materialContainer) {
 
-    $records = DB::select('CALL get_available_storage_locations_by_area(?, ?)', [6, null]);
+        $routingService = app(MaterialContainerRoutingService::class);
 
-    $storageLocations = App\Models\StorageLocation::hydrate($records);
+        $storageLocations = $routingService
+            ->getNextDestination($materialContainer, BuildingIdEnum::PLANT_2->value);
 
-    return response()->json($storageLocations);
-});
+        return response()->json($storageLocations);
+    }
+)->name('locations.available');

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\StorageLocation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class StorageLocationRepository
 {
@@ -29,5 +30,14 @@ class StorageLocationRepository
     public function get() : Collection
     {
         return StorageLocation::query()->get();
+    }
+
+    public function getAvailableStorageLocationsByArea(int $areaId, int|null $max = 10) : Collection
+    {
+        $records = DB::select('CALL get_available_storage_locations_by_area(?, ?)', [$areaId, $max]);
+
+        $storageLocations = StorageLocation::hydrate($records);
+
+        return $storageLocations;
     }
 }
