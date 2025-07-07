@@ -22,14 +22,174 @@
 - allow user to select and sort order of locations that material needs to go to
 
 
-## routing logic
+## new routing logic (wip)
 
-- start at building
-    - need to go to other building?
-        - send to building out location
-    - need to go to sort?
+have initial starting building id that scan was made from
+
+check current building for routing rules
+
+see if any movements have been made for that starting building id
+
+if so
+    get all movements for that starting building id
+
+    get the full sequence of movements needed
+
+    determine current sequence position
+
+    for each step in next sequence,
+        determine if a building transfer is needed
+        if so,
+            place transfer steps in between
+
+    get all available locations for the next sequence
+
+
+if not
+
+    determine if any routing rules exist for current building
+    if so
+        get the full sequence of movements needed
+    if not
+        determine if any routing rules exist for other buildings
+        if so
+            get all available locations for the next sequence
+        if not
+            return null
+
 
 
 put away logic
     user selects put away screen
-    
+
+
+
+
+
+### Current Logic Flow in Legacy WMS ###
+
+- Is degas part && needs degassed
+    - send to degas
+
+- Is Thailand part
+    Repack/Sort/Completion/FG(or TOY) flow
+
+- If has open request without allocation
+    send to request location (as long as location is not shipping dock)
+
+- If Toyota Tote Item
+    - Send to Completion if hasnt been
+    - Determine tote type to find out if it needs to go to TOY or FG
+
+- If MBDS Part Number
+    - Follow Completion/Defiance Building/MBDS flow
+
+- If 807066 part number
+    - Follow Defiance Out/Blackhawk In/Sort/Completion/FG flow
+
+- If already in a rack location
+    - Check if it needs to stay in same location
+
+    - If current location is Building 1 Completion
+        - Send to Blackhawk
+
+- If Scan is in Defiance Building
+    - Put away in defiance locations
+
+- Find put away area for building
+    - If no area found for building, return message to user
+
+- If putaway area a FG location
+    - Check if needs to go to Completion
+
+If area is an assigned FG location (FG-******)
+    - send to appropriate assigned location
+
+- If putaway area is Completion
+    - If part number is 805795 and has qty < 305
+        - Needs to be routed to empty service part location
+
+    - Check if has unique post sort location
+        - If has post sort location
+            - Update putaway area value to that location
+        
+        - If the post sort location is MBDS Out
+            - Change building lookup to Defiance building 
+
+    - If none of the above, return Completion Station
+
+- If putaway area is Sort
+    - Check if has been sorted
+        - If sorted
+            - Check if has been completed
+                - If Completed
+                    - Look for unique post sort location if building 1
+                    - If building 2, check if toyota part
+                    - If is toyota part
+                        - Return toyota workstation location
+                - If Not completed
+                    - Check parts that do not need to be sorted
+                    - If needs to be Completed
+                        - Check for unique post sort location
+                            If so, return new putaway area
+
+                        - Return completion station
+        - If not sorted
+            - Return sort location
+
+- If putaway location is Toy
+    - Check if it has been completed yet
+        If not completed
+            - Return completion station
+        If completed
+            - Return toyota putaway location
+
+- If putaway area is receiving dock
+    - return receiving dock location
+
+- If putaway area is Phosphate
+    - return phosphate putaway location
+
+- If putaway area is Aluminum
+    - return aluminum putaway location
+
+- If putaway area is purged trailer location
+    - Return purged trailer location
+
+- If putaway area is cured trailer location
+    - Return cured trailer location
+
+- If putaway area is applied zone location
+    - Return applied zone location
+
+- If putaway area is Repack 2 location
+    - Return Repack 2 location
+
+- If putaway area is BHWH location type
+    - Return empty BHWR putaway location
+
+- If putaway area is flowrack
+    - get skid limit for flow rack type
+
+    - If item is 300820
+        - Determine if dented tote type
+            - If so, Append letter D to item number
+
+    - Use item number to find valid flow rack locations
+        - for each flow rack location
+            - If has empty spaces
+                - Return flow rack location
+
+- Determine any excluded locations to search for if is service part
+
+- If no location has been found yet,
+    - Search for empty rack location by part and building area
+
+- If still no location
+    - Return message to user
+
+- Allocate suitable location
+
+- Return location to user
+
+### End Current Logic Flow ###

@@ -2,8 +2,10 @@
 
 namespace App\Domain\Materials\Services;
 
-use App\Domain\Locations\Support\BuildingTransferRouter;
+use App\Domain\Materials\DataTransferObjects\MaterialContainerRouting;
+use App\Models\Building;
 use App\Models\MaterialContainer;
+use App\Models\MaterialRouting;
 use App\Models\StorageLocation;
 use App\Repositories\ContainerLocationRepository;
 use App\Repositories\MaterialContainerMovementRepository;
@@ -15,6 +17,19 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MaterialContainerRoutingService
 {
+    protected string $materialUuid;
+    protected int $buildingId;
+    protected MaterialContainer $container;
+    protected StorageLocation|null $currentLocation;
+    protected Building|null $currentBuilding;
+
+    protected StorageLocation|null $preferredDestination = null;
+    protected Collection|null $availableDestinations = null;
+    protected int $sequencePosition = 0;
+    protected bool $isSortDestination = false;
+    protected bool $isDegasDestination = false;
+    protected array $destinationOrder = [];
+
     public function __construct(
         protected ContainerLocationRepository $containerLocationRepository,
         protected MaterialContainerMovementRepository $materialContainerMovementRepository,
@@ -27,28 +42,172 @@ class MaterialContainerRoutingService
 
     public function getNextDestination(MaterialContainer $container, int $buildingId)
     {
-        $materialUuid = $container->material_uuid;
+        $this->materialUuid = $container->material_uuid;
+        $this->container = $container;
+        $this->buildingId = $buildingId;
+        $this->currentLocation = $this->getContainerCurrentLocation();
+        $this->currentBuilding = $this->currentLocation?->area?->building ?? null;
 
-        $currentLocation = $this->getContainerCurrentLocation($container);
-        $currentBuilding = $currentLocation?->area?->building ?? null;
-
-        $transferDestinations = BuildingTransferRouter::getTransferDestinations(3, 1);
-
+        // $transferDestinations = BuildingTransferRouter::getTransferDestinations(3, 1);
         // logger()->info($transferDestinations);
 
-        if ($this->needsSorted($materialUuid, $container->uuid)) {
+        $this->handleContainerRequirements();
+        $this->handleUniquePartRequirements();
+        
+        if ( !$this->preferredDestination ) {
+            // Find the next routing sequence
+            if (!$this->sequencePosition) {
+                $this->sequencePosition = $this->getNextSequence();
+            }
+    
+            // Get routing rules for the next sequence
+            $rules = $this->getRoutingRules($this->sequencePosition);
+    
+            foreach ($rules as $rule) {
+                // If the rule is for the current building,
+                // return the storage locations available for the rule
+                if ($rule->building_id === $this->buildingId) {
+                    $storageLocations = $this->findAvailableStorageLocations($rule->storage_location_area_id, 10);
+                    if ($storageLocations) {
+                        $this->preferredDestination = $storageLocations->first();
+                        $this->availableDestinations = $storageLocations;
+                        $this->sequencePosition = $this->sequencePosition;
+                    }
+                }
+                else {
+                    // Need to return a building out location
+                    // if at building out location, return building in location
+                    // for the next rule building and sequence
+                }
+            }
+        }
+
+        return new MaterialContainerRouting(
+            materialContainer: $this->container,
+            preferred_destination: $this->preferredDestination,
+            available_destinations: $this->availableDestinations,
+            sequence_position: $this->sequencePosition,
+            is_sort_destination: $this->isSortDestination,
+            is_degas_destination: $this->isDegasDestination,
+            destination_order: $this->destinationOrder,
+            current_location: $this->currentLocation,
+        );
+    }
+
+    protected function findAvailableStorageLocations($storageLocationAreaId, $max = 10)
+    {
+        $storageLocations = $this->storageLocationRepository
+            ->getAvailableStorageLocationsByArea($storageLocationAreaId, $max);
+
+        return $storageLocations;
+    }
+
+    protected function getContainerCurrentLocation(): StorageLocation|null
+    {
+        return $this->containerLocationRepository
+            ->getContainerLocation($this->container->uuid);
+    }
+
+    protected function getNextSequence(): int
+    {
+        $latestSequence = $this->materialContainerMovementRepository
+            ->getLatestSequence($this->container->uuid);
+
+        return $latestSequence + 1;
+    }
+
+    protected function needsSorted(): bool
+    {
+        // Check if material is on the sort list
+        $sortList = $this->sortListRepository->isActiveMaterial($this->materialUuid);
+
+        // Check if the container has visited the sort location
+        $hasVisitedSort = $this->materialContainerMovementRepository
+            ->hasVisitedSortLocation($this->container->uuid);
+
+        return $sortList && !$hasVisitedSort;
+    }
+
+    protected function getRoutingRules(int $sequence): Collection
+    {
+        // Get routing rules for the next sequence
+        $buildingRules = $this->materialRoutingRepository
+            ->getMaterialRoutingForBuilding($this->materialUuid, $this->buildingId, $sequence);
+
+        $otherRules = $this->materialRoutingRepository
+            ->getMaterialRoutingForOtherBuildings($this->materialUuid, $this->buildingId, $sequence);
+
+        return $buildingRules->merge($otherRules);
+    }
+
+    protected function getDestinationOrder(): array
+    {
+        $rules = MaterialRouting::where('material_uuid', $this->materialUuid)
+            ->where('building_id', $this->buildingId)
+            ->orderBy('sequence')
+            ->get()
+            ->groupBy('sequence')
+            ->map(function ($group) {
+                return [
+                    'preferred' => $group->where('is_preferred', true)->first(),
+                    'fallbacks' => $group->where('is_preferred', false)->sortBy('fallback_order')->toArray(),
+                ];
+            })
+            ->toArray();
+
+        // if no rules for this building but rules for other buildings,
+        // then we need to get the destination order for the other buildings
+        if ($rules->isEmpty()) {
+            $otherBuilding = MaterialRouting::where('material_uuid', $this->materialUuid)
+                ->where('building_id', '!=', $this->buildingId)
+                ->orderBy('building_id')
+                ->orderBy('sequence')
+                ->first();
+
+            $rules = MaterialRouting::where('material_uuid', $this->materialUuid)
+                ->where('building_id', $otherBuilding->building_id)
+                ->orderBy('building_id')
+                ->orderBy('sequence')
+                ->get()
+                ->groupBy('sequence')
+                ->map(function ($group) {
+                    return [
+                        'preferred' => $group->where('is_preferred', true)->first(),
+                        'fallbacks' => $group->where('is_preferred', false)->sortBy('fallback_order')->toArray(),
+                    ];
+                })
+                ->toArray();
+        }
+
+
+        // Include sort location if applicable
+        // $sortLocation = SortListLocation::where('building_id', $buildingId)->first();
+        // if ($sortLocation) {
+        //     $rules[0] = ['sort_location' => $sortLocation->storageLocationArea];
+        // }
+
+        return $rules;
+    }
+
+    protected function handleContainerRequirements(): void
+    {
+        // if ($this->needsDegassed()) {
+        //     $this->setDegasDestination();
+        // }
+
+        if ($this->needsSorted()) {
             // Route to sort location
             $sortStation = $this->sortStorageLocationRepository
-                ->getSortStationByBuilding($buildingId);
+                ->getSortStationByBuilding($this->buildingId);
 
             if ($sortStation) {
-                $storageLocation = $this->findAvailableStorageLocations($sortStation->storage_location_area_id, 1);
-                if ($storageLocation) {
-                    return [
-                        'storage_location_uuid' => $storageLocation->uuid,
-                        'is_sort_location' => true,
-                        'sequence' => null, // Sort location doesn't count in sequence
-                    ];
+                $storageLocations = $this->findAvailableStorageLocations($sortStation->storage_location_area_id, 1);
+                if ($storageLocations) {
+
+                    $this->preferredDestination = $storageLocations->first();
+                    $this->availableDestinations = $storageLocations;
+                    $this->sequencePosition = 0;
+                    $this->isSortDestination = true;
                 }
             }
             else {
@@ -58,102 +217,43 @@ class MaterialContainerRoutingService
             }
         }
 
-        // Find the next routing sequence
-        $nextSequence = $this->getNextSequence($container->uuid);
+        // if ($this->needsCompletion()) {
+        //     $this->setCompletionDestination();
+        // }
 
-        // Get routing rules for the next sequence
-        $rules = $this->getRoutingRules($materialUuid, $buildingId, $nextSequence);
-
-        foreach ($rules as $rule) {
-            // If the rule is for the current building,
-            // return the storage locations available for the rule
-            if ($rule->building_id === $buildingId) {
-                $storageLocations = $this->findAvailableStorageLocations($rule->storage_location_area_id, 10);
-                if ($storageLocations) {
-                    return [
-                        'preferred' => $storageLocations->first(),
-                        'all' => $storageLocations,
-                    ];
-                }
-            }
-            else {
-                // Need to return a building out location
-                // if at building out location, return building in location
-                // for the next rule building and sequence
-            }
-
-        }
-
-        return null; // No available destinations
+        // if ($this->hasOpenRequest()) {
+        //     $this->setOpenRequestDestination();
+        // }
     }
 
-    protected function findAvailableStorageLocations($storageLocationAreaId, $max = 10)
+    protected function handleUniquePartRequirements(): void
     {
-        $storageLocations = $this->storageLocationRepository
-            ->getAvailableStorageLocationsByArea($storageLocationAreaId, $max);
+        // if ($this->isThailandPart()) {
+        //     $this->setThailandDestination();
+        // }
 
-        return $max === 1
-            ? $storageLocations->first()
-            : $storageLocations;
-    }
+        // if ($this->isToyotaTote()) {
+        //     $this->setToyotaDestination();
+        // }
 
-    protected function getContainerCurrentLocation(MaterialContainer $container): StorageLocation|null
-    {
-        return $this->containerLocationRepository
-            ->getContainerLocation($container->uuid);
-    }
+        // if ($this->isMBDSPart()) {
+        //     $this->setMBDSDestination();
+        // }
 
-    protected function getNextSequence(string $containerUuid): int
-    {
-        $latestSequence = $this->materialContainerMovementRepository
-            ->getLatestSequence($containerUuid);
+        // if ($this->isServicePart()) {
+        //     $this->setServicePartDestination();
+        // }
 
-        return $latestSequence + 1;
-    }
+        // if ($this->is807066Part()) {
+        //     $this->set807066Destination();
+        // }
 
-    protected function needsSorted(string $materialUuid, string $containerUuid): bool
-    {
-        // Check if material is on the sort list
-        $sortList = $this->sortListRepository->isActiveMaterial($materialUuid);
+        // if ($this->is805795Part()) {
+        //     $this->set805795Destination();
+        // }
 
-        // Check if the container has visited the sort location
-        $hasVisitedSort = $this->materialContainerMovementRepository
-            ->hasVisitedSortLocation($containerUuid);
-
-        return $sortList && !$hasVisitedSort;
-    }
-
-    protected function getRoutingRules(string $materialUuid, int $buildingId, int $sequence): Collection
-    {
-        // Get routing rules for the next sequence
-        $buildingRules = $this->materialRoutingRepository
-            ->getMaterialRoutingForBuilding($materialUuid, $buildingId, $sequence);
-
-        $otherRules = $this->materialRoutingRepository
-            ->getMaterialRoutingForOtherBuildings($materialUuid, $buildingId, $sequence);
-
-        return $buildingRules->merge($otherRules);
-    }
-
-    protected function nextDestinationData(): array
-    {
-        /**
-         * Structure needed for return data
-         * 
-		 * preferred_destination (object|null)
-		 * 	 - the next preferred destination for container
-		 * available_destinations (array)
-		 * 	 - all available destinations for the next sequence
-		 * sequence_position (int)
-		 * 	 - current_sequence step we are routing for
-		 * is_sort_location (bool)
-		 * 	 - is sort location the next destination required
-		 * destination_order (array)
-		 * 	 - full list of the destinations that this container needs to fulfill
-		 * current_location (object)
-		 * 	 - where the container is currently
-         */
-
-         return [];
+        // if ($this->is300820Part()) {
+        //     $this->set300820Destination();
+        // }
     }
 }
