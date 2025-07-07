@@ -1,6 +1,7 @@
 id,building,area,aisle,bay,shelf,position,type,split_request,disabled,exclude_allocations,restrict_request_allocations
 "500200 STORAGE",1,"500200 STORAGE",0,0,0,0,30,0,0,0,0
 ALUMINUM,1,ALUMINUM,0,0,0,0,30,0,0,0,0
+"BFLOOR",1,"BFLOOR",0,0,0,0,30,0,0,0,0
 "BOND QUALITY",1,"BOND QUALITY",0,0,0,0,30,0,0,0,0
 BRATWMRB,1,BRATWMRB,0,0,0,0,30,0,0,0,0
 "BURN OFF FLOOR",1,"BURN OFF FLOOR",0,0,0,0,30,0,0,0,0

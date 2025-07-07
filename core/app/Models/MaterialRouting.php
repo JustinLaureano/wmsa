@@ -50,7 +50,7 @@ class MaterialRouting extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        ];
+    ];
 
     /**
      * Get the material that this routing rule applies to.

@@ -5,6 +5,7 @@ location,description,storage_location_group
 "B MINOR","B MINOR",1000
 "BANBURY","BANBURY",1000
 BFIX,"Bond Fixtures",1000
+"BFLOOR","Bond Floor",1000
 "BL","Phosphate Bond Lanes",1000
 "BOND QUALITY","BOND QUALITY",1000
 BRATWMRB,BRATWMBR,1101
