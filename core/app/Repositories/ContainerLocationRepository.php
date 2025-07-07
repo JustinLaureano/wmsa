@@ -12,6 +12,7 @@ class ContainerLocationRepository
     {
         return ContainerLocation::query()
             ->where('material_container_uuid', $containerUuid)
+            ->with('storageLocation.area.building')
             ->first()
             ?->storageLocation;
     }

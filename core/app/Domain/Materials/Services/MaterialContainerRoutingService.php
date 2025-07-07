@@ -2,6 +2,7 @@
 
 namespace App\Domain\Materials\Services;
 
+use App\Domain\Locations\Support\BuildingTransferRouter;
 use App\Models\MaterialContainer;
 use App\Models\StorageLocation;
 use App\Repositories\ContainerLocationRepository;
@@ -29,6 +30,11 @@ class MaterialContainerRoutingService
         $materialUuid = $container->material_uuid;
 
         $currentLocation = $this->getContainerCurrentLocation($container);
+        $currentBuilding = $currentLocation?->area?->building ?? null;
+
+        $transferDestinations = BuildingTransferRouter::getTransferDestinations(3, 1);
+
+        // logger()->info($transferDestinations);
 
         if ($this->needsSorted($materialUuid, $container->uuid)) {
             // Route to sort location
@@ -127,5 +133,27 @@ class MaterialContainerRoutingService
             ->getMaterialRoutingForOtherBuildings($materialUuid, $buildingId, $sequence);
 
         return $buildingRules->merge($otherRules);
+    }
+
+    protected function nextDestinationData(): array
+    {
+        /**
+         * Structure needed for return data
+         * 
+		 * preferred_destination (object|null)
+		 * 	 - the next preferred destination for container
+		 * available_destinations (array)
+		 * 	 - all available destinations for the next sequence
+		 * sequence_position (int)
+		 * 	 - current_sequence step we are routing for
+		 * is_sort_location (bool)
+		 * 	 - is sort location the next destination required
+		 * destination_order (array)
+		 * 	 - full list of the destinations that this container needs to fulfill
+		 * current_location (object)
+		 * 	 - where the container is currently
+         */
+
+         return [];
     }
 }
