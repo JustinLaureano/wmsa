@@ -26,9 +26,10 @@ class MaterialContainerRoutingService
     protected StorageLocation|null $preferredDestination = null;
     protected Collection|null $availableDestinations = null;
     protected int $sequencePosition = 0;
+    protected bool $isCompletionDestination = false;
     protected bool $isSortDestination = false;
     protected bool $isDegasDestination = false;
-    protected array $destinationOrder = [];
+    protected Collection $destinationOrder;
 
     public function __construct(
         protected ContainerLocationRepository $containerLocationRepository,
@@ -38,6 +39,7 @@ class MaterialContainerRoutingService
         protected SortStorageLocationRepository $sortStorageLocationRepository,
         protected StorageLocationRepository $storageLocationRepository,
     ) {
+        $this->destinationOrder = new Collection();
     }
 
     public function getNextDestination(MaterialContainer $container, int $buildingId)
@@ -54,32 +56,12 @@ class MaterialContainerRoutingService
         $this->handleContainerRequirements();
         $this->handleUniquePartRequirements();
         
+        if (!$this->sequencePosition) {
+            $this->sequencePosition = $this->getNextSequence();
+        }
+
         if ( !$this->preferredDestination ) {
-            // Find the next routing sequence
-            if (!$this->sequencePosition) {
-                $this->sequencePosition = $this->getNextSequence();
-            }
-    
-            // Get routing rules for the next sequence
-            $rules = $this->getRoutingRules($this->sequencePosition);
-    
-            foreach ($rules as $rule) {
-                // If the rule is for the current building,
-                // return the storage locations available for the rule
-                if ($rule->building_id === $this->buildingId) {
-                    $storageLocations = $this->findAvailableStorageLocations($rule->storage_location_area_id, 10);
-                    if ($storageLocations) {
-                        $this->preferredDestination = $storageLocations->first();
-                        $this->availableDestinations = $storageLocations;
-                        $this->sequencePosition = $this->sequencePosition;
-                    }
-                }
-                else {
-                    // Need to return a building out location
-                    // if at building out location, return building in location
-                    // for the next rule building and sequence
-                }
-            }
+            $this->determinePreferredDestination();
         }
 
         return new MaterialContainerRouting(
@@ -87,6 +69,7 @@ class MaterialContainerRoutingService
             preferred_destination: $this->preferredDestination,
             available_destinations: $this->availableDestinations,
             sequence_position: $this->sequencePosition,
+            is_completion_destination: $this->isCompletionDestination,
             is_sort_destination: $this->isSortDestination,
             is_degas_destination: $this->isDegasDestination,
             destination_order: $this->destinationOrder,
@@ -140,7 +123,7 @@ class MaterialContainerRoutingService
         return $buildingRules->merge($otherRules);
     }
 
-    protected function getDestinationOrder(): array
+    protected function getDestinationOrder(): Collection
     {
         $rules = MaterialRouting::where('material_uuid', $this->materialUuid)
             ->where('building_id', $this->buildingId)
@@ -255,5 +238,29 @@ class MaterialContainerRoutingService
         // if ($this->is300820Part()) {
         //     $this->set300820Destination();
         // }
+    }
+
+    protected function determinePreferredDestination(): void
+    {
+        // Get routing rules for the next sequence
+        $rules = $this->getRoutingRules($this->sequencePosition);
+        // dd($rules->toArray());
+        foreach ($rules as $rule) {
+            // If the rule is for the current building,
+            // return the storage locations available for the rule
+            if ($rule->building_id === $this->buildingId) {
+                $storageLocations = $this->findAvailableStorageLocations($rule->storage_location_area_id, 10);
+                if ($storageLocations) {
+                    $this->preferredDestination = $storageLocations->first();
+                    $this->availableDestinations = $storageLocations;
+                    $this->sequencePosition = $this->sequencePosition;
+                }
+            }
+            else {
+                // Need to return a building out location
+                // if at building out location, return building in location
+                // for the next rule building and sequence
+            }
+        }
     }
 }
