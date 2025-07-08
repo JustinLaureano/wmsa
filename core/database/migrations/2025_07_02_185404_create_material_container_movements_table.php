@@ -35,7 +35,16 @@ return new class extends Migration
                 ->comment('Storage location being moved to');
 
             $table->boolean('is_sort_location')
+                ->default(false)
                 ->comment('Indicates if this movement was to a sort location');
+
+            $table->boolean('is_completion_location')
+                ->default(false)
+                ->comment('Indicates if this movement was to a completion location');
+
+            $table->boolean('is_degas_location')
+                ->default(false)
+                ->comment('Indicates if this movement was to a degas location');
 
             $table->timestamp('moved_at')->useCurrent();
 

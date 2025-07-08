@@ -7,6 +7,7 @@ use App\Domain\Materials\Services\MaterialContainerRoutingService;
 use App\Repositories\ContainerLocationRepository;
 use App\Services\SearchService;
 use App\Repositories\MaterialContainerMovementRepository;
+use App\Repositories\MaterialRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MaterialContainerRoutingService::class, function ($app) {
             return new MaterialContainerRoutingService(
                 containerLocationRepository: $app->make(ContainerLocationRepository::class),
+                materialRepository: $app->make(MaterialRepository::class),
                 materialContainerMovementRepository: $app->make(MaterialContainerMovementRepository::class),
                 materialRoutingRepository: $app->make(MaterialRoutingRepository::class),
                 sortListRepository: $app->make(SortListRepository::class),

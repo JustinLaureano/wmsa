@@ -60,4 +60,12 @@ class MaterialRepository
     {
         return Material::query()->whereUuid($uuid)->first();
     }
+
+    public function requiresCompletion(string $materialUuid) : bool
+    {
+        return Material::query()
+            ->whereUuid($materialUuid)
+            ->where('requires_completion', true)
+            ->exists();
+    }
 }

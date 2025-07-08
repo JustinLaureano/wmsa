@@ -27,6 +27,8 @@ class MaterialContainerMovement extends Model
         'sequence',
         'storage_location_uuid',
         'is_sort_location',
+        'is_completion_location',
+        'is_degas_location',
         'moved_at',
     ];
 

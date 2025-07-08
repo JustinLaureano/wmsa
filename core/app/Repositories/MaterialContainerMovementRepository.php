@@ -53,4 +53,30 @@ class MaterialContainerMovementRepository
             ->where('is_sort_location', true)
             ->exists();
     }
+
+    /**
+     * Check if a material container has visited a completion location.
+     */
+    public function hasVisitedCompletionLocation(string $materialContainerUuid) : bool
+    {
+        return MaterialContainerMovement::where(
+                'material_container_uuid',
+                $materialContainerUuid
+            )
+            ->where('is_completion_location', true)
+            ->exists();
+    }
+
+    /**
+     * Check if a material container has visited a degas location.
+     */
+    public function hasVisitedDegasLocation(string $materialContainerUuid) : bool
+    {
+        return MaterialContainerMovement::where(
+                'material_container_uuid',
+                $materialContainerUuid
+            )
+            ->where('is_degas_location', true)
+            ->exists();
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\MaterialRouting;
 use App\Models\StorageLocation;
 use App\Repositories\ContainerLocationRepository;
 use App\Repositories\MaterialContainerMovementRepository;
+use App\Repositories\MaterialRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
@@ -106,6 +107,7 @@ class MaterialContainerRoutingService
 
     public function __construct(
         protected ContainerLocationRepository $containerLocationRepository,
+        protected MaterialRepository $materialRepository,
         protected MaterialContainerMovementRepository $materialContainerMovementRepository,
         protected MaterialRoutingRepository $materialRoutingRepository,
         protected SortListRepository $sortListRepository,
@@ -225,22 +227,6 @@ class MaterialContainerRoutingService
     }
 
     /**
-     * Determines if the container needs to be sorted based on the material's
-     * sort list status and if it has visited the sort location.
-     */
-    protected function needsSorted(): bool
-    {
-        // Check if material is on the sort list
-        $sortList = $this->sortListRepository->isActiveMaterial($this->materialUuid);
-
-        // Check if the container has visited the sort location
-        $hasVisitedSort = $this->materialContainerMovementRepository
-            ->hasVisitedSortLocation($this->container->uuid);
-
-        return $sortList && !$hasVisitedSort;
-    }
-
-    /**
      * Set the routing rules for the material for
      * each main building.
      */
@@ -282,7 +268,7 @@ class MaterialContainerRoutingService
 
                     $this->preferredDestination = $storageLocations->first();
                     $this->availableDestinations = $storageLocations;
-                    $this->sequencePosition = 0;
+                    $this->sequencePosition = null;
                     $this->isSortDestination = true;
                 }
             }
@@ -358,5 +344,47 @@ class MaterialContainerRoutingService
                 break;
             }
         }
+    }
+
+    /**
+     * Determines if the container needs to be sorted based on the material's
+     * sort list status and if it has visited the sort location.
+     */
+    protected function needsSorted(): bool
+    {
+        // Check if material is on the sort list
+        $sortList = $this->sortListRepository->isActiveMaterial($this->materialUuid);
+
+        // Check if the container has visited the sort location
+        $hasVisitedSort = $this->materialContainerMovementRepository
+            ->hasVisitedSortLocation($this->container->uuid);
+
+        return $sortList && !$hasVisitedSort;
+    }
+
+    /**
+     * Determines if the container needs to be completed based on the material's
+     * completion requirement and if it has visited the completion location.
+     */
+    protected function needsCompletion(): bool
+    {
+        $requiresCompletion = $this->materialRepository->requiresCompletion($this->materialUuid);
+
+        $hasVisitedCompletion = $this->materialContainerMovementRepository
+            ->hasVisitedCompletionLocation($this->container->uuid);
+
+        return $requiresCompletion && !$hasVisitedCompletion;
+    }
+
+    protected function setCompletionDestination(): void
+    {
+        // If in building one or two, send to completion station in current building
+
+        // if in another building
+        // check if currently in outbound location
+        // if in outbound location, send to inbound location of other sort building
+        // if not in outbound location, send to outbound location
+
+        // add required locations to travel to the destination order list
     }
 }
