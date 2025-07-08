@@ -22,8 +22,8 @@ class MaterialContainerRouting extends Data
      */
     public function __construct(
         public MaterialContainer $materialContainer,
-        public ?StorageLocation $preferred_destination,
-        public Collection $available_destinations,
+        public StorageLocation|null $preferred_destination,
+        public Collection|null $available_destinations,
         public int $sequence_position,
         public bool $is_completion_destination,
         public bool $is_sort_destination,
