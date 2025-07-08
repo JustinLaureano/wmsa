@@ -32,6 +32,10 @@ class MaterialRoutingSeeder extends Seeder
 
         MaterialRouting::insert($this->records);
 
+        if (app()->environment('local')) {
+            $this->setTestMaterialRouting();
+        }
+
         /**
          * To regenerate csv file from legacy production, use this SQL statement:   
          * 
@@ -168,7 +172,7 @@ class MaterialRoutingSeeder extends Seeder
             foreach ($record['building_' . $buildingId]['areaIds'] as $areaId) {
                 $this->records[] = array_merge([
                         'material_uuid' => $record['material_uuid'],
-                        'building_id' => $buildingId,
+                        'route_building_id' => $buildingId,
                         'sequence' => $sequence,
                         'storage_location_area_id' => $areaId,
                         'is_preferred' => $isPreferred,
@@ -208,5 +212,108 @@ class MaterialRoutingSeeder extends Seeder
             ->first();
 
         $this->degasStorageLocationAreaId = $storageLocationArea->id;
+    }
+
+    protected function setTestMaterialRouting(): void
+    {
+        /**
+         * Want a test part that starts in one building, and then moves to another building.
+         */
+
+        $material = Material::query()
+            ->where('part_number', '555555')
+            ->first();
+
+        $repackAreaId = StorageLocationArea::query()
+            ->where([
+                ['name', 'REPACK'],
+                ['building_id', BuildingIdEnum::PLANT_2->value],
+            ])
+            ->first()
+            ->id;
+
+        $repack2AreaId = StorageLocationArea::query()
+            ->where([
+                ['name', 'REPACK 2'],
+                ['building_id', BuildingIdEnum::BLACKHAWK->value],
+            ])
+            ->first()
+            ->id;
+
+        $repack2AreaId = StorageLocationArea::query()
+            ->where([
+                ['name', 'REPACK 2'],
+                ['building_id', BuildingIdEnum::BLACKHAWK->value],
+            ])
+            ->first()
+            ->id;
+
+        $newLaunchAreaId = StorageLocationArea::query()
+            ->where([
+                ['name', 'NEW LAUNCH'],
+                ['building_id', BuildingIdEnum::PLANT_2->value],
+            ])
+            ->first()
+            ->id;
+
+        $fgAreaId = StorageLocationArea::query()
+            ->where([
+                ['name', 'FG'],
+                ['building_id', BuildingIdEnum::BLACKHAWK->value],
+            ])
+            ->first()
+            ->id;
+
+        $records = [];
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'route_building_id' => BuildingIdEnum::PLANT_2->value,
+                'sequence' => 1,
+                'storage_location_area_id' => $repackAreaId,
+                'is_preferred' => true,
+                'fallback_order' => null,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'route_building_id' => BuildingIdEnum::BLACKHAWK->value,
+                'sequence' => 1,
+                'storage_location_area_id' => $repack2AreaId,
+                'is_preferred' => true,
+                'fallback_order' => null,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'route_building_id' => BuildingIdEnum::BLACKHAWK->value,
+                'sequence' => 2,
+                'storage_location_area_id' => $newLaunchAreaId,
+                'is_preferred' => true,
+                'fallback_order' => null,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'route_building_id' => BuildingIdEnum::BLACKHAWK->value,
+                'sequence' => 3,
+                'storage_location_area_id' => $fgAreaId,
+                'is_preferred' => true,
+                'fallback_order' => null,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        MaterialRouting::insert($records);
     }
 }

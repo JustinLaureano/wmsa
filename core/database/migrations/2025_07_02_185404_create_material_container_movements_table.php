@@ -20,14 +20,19 @@ return new class extends Migration
                 ->on('material_containers')
                 ->comment('Material container being moved');
 
-            $table->foreignUuid('storage_location_uuid')
-                ->references('uuid')
-                ->on('storage_locations')
-                ->comment('Storage location being moved to');
+            $table->foreignId('route_building_id')
+                ->references('id')
+                ->on('buildings')
+                ->comment('Specifies the starting building for which this movement applies.');
 
             $table->unsignedInteger('sequence')
                 ->nullable()
                 ->comment('The sequence number from material_routing');
+
+            $table->foreignUuid('storage_location_uuid')
+                ->references('uuid')
+                ->on('storage_locations')
+                ->comment('Storage location being moved to');
 
             $table->boolean('is_sort_location')
                 ->comment('Indicates if this movement was to a sort location');

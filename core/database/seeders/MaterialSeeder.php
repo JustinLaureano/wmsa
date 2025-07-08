@@ -34,6 +34,10 @@ class MaterialSeeder extends Seeder
         $this->setMaterialProperties();
         $this->setCompletionPartNumbers();
         $this->setMaterials();
+
+        if (app()->isLocal()) {
+            $this->setTestMaterials();
+        }
     }
 
     /**
@@ -96,6 +100,58 @@ class MaterialSeeder extends Seeder
 
             Material::insert($data);
         }
+    }
+
+    protected function setTestMaterials() : void
+    {
+        $data = [];
+
+        $materialData = new MaterialData(
+            material_number: '444444',
+            part_number: '444444',
+            description: 'Test Degas Material',
+            material_type_code: MaterialTypeEnum::SEMI_FINISHED_GOODS->code(),
+            base_quantity: 1,
+            base_container_unit_quantity: 500,
+            base_unit_of_measure: strtoupper(UnitOfMeasureEnum::EA->value),
+            expiration_days: null,
+            required_degas_hours: 12,
+            required_hold_hours: 0,
+            requires_completion: false,
+            material_container_type_id: null,
+            service_part: false,
+        );
+
+        $data[] = array_merge(
+            $materialData->toArray(),
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        $materialData = new MaterialData(
+            material_number: '555555',
+            part_number: '555555',
+            description: 'Test Completion Material',
+            material_type_code: MaterialTypeEnum::FINISHED_GOODS->code(),
+            base_quantity: 1,
+            base_container_unit_quantity: 500,
+            base_unit_of_measure: strtoupper(UnitOfMeasureEnum::EA->value),
+            expiration_days: null,
+            required_degas_hours: 0,
+            required_hold_hours: 0,
+            requires_completion: true,
+            material_container_type_id: null,
+            service_part: false,
+        );
+
+        $data[] = array_merge(
+            $materialData->toArray(),
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        Material::insert($data);
+        
     }
 
     /**

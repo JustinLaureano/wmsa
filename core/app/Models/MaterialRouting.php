@@ -33,7 +33,7 @@ class MaterialRouting extends Model
      */
     protected $fillable = [
         'material_uuid',
-        'building_id',
+        'route_building_id',
         'sequence',
         'storage_location_area_id',
         'is_preferred',
@@ -63,9 +63,9 @@ class MaterialRouting extends Model
     /**
      * Get the building that this routing rule applies to.
      */
-    public function building(): BelongsTo
+    public function routeBuilding(): BelongsTo
     {
-        return $this->belongsTo(Building::class);
+        return $this->belongsTo(Building::class, 'route_building_id', 'id');
     }
 
     /**

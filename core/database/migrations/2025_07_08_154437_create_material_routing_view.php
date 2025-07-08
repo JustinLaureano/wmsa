@@ -17,12 +17,14 @@ return new class extends Migration
                     m.uuid AS material_uuid,
                     m.material_number,
                     m.part_number,
-                    b.name AS building_name,
-                    sla.name AS storage_location_area_name,
+                    b.name AS route_building_name,
                     sequence,
+                    slab.name AS sla_building_name,
+                    sla.name AS storage_location_area_name,
                     is_preferred,
                     fallback_order,
-                    mr.building_id,
+                    mr.route_building_id,
+                    sla.building_id AS sla_building_id,
                     mr.storage_location_area_id,
                     mr.created_at,
                     mr.updated_at,
@@ -33,9 +35,11 @@ return new class extends Migration
                 LEFT JOIN storage_location_areas sla
                     ON sla.id = mr.storage_location_area_id
                 LEFT JOIN buildings b
-                    ON b.id = mr.building_id
+                    ON b.id = mr.route_building_id
+                LEFT JOIN buildings slab
+                    ON slab.id = sla.building_id
                 ORDER BY m.part_number ASC,
-                    mr.building_id ASC,
+                    mr.route_building_id ASC,
                     mr.sequence ASC,
                     mr.fallback_order ASC;
         ");

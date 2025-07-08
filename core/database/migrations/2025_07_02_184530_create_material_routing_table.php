@@ -21,10 +21,10 @@ return new class extends Migration
                 ->on('materials')
                 ->comment('Material being routed');
 
-            $table->foreignId('building_id')
+            $table->foreignId('route_building_id')
                 ->references('id')
                 ->on('buildings')
-                ->comment('Specifies the building for which this routing rule applies.');
+                ->comment('Specifies the starting building for which this routing rule applies.');
 
             $table->unsignedInteger('sequence')
                 ->comment('Order in the routing sequence (1, 2, 3, etc.)');

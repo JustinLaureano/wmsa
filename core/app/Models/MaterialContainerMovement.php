@@ -23,8 +23,9 @@ class MaterialContainerMovement extends Model
      */
     protected $fillable = [
         'material_container_uuid',
-        'storage_location_uuid',
+        'route_building_id',
         'sequence',
+        'storage_location_uuid',
         'is_sort_location',
         'moved_at',
     ];

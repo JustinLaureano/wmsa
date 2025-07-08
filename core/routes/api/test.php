@@ -44,7 +44,7 @@ Route::get(
         $routingService = app(MaterialContainerRoutingService::class);
 
         $storageLocations = $routingService
-            ->getNextDestination($materialContainer, BuildingIdEnum::PLANT_2->value);
+            ->getNextDestination($materialContainer, BuildingIdEnum::BLACKHAWK->value);
 
         return response()->json($storageLocations);
     }
