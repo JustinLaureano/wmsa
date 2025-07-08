@@ -25,6 +25,7 @@ return new class extends Migration
                     expiration_days,
                     required_degas_hours,
                     required_hold_hours,
+                    requires_completion,
                     mct.name AS material_container_type_name,
                     service_part,
                     m.created_at,

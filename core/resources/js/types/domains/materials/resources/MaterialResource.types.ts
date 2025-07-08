@@ -12,6 +12,7 @@ export interface MaterialResourceAttributes {
     expiration_days: number;
     required_degas_hours: number;
     required_hold_hours: number;
+    requires_completion: boolean;
     material_container_type_id: number;
     service_part: boolean;
 }

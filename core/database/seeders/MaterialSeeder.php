@@ -20,6 +20,7 @@ class MaterialSeeder extends Seeder
     protected array $irmChemicalPartNumbers = [];
     protected array $cementedMetalPartNumbers = [];
     protected array $materialProperties = [];
+    protected array $completionPartNumbers = [];
 
     /**
      * Run the database seeds.
@@ -31,6 +32,7 @@ class MaterialSeeder extends Seeder
         $this->setIrmChemicalPartNumbers();
         $this->setCementedMetalPartNumbers();
         $this->setMaterialProperties();
+        $this->setCompletionPartNumbers();
         $this->setMaterials();
     }
 
@@ -66,6 +68,7 @@ class MaterialSeeder extends Seeder
                 $baseContainerUnitQuantity = $this->getBaseContainerUnitQuantity($row['part_number']);
                 $requiredDegasHours = $this->getRequiredDegasHours($row['part_number']);
                 $requiredHoldHours = $this->getRequiredHoldHours($row['part_number']);
+                $requiresCompletion = $this->getRequiresCompletion($row['part_number']);
                 $servicePart = $this->getServicePart($row['part_number']);
 
                 $materialData = new MaterialData(
@@ -79,6 +82,7 @@ class MaterialSeeder extends Seeder
                     expiration_days: $expirationDays,
                     required_degas_hours: $requiredDegasHours,
                     required_hold_hours: $requiredHoldHours,
+                    requires_completion: $requiresCompletion,
                     material_container_type_id: $materialContainerTypeId,
                     service_part: $servicePart,
                 );
@@ -200,6 +204,27 @@ class MaterialSeeder extends Seeder
         }
     }
 
+    protected function setCompletionPartNumbers(): void
+    {
+        $file = database_path('data/item_locations.csv');
+        $csvReader = new CsvReader($file);
+
+        foreach ($csvReader->toArray() as $data) {
+            foreach ($data as $key => $row) {
+
+                if (
+                    $row['building_one_area'] === 'COMPLETION' ||
+                    $row['building_two_area'] === 'COMPLETION' ||
+                    $row['building_two_area'] === 'SORT' ||
+                    $row['building_two_area'] === 'FG' ||
+                    $row['building_two_area'] === 'TOY'
+                ) {
+                    $this->completionPartNumbers[$row['item']] = $row['item'];
+                }
+            }
+        }
+    }
+
     /**
      * Get the material container type id for a given part number.
      */
@@ -280,6 +305,14 @@ class MaterialSeeder extends Seeder
         }
 
         return null;
+    }
+
+    /**
+     * Get the requires completion for a given part number.
+     */
+    protected function getRequiresCompletion(string $partNumber) : bool
+    {
+        return isset($this->completionPartNumbers[$partNumber]);
     }
 
     /**

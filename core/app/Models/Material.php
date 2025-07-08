@@ -35,6 +35,7 @@ class Material extends Model
         'expiration_days',
         'required_degas_hours',
         'required_hold_hours',
+        'requires_completion',
         'material_container_type_id',
         'service_part',
     ];

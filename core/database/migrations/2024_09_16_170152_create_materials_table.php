@@ -44,6 +44,10 @@ return new class extends Migration
                 ->nullable()
                 ->comment('The number of hours required to hold the material before it can be used.');
 
+            $table->boolean('requires_completion')
+                ->default(false)
+                ->comment('Designates whether the material requires completion process.');
+
             $table->foreignId('material_container_type_id')
                 ->nullable()
                 ->references('id')

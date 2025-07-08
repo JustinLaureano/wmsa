@@ -17,6 +17,7 @@ class MaterialData extends Data
         public int|null $expiration_days,
         public int|null $required_degas_hours,
         public int|null $required_hold_hours,
+        public bool $requires_completion,
         public string|null $material_container_type_id,
         public bool $service_part,
     ) {
