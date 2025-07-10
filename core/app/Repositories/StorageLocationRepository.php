@@ -36,7 +36,7 @@ class StorageLocationRepository
     {
         $records = DB::select('CALL get_available_storage_locations_by_area(?, ?)', [$areaId, $max]);
 
-        $storageLocations = StorageLocation::hydrate($records);
+        $storageLocations = StorageLocation::hydrate($records)->load('area.building');
 
         return $storageLocations;
     }
