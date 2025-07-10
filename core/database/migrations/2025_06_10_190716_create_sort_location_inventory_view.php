@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
-            CREATE OR REPLACE VIEW `view_sort_list_inventory` AS
+            CREATE OR REPLACE VIEW `view_sort_location_inventory` AS
                 SELECT
                     mc.uuid AS material_container_uuid,
                     mc.material_uuid,
@@ -50,6 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("DROP VIEW IF EXISTS view_sort_list_inventory");
+        DB::unprepared("DROP VIEW IF EXISTS view_sort_location_inventory");
     }
 };

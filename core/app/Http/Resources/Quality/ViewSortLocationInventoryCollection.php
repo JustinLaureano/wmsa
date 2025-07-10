@@ -5,14 +5,14 @@ namespace App\Http\Resources\Quality;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ViewSortListInventoryCollection extends ResourceCollection
+class ViewSortLocationInventoryCollection extends ResourceCollection
 {
     /**
      * The resource that this resource collects.
      *
      * @var string
      */
-    public $collects = ViewSortListInventoryResource::class;
+    public $collects = ViewSortLocationInventoryResource::class;
 
     public function setCollection($collection) {
         $this->collects = $collection;

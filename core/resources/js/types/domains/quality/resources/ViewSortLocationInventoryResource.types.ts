@@ -1,6 +1,6 @@
 import { MaterialBarcodeResource } from '@/types';
 
-export interface ViewSortListInventoryResource {
+export interface ViewSortLocationInventoryResource {
     material_container_uuid: string;
     material_uuid: string;
     barcode: string;

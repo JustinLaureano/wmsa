@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Views\ViewSortListInventory;
+use App\Models\Views\ViewSortLocationInventory;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ViewSortListInventoryRepository
+class ViewSortLocationInventoryRepository
 {
     public function filterPaginate() : LengthAwarePaginator
     {
-        return ViewSortListInventory::query()
+        return ViewSortLocationInventory::query()
             ->filter()
             ->orderBy('part_number', 'asc')
             ->paginate();

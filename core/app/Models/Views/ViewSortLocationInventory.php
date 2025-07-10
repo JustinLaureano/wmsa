@@ -6,7 +6,7 @@ use App\Support\Eloquent\Filter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
-class ViewSortListInventory extends Model
+class ViewSortLocationInventory extends Model
 {
     use Filterable,
         Searchable;
@@ -14,7 +14,7 @@ class ViewSortListInventory extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'view_sort_list_inventory';
+    protected $table = 'view_sort_location_inventory';
 
     /**
      * The primary key for the model.

@@ -4,7 +4,7 @@ import {
     JsonObject,
     MaterialAutocompleteResource,
     MaterialBarcodeResource,
-    ViewSortListInventoryResource
+    ViewSortLocationInventoryResource
 } from '@/types';
 import { getCollectionPagination } from '@/Utils/pagination';
 import { useLanguage } from '@/Providers/LanguageProvider';
@@ -77,7 +77,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
         });
     }
 
-    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>, container : ViewSortListInventoryResource) => {
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>, container : ViewSortLocationInventoryResource) => {
         container.quantity = parseInt(e.target.value);
         container.quantity_edited = true;
 
@@ -89,7 +89,7 @@ export default function SortInventoryData({ inventory, materialOptions } : SortI
         }));
     }
 
-    const saveQuantityChange = async (container : ViewSortListInventoryResource) => {
+    const saveQuantityChange = async (container : ViewSortLocationInventoryResource) => {
         if ( !user?.uuid ) return;
 
         const containerQuantityService = new ContainerQuantityService();

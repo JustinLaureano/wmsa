@@ -1,10 +1,10 @@
 import {
     JsonPaginateCollection,
     MaterialAutocompleteResource,
-    ViewSortListInventoryResource
+    ViewSortLocationInventoryResource
 } from "@/types";
 
 export interface ViewSortInventoryProps {
-    inventory: JsonPaginateCollection<ViewSortListInventoryResource>;
+    inventory: JsonPaginateCollection<ViewSortLocationInventoryResource>;
     materialOptions: MaterialAutocompleteResource[];
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 
-class ViewSortListInventoryResource extends JsonResource
+class ViewSortLocationInventoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

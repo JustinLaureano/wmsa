@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios';
 import {
     JsonObject,
     JsonPaginateCollection,
-    ViewSortListInventoryResource,
+    ViewSortLocationInventoryResource,
 } from '@/types';
 import ApiService from '../ApiService';
 
@@ -20,9 +20,9 @@ export class SortInventoryService {
      */
     public async getSortInventory(
         filterParams: JsonObject
-    ): Promise<JsonPaginateCollection<ViewSortListInventoryResource> | null> {
+    ): Promise<JsonPaginateCollection<ViewSortLocationInventoryResource> | null> {
         try {
-            const response = await this.apiService.get<JsonPaginateCollection<ViewSortListInventoryResource>>(
+            const response = await this.apiService.get<JsonPaginateCollection<ViewSortLocationInventoryResource>>(
                 route('quality.sort.inventory'),
                 { params: filterParams }
             );
