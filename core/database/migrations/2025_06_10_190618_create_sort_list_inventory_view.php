@@ -11,11 +11,11 @@ return new class extends Migration
     public function up(): void
     {
         /**
-         * View all the material container inventory for parts in a sort or completion location
+         * View all the material container inventory for parts on the sort list
          */
 
         DB::unprepared("
-            CREATE OR REPLACE VIEW `view_sort_location_inventory` AS
+            CREATE OR REPLACE VIEW `view_sort_list_inventory` AS
                 SELECT
                     mc.uuid AS material_container_uuid,
                     mc.material_uuid,
@@ -32,6 +32,8 @@ return new class extends Migration
                 FROM material_containers mc
                 LEFT JOIN materials m
                     ON m.uuid = mc.material_uuid
+                JOIN sort_list sort
+                    ON sort.material_uuid = mc.material_uuid
                 LEFT JOIN movement_statuses ms
                     ON ms.code = mc.movement_status_code
                 JOIN container_locations cl
@@ -39,13 +41,7 @@ return new class extends Migration
                 LEFT JOIN storage_locations sl
                     ON sl.uuid = cl.storage_location_uuid
                 LEFT JOIN storage_location_areas sla
-                    ON sla.id = sl.storage_location_area_id
-                WHERE sl.name IN(
-                    'Plant 2 Completion',
-                    'Blackhawk Completion',
-                    'Plant 2 Sort',
-                    'Blackhawk Sort'
-                );
+                    ON sla.id = sl.storage_location_area_id;
         ");
     }
 
@@ -54,6 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("DROP VIEW IF EXISTS view_sort_location_inventory");
+        DB::unprepared("DROP VIEW IF EXISTS view_sort_list_inventory");
     }
 };
