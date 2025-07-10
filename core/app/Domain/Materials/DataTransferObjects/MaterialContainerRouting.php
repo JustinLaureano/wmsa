@@ -13,7 +13,7 @@ class MaterialContainerRouting extends Data
      * @param MaterialContainer $materialContainer
      * @param StorageLocation|null $preferred_destination
      * @param Collection<StorageLocation>|null $available_destinations
-     * @param int $route_building_id
+     * @param int|null $route_building_id
      * @param int|null $sequence_position
      * @param bool $is_completion_destination
      * @param bool $is_sort_destination
@@ -25,7 +25,7 @@ class MaterialContainerRouting extends Data
         public MaterialContainer $materialContainer,
         public StorageLocation|null $preferred_destination,
         public Collection|null $available_destinations,
-        public int $route_building_id,
+        public int|null $route_building_id,
         public int|null $sequence_position,
         public bool $is_completion_destination,
         public bool $is_sort_destination,

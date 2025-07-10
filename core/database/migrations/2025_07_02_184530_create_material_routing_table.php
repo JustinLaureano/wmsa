@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->foreignId('route_building_id')
                 ->references('id')
+                ->nullable()
                 ->on('buildings')
                 ->comment('Specifies the starting building for which this routing rule applies.');
 
