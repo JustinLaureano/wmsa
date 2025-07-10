@@ -387,17 +387,53 @@ class MaterialContainerRoutingService
         if (
             !$this->currentBuilding
         ) {
-            // TODO: handle
-            // assume skid is new or in offsite warehouse
-            // retrun both sort locations as available destinations
-            // make plant 2 the preferred destination
+            $plant2SortStation = $this->sortStorageLocationRepository
+                ->getSortStationByBuilding(BuildingIdEnum::PLANT_2->value);
+
+            $blackhawkSortStation = $this->sortStorageLocationRepository
+                ->getSortStationByBuilding(BuildingIdEnum::BLACKHAWK->value);
+
+            $plant2StorageLocations = $this->findAvailableStorageLocations($plant2SortStation->storage_location_area_id, 1);
+            $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkSortStation->storage_location_area_id, 1);
+
+            if ($plant2StorageLocations && $plant2StorageLocations->isNotEmpty()) {
+                $this->preferredDestination = $plant2StorageLocations->first();
+                $this->availableDestinations = $plant2StorageLocations;
+                $this->isSortDestination = true;
+            }
+            
+            if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+                if (!$this->preferredDestination) {
+                    $this->preferredDestination = $blackhawkStorageLocations->first();
+                    $this->isSortDestination = true;
+                }
+
+                $this->availableDestinations->push($blackhawkStorageLocations);
+            }
         }
 
-        else if (
-            !$this->containerLocatedInPlantTwoOrBlackhawk() &&    
-                !$this->containerLocatedInDefianceBuilding()
-        ) {
-            // TODO: route to inbound locations of Plant 2 and Blackhawk
+        else if ( $this->containerInOffSiteWarehouseLocation() ) {
+            $plant2InboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
+
+            $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
+
+            $plant2StorageLocations = $this->findAvailableStorageLocations($plant2InboundLocationAreaId, 1);    
+            $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
+
+            if ($plant2StorageLocations && $plant2StorageLocations->isNotEmpty()) {
+                $this->preferredDestination = $plant2StorageLocations->first();
+                $this->availableDestinations = $plant2StorageLocations;
+            }
+
+            if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+                if (!$this->preferredDestination) {
+                    $this->preferredDestination = $blackhawkStorageLocations->first();
+                }
+
+                $this->availableDestinations->push($blackhawkStorageLocations);
+            }
         }
 
         else if ( $this->containerLocatedInPlantTwoOrBlackhawk() ) {
@@ -412,7 +448,6 @@ class MaterialContainerRoutingService
             if ($storageLocations && $storageLocations->isNotEmpty()) {
                 $this->preferredDestination = $storageLocations->first();
                 $this->availableDestinations = $storageLocations;
-                $this->sequencePosition = null;
                 $this->isSortDestination = true;
             }
         }
@@ -434,10 +469,13 @@ class MaterialContainerRoutingService
                 }
 
                 if ($plantTwoStorageLocations && $plantTwoStorageLocations->isNotEmpty()) {
+                    if (!$this->preferredDestination) {
+                        $this->preferredDestination = $plantTwoStorageLocations->first();
+                    }
+
                     $this->availableDestinations->push($plantTwoStorageLocations);
                 }
 
-                $this->sequencePosition = null;
             }
             else {
                 $defianceOutboundLocationAreaId = $this->buildingTransferAreaRepository
@@ -448,7 +486,6 @@ class MaterialContainerRoutingService
                 if ($storageLocations && $storageLocations->isNotEmpty()) {
                     $this->preferredDestination = $storageLocations->first();
                     $this->availableDestinations = $storageLocations;
-                    $this->sequencePosition = null;
                 }
             }
         }
@@ -483,6 +520,18 @@ class MaterialContainerRoutingService
     protected function containerLocatedInDefianceBuilding(): bool
     {
         return $this->currentBuilding?->id === BuildingIdEnum::DEFIANCE->value;
+    }
+
+    /**
+     * Determines if the container is located in an offsite warehouse.
+     */
+    protected function containerInOffSiteWarehouseLocation(): bool
+    {
+        if (!$this->currentLocation) return false;
+
+        return $this->currentLocation->area->building_id !== BuildingIdEnum::PLANT_2->value &&
+               $this->currentLocation->area->building_id !== BuildingIdEnum::BLACKHAWK->value &&
+               $this->currentLocation->area->building_id !== BuildingIdEnum::DEFIANCE->value;
     }
 
     /**
