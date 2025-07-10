@@ -263,9 +263,9 @@ class MaterialContainerRoutingService
             $this->setSortRouting();
         }
 
-        // if ($this->needsCompletion()) {
-        //     $this->setCompletionRouting();
-        // }
+        if ($this->needsCompletion()) {
+            $this->setCompletionRouting();
+        }
 
         // if ($this->hasOpenRequest()) {
         //     $this->setOpenRequestDestination();
@@ -413,27 +413,7 @@ class MaterialContainerRoutingService
         }
 
         else if ( $this->containerInOffSiteWarehouseLocation() ) {
-            $plant2InboundLocationAreaId = $this->buildingTransferAreaRepository
-                ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
-
-            $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
-                ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
-
-            $plant2StorageLocations = $this->findAvailableStorageLocations($plant2InboundLocationAreaId, 1);    
-            $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
-
-            if ($plant2StorageLocations && $plant2StorageLocations->isNotEmpty()) {
-                $this->preferredDestination = $plant2StorageLocations->first();
-                $this->availableDestinations = $plant2StorageLocations;
-            }
-
-            if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
-                if (!$this->preferredDestination) {
-                    $this->preferredDestination = $blackhawkStorageLocations->first();
-                }
-
-                $this->availableDestinations->push($blackhawkStorageLocations);
-            }
+            $this->handleOffsiteToPlant2Transfer();
         }
 
         else if ( $this->containerLocatedInPlantTwoOrBlackhawk() ) {
@@ -453,54 +433,87 @@ class MaterialContainerRoutingService
         }
 
         else if ( $this->containerLocatedInDefianceBuilding() ) {
-            if ($this->containerInOutboundLocation(BuildingIdEnum::DEFIANCE->value)) {
-                $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
-                    ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
-                
-                $plantTwoInboundLocationAreaId = $this->buildingTransferAreaRepository
-                    ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
-
-                $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
-                $plantTwoStorageLocations = $this->findAvailableStorageLocations($plantTwoInboundLocationAreaId, 1);
-
-                if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
-                    $this->preferredDestination = $blackhawkStorageLocations->first();
-                    $this->availableDestinations = $blackhawkStorageLocations;
-                }
-
-                if ($plantTwoStorageLocations && $plantTwoStorageLocations->isNotEmpty()) {
-                    if (!$this->preferredDestination) {
-                        $this->preferredDestination = $plantTwoStorageLocations->first();
-                    }
-
-                    $this->availableDestinations->push($plantTwoStorageLocations);
-                }
-
-            }
-            else {
-                $defianceOutboundLocationAreaId = $this->buildingTransferAreaRepository
-                    ->getOutboundStorageLocationAreaId(BuildingIdEnum::DEFIANCE->value);
-
-                $storageLocations = $this->findAvailableStorageLocations($defianceOutboundLocationAreaId, 1);
-
-                if ($storageLocations && $storageLocations->isNotEmpty()) {
-                    $this->preferredDestination = $storageLocations->first();
-                    $this->availableDestinations = $storageLocations;
-                }
-            }
+            $this->handleDefianceToBlackhawkTransfer();
         }
 
         // TODO: add required locations to travel to the destination order list
     }
 
+    /**
+     * Sets the appropriate routing destination for the container
+     * to visit a completion location.
+     * 
+     * If the part is currently located in Plant 2 or Blackhawk,
+     * there is completion stations in those buildings, so it will be routed
+     * directly to the appropriate completion location.
+     * 
+     * If the container is in the defiance warehouse, it will be routed
+     * to the outbound location if necessary, and then the inbound location
+     * of either Blackhawk (preferred) or Plant 2.
+     *
+     * If the container does not have a current location, then we can assume
+     * it is a new skid manufactured in either Plant 2 or Blackhawk, and will
+     * route to the completion locations of those buildings.
+     * 
+     * If it is determined to be in an offsite warehouse, we can route the
+     * container to the inbound locations of Plant 2 and Blackhawk.
+     *
+     * Whatever appropriate steps are required to get to the completion station
+     * will be appended to the destination order list.
+     */
     protected function setCompletionRouting(): void
     {
-        // If in building one or two, send to completion station in current building
+        if (
+            !$this->currentBuilding
+        ) {
+            $plant2CompletionStation = $this->storageLocationRepository
+                ->getCompletionStationByBuilding(BuildingIdEnum::PLANT_2->value);
 
-        // if in another building
-        // check if currently in outbound location
-        // if in outbound location, send to inbound location of other sort building
-        // if not in outbound location, send to outbound location
+            $blackhawkCompletionStation = $this->storageLocationRepository
+                ->getCompletionStationByBuilding(BuildingIdEnum::BLACKHAWK->value);
+
+            $plant2StorageLocations = $this->findAvailableStorageLocations($plant2CompletionStation->storage_location_area_id, 1);
+            $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkCompletionStation->storage_location_area_id, 1);
+
+            if ($plant2StorageLocations && $plant2StorageLocations->isNotEmpty()) {
+                $this->preferredDestination = $plant2StorageLocations->first();
+                $this->availableDestinations = $plant2StorageLocations;
+                $this->isCompletionDestination = true;
+            }
+            
+            if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+                if (!$this->preferredDestination) {
+                    $this->preferredDestination = $blackhawkStorageLocations->first();
+                    $this->isCompletionDestination = true;
+                }
+
+                $this->availableDestinations->push($blackhawkStorageLocations);
+            }
+        }
+
+        else if ( $this->containerInOffSiteWarehouseLocation() ) {
+            $this->handleOffsiteToPlant2Transfer();
+        }
+
+        else if ( $this->containerLocatedInPlantTwoOrBlackhawk() ) {
+            // Route directly to sort location
+            $completionStation = $this->storageLocationRepository
+                ->getCompletionStationByBuilding($this->currentBuilding->id);
+
+            if (!$completionStation) return;
+
+            $storageLocations = $this->findAvailableStorageLocations($completionStation->storage_location_area_id, 1);
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first();
+                $this->availableDestinations = $storageLocations;
+                $this->isCompletionDestination = true;
+            }
+        }
+
+        else if ( $this->containerLocatedInDefianceBuilding() ) {
+            $this->handleDefianceToBlackhawkTransfer();
+        }
 
         // add required locations to travel to the destination order list
     }
@@ -545,5 +558,76 @@ class MaterialContainerRoutingService
             ->getOutboundStorageLocationAreaId($buildingId);
 
         return $this->currentLocation->area->id === $outboundLocationId;
+    }
+
+    /**
+     * Handles the transfer of moving container from the Defiance building
+     * to the Blackhawk (preferred) or Plant 2 as additional option.
+     */
+    public function handleDefianceToBlackhawkTransfer(): void
+    {
+        if ($this->containerInOutboundLocation(BuildingIdEnum::DEFIANCE->value)) {
+            $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
+            
+            $plantTwoInboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
+
+            $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
+            $plantTwoStorageLocations = $this->findAvailableStorageLocations($plantTwoInboundLocationAreaId, 1);
+
+            if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+                $this->preferredDestination = $blackhawkStorageLocations->first();
+                $this->availableDestinations = $blackhawkStorageLocations;
+            }
+
+            if ($plantTwoStorageLocations && $plantTwoStorageLocations->isNotEmpty()) {
+                if (!$this->preferredDestination) {
+                    $this->preferredDestination = $plantTwoStorageLocations->first();
+                }
+
+                $this->availableDestinations->push($plantTwoStorageLocations);
+            }
+        }
+        else {
+            $defianceOutboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getOutboundStorageLocationAreaId(BuildingIdEnum::DEFIANCE->value);
+
+            $storageLocations = $this->findAvailableStorageLocations($defianceOutboundLocationAreaId, 1);
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first();
+                $this->availableDestinations = $storageLocations;
+            }
+        }
+    }
+
+    /**
+     * Handles the transfer of moving container from an offsite warehouse
+     * to the Plant 2 (preferred) or Blackhawk as additional option.
+     */
+    public function handleOffsiteToPlant2Transfer(): void
+    {
+        $plant2InboundLocationAreaId = $this->buildingTransferAreaRepository
+            ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
+
+        $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
+            ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
+
+        $plant2StorageLocations = $this->findAvailableStorageLocations($plant2InboundLocationAreaId, 1);    
+        $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
+
+        if ($plant2StorageLocations && $plant2StorageLocations->isNotEmpty()) {
+            $this->preferredDestination = $plant2StorageLocations->first();
+            $this->availableDestinations = $plant2StorageLocations;
+        }
+
+        if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+            if (!$this->preferredDestination) {
+                $this->preferredDestination = $blackhawkStorageLocations->first();
+            }
+
+            $this->availableDestinations->push($blackhawkStorageLocations);
+        }
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Domain\Locations\Enums\CompletionStationEnum;
 use App\Models\StorageLocation;
+use App\Support\Enums\TimeToLiveEnum;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class StorageLocationRepository
@@ -39,5 +42,24 @@ class StorageLocationRepository
         $storageLocations = StorageLocation::hydrate($records)->load('area.building');
 
         return $storageLocations;
+    }
+
+    public function getCompletionStationByBuilding(int $buildingId) : StorageLocation|null
+    {
+        return Cache::remember(
+            'building_id_' . $buildingId . '_completion_station',
+            TimeToLiveEnum::ONE_DAY->value,
+            function () use ($buildingId) {
+                return match ($buildingId) {
+                    1 => StorageLocation::query()
+                        ->where('name', CompletionStationEnum::PLANT_2->value)
+                        ->first(),
+                    2 => StorageLocation::query()
+                        ->where('name', CompletionStationEnum::BLACKHAWK->value)
+                        ->first(),
+                    default => null
+                };
+            }
+        );
     }
 }
