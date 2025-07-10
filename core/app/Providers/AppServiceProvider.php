@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Domain\Auth\Enums\RoleEnum;
 use App\Domain\Materials\Services\MaterialContainerRoutingService;
+use App\Repositories\BuildingTransferAreaRepository;
 use App\Repositories\ContainerLocationRepository;
 use App\Services\SearchService;
 use App\Repositories\MaterialContainerMovementRepository;
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(MaterialContainerRoutingService::class, function ($app) {
             return new MaterialContainerRoutingService(
+                buildingTransferAreaRepository: $app->make(BuildingTransferAreaRepository::class),
                 containerLocationRepository: $app->make(ContainerLocationRepository::class),
                 materialRepository: $app->make(MaterialRepository::class),
                 materialContainerMovementRepository: $app->make(MaterialContainerMovementRepository::class),

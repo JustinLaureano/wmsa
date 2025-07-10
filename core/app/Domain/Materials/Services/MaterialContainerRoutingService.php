@@ -8,6 +8,7 @@ use App\Models\Building;
 use App\Models\MaterialContainer;
 use App\Models\MaterialRouting;
 use App\Models\StorageLocation;
+use App\Repositories\BuildingTransferAreaRepository;
 use App\Repositories\ContainerLocationRepository;
 use App\Repositories\MaterialContainerMovementRepository;
 use App\Repositories\MaterialRepository;
@@ -106,6 +107,7 @@ class MaterialContainerRoutingService
     protected Collection $destinationOrder;
 
     public function __construct(
+        protected BuildingTransferAreaRepository $buildingTransferAreaRepository,
         protected ContainerLocationRepository $containerLocationRepository,
         protected MaterialRepository $materialRepository,
         protected MaterialContainerMovementRepository $materialContainerMovementRepository,
@@ -258,29 +260,11 @@ class MaterialContainerRoutingService
         // }
 
         if ($this->needsSorted()) {
-            // Route to sort location
-            $sortStation = $this->sortStorageLocationRepository
-                ->getSortStationByBuilding($this->buildingId);
-
-            if ($sortStation) {
-                $storageLocations = $this->findAvailableStorageLocations($sortStation->storage_location_area_id, 1);
-                if ($storageLocations) {
-
-                    $this->preferredDestination = $storageLocations->first();
-                    $this->availableDestinations = $storageLocations;
-                    $this->sequencePosition = null;
-                    $this->isSortDestination = true;
-                }
-            }
-            else {
-                // Need to route to a building out location
-                // so that it can get to the proper building
-                // to visit a sort location
-            }
+            $this->setSortRouting();
         }
 
         // if ($this->needsCompletion()) {
-        //     $this->setCompletionDestination();
+        //     $this->setCompletionRouting();
         // }
 
         // if ($this->hasOpenRequest()) {
@@ -376,7 +360,103 @@ class MaterialContainerRoutingService
         return $requiresCompletion && !$hasVisitedCompletion;
     }
 
-    protected function setCompletionDestination(): void
+    /**
+     * Sets the appropriate routing destination for the container
+     * to visit a sort location.
+     * 
+     * If the part is currently located in Plant 2 or Blackhawk,
+     * there is sort stations in those buildings, so it will be routed
+     * directly to the appropriate sort location.
+     * 
+     * If the container is in the defiance warehouse, it will be routed
+     * to the outbound location if necessary, and then the inbound location
+     * of either Blackhawk (preferred) or Plant 2.
+     * 
+     * If the container does not have a current location, then we can assume
+     * it is a new skid manufactured in either Plant 2 or Blackhawk, and will
+     * route to the sort locations of those buildings.
+     * 
+     * If it is determined to be in an offsite warehouse, we can route the
+     * container to the inbound locations of Plant 2 and Blackhawk.
+     * 
+     * Whatever appropriate steps are required to get to the sort station
+     * will be appended to the destination order list.
+     */
+    protected function setSortRouting(): void
+    {
+        if (
+            !$this->currentBuilding
+        ) {
+            // TODO: handle
+            // assume skid is new or in offsite warehouse
+            // retrun both sort locations as available destinations
+            // make plant 2 the preferred destination
+        }
+
+        else if (
+            !$this->containerLocatedInPlantTwoOrBlackhawk() &&    
+                !$this->containerLocatedInDefianceBuilding()
+        ) {
+            // TODO: route to inbound locations of Plant 2 and Blackhawk
+        }
+
+        else if ( $this->containerLocatedInPlantTwoOrBlackhawk() ) {
+            // Route directly to sort location
+            $sortStation = $this->sortStorageLocationRepository
+                ->getSortStationByBuilding($this->currentBuilding->id);
+
+            if (!$sortStation) return;
+
+            $storageLocations = $this->findAvailableStorageLocations($sortStation->storage_location_area_id, 1);
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first();
+                $this->availableDestinations = $storageLocations;
+                $this->sequencePosition = null;
+                $this->isSortDestination = true;
+            }
+        }
+
+        else if ( $this->containerLocatedInDefianceBuilding() ) {
+            if ($this->containerInOutboundLocation(BuildingIdEnum::DEFIANCE->value)) {
+                $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
+                    ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
+                
+                $plantTwoInboundLocationAreaId = $this->buildingTransferAreaRepository
+                    ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
+
+                $blackhawkStorageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
+                $plantTwoStorageLocations = $this->findAvailableStorageLocations($plantTwoInboundLocationAreaId, 1);
+
+                if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
+                    $this->preferredDestination = $blackhawkStorageLocations->first();
+                    $this->availableDestinations = $blackhawkStorageLocations;
+                }
+
+                if ($plantTwoStorageLocations && $plantTwoStorageLocations->isNotEmpty()) {
+                    $this->availableDestinations->push($plantTwoStorageLocations);
+                }
+
+                $this->sequencePosition = null;
+            }
+            else {
+                $defianceOutboundLocationAreaId = $this->buildingTransferAreaRepository
+                    ->getOutboundStorageLocationAreaId(BuildingIdEnum::DEFIANCE->value);
+
+                $storageLocations = $this->findAvailableStorageLocations($defianceOutboundLocationAreaId, 1);
+
+                if ($storageLocations && $storageLocations->isNotEmpty()) {
+                    $this->preferredDestination = $storageLocations->first();
+                    $this->availableDestinations = $storageLocations;
+                    $this->sequencePosition = null;
+                }
+            }
+        }
+
+        // add required locations to travel to the destination order list
+    }
+
+    protected function setCompletionRouting(): void
     {
         // If in building one or two, send to completion station in current building
 
@@ -386,5 +466,35 @@ class MaterialContainerRoutingService
         // if not in outbound location, send to outbound location
 
         // add required locations to travel to the destination order list
+    }
+
+    /**
+     * Determines if the container is located in plant two or blackhawk.
+     */
+    protected function containerLocatedInPlantTwoOrBlackhawk(): bool
+    {
+        return  $this->currentBuilding?->id === BuildingIdEnum::PLANT_2->value ||
+                $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value;
+    }
+
+    /**
+     * Determines if the container is located in the defiance building.
+     */
+    protected function containerLocatedInDefianceBuilding(): bool
+    {
+        return $this->currentBuilding?->id === BuildingIdEnum::DEFIANCE->value;
+    }
+
+    /**
+     * Determines if the container is located in the outbound location of a given building.
+     */
+    protected function containerInOutboundLocation(int $buildingId): bool
+    {
+        if (!$this->currentLocation) return false;
+
+        $outboundLocationId = $this->buildingTransferAreaRepository
+            ->getOutboundStorageLocationAreaId($buildingId);
+
+        return $this->currentLocation->area->id === $outboundLocationId;
     }
 }
