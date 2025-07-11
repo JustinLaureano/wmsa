@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Domain\Locations\Enums\CompletionStationEnum;
+use App\Domain\Locations\Enums\DegasAreaEnum;
 use App\Models\StorageLocation;
 use App\Support\Enums\TimeToLiveEnum;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -60,6 +61,22 @@ class StorageLocationRepository
                     default => null
                 };
             }
+        );
+    }
+
+    public function getDegasAreaIds() : \Illuminate\Support\Collection
+    {
+        return Cache::remember(
+            'degas_area_ids',
+            TimeToLiveEnum::ONE_DAY->value,
+            function () {
+                return StorageLocation::query()
+                    ->whereIn('name', [
+                        DegasAreaEnum::DEGAS_OVEN->value,
+                        DegasAreaEnum::DEGAS_OVEN_2->value,
+                        ])
+                        ->pluck('storage_location_area_id');
+                    }
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Domain\Materials\Services;
 
 use App\Domain\Locations\Enums\BuildingIdEnum;
+use App\Domain\Locations\Support\BuildingTransferRouter;
 use App\Domain\Materials\DataTransferObjects\MaterialContainerRouting;
 use App\Models\Building;
 use App\Models\MaterialContainer;
@@ -59,6 +60,11 @@ class MaterialContainerRoutingService
      * @var Collection<MaterialRouting>
      */
     protected \Illuminate\Support\Collection $activeRoute;
+
+    /**
+     * Whether the container has conditional routing rules.
+     */
+    protected bool $isConditionalRouting = false;
 
     /**
      * The next preferred destination for the container.
@@ -135,11 +141,11 @@ class MaterialContainerRoutingService
 
         $this->setRoutingRules();
 
-        if ($this->sequencePosition === null) {
+        if ($this->nextSequenceNeedsSet()) {
             $this->setNextSequence();
         }
 
-        if ($this->routeBuildingId === null) {
+        if ($this->routeBuildingIdNeedsSet()) {
             $this->setRouteBuildingId();
         }
 
@@ -255,9 +261,9 @@ class MaterialContainerRoutingService
      */
     protected function handleContainerRequirements(): void
     {
-        // if ($this->needsDegassed()) {
-        //     $this->setDegasDestination();
-        // }
+        if ($this->needsDegassed()) {
+            $this->setDegasRouting();
+        }
 
         if ($this->needsSorted()) {
             $this->setSortRouting();
@@ -328,6 +334,20 @@ class MaterialContainerRoutingService
                 break;
             }
         }
+    }
+
+    /**
+     * Determines if the container needs to be completed based on the material's
+     * completion requirement and if it has visited the completion location.
+     */
+    protected function needsDegassed(): bool
+    {
+        $requiresDegassing = $this->materialRepository->requiresDegassing($this->materialUuid);
+
+        $hasVisitedDegassing = $this->materialContainerMovementRepository
+            ->hasVisitedDegasLocation($this->container->uuid);
+
+        return $requiresDegassing && !$hasVisitedDegassing;
     }
 
     /**
@@ -436,6 +456,10 @@ class MaterialContainerRoutingService
             $this->handleDefianceToBlackhawkTransfer();
         }
 
+        if ($this->preferredDestination) {
+            $this->isConditionalRouting = true;
+        }
+
         // TODO: add required locations to travel to the destination order list
     }
 
@@ -515,7 +539,90 @@ class MaterialContainerRoutingService
             $this->handleDefianceToBlackhawkTransfer();
         }
 
+        if ($this->preferredDestination) {
+            $this->isConditionalRouting = true;
+        }
+
         // add required locations to travel to the destination order list
+    }
+
+    protected function setDegasRouting(): void
+    {
+        if (
+            !$this->currentBuilding ||
+            $this->containerLocatedInPlant2Building()
+        ) {
+            $degasAreaIds = $this->storageLocationRepository
+                ->getDegasAreaIds();
+
+            $degasLocations = new Collection();
+
+            foreach ($degasAreaIds as $degasAreaId) {
+                $storageLocations = $this->findAvailableStorageLocations($degasAreaId, 1);
+
+                if ($storageLocations && $storageLocations->isNotEmpty()) {
+                    $degasLocations->push($storageLocations->first());
+                }
+            }
+
+            if ($degasLocations && $degasLocations->isNotEmpty()) {
+                $this->preferredDestination = $degasLocations->first();
+                $this->availableDestinations = $degasLocations;
+                $this->isDegasDestination = true;
+            }
+        }
+
+        else if ( $this->containerInOffSiteWarehouseLocation() ) {
+            $this->handleOffsiteToPlant2Transfer();
+        }
+
+        else if ( $this->containerLocatedInBlackhawkOrDefiance() ) {
+            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+                $this->currentBuilding->id,
+                BuildingIdEnum::PLANT_2->value
+            );
+
+            if ($this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
+                $this->preferredDestination = $transferDestinations['inbound_storage_locations']->first();
+                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
+            }
+
+            else {
+                $this->preferredDestination = $transferDestinations['outbound_storage_locations']->first();
+                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
+            }
+        }
+
+        if ($this->preferredDestination) {
+            $this->isConditionalRouting = true;
+        }
+    }
+
+    /**
+     * The next sequence is determined to be set if the sequence position
+     * if null and there is not already conditional routing set that
+     * negates the need for a sequencial position.
+     */
+    protected function nextSequenceNeedsSet(): bool
+    {
+        return  $this->sequencePosition === null &&
+                !$this->isConditionalRouting;
+    }
+
+    /**
+     * The route building id is determined to be set if the route building id
+     * if null and there is not already conditional routing set that
+     * negates the need for a route building id.
+     */
+    protected function routeBuildingIdNeedsSet(): bool
+    {
+        return  $this->routeBuildingId === null &&
+                !$this->isConditionalRouting;
+    }
+
+    protected function containerLocatedInPlant2Building(): bool
+    {
+        return $this->currentBuilding?->id === BuildingIdEnum::PLANT_2->value;
     }
 
     /**
@@ -525,6 +632,15 @@ class MaterialContainerRoutingService
     {
         return  $this->currentBuilding?->id === BuildingIdEnum::PLANT_2->value ||
                 $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value;
+    }
+
+    /**
+     * Determines if the container is located in blackhawk or defiance.
+     */
+    protected function containerLocatedInBlackhawkOrDefiance(): bool
+    {
+        return $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value ||
+               $this->currentBuilding?->id === BuildingIdEnum::DEFIANCE->value;
     }
 
     /**
@@ -558,6 +674,23 @@ class MaterialContainerRoutingService
             ->getOutboundStorageLocationAreaId($buildingId);
 
         return $this->currentLocation->area->id === $outboundLocationId;
+    }
+
+    /**
+     * Determins if the container's current location is one of the locations
+     * in the given location Collection.
+     */
+    protected function containerCurrentlyInLocationArray(Collection $locations): bool
+    {
+        if (!$this->currentLocation) return false;
+
+        foreach ($locations as $location) {
+            if ($location->uuid === $this->currentLocation->uuid) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

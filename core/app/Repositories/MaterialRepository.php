@@ -68,4 +68,12 @@ class MaterialRepository
             ->where('requires_completion', true)
             ->exists();
     }
+
+    public function requiresDegassing(string $materialUuid) : bool
+    {
+        return Material::query()
+            ->whereUuid($materialUuid)
+            ->where('required_degas_hours', '>', 0)
+            ->exists();
+    }
 }
