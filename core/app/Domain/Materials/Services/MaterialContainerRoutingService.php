@@ -22,6 +22,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MaterialContainerRoutingService
 {
+    protected BuildingTransferAreaRepository $buildingTransferAreaRepository;
+    protected ContainerLocationRepository $containerLocationRepository;
+    protected MaterialRepository $materialRepository;
+    protected MaterialContainerMovementRepository $materialContainerMovementRepository;
+    protected MaterialRequestItemRepository $materialRequestItemRepository;
+    protected MaterialRoutingRepository $materialRoutingRepository;
+    protected SortListRepository $sortListRepository;
+    protected SortStorageLocationRepository $sortStorageLocationRepository;
+    protected StorageLocationRepository $storageLocationRepository;
+
     /**
      * The material uuid for the container material.
      */
@@ -113,17 +123,16 @@ class MaterialContainerRoutingService
      */
     protected Collection $destinationOrder;
 
-    public function __construct(
-        protected BuildingTransferAreaRepository $buildingTransferAreaRepository,
-        protected ContainerLocationRepository $containerLocationRepository,
-        protected MaterialRepository $materialRepository,
-        protected MaterialContainerMovementRepository $materialContainerMovementRepository,
-        protected MaterialRequestItemRepository $materialRequestItemRepository,
-        protected MaterialRoutingRepository $materialRoutingRepository,
-        protected SortListRepository $sortListRepository,
-        protected SortStorageLocationRepository $sortStorageLocationRepository,
-        protected StorageLocationRepository $storageLocationRepository,
-    ) {
+    public function __construct() {
+        $this->buildingTransferAreaRepository = new BuildingTransferAreaRepository();
+        $this->containerLocationRepository = new ContainerLocationRepository();
+        $this->materialRepository = new MaterialRepository();
+        $this->materialContainerMovementRepository = new MaterialContainerMovementRepository();
+        $this->materialRequestItemRepository = new MaterialRequestItemRepository();
+        $this->materialRoutingRepository = new MaterialRoutingRepository();
+        $this->sortListRepository = new SortListRepository();
+        $this->sortStorageLocationRepository = new SortStorageLocationRepository();
+        $this->storageLocationRepository = new StorageLocationRepository();
         $this->destinationOrder = new Collection();
     }
 

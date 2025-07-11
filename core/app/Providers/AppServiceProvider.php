@@ -45,20 +45,6 @@ class AppServiceProvider extends ServiceProvider
                 storageLocationRepository: $app->make(ViewSearchStorageLocationRepository::class),
             );
         });
-
-        $this->app->bind(MaterialContainerRoutingService::class, function ($app) {
-            return new MaterialContainerRoutingService(
-                buildingTransferAreaRepository: $app->make(BuildingTransferAreaRepository::class),
-                containerLocationRepository: $app->make(ContainerLocationRepository::class),
-                materialRepository: $app->make(MaterialRepository::class),
-                materialContainerMovementRepository: $app->make(MaterialContainerMovementRepository::class),
-                materialRequestItemRepository: $app->make(MaterialRequestItemRepository::class),
-                materialRoutingRepository: $app->make(MaterialRoutingRepository::class),
-                sortListRepository: $app->make(SortListRepository::class),
-                sortStorageLocationRepository: $app->make(SortStorageLocationRepository::class),
-                storageLocationRepository: $app->make(StorageLocationRepository::class),
-            );
-        });
     }
 
     /**

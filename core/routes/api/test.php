@@ -41,7 +41,7 @@ Route::get(
     '/locations/available/{materialContainer:uuid}',
     function (App\Models\MaterialContainer $materialContainer) {
 
-        $routingService = app(MaterialContainerRoutingService::class);
+        $routingService = new MaterialContainerRoutingService();
 
         $storageLocations = $routingService
             ->getNextDestination($materialContainer, BuildingIdEnum::PLANT_2->value);
