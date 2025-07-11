@@ -79,4 +79,15 @@ class StorageLocationRepository
                     }
         );
     }
+
+    /**
+     * Find a machine staging location by its barcode.
+     */
+    public function getStagingLocationByMachine(string $machineBarcode) : StorageLocation|null
+    {
+        return StorageLocation::query()
+            ->where('barcode', $machineBarcode)
+            ->with('area.building')
+            ->first();
+    }
 }

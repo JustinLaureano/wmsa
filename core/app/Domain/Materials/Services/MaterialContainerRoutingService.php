@@ -13,6 +13,7 @@ use App\Repositories\BuildingTransferAreaRepository;
 use App\Repositories\ContainerLocationRepository;
 use App\Repositories\MaterialContainerMovementRepository;
 use App\Repositories\MaterialRepository;
+use App\Repositories\MaterialRequestItemRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
@@ -117,6 +118,7 @@ class MaterialContainerRoutingService
         protected ContainerLocationRepository $containerLocationRepository,
         protected MaterialRepository $materialRepository,
         protected MaterialContainerMovementRepository $materialContainerMovementRepository,
+        protected MaterialRequestItemRepository $materialRequestItemRepository,
         protected MaterialRoutingRepository $materialRoutingRepository,
         protected SortListRepository $sortListRepository,
         protected SortStorageLocationRepository $sortStorageLocationRepository,
@@ -229,7 +231,7 @@ class MaterialContainerRoutingService
             }
 
             if ($rule) {
-                $this->routeBuildingId = $rule->route_building_id;
+                $this->routeBuildingId = $rule[0]->route_building_id;
             }
         }
     }
@@ -273,9 +275,7 @@ class MaterialContainerRoutingService
             $this->setCompletionRouting();
         }
 
-        // if ($this->hasOpenRequest()) {
-        //     $this->setOpenRequestDestination();
-        // }
+        $this->handleMaterialRequestRouting();
     }
 
     protected function handleUniquePartRequirements(): void
@@ -379,6 +379,92 @@ class MaterialContainerRoutingService
 
         return $requiresCompletion && !$hasVisitedCompletion;
     }
+
+    /**
+     * Handles the routing for the container based on any open material requests
+     * that require this material but do not have a container allocated.
+     * 
+     * Any material request items for machines will be routed to 
+     * the staging location of the machine.
+     * 
+     * If the container is in the request location building, it will 
+     * be routed directly to the request location.
+     * 
+     * If the container is in an offsite warehouse, it will be routed 
+     * to the inbound location of the request location building.
+     * 
+     * If the container is in one of the main onsite warehouses that is not the
+     * warehouse that the request is for, it will be routed to the outbound
+     * location, or the inbound location of the request location building.
+     */
+    protected function handleMaterialRequestRouting(): void
+    {
+        $openRequests = $this->materialRequestItemRepository->findUnallocatedForMaterialContainer($this->container);
+
+        if ($openRequests->isEmpty()) return;
+
+        $availableRequestLocations = new Collection();
+
+        foreach ($openRequests as $requestItem) {
+            logger()->info('request item', [$requestItem->toArray()]);
+            
+            if ($requestItem->machine) {
+                $requestLocation = $this->storageLocationRepository
+                    ->getStagingLocationByMachine($requestItem->machine->barcode);
+            }
+            else {
+                $requestLocation = $requestItem->storageLocation;
+            }
+
+            if (!$requestLocation) continue;
+
+            $requestLocationBuildingId = $requestLocation->area->building->id;
+
+            logger()->info('current building', [$this->currentBuilding->id, $requestLocation->toArray()]);
+
+            if (
+                !$this->currentLocation ||
+                $this->currentBuilding?->id === $requestLocationBuildingId
+            ) {
+                $availableRequestLocations->push($requestLocation);
+            }
+
+            else if ( $this->containerInOffSiteWarehouseLocation() ) {
+                $inboundLocationAreaId = $this->buildingTransferAreaRepository
+                    ->getInboundStorageLocationAreaId($requestLocationBuildingId);
+
+                $inboundLocation = $this->storageLocationRepository
+                    ->getAvailableStorageLocationsByArea($inboundLocationAreaId, 1);
+
+                $availableRequestLocations->push($inboundLocation);
+            }
+
+            else if ( $this->containerInOnsiteLocation() ) {
+                $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+                    $this->currentBuilding->id,
+                    $requestLocationBuildingId
+                );
+
+                if ( $this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
+                    $inboundLocation = $transferDestinations['inbound_storage_locations']->first();
+                    $availableRequestLocations->push($inboundLocation);
+                }
+                else {
+                    $outboundLocation = $transferDestinations['outbound_storage_locations']->first();
+                    $availableRequestLocations->push($outboundLocation);
+                }
+            }
+        }
+
+        if ($availableRequestLocations->isNotEmpty()) {
+            $this->preferredDestination = $availableRequestLocations->first();
+            $this->availableDestinations = $availableRequestLocations;
+            $this->isConditionalRouting = true;
+        }
+
+        // TODO: add required locations to travel to the destination order list
+    }
+
 
     /**
      * Sets the appropriate routing destination for the container
@@ -662,6 +748,19 @@ class MaterialContainerRoutingService
                $this->currentLocation->area->building_id !== BuildingIdEnum::BLACKHAWK->value &&
                $this->currentLocation->area->building_id !== BuildingIdEnum::DEFIANCE->value;
     }
+
+    /**
+     * Determines if the container is located in an onsite location.
+     */
+    protected function containerInOnsiteLocation(): bool
+    {
+        if (!$this->currentLocation) return false;
+
+        return $this->currentLocation->area->building_id === BuildingIdEnum::PLANT_2->value ||
+               $this->currentLocation->area->building_id === BuildingIdEnum::BLACKHAWK->value ||
+               $this->currentLocation->area->building_id === BuildingIdEnum::DEFIANCE->value;
+    }
+
 
     /**
      * Determines if the container is located in the outbound location of a given building.

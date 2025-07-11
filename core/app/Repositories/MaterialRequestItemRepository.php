@@ -101,7 +101,11 @@ class MaterialRequestItemRepository
         }
 
         return $query->orderBy('material_request_items.created_at', 'asc')
-            ->with('materialRequest')
+            ->with([
+                'materialRequest',
+                'machine.building',
+                'storageLocation.area.building',
+            ])
             ->get();
     }
 }

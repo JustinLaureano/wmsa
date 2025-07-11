@@ -9,6 +9,7 @@ use App\Repositories\ContainerLocationRepository;
 use App\Services\SearchService;
 use App\Repositories\MaterialContainerMovementRepository;
 use App\Repositories\MaterialRepository;
+use App\Repositories\MaterialRequestItemRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
@@ -51,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
                 containerLocationRepository: $app->make(ContainerLocationRepository::class),
                 materialRepository: $app->make(MaterialRepository::class),
                 materialContainerMovementRepository: $app->make(MaterialContainerMovementRepository::class),
+                materialRequestItemRepository: $app->make(MaterialRequestItemRepository::class),
                 materialRoutingRepository: $app->make(MaterialRoutingRepository::class),
                 sortListRepository: $app->make(SortListRepository::class),
                 sortStorageLocationRepository: $app->make(SortStorageLocationRepository::class),

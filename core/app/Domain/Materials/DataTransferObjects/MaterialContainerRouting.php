@@ -31,7 +31,7 @@ class MaterialContainerRouting extends Data
         public bool $is_sort_destination,
         public bool $is_degas_destination,
         public Collection $destination_order,
-        public object $current_location,
+        public StorageLocation|null $current_location,
     ) {
     }
 }
