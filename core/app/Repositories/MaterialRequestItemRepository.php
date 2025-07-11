@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Domain\Production\DataTransferObjects\MaterialRequestItemData;
+use App\Domain\Production\Enums\RequestItemStatusEnum;
+use App\Models\MaterialContainer;
 use App\Models\MaterialRequestItem;
 use App\Models\MaterialRequest;
 use Illuminate\Support\Collection;
@@ -66,5 +68,40 @@ class MaterialRequestItemRepository
         }, []);
 
         $this->insert($data);
+    }
+
+    /**
+     * Find all unallocated material request items for a material.
+     */
+    public function findUnallocatedForMaterialContainer(MaterialContainer $materialContainer): Collection
+    {
+        $query = MaterialRequestItem::query()
+            ->leftJoin(
+                'request_container_allocations',
+                'request_container_allocations.material_request_item_uuid',
+                'material_request_items.uuid',
+            )
+            ->where([
+                ['request_item_status_code', RequestItemStatusEnum::OPEN->value],
+                ['material_request_items.material_uuid', $materialContainer->material_uuid],
+                ['request_container_allocations.material_request_item_uuid', null],
+            ]);
+
+        if ($materialContainer->material_tote_type_uuid === null) {
+            $query->whereNull('material_request_items.material_tote_type_uuid');
+        }
+        else {
+            $query->where(function ($query) use ($materialContainer) {
+                $query->whereNull('material_request_items.material_tote_type_uuid')
+                        ->orWhere(
+                            'material_request_items.material_tote_type_uuid',
+                            $materialContainer->material_tote_type_uuid,
+                        );
+            });
+        }
+
+        return $query->orderBy('material_request_items.created_at', 'asc')
+            ->with('materialRequest')
+            ->get();
     }
 }
