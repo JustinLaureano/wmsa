@@ -17,6 +17,7 @@ enum StorageLocationTypeEnum: string
     case TRAILER = 'trailer';
     case RECYCLING = 'recycling';
     case REPACK = 'repack';
+    case MACHINE_STAGING = 'machine-staging';
 
     public function label(): string
     {
@@ -34,6 +35,7 @@ enum StorageLocationTypeEnum: string
             self::TRAILER => 'Trailer',
             self::RECYCLING => 'Recycling',
             self::REPACK => 'Repack',
+            self::MACHINE_STAGING => 'Machine Staging',
         };
     }
 }

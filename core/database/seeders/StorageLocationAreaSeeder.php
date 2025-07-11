@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Domain\Locations\DataTransferObjects\StorageLocationAreaData;
 use App\Models\Building;
 use App\Models\StorageLocationArea;
+use App\Support\CsvReader;
 use Database\Seeders\Traits\Timestamps;
 use Illuminate\Database\Seeder;
 
@@ -25,6 +26,7 @@ class StorageLocationAreaSeeder extends Seeder
         $this->setBuildingNineAreas();
         $this->setBuildingTenAreas();
         $this->setBuildingElevenAreas();
+        $this->setMachineAreas();
     }
 
     /**
@@ -265,5 +267,56 @@ class StorageLocationAreaSeeder extends Seeder
         }
 
         StorageLocationArea::insert($areas);
+    }
+
+    /**
+     * Seed the machine storage location areas.
+     */
+    protected function setMachineAreas() : void
+    {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     id,
+         *     building,
+         *     REGEXP_REPLACE(area, 'Press[[:space:]]?[0-9]+', '') AS area,
+         *     aisle,
+         *     bay,
+         *     shelf,
+         *     position,
+         *     type,
+         *     split_request,
+         *     disabled,
+         *     exclude_allocations
+         * FROM wms.tblwms_rack_location
+         * WHERE type = 20
+         * GROUP BY id
+         * ORDER BY building ASC, area ASC;
+         */
+
+         $file = database_path('data/storage_locations/machines.csv');
+        $csvReader = new CsvReader($file);
+ 
+        foreach ($csvReader->toArray() as $data) {
+
+            $records = [];
+            foreach ($data as $key => $row) {
+
+                $area = new StorageLocationAreaData(
+                    building_id: $row['building'],
+                    name: $row['area'],
+                    description: $row['area'] . ' Staging',
+                    sap_storage_location_group: 1000,
+                );
+
+                $records[] = array_merge(
+                    $area->toArray(),
+                    $this->getTimestamps()
+                );
+            }
+
+            StorageLocationArea::insert($records);
+        }
     }
 }

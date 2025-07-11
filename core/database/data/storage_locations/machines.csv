@@ -1,0 +1,124 @@
+id,building,area,aisle,bay,shelf,position,type,split_request,disabled,exclude_allocations
+"1103 Bump Stop",1,"1103 Bump Stop",0,0,0,0,20,0,0,0
+1622DeflSwagePaint,1,1622DeflSwagePaint,0,0,0,0,20,0,0,0
+"180L Hydro Mount",1,"180L Hydro Mount",0,0,0,0,20,0,0,0
+1833DeflSwagePaint,1,1833DeflSwagePaint,0,0,0,0,20,0,0,0
+"2007 Damper Assy",1,"2007 Damper Assy",0,0,0,0,20,0,0,0
+"780B Dryfill Cell",1,"780B Dryfill Cell",0,0,0,0,20,0,0,0
+9402,1,9402,0,0,0,0,20,0,0,0
+"Alum Blast 3",1,"Alum Blast 3",0,0,0,0,20,0,0,0
+"Alum Blast 1",1,Alum_Blast_1,0,0,0,0,20,0,0,0
+"Alum Blast 2",1,Alum_Blast_2,0,0,0,0,20,0,0,0
+586985bfcbfd4765045992a0c068df8a00c4810a,1,"Assembly 439",0,0,0,0,20,0,0,0
+2d198d573d8c4adde5b27d3d64012063b556ccc2,1,"Assembly 440",0,0,0,0,20,0,0,0
+"Auto Swage 1602",1,"Auto Swage 1602",0,0,0,0,20,0,0,0
+BANBURY,1,BANBURY,0,0,0,0,20,0,0,0
+69d7b402,1,"BOND LINE",0,0,0,0,20,0,0,0
+"BOND LINE 1",1,"BOND LINE 1",0,0,0,0,20,0,1,0
+"BOND LINE 13",1,"BOND LINE 13",0,0,0,0,20,0,0,0
+"BOND LINE 14",1,"BOND LINE 14",0,0,0,0,20,0,0,0
+"Bumpcrimp 2211",1,"Bumpcrimp 2211",0,0,0,0,20,0,0,0
+"CARBON WEIGHT",1,"CARBON WEIGHT",0,0,0,0,20,0,0,0
+"COMPOUND STAGING",1,"COMPOUND STAGING",0,0,0,0,20,0,1,0
+Dryfill,1,Dryfill,0,0,0,0,20,0,0,0
+DSTOP,1,DSTOP,0,0,0,0,20,0,0,0
+5210fc6fc23f69413ece09957ea04eb8681f9c88,1,Expansion,0,0,0,0,20,0,0,0
+Felt,1,Felt,0,0,0,0,20,1,1,0
+"Felt Station",1,"Felt Station",0,0,0,0,20,0,0,0
+Highlander,1,Highlander,0,0,0,0,20,0,0,0
+"Highlander 2",1,"Highlander 2",0,0,0,0,20,0,0,0
+"Honda Bond Line",1,"Honda Bond Line",0,0,0,0,20,0,0,0
+"Honda Engine Mount",1,"Honda Engine Mount",0,0,0,0,20,0,0,0
+"Honda Torque Rod",1,"Honda Torque Rod",0,0,0,0,20,0,0,0
+10957c0b838484945d14466e600a6b094b503c28,1,"Line 1 ",0,0,0,0,20,0,0,0
+"Line 1 Swage",1,"Line 1 Swage",0,0,0,0,20,0,0,0
+"Line 10",1,"Line 10",0,0,0,0,20,0,0,0
+2adc1564ee9e63129c6c6cffe7e7d58fc54cb077,1,"Line 11 ",0,0,0,0,20,0,0,0
+"Line 11 Press 12",1,"Line 11 ",0,0,0,0,20,0,0,0
+"Line 11 Bump Stop",1,"Line 11 Bump Stop",0,0,0,0,20,0,0,0
+714bf46313bf25de3ab7418963ec5354cb3c7d0f,1,"Line 2 ",0,0,0,0,20,0,0,0
+"Line 2 Swage",1,"Line 2 Swage",0,0,0,0,20,0,0,0
+b2e410c549e7ee02a1ac9f13eaad974959384247,1,"Line 20 ",0,0,0,0,20,0,0,0
+d458cff74247849c0660c581c1e67ca724089e8b,1,"Line 3 ",0,0,0,0,20,0,0,0
+cf92160aa269cb9c44272780df0d9eac85ae971c,1,"Line 4 ",0,0,0,0,20,0,0,0
+a7056cd5ea400533a1ded187715e58835daeb7ce,1,"Line 5 ",0,0,0,0,20,0,0,0
+1d76cadd7ae14437c99362d5100961e3dab5ebba,1,"Line 6 ",0,0,0,0,20,0,0,0
+1d2108ec,1,"Line 7 ",0,0,0,0,20,0,0,0
+e0b8ef82505a3716c28393ed60b262814488e4ac,1,"Line 8 ",0,0,0,0,20,0,0,0
+2067ff337704936ad287e447784bf18689c54d33,1,"Line 9 ",0,0,0,0,20,0,0,0
+"Line3 YAT",1,"Line3 YAT",0,0,0,0,20,0,0,0
+"Link Curl Swage 1708",1,"Link Curl Swage 1708",0,0,0,0,20,0,0,0
+"Manual Glue",1,"Manual Glue",0,0,0,0,20,0,0,0
+"NEW Rear Assembly",1,"NEW Rear Assembly",0,0,0,0,20,0,0,0
+"Nissan 3",1,"Nissan 3",0,0,0,0,20,0,0,0
+"Old Front Assembly",1,"Old Front Assembly",0,0,0,0,20,0,0,0
+"Orifice 2209",1,"Orifice 2209",0,0,0,0,20,0,0,0
+Paint,1,Paint,0,0,0,0,20,1,0,0
+"RDX Assembly",1,"RDX Assembly",0,0,0,0,20,0,0,0
+SCRAP,1,SCRAP,0,0,0,0,20,0,0,0
+"Subaru Strut Mount",1,"Subaru Strut Mount",0,0,0,0,20,0,0,0
+cc7587c054b03f82b66f389ec3011b5da366bd36,1,THK,0,0,0,0,20,0,0,0
+THK_Autoswage,1,THK_Autoswage,0,0,0,0,20,0,1,0
+"Toyota Cell 2",1,"Toyota Cell 2",0,0,0,0,20,0,0,0
+"Underwater 1",1,"Underwater 1",0,0,0,0,20,0,0,0
+"Underwater 3",1,"Underwater 3",0,0,0,0,20,0,0,0
+981f38fd55177c7443adace58cbb68fa8a9463e0,1,Vert_Plastic_1,0,0,0,0,20,0,0,0
+c1ee2f9fd1d6b72e8c391edab596cc47983309ca,1,Vert_Plastic_2,0,0,0,0,20,0,0,0
+ac379f8e4bd8846944ace1c8d1677b3b3335d993,1,Vert_Plastic_7,0,0,0,0,20,0,0,0
+7cff41a1c9b6a818d3f563b7aa07eeca854955b5,1,Vert_Plastic_8,0,0,0,0,20,0,0,0
+YMEX,1,YMEX,0,0,0,0,20,0,0,0
+"180L Assembly",2,"180L Assembly",0,0,0,0,20,0,1,0
+180LAssembly,2,180LAssembly,0,0,0,0,20,0,0,0
+"1907 RAV4",2,"1907 RAV4",0,0,0,0,20,0,0,0
+"Assembly 441",2,"Assembly 441",0,0,0,0,20,0,0,0
+"Assembly 442",2,"Assembly 442",0,0,0,0,20,0,0,0
+"Assembly 443",2,"Assembly 443",0,0,0,0,20,0,0,0
+"Bracket Assembly",2,"Bracket Assembly",0,0,0,0,20,0,0,0
+"Bracket Assembly 1",2,"Bracket Assembly 1",0,0,0,0,20,0,0,0
+"Bracket Assembly 2",2,"Bracket Assembly 2",0,0,0,0,20,0,0,0
+"Dual Servo Press",2,"Dual Servo Press",0,0,0,0,20,0,0,0
+"Honda Trans Mount",2,"Honda Trans Mount",0,0,0,0,20,0,0,0
+8660549aff4e187965239906b194a7316a20b2e6,2,"Line 12 ",0,0,0,0,20,0,0,0
+5b2fab2da45c6cf686fac64790eb202a32ad0c17,2,"Line 13 ",0,0,0,0,20,0,0,0
+47cd30dbeed0b9eb4e17b9fe941d57de4092649f,2,"Line 14 ",0,0,0,0,20,0,0,0
+"Line 14 Bump Stop",2,"Line 14 Bump Stop",0,0,0,0,20,0,0,0
+MDX,2,MDX,0,0,0,0,20,0,0,0
+"New Front",2,"New Front",0,0,0,0,20,0,0,0
+"NEW Front Assembly",2,"NEW Front Assembly",0,0,0,0,20,0,0,0
+"NEW LEXUS",2,"NEW LEXUS",0,0,0,0,20,0,0,0
+d44033ba1b000d9b62df4448b3f5afee58253e0f,2,"Nissan 2",0,0,0,0,20,0,0,0
+"Nissan Strut Mount",2,"Nissan Strut Mount",0,0,0,0,20,0,0,0
+Nissan1,2,Nissan1,0,0,0,0,20,0,0,0
+"OLD LEXUS",2,"OLD LEXUS",0,0,0,0,20,0,0,0
+"Old Rear Assembly",2,"Old Rear Assembly",0,0,0,0,20,0,0,0
+OldRearAssembly,2,OldRearAssembly,0,0,0,0,20,0,0,0
+"Omega 0807",2,"Omega 0807",0,0,0,0,20,0,0,0
+"Paintline 7",2,"Paintline 7",0,0,0,0,20,0,0,0
+"Projection Welder",2,"Projection Welder",0,0,0,0,20,0,0,0
+RAV4,2,RAV4,0,0,0,0,20,0,0,0
+RAV_4_Glue,2,RAV_4_Glue,0,0,0,0,20,0,0,0
+"Rear Assembly 30Ton",2,"Rear Assembly 30Ton",0,0,0,0,20,0,0,0
+SERVICE,2,"Service Cell",0,0,0,0,20,0,0,0
+"Showa Strut Mount",2,"Showa Strut Mount",0,0,0,0,20,0,0,0
+"Sub Dry Fill #4",2,"Sub Dry Fill #4",0,0,0,0,20,0,0,0
+"Sub Dryfill #2",2,"Sub Dryfill #2",0,0,0,0,20,0,0,0
+"Sub Dryfill #3",2,"Sub Dryfill #3",0,0,0,0,20,0,0,0
+"Sub Final #2",2,"Sub Final #2",0,0,0,0,20,0,0,0
+"Sub Final #3",2,"Sub Final #3",0,0,0,0,20,0,0,0
+"Sub Final #4",2,"Sub Final #4",0,0,0,0,20,0,0,0
+"Subaru 0809 Push In",2,"Subaru 0809 Push In",0,0,0,0,20,0,0,0
+"Subaru Paintline",2,"Subaru Paintline",0,0,0,0,20,0,0,0
+"Torque Machine",2,"Torque Machine",0,0,0,0,20,0,0,0
+"Toyota 1",2,"Toyota 1",0,0,0,0,20,0,0,0
+"Toyota Dryfill",2,"Toyota Dryfill",0,0,0,0,20,0,0,0
+"Toyota Final Bracket",2,"Toyota Final Bracket",0,0,0,0,20,0,0,0
+"Toyota Torque",2,"Toyota Torque",0,0,0,0,20,0,0,0
+"Toyota Underwater",2,"Toyota Underwater",0,0,0,0,20,0,0,0
+"Ultrasonic Welder",2,"Ultrasonic Welder",0,0,0,0,20,0,0,0
+"Underwater 4",2,"Underwater 4",0,0,0,0,20,0,0,0
+"Underwater 6",2,"Underwater 6",0,0,0,0,20,0,0,0
+"UW2 0520",2,"UW2 0520",0,0,0,0,20,0,0,0
+"UW5 0138",2,"UW5 0138",0,0,0,0,20,0,0,0
+UW6,2,UW6,0,0,0,0,20,0,0,0
+YAT,2,YAT,0,0,0,0,20,0,0,0
+"YMEX 30 Ton",2,"YMEX 30 Ton",0,0,0,0,20,0,0,0

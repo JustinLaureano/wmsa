@@ -12,3 +12,4 @@ name,description,default_max_containers
 "trailer","trailers in parking lot",
 "recycling","recycling dumpsters and trailers",
 "repack","Repacking area for materials",
+"machine-staging","Machine staging area",

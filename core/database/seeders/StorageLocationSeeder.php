@@ -30,6 +30,7 @@ class StorageLocationSeeder extends Seeder
         $this->setIrmStorageLocations();
         $this->setFlowRackStorageLocations();
         $this->setBondLaneStorageLocations();
+        $this->setMachineStorageLocations();
     }
 
     /**
@@ -349,6 +350,77 @@ class StorageLocationSeeder extends Seeder
  
              StorageLocation::insert($data);
          }
+    }
+
+    /**
+     * Set the machine storage locations.
+     */
+    protected function setMachineStorageLocations() : void
+    {
+        /**
+         * To regenerate csv file from legacy production, use this SQL statement:   
+         * 
+         * SELECT
+         *     id,
+         *     building,
+         *     REGEXP_REPLACE(area, 'Press[[:space:]]?[0-9]+', '') AS area,
+         *     aisle,
+         *     bay,
+         *     shelf,
+         *     position,
+         *     type,
+         *     split_request,
+         *     disabled,
+         *     exclude_allocations
+         * FROM wms.tblwms_rack_location
+         * WHERE type = 20
+         * GROUP BY id
+         * ORDER BY building ASC, area ASC;
+         */
+
+         $file = database_path('data/storage_locations/machines.csv');
+         $csvReader = new CsvReader($file);
+ 
+         $type = StorageLocationType::where('name', StorageLocationTypeEnum::MACHINE_STAGING)->first();
+
+        foreach ($csvReader->toArray() as $data) {
+
+            $records = [];
+            foreach ($data as $key => $row) {
+
+                $areaId = $this->areas[$row['building']][$row['area']]['id'];
+
+                $maxContainers = StorageLocationType::where(
+                        'name',
+                        StorageLocationTypeEnum::MACHINE_STAGING->value
+                    )
+                    ->first()
+                    ->default_max_containers;
+
+                $locationData = new StorageLocationData(
+                    name: $row['area'],
+                    barcode: $row['id'],
+                    storage_location_type_id: $type->id,
+                    storage_location_area_id: $areaId,
+                    aisle: $row['aisle'],
+                    bay: $row['bay'],
+                    shelf: $row['shelf'],
+                    position: $row['position'],
+                    max_containers: $maxContainers,
+                    restrict_request_allocations: 0,
+                    disabled: $row['disabled'],
+                    reservable: $row['exclude_allocations'] ? 0 : 1
+                );
+
+                $records[] = array_merge(
+                    $locationData->toArray(),
+                    $this->getUuid(),
+                    $this->getTimestamps()
+                );
+            }
+
+            StorageLocation::insert($records);
+        }
     }
 
     /**
