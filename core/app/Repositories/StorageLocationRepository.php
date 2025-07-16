@@ -72,8 +72,8 @@ class StorageLocationRepository
             function () {
                 return StorageLocation::query()
                     ->whereIn('name', [
-                        DegasAreaEnum::DEGAS_OVEN->value,
-                        DegasAreaEnum::DEGAS_OVEN_2->value,
+                            DegasAreaEnum::DEGAS_OVEN->value,
+                            DegasAreaEnum::DEGAS_OVEN_2->value,
                         ])
                         ->pluck('storage_location_area_id');
                     }
