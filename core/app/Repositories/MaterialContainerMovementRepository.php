@@ -79,4 +79,17 @@ class MaterialContainerMovementRepository
             ->where('is_degas_location', true)
             ->exists();
     }
+
+    /**
+     * Check if a material container has visited a repack location.
+     */
+    public function hasVisitedRepackLocation(string $materialContainerUuid) : bool
+    {
+        return MaterialContainerMovement::where(
+                'material_container_uuid',
+                $materialContainerUuid
+            )
+            ->where('is_repack_location', true)
+            ->exists();
+    }
 }

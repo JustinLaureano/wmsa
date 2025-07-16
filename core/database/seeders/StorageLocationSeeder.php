@@ -107,6 +107,7 @@ class StorageLocationSeeder extends Seeder
     {
         $file = database_path('data/storage_locations/floor.csv');
         $type = StorageLocationType::where('name', StorageLocationTypeEnum::FLOOR->value)->first();
+        $repackType = StorageLocationType::where('name', StorageLocationTypeEnum::REPACK->value)->first();
         $csvReader = new CsvReader($file);
 
         foreach ($csvReader->toArray() as $data) {
@@ -126,12 +127,13 @@ class StorageLocationSeeder extends Seeder
 
                 $name = $this->setUniqueName($row['id'], $name);
 
+                $typeId = str_contains($row['area'], 'REPACK') ? $repackType->id : $type->id;
                 $areaId = $this->areas[$row['building']][$row['area']]['id'];
 
                 $locationData = new StorageLocationData(
                     name: $name,
                     barcode: $row['id'],
-                    storage_location_type_id: $type->id,
+                    storage_location_type_id: $typeId,
                     storage_location_area_id: $areaId,
                     aisle: $row['aisle'],
                     bay: $row['bay'],
@@ -378,10 +380,10 @@ class StorageLocationSeeder extends Seeder
          * ORDER BY building ASC, area ASC;
          */
 
-         $file = database_path('data/storage_locations/machines.csv');
-         $csvReader = new CsvReader($file);
+        $file = database_path('data/storage_locations/machines.csv');
+        $csvReader = new CsvReader($file);
  
-         $type = StorageLocationType::where('name', StorageLocationTypeEnum::MACHINE_STAGING)->first();
+        $type = StorageLocationType::where('name', StorageLocationTypeEnum::MACHINE_STAGING)->first();
 
         foreach ($csvReader->toArray() as $data) {
 

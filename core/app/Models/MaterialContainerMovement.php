@@ -29,6 +29,7 @@ class MaterialContainerMovement extends Model
         'is_sort_location',
         'is_completion_location',
         'is_degas_location',
+        'is_repack_location',
         'moved_at',
     ];
 

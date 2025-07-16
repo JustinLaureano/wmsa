@@ -46,6 +46,10 @@ return new class extends Migration
                 ->default(false)
                 ->comment('Indicates if this movement was to a degas location');
 
+            $table->boolean('is_repack_location')
+                ->default(false)
+                ->comment('Indicates if this movement was to a repack location');
+
             $table->timestamp('moved_at')->useCurrent();
 
             $table->timestamps();

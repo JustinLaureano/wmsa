@@ -5,6 +5,7 @@ namespace App\Domain\Materials\Services;
 use App\Domain\Locations\Enums\BuildingIdEnum;
 use App\Domain\Locations\Support\BuildingTransferRouter;
 use App\Domain\Materials\DataTransferObjects\MaterialContainerRouting;
+use App\Domain\Materials\Support\Barcode\BarcodeFactory;
 use App\Models\Building;
 use App\Models\MaterialContainer;
 use App\Models\MaterialRouting;
@@ -17,6 +18,7 @@ use App\Repositories\MaterialRequestItemRepository;
 use App\Repositories\MaterialRoutingRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
+use App\Repositories\StorageLocationAreaRepository;
 use App\Repositories\StorageLocationRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -31,6 +33,7 @@ class MaterialContainerRoutingService
     protected SortListRepository $sortListRepository;
     protected SortStorageLocationRepository $sortStorageLocationRepository;
     protected StorageLocationRepository $storageLocationRepository;
+    protected StorageLocationAreaRepository $storageLocationAreaRepository;
 
     /**
      * The material uuid for the container material.
@@ -116,6 +119,11 @@ class MaterialContainerRoutingService
     protected bool $isDegasDestination = false;
 
     /**
+     * Whether the next destination is a repack destination.
+     */
+    protected bool $isRepackDestination = false;
+
+    /**
      * The routing order of the destinations for the container
      * according to the active routing rules.
      *
@@ -133,12 +141,14 @@ class MaterialContainerRoutingService
         $this->sortListRepository = new SortListRepository();
         $this->sortStorageLocationRepository = new SortStorageLocationRepository();
         $this->storageLocationRepository = new StorageLocationRepository();
+        $this->storageLocationAreaRepository = new StorageLocationAreaRepository();
         $this->destinationOrder = new Collection();
     }
 
     public function getNextDestination(MaterialContainer $container, int $buildingId)
     {
         $this->materialUuid = $container->material_uuid;
+        $this->setContainer($container);
         $this->container = $container;
         $this->buildingId = $buildingId;
         $this->setContainerCurrentLocation();
@@ -173,9 +183,20 @@ class MaterialContainerRoutingService
             is_completion_destination: $this->isCompletionDestination,
             is_sort_destination: $this->isSortDestination,
             is_degas_destination: $this->isDegasDestination,
+            is_repack_destination: $this->isRepackDestination,
             destination_order: $this->destinationOrder,
             current_location: $this->currentLocation,
         );
+    }
+
+    /**
+     * Set the container for the service, including the barcode label.
+     */
+    protected function setContainer(MaterialContainer $container): void
+    {
+        $container->barcode_label = BarcodeFactory::make($container->barcode)->toArray();
+
+        $this->container = $container;
     }
 
     /**
@@ -289,9 +310,9 @@ class MaterialContainerRoutingService
 
     protected function handleUniquePartRequirements(): void
     {
-        // if ($this->isThailandPart()) {
-        //     $this->setThailandDestination();
-        // }
+        if ($this->isThailandPart()) {
+            $this->setThailandPartDestination();
+        }
 
         // if ($this->isToyotaTote()) {
         //     $this->setToyotaDestination();
@@ -387,6 +408,27 @@ class MaterialContainerRoutingService
             ->hasVisitedCompletionLocation($this->container->uuid);
 
         return $requiresCompletion && !$hasVisitedCompletion;
+    }
+
+    /**
+     * Determines if the container needs to be repacked based on if it has
+     * visited the repack location.
+     */
+    protected function needsRepacked(): bool
+    {
+        return ! $this->materialContainerMovementRepository
+            ->hasVisitedRepackLocation($this->container->uuid);
+    }
+
+    /**
+     * Thailand parts have lot numbers designated with a Shift Identifier Suffix of 'T'.
+     */
+    protected function isThailandPart(): bool
+    {
+        return str_contains(
+            strtolower($this->container->lot_number),
+            't'
+        );
     }
 
     /**
@@ -638,9 +680,23 @@ class MaterialContainerRoutingService
             $this->isConditionalRouting = true;
         }
 
-        // add required locations to travel to the destination order list
+        // TODO: add required locations to travel to the destination order list
     }
 
+    /**
+     * Sets the appropriate routing destination for the container
+     * to visit a degas location.
+     * 
+     * If the container is currently located in Plant,
+     * it will be routed to the degas location.
+     *
+     * If the container is located in an offsite warehouse, it will be routed
+     * to the inbound locations of Plant 2 and Blackhawk.
+     *
+     * If the container is located in the defiance building, it will be routed
+     * to the outbound location if necessary, and then the inbound location
+     * of Plant 2.
+     */
     protected function setDegasRouting(): void
     {
         if (
@@ -691,6 +747,95 @@ class MaterialContainerRoutingService
         if ($this->preferredDestination) {
             $this->isConditionalRouting = true;
         }
+
+        // TODO: add required locations to travel to the destination order list
+    }
+
+    /**
+     * Sets the appropriate routing destination for the container
+     * to visit a repack location.
+     * 
+     * If the container is currently located in Plant 2 or Blackhawk,
+     * it will be routed to the repack locations of those buildings.
+     * 
+     * If the container is located in an offsite warehouse, it will be routed
+     * to the inbound locations of Plant 2 and Blackhawk.
+     * 
+     * If the container is located in the defiance building, it will be routed
+     * to the outbound location if necessary, and then the inbound location
+     * of Blackhawk.
+     */
+    protected function setRepackRouting(): void
+    {
+        if (
+            !$this->currentBuilding ||
+            $this->containerLocatedInPlantTwoOrBlackhawk()
+        ) {
+            $repackAreaIds = $this->storageLocationAreaRepository
+                ->getRepackAreaIdsByBuilding($this->currentBuilding?->id ?? BuildingIdEnum::PLANT_2->value);
+
+            $repackLocations = new Collection();
+
+            foreach ($repackAreaIds as $repackAreaId) {
+                $storageLocations = $this->findAvailableStorageLocations($repackAreaId, 1);
+
+                if ($storageLocations && $storageLocations->isNotEmpty()) {
+                    $repackLocations->push($storageLocations->first());
+                }
+            }
+
+            if ($repackLocations && $repackLocations->isNotEmpty()) {
+                $this->preferredDestination = $repackLocations->first();
+                $this->availableDestinations = $repackLocations;
+                $this->isRepackDestination = true;
+            }
+        }
+
+        else if ( $this->containerInOffSiteWarehouseLocation() ) {
+            $this->handleOffsiteToPlant2Transfer();
+        }
+
+        else if ( $this->containerLocatedInDefianceBuilding() ) {
+            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+                BuildingIdEnum::DEFIANCE->value,
+                BuildingIdEnum::BLACKHAWK->value
+            );
+
+            if ($this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
+                $this->preferredDestination = $transferDestinations['inbound_storage_locations']->first();
+                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
+            }
+
+            else {
+                $this->preferredDestination = $transferDestinations['outbound_storage_locations']->first();
+                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
+            }
+        }
+
+        if ($this->preferredDestination) {
+            $this->isConditionalRouting = true;
+        }
+
+        // TODO: add required locations to travel to the destination order list
+    }
+
+    /**
+     * Thailand parts need to repacked, sorted, and completed before
+     * allowed to be putaway in the assigned storage location.
+     */
+    protected function setThailandPartDestination(): void
+    {
+        if ($this->needsRepacked()) {
+            $this->setRepackRouting();
+        }
+
+        else if ($this->needsSorted()) {
+            $this->setSortRouting();
+        }
+
+        else if ($this->needsCompletion()) {
+            $this->setCompletionRouting();
+        }
     }
 
     /**
@@ -715,6 +860,9 @@ class MaterialContainerRoutingService
                 !$this->isConditionalRouting;
     }
 
+    /**
+     * Determines if the container is currently located in Plant 2.
+     */
     protected function containerLocatedInPlant2Building(): bool
     {
         return $this->currentBuilding?->id === BuildingIdEnum::PLANT_2->value;

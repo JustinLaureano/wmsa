@@ -18,6 +18,7 @@ class MaterialContainerRouting extends Data
      * @param bool $is_completion_destination
      * @param bool $is_sort_destination
      * @param bool $is_degas_destination
+     * @param bool $is_repack_destination
      * @param Collection<StorageLocation> $destination_order
      * @param StorageLocation $current_location
      */
@@ -30,6 +31,7 @@ class MaterialContainerRouting extends Data
         public bool $is_completion_destination,
         public bool $is_sort_destination,
         public bool $is_degas_destination,
+        public bool $is_repack_destination,
         public Collection $destination_order,
         public StorageLocation|null $current_location,
     ) {
