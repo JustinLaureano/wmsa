@@ -329,10 +329,6 @@ class MaterialContainerRoutingService
         //     $this->setServicePartDestination();
         // }
 
-        // if ($this->is807066Part()) {
-        //     $this->set807066Destination();
-        // }
-
         // if ($this->is805795Part()) {
         //     $this->set805795Destination();
         // }

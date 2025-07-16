@@ -87,6 +87,7 @@ put away logic
 
 - If 807066 part number
     - Follow Defiance Out/Blackhawk In/Sort/Completion/FG flow
+    - Note: This should already flow correctly in new routing logic
 
 - If already in a rack location
     - Check if it needs to stay in same location
