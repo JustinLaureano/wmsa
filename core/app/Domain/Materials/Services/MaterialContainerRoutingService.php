@@ -16,6 +16,7 @@ use App\Repositories\MaterialContainerMovementRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\MaterialRequestItemRepository;
 use App\Repositories\MaterialRoutingRepository;
+use App\Repositories\MaterialToteTypeRepository;
 use App\Repositories\SortListRepository;
 use App\Repositories\SortStorageLocationRepository;
 use App\Repositories\StorageLocationAreaRepository;
@@ -297,15 +298,17 @@ class MaterialContainerRoutingService
             $this->setDegasRouting();
         }
 
-        if ($this->needsSorted()) {
+        else if ($this->needsSorted()) {
             $this->setSortRouting();
         }
 
-        if ($this->needsCompletion()) {
+        else if ($this->needsCompletion()) {
             $this->setCompletionRouting();
         }
 
-        $this->handleMaterialRequestRouting();
+        else {
+            $this->handleMaterialRequestRouting();
+        }
     }
 
     protected function handleUniquePartRequirements(): void
@@ -314,9 +317,9 @@ class MaterialContainerRoutingService
             $this->setThailandPartDestination();
         }
 
-        // if ($this->isToyotaTote()) {
-        //     $this->setToyotaDestination();
-        // }
+        if ($this->isToyotaTote()) {
+            $this->handleToyotaToteRouting();
+        }
 
         // if ($this->isMBDSPart()) {
         //     $this->setMBDSDestination();
@@ -429,6 +432,14 @@ class MaterialContainerRoutingService
             strtolower($this->container->lot_number),
             't'
         );
+    }
+
+    /**
+     * Determines if the container is a Toyota tote container.
+     */
+    protected function isToyotaTote(): bool
+    {
+        return (new MaterialToteTypeRepository())->isToyotaToteContainer($this->container);
     }
 
     /**
@@ -839,6 +850,78 @@ class MaterialContainerRoutingService
     }
 
     /**
+     * Handles the routing for a container that is in a Toyota tote.
+     * 
+     * If the container already has a preferred destination, do nothing
+     * since it has requirements for Completion and potentially Sort
+     * before being put away.
+     * 
+     * If the container is currently located in Blackhawk, it will be routed
+     * to the Toyota racks.
+     * 
+     * If the container is located in any other warehouse , it will be routed
+     * to the inbound location of Blackhawk.
+     * 
+     * If the container is located in an onsite location, it will be routed to
+     * via the building transfer rules as needed.
+     */
+    protected function handleToyotaToteRouting(): void
+    {
+        if ($this->preferredDestination) return;
+
+        if (
+            !$this->currentBuilding ||
+            $this->containerLocatedInBlackhawkBuilding()
+        ) {
+            $toyotaAreaId = $this->storageLocationAreaRepository
+                ->getToyotaRackAreaId();
+
+            $storageLocations = $this->findAvailableStorageLocations($toyotaAreaId, 10);
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first();
+                $this->availableDestinations = $storageLocations;
+            }
+        }
+
+        else if ($this->containerInOffSiteWarehouseLocation()) {
+            $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
+                ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
+
+            $storageLocations = $this->findAvailableStorageLocations($blackhawkInboundLocationAreaId, 1);
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first();
+                $this->availableDestinations = $storageLocations;
+            }
+        }
+
+        else if ($this->containerInOnsiteLocation()) {
+            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+                $this->currentBuilding->id,
+                BuildingIdEnum::BLACKHAWK->value
+            );
+
+            if ( $this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
+                $inboundLocation = $transferDestinations['inbound_storage_locations']->first();
+                $this->preferredDestination = $inboundLocation;
+                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
+            }
+            else {
+                $outboundLocation = $transferDestinations['outbound_storage_locations']->first();
+                $this->preferredDestination = $outboundLocation;
+                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
+            }
+        }
+
+        if ($this->preferredDestination) {
+            $this->isConditionalRouting = true;
+        }
+
+        // TODO: add required locations to travel to the destination order list
+    }
+
+    /**
      * The next sequence is determined to be set if the sequence position
      * if null and there is not already conditional routing set that
      * negates the need for a sequencial position.
@@ -866,6 +949,14 @@ class MaterialContainerRoutingService
     protected function containerLocatedInPlant2Building(): bool
     {
         return $this->currentBuilding?->id === BuildingIdEnum::PLANT_2->value;
+    }
+
+    /**
+     * Determines if the container is currently located in Blackhawk.
+     */
+    protected function containerLocatedInBlackhawkBuilding(): bool
+    {
+        return $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value;
     }
 
     /**
@@ -917,7 +1008,6 @@ class MaterialContainerRoutingService
                $this->currentLocation->area->building_id === BuildingIdEnum::BLACKHAWK->value ||
                $this->currentLocation->area->building_id === BuildingIdEnum::DEFIANCE->value;
     }
-
 
     /**
      * Determines if the container is located in the outbound location of a given building.

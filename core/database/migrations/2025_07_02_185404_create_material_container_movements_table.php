@@ -21,6 +21,7 @@ return new class extends Migration
                 ->comment('Material container being moved');
 
             $table->foreignId('route_building_id')
+                ->nullable()
                 ->references('id')
                 ->on('buildings')
                 ->comment('Specifies the starting building for which this movement applies.');

@@ -41,4 +41,21 @@ class StorageLocationAreaRepository
             }
         );
     }
+
+    /**
+     * Get the area id for the toyota rack.
+     */
+    public function getToyotaRackAreaId(): int
+    {
+        return Cache::remember(
+            'toyota_rack_area_id',
+            TimeToLiveEnum::ONE_DAY->value,
+            function () {
+                return StorageLocationArea::query()
+                    ->where('name', 'TOY')
+                    ->first()
+                    ->id;
+            }
+        );
+    }
 }

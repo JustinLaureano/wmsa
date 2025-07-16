@@ -78,6 +78,7 @@ put away logic
     send to request location (as long as location is not shipping dock)
 
 - If Toyota Tote Item
+    - Items 806875, 806885
     - Send to Completion if hasnt been
     - Determine tote type to find out if it needs to go to TOY or FG
 
