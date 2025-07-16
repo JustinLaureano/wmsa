@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Domain\Locations\Enums\BuildingIdEnum;
 use App\Models\Material;
 use App\Models\MaterialRouting;
+use App\Models\MaterialToteType;
 use App\Models\StorageLocationArea;
 use Database\Seeders\Traits\Timestamps;
 use Database\Seeders\Traits\Uuid;
@@ -31,6 +32,8 @@ class MaterialRoutingSeeder extends Seeder
         $this->prepareBuilding(3);
 
         MaterialRouting::insert($this->records);
+
+        $this->setMaterialToteTypes();
 
         if (app()->environment('local')) {
             $this->setTestMaterialRouting();
@@ -172,6 +175,7 @@ class MaterialRoutingSeeder extends Seeder
             foreach ($record['building_' . $buildingId]['areaIds'] as $areaId) {
                 $this->records[] = array_merge([
                         'material_uuid' => $record['material_uuid'],
+                        'material_tote_type_uuid' => null,
                         'route_building_id' => $buildingId,
                         'sequence' => $sequence,
                         'storage_location_area_id' => $areaId,
@@ -212,6 +216,61 @@ class MaterialRoutingSeeder extends Seeder
             ->first();
 
         $this->degasStorageLocationAreaId = $storageLocationArea->id;
+    }
+
+    /**
+     * Handle special material cases where a specific
+     * tote type dictates the routing for the material.
+     */
+    protected function setMaterialToteTypes(): void
+    {
+        $flow16AreaId = StorageLocationArea::query()
+            ->where('name', 'FLOW-16')
+            ->first()
+            ->id;
+
+        $flow8AreaId = StorageLocationArea::query()
+            ->where('name', 'FLOW-8')
+            ->first()
+            ->id;
+
+        $material = Material::query()
+            ->where('part_number', '300820')
+            ->first();
+
+        $materialToteType = MaterialToteType::query()
+            ->where('tote', 'Dented')
+            ->first();
+
+        $records = [];
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'material_tote_type_uuid' => $materialToteType->uuid,
+                'route_building_id' => BuildingIdEnum::BLACKHAWK->value,
+                'sequence' => 1,
+                'storage_location_area_id' => $flow16AreaId,
+                'is_preferred' => true,
+                'fallback_order' => null,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        $records[] = array_merge([
+                'material_uuid' => $material->uuid,
+                'material_tote_type_uuid' => $materialToteType->uuid,
+                'route_building_id' => BuildingIdEnum::BLACKHAWK->value,
+                'sequence' => 1,
+                'storage_location_area_id' => $flow8AreaId,
+                'is_preferred' => false,
+                'fallback_order' => 1,
+            ],
+            $this->getUuid(),
+            $this->getTimestamps()
+        );
+
+        MaterialRouting::insert($records);
     }
 
     protected function setTestMaterialRouting(): void

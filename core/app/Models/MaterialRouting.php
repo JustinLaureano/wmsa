@@ -33,6 +33,7 @@ class MaterialRouting extends Model
      */
     protected $fillable = [
         'material_uuid',
+        'material_tote_type_uuid',
         'route_building_id',
         'sequence',
         'storage_location_area_id',
@@ -58,6 +59,14 @@ class MaterialRouting extends Model
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class, 'material_uuid', 'uuid');
+    }
+
+    /**
+     * Get the material tote type that this routing rule applies to.
+     */
+    public function materialToteType(): BelongsTo
+    {
+        return $this->belongsTo(MaterialToteType::class, 'material_tote_type_uuid', 'uuid');
     }
 
     /**

@@ -21,6 +21,12 @@ return new class extends Migration
                 ->on('materials')
                 ->comment('Material being routed');
 
+            $table->foreignUuid('material_tote_type_uuid')
+                ->nullable()
+                ->references('uuid')
+                ->on('material_tote_types')
+                ->comment('Material tote type being routed in combination with the material');
+
             $table->foreignId('route_building_id')
                 ->references('id')
                 ->nullable()
