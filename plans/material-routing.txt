@@ -114,7 +114,7 @@ If area is an assigned FG location (FG-******)
     - Check if has unique post sort location
         - If has post sort location
             - Update putaway area value to that location
-        
+
         - If the post sort location is MBDS Out
             - Change building lookup to Defiance building 
 

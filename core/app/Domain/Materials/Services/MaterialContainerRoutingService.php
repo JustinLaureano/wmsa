@@ -359,6 +359,17 @@ class MaterialContainerRoutingService
         }
     }
 
+    /**
+     * Determines the preferred destination for the container based on the
+     * current sequence position and route building id.
+     * 
+     * If the next destination is not in the current building, a transfer
+     * will be made to the destination building.
+     * 
+     * If the next destination is in the current building, the preferred
+     * destination will be set to the first storage location in the available
+     * destinations.
+     */
     protected function determinePreferredDestination(): void
     {
         if ($this->routeBuildingId === null) {
@@ -376,12 +387,19 @@ class MaterialContainerRoutingService
             if ($route->sequence === $this->sequencePosition) {
                 $storageLocations = $this->findAvailableStorageLocations($route->storage_location_area_id, 10);
 
-                // TODO: make sure that the current building is the same as the available destinations building
-                // If not, make a transfer to the destination building
-
                 if ($storageLocations) {
-                    $this->preferredDestination = $storageLocations->first();
-                    $this->availableDestinations = $storageLocations;
+                    $first = $storageLocations->first();
+
+                    if ( $this->containerCurrentlyInLocationBuilding($first->area->building->id) ) {
+                        $this->preferredDestination = $storageLocations->first();
+                        $this->availableDestinations = $storageLocations;
+                    }
+                    else {
+                        $this->setPrefferedTransferDestinations(
+                            $this->currentBuilding->id,
+                            $first->area->building->id
+                        );
+                    }
                 }
 
                 if ($this->preferredDestination) {
@@ -773,20 +791,10 @@ class MaterialContainerRoutingService
         }
 
         else if ( $this->containerLocatedInBlackhawkOrDefiance() ) {
-            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+            $this->setPrefferedTransferDestinations(
                 $this->currentBuilding->id,
                 BuildingIdEnum::PLANT_2->value
             );
-
-            if ($this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
-                $this->preferredDestination = $transferDestinations['inbound_storage_locations']->first();
-                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
-            }
-
-            else {
-                $this->preferredDestination = $transferDestinations['outbound_storage_locations']->first();
-                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
-            }
         }
 
         if ($this->preferredDestination) {
@@ -841,20 +849,10 @@ class MaterialContainerRoutingService
         }
 
         else if ( $this->containerLocatedInDefianceBuilding() ) {
-            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+            $this->setPrefferedTransferDestinations(
                 BuildingIdEnum::DEFIANCE->value,
                 BuildingIdEnum::BLACKHAWK->value
             );
-
-            if ($this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
-                $this->preferredDestination = $transferDestinations['inbound_storage_locations']->first();
-                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
-            }
-
-            else {
-                $this->preferredDestination = $transferDestinations['outbound_storage_locations']->first();
-                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
-            }
         }
 
         if ($this->preferredDestination) {
@@ -862,6 +860,35 @@ class MaterialContainerRoutingService
         }
 
         // TODO: add required locations to travel to the destination order list
+    }
+
+    /**
+     * Sets the preferred and available transfer destinations for a container
+     * for the given current building and destination building.
+     */
+    protected function setPrefferedTransferDestinations(int $currentBuildingId, int $destinationBuildingId): void
+    {
+        $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+            $currentBuildingId,
+            $destinationBuildingId
+        );
+
+        if (
+            !$transferDestinations ||
+            !count($transferDestinations['outbound_storage_locations']) ||
+            !count($transferDestinations['inbound_storage_locations'])
+        ) {
+            return;
+        }
+
+        if ( $this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
+            $this->preferredDestination = $transferDestinations['inbound_storage_locations']->first();
+            $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
+        }
+        else {
+            $this->preferredDestination = $transferDestinations['outbound_storage_locations']->first();
+            $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
+        }
     }
 
     /**
@@ -931,21 +958,10 @@ class MaterialContainerRoutingService
         }
 
         else if ($this->containerInOnsiteLocation()) {
-            $transferDestinations = BuildingTransferRouter::getTransferDestinations(
+            $this->setPrefferedTransferDestinations(
                 $this->currentBuilding->id,
                 BuildingIdEnum::BLACKHAWK->value
             );
-
-            if ( $this->containerCurrentlyInLocationArray($transferDestinations['outbound_storage_locations']) ) {
-                $inboundLocation = $transferDestinations['inbound_storage_locations']->first();
-                $this->preferredDestination = $inboundLocation;
-                $this->availableDestinations = $transferDestinations['inbound_storage_locations'];
-            }
-            else {
-                $outboundLocation = $transferDestinations['outbound_storage_locations']->first();
-                $this->preferredDestination = $outboundLocation;
-                $this->availableDestinations = $transferDestinations['outbound_storage_locations'];
-            }
         }
 
         if ($this->preferredDestination) {
@@ -1109,6 +1125,16 @@ class MaterialContainerRoutingService
             ->getOutboundStorageLocationAreaId($buildingId);
 
         return $this->currentLocation->area->id === $outboundLocationId;
+    }
+
+    /**
+     * Determines if the container is currently located in a given location.
+     */
+    public function containerCurrentlyInLocationBuilding(int $buildingId): bool
+    {
+        if (!$this->currentBuilding) return false;
+
+        return $this->currentBuilding?->id === $buildingId;
     }
 
     /**
