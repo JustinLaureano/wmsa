@@ -449,6 +449,9 @@ class MaterialContainerRoutingService
         return (new MaterialToteTypeRepository())->isToyotaToteContainer($this->container);
     }
 
+    /**
+     * Determines if the container is a 805795 part.
+     */
     protected function is805795Part(): bool
     {
         return $this->container->material->part_number === '805795';
