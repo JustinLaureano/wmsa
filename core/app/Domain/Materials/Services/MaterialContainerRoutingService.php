@@ -157,13 +157,9 @@ class MaterialContainerRoutingService
     {
         $this->materialUuid = $container->material_uuid;
         $this->setContainer($container);
-        $this->container = $container;
         $this->buildingId = $buildingId;
         $this->setContainerCurrentLocation();
         $this->currentBuilding = $this->currentLocation?->area?->building ?? null;
-
-        // $transferDestinations = BuildingTransferRouter::getTransferDestinations(3, 1);
-        // logger()->info($transferDestinations);
 
         $this->handleContainerRequirements();
         $this->handleUniquePartRequirements();
@@ -210,6 +206,8 @@ class MaterialContainerRoutingService
 
     /**
      * Find available storage locations for a given storage location area id.
+     * 
+     * If any excluded locations are set, they will be omitted from the results.
      */
     protected function findAvailableStorageLocations($storageLocationAreaId, $max = 1000)
     {
@@ -334,6 +332,10 @@ class MaterialContainerRoutingService
         }
     }
 
+    /**
+     * Handles any unique part requirements that do not
+     * fit into the base routing logic.
+     */
     protected function handleUniquePartRequirements(): void
     {
         if ($this->isThailandPart()) {
@@ -373,6 +375,9 @@ class MaterialContainerRoutingService
         foreach ($this->activeRoute as $route) {
             if ($route->sequence === $this->sequencePosition) {
                 $storageLocations = $this->findAvailableStorageLocations($route->storage_location_area_id, 10);
+
+                // TODO: make sure that the current building is the same as the available destinations building
+                // If not, make a transfer to the destination building
 
                 if ($storageLocations) {
                     $this->preferredDestination = $storageLocations->first();
@@ -1044,7 +1049,7 @@ class MaterialContainerRoutingService
     }
 
     /**
-     * Determines if the container is located in plant two or blackhawk.
+     * Determines if the container is located in Plant 2 or Blackhawk.
      */
     protected function containerLocatedInPlantTwoOrBlackhawk(): bool
     {
@@ -1053,7 +1058,7 @@ class MaterialContainerRoutingService
     }
 
     /**
-     * Determines if the container is located in blackhawk or defiance.
+     * Determines if the container is located in Blackhawk or Defiance.
      */
     protected function containerLocatedInBlackhawkOrDefiance(): bool
     {
@@ -1062,7 +1067,7 @@ class MaterialContainerRoutingService
     }
 
     /**
-     * Determines if the container is located in the defiance building.
+     * Determines if the container is located in the Defiance building.
      */
     protected function containerLocatedInDefianceBuilding(): bool
     {
