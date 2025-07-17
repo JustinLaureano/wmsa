@@ -33,6 +33,7 @@ class MaterialRoutingSeeder extends Seeder
 
         MaterialRouting::insert($this->records);
 
+        $this->setMBDSPartRouting();
         $this->setMaterialToteTypes();
 
         if (app()->environment('local')) {
@@ -216,6 +217,87 @@ class MaterialRoutingSeeder extends Seeder
             ->first();
 
         $this->degasStorageLocationAreaId = $storageLocationArea->id;
+    }
+
+    protected function setMBDSPartRouting(): void
+    {
+        $partNumbers = [
+            '600680',
+            '600880',
+            '801360',
+            '801370',
+            '802070',
+            '802080',
+            '802200',
+            '803220',
+            '803230',
+            '803230',
+            '803310',
+            '803350',
+            '803360',
+            '804384',
+            '804390',
+            '804644',
+            '804880',
+            '805904',
+            '806144',
+            '806164',
+        ];
+
+        $mbdsAreaId = StorageLocationArea::query()
+            ->where('building_id', BuildingIdEnum::DEFIANCE->value)
+            ->where('name', 'MBDS OUT')
+            ->first()
+            ->id;
+
+        $buildingIds = [
+            BuildingIdEnum::PLANT_2->value,
+            BuildingIdEnum::BLACKHAWK->value,
+            BuildingIdEnum::DEFIANCE->value,
+        ];
+
+        $records = [];
+
+        foreach ($partNumbers as $partNumber) {
+            $material = Material::query()
+                ->where('part_number', $partNumber)
+                ->first();
+
+            if (!$material) return;
+
+            $material->requires_completion = 1;
+            $material->save();
+
+            foreach ($buildingIds as $buildingId) {
+                $buildingRouting = MaterialRouting::query()
+                    ->where('material_uuid', $material->uuid)
+                    ->where('route_building_id', $buildingId)
+                    ->orderBy('sequence', 'desc')
+                    ->first();
+
+                if (!$buildingRouting) {
+                    $sequence = 1;
+                }
+                else {
+                    $sequence = $buildingRouting->sequence + 1;
+                }
+
+                $records[] = array_merge([
+                        'material_uuid' => $material->uuid,
+                        'material_tote_type_uuid' => null,
+                        'route_building_id' => $buildingId,
+                        'sequence' => $sequence,
+                        'storage_location_area_id' => $mbdsAreaId,
+                        'is_preferred' => true,
+                        'fallback_order' => null,
+                    ],
+                    $this->getUuid(),
+                    $this->getTimestamps()
+                );
+            }
+        }
+
+        MaterialRouting::insert($records);
     }
 
     /**

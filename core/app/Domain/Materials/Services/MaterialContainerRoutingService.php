@@ -396,7 +396,7 @@ class MaterialContainerRoutingService
                     }
                     else {
                         $this->setPrefferedTransferDestinations(
-                            $this->currentBuilding->id,
+                            $this->currentBuilding?->id ?? $this->buildingId,
                             $first->area->building->id
                         );
                     }
