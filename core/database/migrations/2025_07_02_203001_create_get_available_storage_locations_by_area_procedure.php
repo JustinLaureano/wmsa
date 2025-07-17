@@ -12,15 +12,16 @@ return new class extends Migration
     {
         DB::unprepared("
             DROP PROCEDURE IF EXISTS get_available_storage_locations_by_area;
-            CREATE PROCEDURE get_available_storage_locations_by_area(
+            CREATE PROCEDURE `get_available_storage_locations_by_area`(
                 IN p_storage_location_area_id INT,
+                IN p_exclude_uuids TEXT,
                 IN p_limit INT
             )
             BEGIN
                 -- Set a default large limit if p_limit is NULL or <= 0
                 SET @limit_value = IF(p_limit IS NULL OR p_limit <= 0, 10000, p_limit);
 
-                -- Use a prepared statement to apply the LIMIT dynamically
+                -- Base query
                 SET @sql = CONCAT('
                     SELECT sl.*
                     FROM storage_locations sl
@@ -35,9 +36,23 @@ return new class extends Migration
                     AND (
                         sl.max_containers IS NULL
                         OR COALESCE(cl.container_count, 0) < sl.max_containers
-                    )
-                    LIMIT ', @limit_value);
+                    )');
 
+                -- If the exclusion list is provided, build and append the NOT IN clause
+                IF p_exclude_uuids IS NOT NULL AND p_exclude_uuids != '' THEN
+                    -- To prevent SQL injection, ensure the input is clean.
+                    -- Then, format the CSV into a quoted list: 'val1','val2'
+                    SET @quoted_uuids = CONCAT('\'', REPLACE(p_exclude_uuids, ',', '\',\''), '\'');
+                    SET @sql = CONCAT(@sql, ' AND sl.uuid NOT IN (', @quoted_uuids, ')');
+                END IF;
+
+                -- Append the ORDER BY clause
+                SET @sql = CONCAT(@sql, ' ORDER BY sl.name ASC');
+
+                -- Append the LIMIT clause
+                SET @sql = CONCAT(@sql, ' LIMIT ', @limit_value);
+
+                -- Prepare, execute, and deallocate the statement
                 PREPARE stmt FROM @sql;
                 EXECUTE stmt;
                 DEALLOCATE PREPARE stmt;

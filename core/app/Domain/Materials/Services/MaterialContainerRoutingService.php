@@ -82,6 +82,13 @@ class MaterialContainerRoutingService
     protected bool $isConditionalRouting = false;
 
     /**
+     * The locations that are excluded from being returned as a destination..
+     *
+     * @var Collection<StorageLocation>|null
+     */
+    protected Collection|null $excludedLocations = null;
+
+    /**
      * The next preferred destination for the container.
      */
     protected StorageLocation|null $preferredDestination = null;
@@ -206,8 +213,11 @@ class MaterialContainerRoutingService
      */
     protected function findAvailableStorageLocations($storageLocationAreaId, $max = 1000)
     {
+        $excludedLocations = $this->excludedLocations ?? new Collection();
+        $excludedUuids = $excludedLocations->pluck('uuid')->implode(',');
+
         $storageLocations = $this->storageLocationRepository
-            ->getAvailableStorageLocationsByArea($storageLocationAreaId, $max);
+            ->getAvailableStorageLocationsByArea($storageLocationAreaId, $excludedUuids, $max);
 
         return $storageLocations;
     }
