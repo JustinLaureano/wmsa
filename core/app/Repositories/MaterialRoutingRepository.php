@@ -13,52 +13,28 @@ class MaterialRoutingRepository
      */
     public function getMaterialRoutingForBuilding(
         string $materialUuid,
+        string|null $materialToteTypeUuid,
         int $buildingId
     ): Collection
     {
-        return MaterialRouting::query()
-            ->where('material_uuid', $materialUuid)
-            ->where('route_building_id', $buildingId)
-            ->orderBy('is_preferred', 'desc')
-            ->orderBy('fallback_order')
-            ->get();
-    }
+        $query = MaterialRouting::query()
+        ->where([
+            ['material_uuid', $materialUuid],
+            ['route_building_id', $buildingId],
+        ]);
 
-    /**
-     * Return the routing rules for a given
-     * material, building, and sequence.
-     */
-    public function getMaterialRoutingSequenceForBuilding(
-        string $materialUuid,
-        int $buildingId,
-        int $sequence
-    ): Collection
-    {
-        return MaterialRouting::query()
-            ->where('material_uuid', $materialUuid)
-            ->where('route_building_id', $buildingId)
-            ->where('sequence', $sequence)
-            ->orderBy('is_preferred', 'desc')
-            ->orderBy('fallback_order')
-            ->get();
-    }
+        if ($materialToteTypeUuid) {
+            $query->where(function ($query) use ($materialToteTypeUuid) {
+                $query->whereNull('material_tote_type_uuid')
+                    ->orWhere('material_tote_type_uuid', $materialToteTypeUuid);
+            })
+            ->orderBy('material_tote_type_uuid', 'desc');
+        }
+        else {
+            $query->whereNull('material_tote_type_uuid');
+        }
 
-    /**
-     * Return the routing rules for a given
-     * material and sequence that are not
-     * for the given building.
-     */
-    public function getMaterialRoutingSequenceForOtherBuildings(
-        string $materialUuid,
-        int $buildingId,
-        int $sequence
-    ): Collection
-    {
-        return MaterialRouting::query()
-            ->where('material_uuid', $materialUuid)
-            ->where('route_building_id', '<>', $buildingId)
-            ->where('sequence', $sequence)
-            ->orderBy('is_preferred', 'desc')
+        return $query->orderBy('is_preferred', 'desc')
             ->orderBy('fallback_order')
             ->get();
     }

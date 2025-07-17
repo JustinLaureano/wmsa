@@ -275,11 +275,23 @@ class MaterialContainerRoutingService
     {
         $this->routingRules = new \Illuminate\Support\Collection([
             1 => $this->materialRoutingRepository
-                ->getMaterialRoutingForBuilding($this->materialUuid, BuildingIdEnum::PLANT_2->value),
+                ->getMaterialRoutingForBuilding(
+                    $this->materialUuid,
+                    $this->container->material_tote_type_uuid,
+                    BuildingIdEnum::PLANT_2->value,
+                ),
             2 => $this->materialRoutingRepository
-                ->getMaterialRoutingForBuilding($this->materialUuid, BuildingIdEnum::BLACKHAWK->value),
+                ->getMaterialRoutingForBuilding(
+                    $this->materialUuid,
+                    $this->container->material_tote_type_uuid,
+                    BuildingIdEnum::BLACKHAWK->value,
+                ),
             3 => $this->materialRoutingRepository
-                ->getMaterialRoutingForBuilding($this->materialUuid, BuildingIdEnum::DEFIANCE->value),
+                ->getMaterialRoutingForBuilding(
+                    $this->materialUuid,
+                    $this->container->material_tote_type_uuid,
+                    BuildingIdEnum::DEFIANCE->value,
+                ),
         ]);
     }
 
@@ -332,10 +344,6 @@ class MaterialContainerRoutingService
         // if ($this->is805795Part()) {
         //     $this->set805795Destination();
         // }
-
-        // if ($this->is300820Part()) {
-        //     $this->set300820Destination();
-        // }
     }
 
     protected function determinePreferredDestination(): void
@@ -360,7 +368,9 @@ class MaterialContainerRoutingService
                     $this->availableDestinations = $storageLocations;
                 }
 
-                break;
+                if ($this->preferredDestination) {
+                    break;
+                }
             }
         }
     }
@@ -464,8 +474,7 @@ class MaterialContainerRoutingService
         $availableRequestLocations = new Collection();
 
         foreach ($openRequests as $requestItem) {
-            logger()->info('request item', [$requestItem->toArray()]);
-            
+
             if ($requestItem->machine) {
                 $requestLocation = $this->storageLocationRepository
                     ->getStagingLocationByMachine($requestItem->machine->barcode);
@@ -477,8 +486,6 @@ class MaterialContainerRoutingService
             if (!$requestLocation) continue;
 
             $requestLocationBuildingId = $requestLocation->area->building->id;
-
-            logger()->info('current building', [$this->currentBuilding->id, $requestLocation->toArray()]);
 
             if (
                 !$this->currentLocation ||
