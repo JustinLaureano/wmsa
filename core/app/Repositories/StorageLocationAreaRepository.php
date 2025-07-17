@@ -60,15 +60,16 @@ class StorageLocationAreaRepository
     }
 
     /**
-     * Get the area id for the toyota rack.
+     * Get the area id for a given building and area name.
      */
-    public function getRackAreaId(string $area): int
+    public function getRackAreaId(int $buildingId, string $area): int
     {
         return Cache::remember(
-            $area . '_storage_location_area_id',
+            'building_id_' . $buildingId . '_'. $area .'_storage_location_area_id',
             TimeToLiveEnum::ONE_DAY->value,
-            function () use ($area) {
+            function () use ($buildingId, $area) {
                 return StorageLocationArea::query()
+                    ->where('building_id', $buildingId)
                     ->where('name', $area)
                     ->first()
                     ->id;

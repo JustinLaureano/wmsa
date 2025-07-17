@@ -348,9 +348,9 @@ class MaterialContainerRoutingService
         //     $this->setMBDSDestination();
         // }
 
-        // if ($this->isServicePart()) {
-        //     $this->setServicePartDestination();
-        // }
+        if ($this->isServicePart()) {
+            $this->handleServicePartRequirements();
+        }
 
         if ($this->is805795Part()) {
             $this->handle805795Routing();
@@ -465,6 +465,14 @@ class MaterialContainerRoutingService
     protected function is805795Part(): bool
     {
         return $this->container->material->part_number === '805795';
+    }
+
+    /**
+     * Determines if the container is a service part.
+     */
+    protected function isServicePart(): bool
+    {
+        return $this->container->material->service_part === 1;
     }
 
     /**
@@ -895,7 +903,7 @@ class MaterialContainerRoutingService
             $this->containerLocatedInBlackhawkBuilding()
         ) {
             $toyotaAreaId = $this->storageLocationAreaRepository
-                ->getRackAreaId('TOY');
+                ->getRackAreaId(BuildingIdEnum::BLACKHAWK->value, 'TOY');
 
             $storageLocations = $this->findAvailableStorageLocations($toyotaAreaId, 10);
 
@@ -943,6 +951,28 @@ class MaterialContainerRoutingService
     }
 
     /**
+     * Service parts cannot be stored in certain CMET storage racks.
+     * 
+     * Will find all CMET storage locations in the Blackhawk building and
+     * exclude the ones that are in aisles 1 and 2.
+     */
+    protected function handleServicePartRequirements(): void
+    {
+        $cmetAreaId = $this->storageLocationAreaRepository
+            ->getRackAreaId(BuildingIdEnum::BLACKHAWK->value, 'CMET');
+
+        $cmetLocations = $this->findAvailableStorageLocations($cmetAreaId);
+
+        $excludedLocations = $cmetLocations->filter(function ($location) {
+            return $location->aisle <= 2;
+        });
+
+        if ($excludedLocations && $excludedLocations->isNotEmpty()) {
+            $this->excludedLocations = $excludedLocations;
+        }
+    }
+
+    /**
      * Handles the routing for a container that is a 805795 part.
      * 
      * If the container is currently located in Blackhawk, it will be routed
@@ -960,7 +990,7 @@ class MaterialContainerRoutingService
         ) {
 
             $svcAreaId = $this->storageLocationAreaRepository
-                ->getRackAreaId('SVC');
+                ->getRackAreaId(BuildingIdEnum::BLACKHAWK->value, 'SVC');
 
             $serviceLocations = $this->findAvailableStorageLocations($svcAreaId);
 
