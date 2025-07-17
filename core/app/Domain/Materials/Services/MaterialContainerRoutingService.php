@@ -617,7 +617,7 @@ class MaterialContainerRoutingService
                 $this->availableDestinations = $plant2StorageLocations;
                 $this->isSortDestination = true;
             }
-            
+
             if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
                 if (!$this->preferredDestination) {
                     $this->preferredDestination = $blackhawkStorageLocations->first();
@@ -683,9 +683,7 @@ class MaterialContainerRoutingService
      */
     protected function setCompletionRouting(): void
     {
-        if (
-            !$this->currentBuilding
-        ) {
+        if ( !$this->currentBuilding ) {
             $plant2CompletionStation = $this->storageLocationRepository
                 ->getCompletionStationByBuilding(BuildingIdEnum::PLANT_2->value);
 
@@ -700,7 +698,7 @@ class MaterialContainerRoutingService
                 $this->availableDestinations = $plant2StorageLocations;
                 $this->isCompletionDestination = true;
             }
-            
+
             if ($blackhawkStorageLocations && $blackhawkStorageLocations->isNotEmpty()) {
                 if (!$this->preferredDestination) {
                     $this->preferredDestination = $blackhawkStorageLocations->first();
@@ -1005,7 +1003,6 @@ class MaterialContainerRoutingService
             $this->container->quantity < 305 &&
             $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value
         ) {
-
             $svcAreaId = $this->storageLocationAreaRepository
                 ->getRackAreaId(BuildingIdEnum::BLACKHAWK->value, 'SVC');
 
@@ -1159,7 +1156,7 @@ class MaterialContainerRoutingService
         if ($this->containerInOutboundLocation(BuildingIdEnum::DEFIANCE->value)) {
             $blackhawkInboundLocationAreaId = $this->buildingTransferAreaRepository
                 ->getInboundStorageLocationAreaId(BuildingIdEnum::BLACKHAWK->value);
-            
+
             $plantTwoInboundLocationAreaId = $this->buildingTransferAreaRepository
                 ->getInboundStorageLocationAreaId(BuildingIdEnum::PLANT_2->value);
 
