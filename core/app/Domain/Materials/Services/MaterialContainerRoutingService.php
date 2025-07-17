@@ -346,10 +346,6 @@ class MaterialContainerRoutingService
             $this->handleToyotaToteRouting();
         }
 
-        // if ($this->isMBDSPart()) {
-        //     $this->setMBDSDestination();
-        // }
-
         if ($this->isServicePart()) {
             $this->handleServicePartRequirements();
         }
