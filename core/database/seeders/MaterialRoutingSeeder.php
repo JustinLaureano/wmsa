@@ -7,6 +7,7 @@ use App\Models\Material;
 use App\Models\MaterialRouting;
 use App\Models\MaterialToteType;
 use App\Models\StorageLocationArea;
+use App\Models\Views\ViewMaterialRouting;
 use Database\Seeders\Traits\Timestamps;
 use Database\Seeders\Traits\Uuid;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,7 @@ class MaterialRoutingSeeder extends Seeder
 
         MaterialRouting::insert($this->records);
 
+        $this->setPlant2FGRouting();
         $this->setMBDSPartRouting();
         $this->setMaterialToteTypes();
 
@@ -217,6 +219,50 @@ class MaterialRoutingSeeder extends Seeder
             ->first();
 
         $this->degasStorageLocationAreaId = $storageLocationArea->id;
+    }
+
+    /**
+     * For all finished good parts, make sure that there is plant 2 starting
+     * building routing rules to send to the FG area that it is stored in
+     * in the Blackhawk warehouse.
+     */
+    protected function setPlant2FGRouting(): void
+    {
+        $materials = ViewMaterialRouting::query()
+            ->where('storage_location_area_name', 'LIKE', '%FG%')
+            ->get();
+
+        $records = [];
+
+        foreach ($materials as $material) {
+            $plant2Routing = MaterialRouting::query()
+                ->where('material_uuid', $material->material_uuid)
+                ->where('route_building_id', BuildingIdEnum::PLANT_2->value)
+                ->orderBy('sequence', 'desc')
+                ->first();
+
+            if (!$plant2Routing) {
+                $sequence = 1;
+            }
+            else {
+                $sequence = $plant2Routing->sequence + 1;
+            }
+
+            $records[] = array_merge([
+                    'material_uuid' => $material->material_uuid,
+                    'material_tote_type_uuid' => null,
+                    'route_building_id' => BuildingIdEnum::PLANT_2->value,
+                    'sequence' => $sequence,
+                    'storage_location_area_id' => $material->storage_location_area_id,
+                    'is_preferred' => true,
+                    'fallback_order' => null,
+                ],
+                $this->getUuid(),
+                $this->getTimestamps()
+            );
+        }
+
+        MaterialRouting::insert($records);
     }
 
     protected function setMBDSPartRouting(): void
