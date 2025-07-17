@@ -36,7 +36,7 @@ class StorageLocationRepository
         return StorageLocation::query()->get();
     }
 
-    public function getAvailableStorageLocationsByArea(int $areaId, int|null $max = 10) : Collection
+    public function getAvailableStorageLocationsByArea(int $areaId, int|null $max = 1000) : Collection
     {
         $records = DB::select('CALL get_available_storage_locations_by_area(?, ?)', [$areaId, $max]);
 

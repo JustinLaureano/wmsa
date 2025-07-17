@@ -195,6 +195,7 @@ class MaterialContainerRoutingService
      */
     protected function setContainer(MaterialContainer $container): void
     {
+        $container->load('material');
         $container->barcode_label = BarcodeFactory::make($container->barcode)->toArray();
 
         $this->container = $container;
@@ -203,7 +204,7 @@ class MaterialContainerRoutingService
     /**
      * Find available storage locations for a given storage location area id.
      */
-    protected function findAvailableStorageLocations($storageLocationAreaId, $max = 10)
+    protected function findAvailableStorageLocations($storageLocationAreaId, $max = 1000)
     {
         $storageLocations = $this->storageLocationRepository
             ->getAvailableStorageLocationsByArea($storageLocationAreaId, $max);
@@ -341,9 +342,9 @@ class MaterialContainerRoutingService
         //     $this->setServicePartDestination();
         // }
 
-        // if ($this->is805795Part()) {
-        //     $this->set805795Destination();
-        // }
+        if ($this->is805795Part()) {
+            $this->handle805795Routing();
+        }
     }
 
     protected function determinePreferredDestination(): void
@@ -448,6 +449,11 @@ class MaterialContainerRoutingService
         return (new MaterialToteTypeRepository())->isToyotaToteContainer($this->container);
     }
 
+    protected function is805795Part(): bool
+    {
+        return $this->container->material->part_number === '805795';
+    }
+
     /**
      * Handles the routing for the container based on any open material requests
      * that require this material but do not have a container allocated.
@@ -529,7 +535,6 @@ class MaterialContainerRoutingService
 
         // TODO: add required locations to travel to the destination order list
     }
-
 
     /**
      * Sets the appropriate routing destination for the container
@@ -877,7 +882,7 @@ class MaterialContainerRoutingService
             $this->containerLocatedInBlackhawkBuilding()
         ) {
             $toyotaAreaId = $this->storageLocationAreaRepository
-                ->getToyotaRackAreaId();
+                ->getRackAreaId('TOY');
 
             $storageLocations = $this->findAvailableStorageLocations($toyotaAreaId, 10);
 
@@ -922,6 +927,39 @@ class MaterialContainerRoutingService
         }
 
         // TODO: add required locations to travel to the destination order list
+    }
+
+    /**
+     * Handles the routing for a container that is a 805795 part.
+     * 
+     * If the container is currently located in Blackhawk, it will be routed
+     * to the service rack if the container quantity is less than 305.
+     * 
+     * If those conditions are not met, then the base routing logic will be used.
+     */
+    protected function handle805795Routing(): void
+    {
+        if ($this->preferredDestination) return;
+
+        if (
+            $this->container->quantity < 305 &&
+            $this->currentBuilding?->id === BuildingIdEnum::BLACKHAWK->value
+        ) {
+
+            $svcAreaId = $this->storageLocationAreaRepository
+                ->getRackAreaId('SVC');
+
+            $serviceLocations = $this->findAvailableStorageLocations($svcAreaId);
+
+            $storageLocations = $serviceLocations->filter(function ($location) {
+                return $location->aisle === 5;
+            });
+
+            if ($storageLocations && $storageLocations->isNotEmpty()) {
+                $this->preferredDestination = $storageLocations->first(); 
+                $this->availableDestinations = $storageLocations->take(15);
+            }
+        }
     }
 
     /**
